@@ -1,0 +1,392 @@
+<!--{template header}-->
+<!--{template new_head_nav}-->
+<link href="{$_K['siteurl']}/tpl/default/theme/simple/css/hire.css" rel="stylesheet"/> 
+<div class="wrapper">
+ 	<div class="container_24">
+ 		<!--直接雇佣流程 start-->
+ 		<div class="top_part mt_20 clearfix">
+ 			<!--左边部分 start-->
+ 			<div class="prom_left">
+ 				<div class="clearfix">
+ 					<div class="prom_process">
+ 						<a href="{$_K['siteurl']}/index.php?do=vip">
+ 						<span class="hir_wzguw">玩转雇佣任务</span>
+						<div class="step_first pl_10">1/升级成为VIP商铺</div>
+						<div class="clearfix pl_10 pr_10">
+							<div class="arrow"> <b>同城速配</b></div>
+							<div class="arrow"><b>黄金广告</b></div>
+							<div class="arrow"><b>更多特权</b></div>				
+						</div>
+						<div class="step_first mt_10 pl_10">2/更多获得订单机会</div>
+						<div class="step_first mt_10 pl_10">3/被雇佣并完成任务</div>
+						<div class="step_first mt_10 pl_10">4/获得100%全额赏金！</div>
+						</a>
+ 					</div>
+					<div class="banner">
+						<div id="trend" >
+						 <!--{ad_show(HIRE_TOP_SLIDE,1)}-->		
+						</div>	
+					</div>
+				</div>
+				<div class="battle mt_10 clearfix">
+			  		<div class="battle_label"></div>
+					
+			  		<div class="rollbox pad10 clearfix">
+			  			{if $recommend_info}
+			  			<a href="javascript:;" class="img_left fl_l" onclick="$('#jcarousel').jcarousel('scroll', '-=1'); return false;"></a>
+						<div id="jcarousel" class="scroll ml_10 mr_30 mt_5 clearfix" >
+							<ul>
+								
+								{loop $recommend_info $k $v}
+								<li class="pt_10">
+									<div class="specific">
+										<p>¥{$v[task_cash]}</p>
+										<a href="{$_K['siteurl']}/index.php?do=task&task_id={$v[task_id]}">{$v[task_title]}</a>
+									</div>
+									<div class="t_c c999 mt_5">VIP会员：<a href="{$_K['siteurl']}/index.php?do=shop&u_id={$v[w_uid]}">{$v[w_username]}</a></div>	
+								</li>
+								{/loop}
+								
+							</ul>
+						</div>
+						<a href="javascript:;" class="img_right fl_l"  onclick="$('#jcarousel').jcarousel('scroll', '+=1'); return false;"></a>
+						{else}
+							<div class="no_detail pad10">暂无战报信息</div>
+						{/if}
+					</div>
+					
+				</div>
+				<div class="success_list mt_10 clearfix">
+					<div class="nav_lists_nav clearfix">
+						<ul class="  ">
+							<li><a class="selected" id="success_lab" href="javascript:void(0);" onclick="changeList('success')">成功雇佣的任务</a></li>
+							<li><a id="wait_lab" href="javascript:void(0);" onclick="changeList('wait')">等待雇佣的任务</a></li>										
+						</ul>
+						<a href="{$_K['siteurl']}/index.php?do=hire_list" class="more fl_r font14 pt_10">更多任务，进入雇佣大厅</a>
+					</div>
+					<dl id="success" class="task_list pl_10 pr_10 pb_10 clearfix">
+					  {if $success_info}
+						<dd class="clearfix">
+						 <!--{eval $key = 1;}-->
+						{loop $success_info $k $v}		
+						  {if in_array($key, array(3,5,7,9))}</dd><dd class="clearfix">{/if}				
+							<ul class="clearfix">
+								<li class="mt_5">
+									<div class="pic"><!--{userpic($v['uid'],'small')}--></div>
+									<div class="text ml_5">
+										<p>雇主（<a href="{$_K['siteurl']}/index.php?do=shop&u_id={$v[uid]}">{$v[username]}</a>）直接雇佣威客
+										（<a href="{$_K['siteurl']}/index.php?do=shop&u_id={$v[w_uid]}">{$v[w_username]}</a>）</p>
+										<p>赏金<span>￥{$v[task_cash]}元</span> <a {if $v[task_type]==2||($v['task_type']==3&&($uid==$v['uid']||$uid==$v['w_uid']))}href="{$_K['siteurl']}/index.php?do=task&task_id={$v[task_id]}"{else}href="javascript:void(0);" onclick="showMsg();"{/if}>{$v[task_title]}</a></p>
+										<p class="c999">合作起始时间：<!--{date('Y-m-d h:i:s',$v['w_bid_time'])}--></p>
+									</div>
+								</li>
+							</ul>
+							<!--{eval $key++; }-->
+						 {/loop}
+						</dd>
+						{else}
+								<dd style="border:none;" >没有找到相关的任务信息</dd>
+						{/if}
+					</dl>
+					<div class="list" id="wait" style="display:none;">
+					{if $wait_info}
+						<dl class="task_list clearfix">
+							<dd class="tags clearfix">
+								<ul class="clearfix">
+									<li class="bounty w5 t_l">赏金/标题</li>
+									<li class="w2 t_l">雇佣发起人</li>
+									<li class="w2 t_l">状态</li>
+									<li class="w1">操作</li>
+								</ul>
+							</dd>
+							
+							{loop $wait_info $k $v}
+							<dd class="clearfix">
+								<ul class="clearfix">
+									<li class="bounty w5 t_l">
+										<p>赏金<span>￥{$v[task_cash]}元</span></p>
+										<a href="{$_K['siteurl']}/index.php?do=task&task_id={$v[task_id]}">{$v[task_title]}</a>
+									</li>
+									<li class="w2 t_l">
+										<p>雇主</p>
+										<a href="{$_K['siteurl']}/index.php?do=shop&u_id={$v[uid]}">{$v[username]}</a>
+									</li>
+									<li class="w2 t_l">
+										<p>报名中 截止时间：</p>
+										<span class="time"><!--{date('Y-m-d h:i:s',$v['sub_time'])}--></span>
+									</li>
+									<li class="w1"><a href="{$_K['siteurl']}/index.php?do=task&task_id={$v[task_id]}" class="button">我要报名</a></li>
+								</ul>
+							</dd>
+							{/loop}
+							
+						</dl>
+						{else}
+							<div class="no_detail pad10">没有找到相关任务信息</div>
+						{/if}
+					</div>
+				</div>
+				
+				<div class="clearfix"></div>
+				<div class="t_c">
+					<!--{ad_show(HIRE_CENTER_BANNER)}-->		
+				</div>
+				
+				<div class="story mt_10 pad10">
+					<div class="title clearfix">
+						<b class="fl_l">赚钱故事会</b>
+						<span>讲述直接雇佣背后的故事！</span>
+						<span class="fl_r pt_5"><!-- <a href="{$_K['siteurl']}/index.php?do=vip&view=story">查看更多  &gt;</a> --></span>
+					</div>
+					<dl class="character pl_10 pr_10 pt_20 clearfix">
+						
+			        <dd class="clearfix choose_tx">
+					  <ul class="clearfix">		
+						  <!--{eval $key = 1;}-->
+						  {loop $story_arr $v}
+							<li class="clearfix">
+								<div class="pic">
+									<img class="pic_middle" uid="" src="<!--{eval echo kekezu::format_url($v[art_pic])}-->" original-title="" style="z-index: 1;">
+								</div>
+								<div class="tells">
+									<p class="font12b c333" title="{$v['art_title']}"><!--{eval echo kekezu::cutstr($v['art_title'],25)}--></p>
+									<!--{eval $v['content'] = strip_tags($v['content']); }-->
+									<p><!--{eval echo(kekezu::cutstr($v['content'],120));}--> 
+									[<a href="{$_K['siteurl']}/index.php?do=article&art_cat_id={$v['art_cat_id']}&art_id={$v['art_id']}">查看全部</a>]</p>
+								</div>
+							</li>
+							<!--{eval $key++;}-->
+					     {/loop}
+					    </ul>
+			        </dd>
+								
+					</dl>
+				</div>
+				
+			</div>
+			<!--左边部分end-->
+			
+			<!--右边部分 start-->	
+			<div class="prom_right ">
+				<div class="box default  release_needs clearfix">
+					<div class="inner">
+						<div class="top_box t_c pad10 clearfix">
+							<div class="tlxz_x">现在开始赚钱吧！</div>
+							<button class="big positive submit" type="submit" onclick="location.href='{$_K['siteurl']}/index.php?do=vip'">我要加入VIP</button>
+						</div>
+						<div class="bottom_box clearfix">
+							<a href="{$_K['siteurl']}/index.php?do=vip">
+								<span class="block t_c">
+									<img src="{$_K['siteurl']}/resource/img/style/pub_img_1.gif" width="40" height="40" alt="">
+								</span>
+								<span>同城任务速配</span>
+							</a>
+							<a href="{$_K['siteurl']}/index.php?do=vip" class="n_rb">
+								<span class="block t_c">
+									<img src="{$_K['siteurl']}/resource/img/style/pub_img_2.gif" alt="">
+								</span>
+								<span>黄金位置展示</span>
+							</a>
+							<a href="{$_K['siteurl']}/index.php?do=vip" class="n_mb">
+								<span class="block t_c">
+									<img src="{$_K['siteurl']}/resource/img/style/pub_img_3.gif" alt="">
+								</span>
+								<span>人才重点包装</span>
+							</a>
+							<a href="{$_K['siteurl']}/index.php?do=vip" class="n_mb n_rb">
+								<span class="block t_c">
+									<img src="{$_K['siteurl']}/resource/img/style/pub_img_4.gif" alt="">
+								</span>
+								<span>更多VIP特权</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="clear"></div>				
+				<div class="count pad10 clearfix mt_10">
+					<div class="c333 title">1对1服务，满意付款</div>
+					<div class="trade pt_20">
+						<p>雇佣交易数：<span class="c090">{if $hire_count['task_count']}{$hire_count['task_count']}{else}0{/if} </span>个</p>
+						<p>雇佣交易额：<span class="ea5e00">{if $hire_count['task_cash']}{$hire_count['task_cash']}{else}0{/if} </span>元</p>
+					</div>
+					<div class="release pt_10"><button class="big button pt_5 pb_5 block" type="submit" onclick="location.href='{$_K['siteurl']}/index.php?do=release'">发布雇佣任务</button></div>
+				</div>
+				<div class="contact mt_10 pad10 clearfix">
+					<ul class="clearfix">
+						<li>电话：<span>4006-999-467</span></li>
+						<li class="pt_10">QQ:
+						<a href="http://wpa.qq.com/msgrd?v=3&uin=4006999467&site=qq&menu=yes" rel="nofollow" target="_blank">
+							<img border="0" title="点击这里给我发消息" alt="点击这里给我发消息" src="http://wpa.qq.com/pa?p=2:4006999467:47">
+						</a>
+						<a href="http://wpa.qq.com/msgrd?v=3&uin=626883877&site=qq&menu=yes" rel="nofollow" target="_blank">
+							<img border="0" title="点击这里给我发消息" alt="点击这里给我发消息" src="http://wpa.qq.com/pa?p=2:626883877:47">
+						</a>
+						</li>
+						<li class="font12b c333 pt_10">如何玩转直接雇佣？看动画操作演示</li>
+						<li class="pt_5">
+							<a href="{$_K['siteurl']}/index.php?do=help&view=wanzhuanyipin" class="pr_10 font12" target="_blank">我是雇主</a>
+							|
+							<a class="pl_10 font12" href="{$_K['siteurl']}/index.php?do=help&view=wanzhuanyipin" target="_blank">我是威客</a>
+						</li>
+					</ul>
+				</div>
+				<div class="pub mt_10">
+					<div class="ditait">
+						<ul class="menu clearfix">
+							<li id="tab_plac_1"  onmouseover="swaptab('plac','hover','',2,1)" class="hover" ><a href="javascript:void(0);">疑难解答</a></li>
+							<li id="tab_plac_2"  onmouseover="swaptab('plac','hover','',2,2)" ><a href="javascript:void(0);">提现公告</a></li>
+						</ul>
+					</div>	
+					<div class="main pt_10 pb_10 clearfix">
+						<div id="div_plac_1">
+						{if $help_answer}
+							<ul>
+								{loop $help_answer $k $v} 
+								<li><a href="{$_K['siteurl']}/index.php?do=help&view=info&art_cat_id={$v[art_cat_id]}&art_id={$v[art_id]}">{$v[art_title]}</a></li>
+								{/loop}
+							</ul>
+							{else}
+							<div class="no_detail pad10">暂无疑难解答</div>
+						{/if}
+						</div>
+						<div id="div_plac_2" style="display:none">
+							{if $with_draw}
+						<ul >
+							
+							{loop $with_draw $k $v}
+							<li><a>{$v[username]}成功提现了{$v[withdraw_cash]}元</a></li>
+							{/loop}
+							
+						</ul>
+							{else}
+							<div class="no_detail pad10">暂无提现信息</div>
+							{/if}
+						</div>
+					</div>
+				</div>
+				<div class="champ_all mt_10">
+					<div class="champ"><p>第一期：03.05 - 03.12</p></div>	
+					<div class="champ_list clearfix pad10">
+						{loop $week_kemp $k $v}
+						<ul class="clearfix" {if $k==0}style="border-top:none;"{/if}>
+							<li class="digital"><!--{eval echo($k+1);}--></li>
+							<li class="pic"><a href="{$_K['siteurl']}/index.php?do=shop&u_id={$v['uid']}" target="_blank"><!--{userpic($v[uid],small)}--></a></li>
+							<li class="pl_10">
+								<p class="font12b"><a href="{$_K['siteurl']}/index.php?do=shop&u_id={$v['uid']}" target="_blank">{$v[username]}</a></p>
+								<p>一周赚取 {$v[fina_cash]} 元</p>
+								<p>
+									<!--{eval echo(keke_glob_class::get_w_level_ico($v[w_level]));}-->
+								</p>							
+							</li>
+						</ul>
+						{/loop}
+				
+					</div>
+				</div>	
+				
+				<div class="joinvip mt_10">
+					<div class="title clearfix"><span class="font14b vip">优秀VIP推荐</span><span class="fl_r"><a href="{$_K['siteurl']}/index.php?do=talent">查看更多   &gt;</a></span></div>
+					{if $rec_shop}
+					<ul class="pt_10 pb_10 clearfix">
+						
+						{loop $rec_shop $k $v}
+						<li class="pic"><a href="{$_K['siteurl']}/index.php?do=shop&sid={$v[shop_id]}" title="{$v[shop_name]}" target="_blank"><!--{userpic($v['uid'],small)}--></a></li>
+						{/loop}
+						
+					</ul>
+					{else}
+						<div class="no_detail pad10">暂无优秀VIP推荐</div>
+					{/if}
+					<div class="title clearfix"><span class="font14b vip">最新加入VIP</span><span class="fl_r"><a href="{$_K['siteurl']}/index.php?do=talent">查看更多   &gt;</a></span></div>
+					{if $new_shop}
+					<ul class="pr_10 pt_10 pb_10 clearfix">
+						{loop $new_shop $k $v}
+						<li class="pic"><a href="{$_K['siteurl']}/index.php?do=shop&sid={$v[shop_id]}" title="{$v[shop_name]}" target="_blank"><!--{userpic($v['uid'],small)}--></a></li>
+						{/loop}
+					</ul>
+					{else}
+						<div class="no_detail pad10">暂无最新加入VIP</div>
+					{/if}
+					
+					<div class="join_button pt_20 pb_20">
+						<button class="big button pt_5 pb_5 block" type="submit" onclick="location.href='{$_K['siteurl']}/index.php?do=vip'">我也要加入VIP</button>
+					</div>
+				</div>		
+			</div>
+			<!--右边部分 end-->
+			<div class="clear"></div>
+			<div class="box clearfix default mt_10 teamwork">
+				<div class="inner">
+					<header class="box_title clearfix">
+						<h2 class="c333 fl_l">合作链接</h2>
+						<div class="fl_r clearfix">
+							<!-- <a href="javascript:void(0);" onclick="showWindow('message', '{$_K['siteurl']}/index.php?do=ajax&view=link&ac=add');" class="fl_l font12 font_normal">我要出现在这</a> -->
+							
+								<button class="button primary c090" style="padding:2px 10px; _margin-top:4px" type="button" onclick="link_box(12)" >申请友情链接</button>
+							
+						</div>
+					</header>
+					<article class="pad10 clearfix">
+						<ul>
+							{loop $link_arr $v}
+							<li><a href="{$v['link_url']}" target="_blank">{$v['link_name']}</a></li>
+							{/loop}
+						</ul>
+					</article>
+				</div>
+			</div>
+			
+ 		</div>
+		<!--直接雇佣流程 end-->
+ 	</div>
+</div>
+	
+<!--{template footer}-->
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/adshow.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.autoscroll.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.pagination.js"></script>
+<script type="text/javascript" >
+	var uid = parseInt('{$uid}')+0; 
+	
+	In.add('easySlider',{path:"{$_K['siteurl']}/resource/js/jqplugins/easySlider1.5.js",type:'js'});
+	In.add('index',{path:"{$_K['siteurl']}/{$style_path}/js/index.js",type:'js',rely:['easySlider']});
+	
+ 	In.add('lazy',{path:"{$_K['siteurl']}/resource/js/system/lazy.js",type:'js'});
+ 
+	In('easySlider','index','lazy',function(){
+		loadPics();
+	});
+		
+$(".box.model .task .box_detail .small_list li").hover(
+    function(){$(this).addClass('hover')},
+	function(){$(this).removeCss('hover')}
+	);
+$('#jcarousel,#jcarousel2').jcarousel({
+    wrap: 'circular',
+	 animation: 200
+}).jcarouselAutoscroll({
+   interval:  3000
+});
+$('.jcarousel-pagination').jcarouselPagination({
+   perpage: 1
+});	
+
+function changeList(type){
+	if(type=="success"){
+		$('#success_lab').attr('class','selected');
+		$('#success').attr('style','display:block');
+		$('#wait_lab').attr('class','');
+		$('#wait').attr('style','display:none');
+	}else if(type='wait'){
+		$('#success_lab').attr('class','');
+		$('#success').attr('style','display:none');
+		$('#wait_lab').attr('class','selected');
+		$('#wait').attr('style','display:block');
+	}
+}
+
+function showMsg(){
+	showDialog('这是直接雇佣任务，已设置为隐藏，只有雇主和威客双方可见。 去看看其他任务类型吧。 <div><a  href="index.php?do=task_list" > 创意任务大厅 >></a><a href="index.php?do=task_list&m=5"> 等待雇佣任务 >></a>！</div>',"notice","友情提示");
+}
+</script>

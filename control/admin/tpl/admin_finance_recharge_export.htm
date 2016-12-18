@@ -1,0 +1,36 @@
+<!--{template control/admin/tpl/admin_header}-->
+<div class="page_title">
+    <h1>入账数据导出</h1>
+    <div class="tool">
+		<a href="index.php?do={$do}&view=all">{$_lang['flow_record']}</a>
+	    <a href="index.php?do={$do}&view=report">{$_lang['graphic_report']}</a>
+	    <a href="index.php?do={$do}&view=recharge">{$_lang['recharge_audit']}</a>
+	   <a href="index.php?do={$do}&view=withdraw">{$_lang['withdraw_audit']}</a>
+    </div>
+</div>
+
+<div class="box search p_relative">
+    <div class="title">
+        <h2>{$_lang['search']}</h2>
+    </div>
+    <div class="detail" id="detail">
+        <form action="index.php?do={$do}&view=recharge&show=export" method="post" id=frm_user_search>
+        	 <table cellspacing="0" cellpadding="0">
+                <tbody>
+					<tr>
+                        <th>日期</th>
+                        <td>
+                        	<input type="text" name="start_time" class="txt" onclick="showcalendar(event, this, 0)" size="12"/>
+						</td>
+                        <td>
+                             <button class="pill" type="submit" value="1" name="sbt_search">
+                               	数据导出
+                              </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+ </div>
+ <!--{template control/admin/tpl/admin_footer}-->

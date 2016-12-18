@@ -1,0 +1,135 @@
+<!--{template header}--><!--contain start-->
+<div class="wrapper">
+ <div class="container_24">
+   <!--{template user/user_nav}--><!--main start-->
+
+   <section class="clearfix section">
+  <!--{template user/user_side}-->
+            <div class="show_panel ">
+		        <div class="">
+		            <div class="">
+		                <!--main content-->
+		                <div class=" clearfix box default">
+           <!--header内容头部 start-->
+            <header class="clearfix box_header">
+            <h2 class="box_title">个性域名设置</h2>
+         </header>
+       <!--header内容头部 end-->
+	     <article class="box_detail">
+                                <!--messages消息 start-->
+                                <div class="messages m_warn clearfix">
+                                    <div class="grid_18">
+                                    <strong>友情提示：</strong>个性域名设置后不能再修改
+									</div>
+                                </div>
+								
+         <div class="prefix_1 suffix_1">
+         
+            <div class="clearfix form_box border_n">
+            	{if $mydomain_record}您于<!--{date('Y-m-d H:i:s',$mydomain_record[on_time])}-->申请将域名设置为<b>$mydomain_record['d_key']</b>,{if $mydomain_record['d_status']==-1}该设置未通过审核，请重新设置{elseif $mydomain_record['d_status']==0}域名设置需要管理员审核后24小时内生效，请耐心等待{else}于<!--{date('Y-m-d H:i:s',$mydomain_record['op_time'])}-->起生效,更改请联系客服{/if}。{/if}
+				
+                <!--from表单 start-->
+				{if $mydomain_record['d_status']!=1}
+                  <form action="{$ac_url}" method="post" id="frm" name="frm">             
+				  <input type="hidden" name="formhash" value="{FORMHASH}">    
+					  <input type="hidden" name="pk[shop_id]" id="shop_id" value="{$shop_info['shop_id']}"><!--基本资料start-->
+					
+					
+					<div class="rowElem clearfix">
+                           <label class="grid_3 t_r">域名名称{$_lang['zh_mh']}</label>
+                            <div class="grid_13">
+                            	<span id="d_key_pre" style="display:none;"></span>
+                            	<input class="txt_input" name="domain" id="domain_name" onkeyup="domain_demo()" size="45" type="text" value="{$mydomain_record['d_key']}" title="请设置个性域名" id="domain" limit="type:string;required:true;len:6-10" ajax="{$_K['siteurl']}/index.php?do={$do}&view={$view}&op={$op}&check_domain=" msg="个性域名格式有误" msgArea="span_shop_name"/> <span id="span_shop_name"></span>
+                            </div>
+                    </div>
+					
+					<div class="rowElem clearfix">
+                           <label class="grid_3 t_r">域名类型{$_lang['zh_mh']}</label>
+                            <div class="grid_11">
+                            	{if !$userinfo[isvip]}
+								<input type="radio" id="d_type_0" name="d_type" onclick="domain_demo()" {if !$userinfo[isvip]}checked{/if} value="0">二级目录
+								{else}
+                            	<input type="radio" id="d_type_1" name="d_type" onclick="domain_demo()" {if $mydomain_record[d_type]!=2}checked{/if} value="1">二级域名
+								<input type="radio" id="d_type_2" name="d_type" onclick="domain_demo()" {if $mydomain_record[d_type]==2}checked{/if} value="2">独立域名 <span id="d_key_nex" class="messages m_warn" style="display:none;word-break:break-all;word-warp:warp;"><nobr>设置独立域名前请先将域名CNAME至</span>
+                            	{/if}
+							</div>
+                    </div>
+						
+					<div class="rowElem clearfix">
+						 <label class="grid_3 t_r">&nbsp;</label>
+						 <span class="grid_11" id="d_demo_link"></span>
+					</div>
+					
+					<script>
+						function domain_demo(){
+							if($('#d_type_1').attr('checked')){
+								$('#d_demo_link').html('http://'+$('#domain_name').val()+'.epweke.com');
+								$('#d_key_pre').hide();
+								$('#d_key_nex').hide();
+								$('#domain_name').attr('limit', 'required:true;type:regx;re:/^[a-z]{1}[a-z0-9]{5,9}$/i');
+								$('#domain_name').attr('msg', '必须以字母开头,长度为6-10,如 b12345');
+								$('#span_shop_name').html('');
+							}
+							else if($('#d_type_2').attr('checked')){
+								$('#d_demo_link').html('http://'+$('#domain_name').val()+'');
+								$('#d_key_pre').show();
+								$('#d_key_nex').show();
+								$('#domain_name').attr('limit', 'required:true;type:regx;re:/^[a-z0-9_]+\\.[a-z0-9_]+\\.[a-z]{2,}$/i');
+								$('#domain_name').attr('msg', '请输入你的域名, 如 www.jason.com');
+								$('#span_shop_name').html('');
+							}
+							else{
+								$('#d_demo_link').html('http://shop.epweke.com/'+$('#domain_name').val()+'/');
+								$('#d_key_pre').hide();
+								$('#d_key_nex').hide();
+								$('#domain_name').attr('limit', 'required:true;type:regx;re:/^[a-z]{1}[a-z0-9]{5,9}$/i');
+								$('#domain_name').attr('msg', '必须以字母开头,长度为6-10,如 b12345');
+								$('#span_shop_name').html('');
+							}
+						}
+						$(function(){
+							domain_demo();
+						});
+					</script>
+						
+                            <div class="rowElem clearfix form_button">
+                                 <button type="submit" class="submit" value="{$_lang['save']}" onclick="return checkForm(document.getElementById('frm'))" >
+                                    <span class="check icon"></span>{$_lang['save']}
+                                 </button>
+                            </div>
+					</form>
+					{else}
+					<div class="rowElem clearfix form_button">
+					您的店铺地址是
+					{if $mydomain_record['d_type']}
+					<a href="http://{$mydomain_record[d_key]}.itbangshou.com/" target="_blank">http://{$mydomain_record[d_key]}.itbangshou.com/</a>
+					{else}
+					<a href="/{$mydomain_record[d_key]}/" target="_blank">/{$mydomain_record[d_key]}/</a>
+					{/if}
+					</div>
+					{/if}
+					<!--from表单 end-->
+                      </div>
+                   </div>
+                  <!--detail内容 end-->
+				                              </article>
+               </div>
+              <!--main content end -->
+           <div class="clear"></div>
+         </div>
+        </div>
+      </section>
+     <!--main end-->
+     </div>
+    </div>
+    <!--contain end-->
+ 
+<script type="text/javascript">
+    In('form');      
+   /**
+    * 表单提交 编辑空间
+    * @param  obj
+  */
+  </script>
+  <!--{template user/user_footer}-->
+<!--{template footer}-->

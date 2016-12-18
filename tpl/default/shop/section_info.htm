@@ -1,0 +1,75 @@
+<div class="inner clearfix">
+							<div class="firm_left fl_l">
+								<div class="clearfix pad20">
+									<div class="clearfix mt_5">
+										<h2 class="fl_l">能力标签：</h2>
+										{if $shop_info['skill_ids']}
+										<ul class="fl_l ">
+											
+											<!--{eval $skills=explode(',',$shop_info['skill_ids']);}-->
+											{loop $skills $v}
+											<li><span>$indus_c_arr[$v]['indus_name']</span></li>
+											{/loop}
+											
+										</ul>
+										{else}
+											<div class="no_detail fl_l">暂无</div>
+										{/if}
+									</div>
+									<div class="clearfix mt_10">
+										<b class="c333">
+										{$user_type_arr[$shop_info['user_type']]}介绍：</b>
+											{if $shop_info['shop_desc']}
+											<!--{eval $shop_info[shop_desc] and $shop_info[shop_desc] = strip_tags($shop_info[shop_desc]);}-->
+											<!--{eval echo(kekezu::cutstr($shop_info['shop_desc'],350));}-->
+											...
+										【<a href="$ac_url&view=desc">更多</a>】
+										{else}
+										暂无简介
+										{/if}
+									</div>
+								</div>
+							</div>
+							<div class="firm_right fl_l">
+								<div class="pad10 clearfix">
+									<div class="clearfix pl_10 pr_10 mb_10">
+										<h2><a href="$ac_url">{$shop_info['shop_name']}</a></h2>
+										<p>{if $shop_info['residency']}{$shop_info['residency']}{else}暂无{/if}</p>
+										<p class="clearfix"><span class="fl_l mr_5">$user_type_arr[$shop_info['user_type']]商铺</span>
+										<!--{eval echo(keke_glob_class::get_shop_level_ico($shop_info['shop_level']));}-->
+										</p>
+									</div>
+									 <div class="shop_hire clearfix">
+									 	<h1><a href="{$_K['siteurl']}/index.php?do=hiretask&tuid={$shop_info['uid']}">我要雇佣TA</a></h1>
+										<div class="shop_hire_link clearfix">
+											<a href="javascript:;" onclick="talent_invite({$shop_info['uid']})" class="border_n">邀请投标</a>
+											<a href="javascript:;" onclick="favor('shop_id','shop','shop','{$shop_info[uid]}','{$shop_info[shop_id]}','{$shop_info[shop_name]}','{$shop_info[shop_id]}')">收藏TA</a>
+											<a href="javascript:;" onclick="sendMessage({$shop_info['uid']},'{$shop_info['username']}')">站内信</a>
+										</div>
+									 </div>
+									 <div style="padding-top:5px;">&nbsp;&nbsp;分享到：
+									 <script src="{$_K['siteurl']}/resource/js/fx.js"></script> 									
+									 <!--{eval $share = '刚才在@IT帮手网 看到这个商铺【'.$shop_info['shop_name'].'】，卖的全是文创产品，如果你有需要，可以来看看，实力相当不错哦，值得收藏！';}-->
+										<a href="#" target="_blank" onclick="_fx(this,{'key':'sina','url':'{$_K[siteurl]}/shop-sid-{$shop_info[shop_id]}.html','title':'{$share}','overview':''});" title="分享到新浪微博"><img src="{$_K['siteurl']}/resource/img/ico/sina.gif"></a>
+										<a href="#" target="_blank" onclick="_fx(this,{'key':'qq','url':'{$_K[siteurl]}/shop-sid-{$shop_info[shop_id]}.html','title':'{$share}','overview':''});" title="分享到腾讯微博"><img src="{$_K['siteurl']}/resource/img/ico/ten.gif"></a>
+										<a href="#" target="_blank" onclick="_fx(this,{'key':'sohu','url':'{$_K[siteurl]}/shop-sid-{$shop_info[shop_id]}.html','title':'{$share}','overview':''});" title="分享到网页微博"><img src="{$_K['siteurl']}/resource/img/ico/sh.gif"></a>
+										<a href="#" target="_blank" onclick="_fx(this,{'key':'kx','url':'{$_K[siteurl]}/shop-sid-{$shop_info[shop_id]}.html','title':'{$share}','overview':''});" title="分享到开心网"><img src="{$_K['siteurl']}/resource/img/ico/kai.gif"></a>
+										<a href="#" target="_blank" onclick="_fx(this,{'key':'db','url':'{$_K[siteurl]}/shop-sid-{$shop_info[shop_id]}.html','title':'{$share}','overview':''});" title="分享到豆瓣网"><img src="{$_K['siteurl']}/resource/img/ico/dou.gif"></a>
+										<a href="#" target="_blank" onclick="_fx(this,{'key':'hi','url':'{$_K[siteurl]}/shop-sid-{$shop_info[shop_id]}.html','title':'{$share}','overview':''});" title="分享到百度Hi"><img src="{$_K['siteurl']}/resource/img/ico/baidu.gif"></a>
+										<a href="#" target="_blank" onclick="_fx(this,{'key':'qzone','url':'{$_K[siteurl]}/shop-sid-{$shop_info[shop_id]}.html','title':'{$share}','overview':''});" title="分享到QQ空间"><img src="{$_K['siteurl']}/resource/img/ico/zone.gif"></a>
+									</div>
+
+								</div>
+							</div>
+					</div>
+				    <script type="text/javascript">	
+						var uid = parseInt('{$uid}')+0; 
+						 //人才邀请
+						function talent_invite(i_uid){	
+							if (check_user_login()) {
+								showWindow('task_invite'+i_uid,'/index.php?do=ajax&view=invite&opp=task_list&i_uid='+i_uid,'get',0);
+								return false;
+							}
+						}
+						
+					</script>

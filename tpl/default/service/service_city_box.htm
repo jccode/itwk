@@ -1,0 +1,319 @@
+<!--背景遮盖用-->
+<style>
+.black_overlay{
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: #333333;
+    z-index:1001;
+    -moz-opacity: 0.8;
+    opacity:.80;
+    filter: alpha(opacity=80);
+}
+/*** 切换城市 ***/
+.tc_con_main{
+	display:block; 
+	width:750px;
+	height:300px; 
+	background:#fff;
+	padding:0px;
+	border:1px solid #ccc; 
+	clear:both;
+	z-index:9999;
+}
+
+.tc_con_head{
+	display:block;
+	border:0px solid #ccc; 
+	width:750px;
+	height:40px;
+	line-height:40px;
+	background:#f4f4f4;
+	font-size:20px;
+	clear:both;
+	
+}
+.tc_con_head .tc_head_left{
+	display:inline-block;
+	float: left;
+	margin-left:10px;
+	
+}
+.tc_con_head .tc_head_right{
+	display:inline-block;
+	float: right;
+	margin-right:10px;
+}
+.tc_con_head .tc_head_right img{
+	vertical-align: middle;
+	display:block;
+	width:16px;
+	height:16px;
+	margin-top:10px;
+}
+
+.tc_con_foot {
+	display:block;
+	border:0px solid #ccc; 
+	width:750px;
+	height:60px;
+	line-height:60px;
+	background:#f4f4f4;
+	font-size:14px;
+	color:#333;
+}
+.tc_con_foot select, .tc_con_foot input{
+	margin-left:15px;
+}
+.tc_con_foot .sel {width:650px; height:60px; line-height:60px;}
+
+.tc_con_body {
+	display:block;
+	border:0px solid #ccc; 
+	width:750px;
+	height:200px; 
+	background:#fff;
+}
+
+.tc_con_body .tc_tb_tpl{
+	margin-top:10px;
+	margin-left:30px;
+	text-align:center;
+	border:0px;
+	width:720px;
+	height:175px;
+}
+
+.tc_con_body .tc_tb_hd {
+    background: none repeat-x scroll 0 0 #FCFCFC;
+    color: #000000;
+}
+
+.tc_con_body .tc_tb_hd td {width:90px;}
+.tc_con_body .tc_tb_hd td font{color:#3A6FE1; font-weight:normal; margin-right:10px;}
+.tc_con_body .tc_tb_hd td a {color:#3A6FE1; font-weight:normal;}
+
+.tc_con_body .tc_tb_hd .tc_fontcolor {color:#FF0000;}
+
+.tc_con_body .tc_tb_tpl .tc_tb_hd th {
+    font-size: 12px;
+}
+.tc_con_body .tc_tb_tpl th, .tc_tb_tpl td {
+    border: 0px solid #E9E9E9;
+    font-size: 12px;
+    height: 28px;
+    text-align: left;
+}
+.tc_con_body .tc_tb_tpl th {
+    color: #000000;
+    font-weight: bold;
+    width: 80px;
+}
+
+.tc_con_body .tc_tb_tpl .b {
+    color: #666666;
+    font-weight: bold;
+}
+
+.tc_con_body .tc_tb_tr td{}
+.tc_con_body .tc_tb_tr td font{color:#3A6FE1; font-weight:normal; margin-right:10px;}
+.tc_con_body .tc_tb_tr td a {color:#3A6FE1; font-weight:normal;}
+
+</style>
+<div id="bgover" class="black_overlay"><iframe style="position:absolute;width:100%;height:100%;_filter:alpha(opacity=0);opacity=0;border-style:none;"></iframe></div>
+
+<div class="tc_con_main" id="citychange" style="position:absolute; display:none;">
+	<div class="tc_con_head">
+		<div class="tc_head_left">
+			<span style="margin-left:10px;color:#0066CC; font-weight:bolder; font-family:'微软雅黑'; text-indent:2px; letter-spacing:4px;">热门城市</span>
+		</div>
+		<div class="tc_head_right"><a href="javascript:void(0)" class="font14" onclick="close_city();">关闭</a></div>
+	</div>
+	<div class="tc_con_body">
+		<table style="" class="tc_tb_tpl">
+			<tr class="tc_tb_hd">
+				<td><font>B</font><a class="tc_fontcolor" href="{$city_box_url}&province=<!--{eval echo urlencode('北京市')}-->&city=<!--{eval echo urlencode('市辖区')}-->">北京</a></td>
+				<td><font>S</font><a class="tc_fontcolor" href="{$city_box_url}&province=<!--{eval echo urlencode('上海市')}-->&city=<!--{eval echo urlencode('市辖区')}-->">上海</a></td>
+				<td><font>G</font><a class="tc_fontcolor" href="{$city_box_url}&province=<!--{eval echo urlencode('广东省')}-->&city=<!--{eval echo urlencode('广州市')}-->">广州</a></td>
+				<td><font>S</font><a class="tc_fontcolor" href="{$city_box_url}&province=<!--{eval echo urlencode('广东省')}-->&city=<!--{eval echo urlencode('深圳市')}-->">深圳</a></td>
+				<td><font>W</font><a class="tc_fontcolor" href="{$city_box_url}&province=<!--{eval echo urlencode('湖北省')}-->&city=<!--{eval echo urlencode('武汉市')}-->">武汉</a></td>
+				<td><font>N</font><a class="tc_fontcolor" href="{$city_box_url}&province=<!--{eval echo urlencode('江苏省')}-->&city=<!--{eval echo urlencode('南京市')}-->">南京</a></td>
+				<td><font>T</font><a class="tc_fontcolor" href="{$city_box_url}&province=<!--{eval echo urlencode('天津市')}-->&city=<!--{eval echo urlencode('市辖区')}-->">天津</a></td>
+				<td><font>H</font><a class="tc_fontcolor" href="{$city_box_url}&province=<!--{eval echo urlencode('浙江省')}-->&city=<!--{eval echo urlencode('杭州市')}-->">杭州</a></td>
+			</tr>
+			<tr class="tc_tb_tr">
+				<td><font>C</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('四川省')}-->&city=<!--{eval echo urlencode('成都市')}-->">成都</a></td>
+				<td><font>C</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('重庆市')}-->&city=<!--{eval echo urlencode('市辖区')}-->">重庆</a></td>
+				<td><font>C</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('湖南省')}-->&city=<!--{eval echo urlencode('长沙市')}-->">长沙</a></td>
+				<td><font>C</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('吉林省')}-->&city=<!--{eval echo urlencode('长春市')}-->">长春</a></td>
+				<td><font>D</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('广东省')}-->&city=<!--{eval echo urlencode('东莞市')}-->">东莞</a></td>
+				<td><font>D</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('辽宁省')}-->&city=<!--{eval echo urlencode('大连市')}-->">大连</a></td>
+				<td><font>F</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('福建省')}-->&city=<!--{eval echo urlencode('福州市')}-->">福州</a></td>
+				<td><font>F</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('广东省')}-->&city=<!--{eval echo urlencode('佛山市')}-->">佛山</a></td>
+			</tr>
+			<tr class="tc_tb_hd">
+				<td><font>G</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('贵州省')}-->&city=<!--{eval echo urlencode('贵阳市')}-->">贵阳</a></td>
+				<td><font>G</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('广西壮族自治区')}-->&city=<!--{eval echo urlencode('桂林市')}-->">桂林</a></td>
+				<td><font>H</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('黑龙江省')}-->&city=<!--{eval echo urlencode('哈尔滨市')}-->">哈尔滨</a></td>
+				<td><font>H</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('安徽省')}-->&city=<!--{eval echo urlencode('合肥市')}-->">合肥</a></td>
+				<td><font>H</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('内蒙古自治区')}-->&city=<!--{eval echo urlencode('呼和浩特市')}-->">呼和浩特</a></td>
+				<td><font>H</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('海南省')}-->&city=<!--{eval echo urlencode('海口市')}-->">海口</a></td>
+				<td><font>J</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('山东省')}-->&city=<!--{eval echo urlencode('济南市')}-->>">济南</a></td>
+				<td><font>K</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('云南省')}-->&city=<!--{eval echo urlencode('昆明市')}-->">昆明</a></td>
+			</tr>
+			<tr class="tc_tb_tr">
+				<td><font>L</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('甘肃省')}-->&city=<!--{eval echo urlencode('兰州市')}-->">兰州</a></td>
+				<td><font>L</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('西藏自治区')}-->&city=<!--{eval echo urlencode('拉萨市')}-->">拉萨</a></td>
+				<td><font>N</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('浙江省')}-->&city=<!--{eval echo urlencode('宁波市')}-->">宁波</a></td>
+				<td><font>N</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('江西省')}-->&city=<!--{eval echo urlencode('南昌市')}-->">南昌</a></td>
+				<td><font>N</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('广西壮族自治区')}-->&city=<!--{eval echo urlencode('南宁市')}-->">南宁</a></td>
+				<td><font>Q</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('山东省')}-->&city=<!--{eval echo urlencode('青岛市')}-->">青岛</a></td>
+				<td><font>S</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('河北省')}-->&city=<!--{eval echo urlencode('石家庄市')}-->">石家庄</a></td>
+				<td><font>S</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('江苏省')}-->&city=<!--{eval echo urlencode('苏州市')}-->">苏州</a></td>
+			</tr>
+			<tr class="tc_tb_hd">
+				<td><font>S</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('辽宁省')}-->&city=<!--{eval echo urlencode('沈阳市')}-->">沈阳</a></td>
+				<td><font>T</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('山西省')}-->&city=<!--{eval echo urlencode('太原市')}-->">太原</a></td>
+				<td><font>W</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('江苏省')}-->&city=<!--{eval echo urlencode('无锡市')}-->">无锡</a></td>
+				<td><font>W</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('新疆维吾尔自治区')}-->&city=<!--{eval echo urlencode('乌鲁木齐市')}-->">乌鲁木齐</a></td>
+				<td><font>W</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('山东省')}-->&city=<!--{eval echo urlencode('威海市')}-->">威海</a></td>
+				<td><font>X</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('陕西省')}-->&city=<!--{eval echo urlencode('西安市')}-->">西安</a></td>
+				<td><font>X</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('福建省')}-->&city=<!--{eval echo urlencode('厦门市')}-->">厦门</a></td>
+				<td><font>X</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('青海省')}-->&city=<!--{eval echo urlencode('西宁市')}-->">西宁</a></td>
+			</tr>
+			<tr class="tc_tb_tr">
+				<td><font>Y</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('宁夏回族自治区')}-->&city=<!--{eval echo urlencode('银川市')}-->">银川</a></td>
+				<td><font>Y</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('湖北省')}-->&city=<!--{eval echo urlencode('宜昌市')}-->">宜昌</a></td>
+				<td><font>Y</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('山东省')}-->&city=<!--{eval echo urlencode('烟台市')}-->">烟台</a></td>
+				<td><font>Z</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('河南省')}-->&city=<!--{eval echo urlencode('郑州市')}-->">郑州</a></td>
+				<td><font>Z</font><a href="{$city_box_url}&province=<!--{eval echo urlencode('广东省')}-->&city=<!--{eval echo urlencode('珠海市')}-->">珠海</a></td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+	</div>
+	<div class="tc_con_foot">
+	    <form name="form1" method="get" action="">
+		<div class="sel ml_20">
+			<div class="fl_l">
+			    <b>按照省份选择:</b>
+			    <select name="province" id="province" style="width:120px;"></select>
+                <select name="city" id="city" style="margin-left:10px;width:120px;"></select>
+            </div>
+            <div class="fl_l ml_20">
+				<button value="确定" class="submit" type="button" name="sbt_ok" onclick="return check_form(); return false;">确定</button>
+				<button value="关闭窗口" type="button" name="sbt_close" onclick="close_city(); return false;">关闭窗口</button>
+			</div>
+		</div>
+		</form>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<script type="text/javascript">
+	 In.add('css_public', {
+        path: "{$_K['siteurl']}/resource/css/public.css",
+        type: 'css'
+    });
+    In('css_public', 'pcas',function(){
+	    new PCAS("province","city","","{$loca['0']}","{$loca['1']}","")});
+	
+    function check_form() {
+        if (document.getElementById("province").value == "") {
+            alert("请选择省份！");
+            document.getElementById("province").focus;
+            return false;
+        }
+        if (document.getElementById("city").value == "") {
+            alert("请选择城市！");
+            document.getElementById("city").focus;
+            return false;
+        }
+        var strhref, startnum, endnum, oldstr, newstr;
+        strhref = window.location.href;
+        //替换省参数
+        strhref = urlupdate(strhref, "province", document.getElementById("province").value);
+        //替换市参数
+        strhref = urlupdate(strhref, "city", document.getElementById("city").value);
+        //将地区参数置空
+        strhref = urlupdate(strhref, "area", "");
+        
+        window.location.href = strhref;
+        return false;
+    }
+
+    //JS版URL参数置换
+    function urlupdate(strhref__, strname__, strvalue__) {
+        var startnum__, endnum__, newstr__, oldstr__;
+        var strOutput;
+        startnum__ = strhref__.indexOf(strname__ + '=');
+        newstr__ = strname__ + '=' + encodeURI(strvalue__);
+        if (startnum__ > 0) {
+            endnum__ = strhref__.indexOf("&", startnum__);
+            if (endnum__ > startnum__) {
+                oldstr__ = strhref__.substring(startnum__, endnum__);
+            } else {
+                oldstr__ = strhref__.substring(startnum__);
+            }
+            strOutput = strhref__.replace(oldstr__, newstr__);
+        } else {
+            if (strhref__.indexOf("?") > 0) {
+                strOutput = strhref__ + "&" + newstr__;
+            } else {
+                strOutput = strhref__ + "?" + newstr__;
+            }
+        }
+        return strOutput;
+    }
+	
+	function show_city() {
+        //显示背景层
+        document.getElementById("bgover").style.display = "block";
+        var bgdiv = document.getElementById("bgover");
+        bgdiv.style.width = document.body.scrollWidth;
+        $('#bgover').height($(document).height());
+
+        sodialog.AlertX('#citychange', 750, 300);
+    }
+
+    function close_city() {
+        document.getElementById("bgover").style.display = "none";
+        $('#citychange').hide();
+    }
+    
+    var sodialog = {};
+	/// 弹出窗口
+	/// sodialog.AlertX('#MyID');
+	sodialog.AlertX = function(Id__, Width__, Height__) {
+	    var oBox = $(Id__);
+	    var oWin = $(window);
+	    var intWidthFrame = oWin.width();
+	    var intHeightFrame = oWin.height();
+	    var intScrollHeight = $(document).scrollTop();
+	    var intWidth = 450;
+	    var intHeight = 160;
+	    if (Width__ != undefined) { intWidth = Width__; }
+	    if (Height__ != undefined) { intHeight = Height__; }
+	    if (intWidth > 0) {
+	        oBox.css("width", intWidth);
+	    }
+	    if (intHeight > 0) {
+	        oBox.css("height", intHeight);
+	    }
+	    if (intWidth == 0) {
+	        intWidth = oBox.width();
+	    }
+	    if (intHeight == 0) {
+	        intHeight = oBox.height();
+	    }
+	    oBox.css("position", "absolute");
+	    oBox.css("display", "block");
+	    oBox.css("top", intHeightFrame / 2 - intHeight/2+intScrollHeight);
+	    oBox.css("left", intWidthFrame / 2 - intWidth / 2);
+	    oBox.show();
+	}  
+</script>

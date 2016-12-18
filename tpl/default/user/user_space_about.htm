@@ -1,0 +1,181 @@
+<!--{template header}--><!--contain start-->
+<script type="text/javascript" src="resource/js/jqplugins/tipsy/jquery.tipsy.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('a.file_type').tipsy({gravity:$.fn.tipsy.autoNS,html: true});
+}) 
+</script>
+<div class="wrapper">
+ <div class="container_24">
+   <!--{template user/user_nav}--><!--main start-->
+
+   <section class="clearfix section">
+  <!--{template user/user_side}-->
+            <div class="show_panel ">
+		        <div class="">
+		            <div class="">
+		                <!--main content-->
+		                <div class=" clearfix box default">
+           <!--header内容头部 start-->
+            <header class="clearfix box_header">
+            <h2 class="box_title">关于商铺</h2>
+			  <div class="clearfix">
+                <nav class="box_nav">
+                    <ul>
+                    	<li  {if $opp=="intro"}class="selectedLava"{/if}>
+                    		<a href="{$ac_url}&opp=intro#userCenter" title="公司简介">公司简介</a>
+                    	</li>
+						<li   {if $opp=="honor"}class="selectedLava"{/if}>
+                    		<a href="{$ac_url}&opp=honor#userCenter" title="荣誉资质">荣誉资质</a>
+                    	</li>
+						<li   {if $opp=="power"}class="selectedLava"{/if}>
+                    		<a href="{$ac_url}&opp=power#userCenter" title="团队实力">团队实力</a>
+                    	</li>
+						 <li   {if $opp=="report"}class="selectedLava"{/if}>
+                    		<a href="{$ac_url}&opp=report#userCenter" title="公司采风">公司采风</a>
+                    	</li> 
+						 <li   {if $opp=="contact"}class="selectedLava"{/if}>
+                    		<a href="{$ac_url}&opp=contact#userCenter" title="联系方式">联系方式</a>
+                    	</li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="clear">
+            </div>
+         </header>
+       <!--header内容头部 end-->
+		
+
+         	<div id="tips"></div>
+           
+            	<form action="{$ac_url}" method="post" id="frm" name="frm" enctype="multipart/form-data"> 
+				  <!-- <input type="hidden" name="shop_type" value="{if $shop_info['shop_type']}$shop_info['shop_type']{else}{/if}"> -->
+				    <input type="hidden" name="formhash" value="{FORMHASH}">    				  									
+					<div class="clear"></div>
+					<div class=" prefix_1 suffix_1 pb_20">
+					<div class="form_box clearfix ">
+					 <!--基本资料start-->					 			  
+					
+			    <div  class="bf7 clearfix pad10 ">
+				   	{if $opp=='intro'}							
+						<div class="rowElem clearfix" id="desc">
+                            <label class="grid_3 t_r">公司简介{$_lang['zh_mh']}</label>
+							<div class="grid_13">
+	                           <textarea cols="71" rows="12" name="shop_intro" id="shop_intro"
+							     class="xheditor {tools:'Bold,Fontface,FontSize,FontColor,Italic,Underline,Strikethrough,Align,List,Outdent,Indent,Table',skin:'nostyle',innerCheck:true,wordLimit:1500}"><!--{eval echo kekezu::escape($shop_info['shop_intro'])}--></textarea>
+                                <div class="c999 grid_6" id="length_show"></div>
+								<div class="clear"></div>
+								</div>
+                       </div>
+                    {/if}
+					{if $opp=='honor'}
+					<div class="rowElem clearfix" id="desc">
+                            <label class="grid_3 t_r">荣誉资质{$_lang['zh_mh']}</label>
+							<div class="grid_13">
+	                           <textarea cols="71" rows="12" name="shop_honor" id="shop_honor"
+							     class="xheditor {tools:'Bold,Fontface,FontSize,FontColor,Italic,Underline,Strikethrough,Align,List,Outdent,Indent,Table',skin:'nostyle',innerCheck:true,wordLimit:1500}"><!--{eval echo kekezu::escape($shop_info['shop_honor'])}--></textarea>
+                                <div class="c999 grid_6" id="length_show"></div>
+								<div class="clear"></div>
+								</div>
+                   </div>
+				   {/if}	
+				   {if $opp=='power'}
+				   <div class="rowElem clearfix" id="desc">
+                            <label class="grid_3 t_r">团队实力{$_lang['zh_mh']}</label>
+							<div class="grid_13">
+	                           <textarea cols="71" rows="12" name="shop_power" id="shop_power"
+							     class="xheditor {tools:'Bold,Fontface,FontSize,FontColor,Italic,Underline,Strikethrough,Align,List,Outdent,Indent,Table',skin:'nostyle',innerCheck:true,wordLimit:1500}"><!--{eval echo kekezu::escape($shop_info['shop_power'])}--></textarea>
+                                <div class="c999 grid_6" id="length_show"></div>
+								<div class="clear"></div>
+								</div>
+                   </div>
+				   {/if}
+				   {if $opp=='report'}
+				   <div class="rowElem clearfix" id="desc">
+                            <label class="grid_3 t_r">公司采风{$_lang['zh_mh']}</label>
+							<div class="grid_13">
+	                           <textarea cols="71" rows="12" name="shop_report" id="shop_report"
+							     class="xheditor {tools:'Bold,Fontface,FontSize,FontColor,Italic,Underline,Strikethrough,Align,List,Outdent,Indent,Table',skin:'nostyle',innerCheck:true,wordLimit:1500}"><!--{eval echo kekezu::escape($shop_info['shop_report'])}--></textarea>
+                                <div class="c999 grid_6" id="length_show"></div>
+								<div class="clear"></div>
+								</div>
+                   </div>
+				   {/if}
+				   {if $opp=='contact'}
+				   <div class="rowElem clearfix" id="desc">
+                            <label class="grid_3 t_r">联系方式{$_lang['zh_mh']}</label>
+							<div class="grid_13">
+	                           <textarea cols="71" rows="12" name="contact_type" id="contact_type"
+							     class="xheditor {tools:'Bold,Fontface,FontSize,FontColor,Italic,Underline,Strikethrough,Align,List,Outdent,Indent,Table',skin:'nostyle',innerCheck:true,wordLimit:1500}"><!--{eval echo kekezu::escape($shop_info['contact_type'])}--></textarea>
+                                <div class="c999 grid_6" id="length_show"></div>
+								<div class="clear"></div>
+								</div>
+                   </div>
+				   {/if}					
+                            <div class="rowElem clearfix form_button">
+                                 <button type="button" class="submit" value="{$_lang['save']}" onclick="check_edit('frm')">
+                                    <span class="check icon"></span>{$_lang['save']}
+                                 </button>
+								 
+                            </div>
+						</div>
+						</div>
+					</div>	   
+						   </form>
+                         <!--from表单 end-->
+						
+                  
+
+                  <!--detail内容 end-->
+               </div>	
+              <!--main content end -->
+	
+           <div class="clear"></div>
+         </div>
+        </div>
+      </section>
+     <!--main end-->
+     </div>
+    </div>
+    <!--contain end-->
+
+<script type="text/javascript" src="resource/js/xheditor/xheditor.js"></script>
+<script type="text/javascript">
+In('form'); 
+ var editor = '';
+ var opp = '{$opp}';
+	$(function(){
+		if(opp!='contact'){
+		   editor = $("#shop_"+opp).xheditor({});
+		   editor.checkInner();			
+		}else{
+		  editor = $("#contact_type").xheditor({});
+		  editor.checkInner();
+		}
+		
+		
+	})
+/**
+* 表单提交 编辑空间
+* @param  obj
+*/
+function check_edit(obj){
+	if(opp=='intro'){
+		var i = contentCheck('shop_intro',"公司简介",20,1500,1,'desc',editor);
+	}else if(opp=='honor'){
+		var i = contentCheck('shop_honor',"荣誉资质",20,1500,1,'desc',editor);
+	}else if(opp=='power'){
+		var i = contentCheck('shop_power',"团队实力",20,1500,1,'desc',editor);
+	}else if(opp=='report'){
+		var i = contentCheck('shop_report',"公司采风",20,1500,1,'desc',editor);
+	}else{
+		var i = contentCheck('contact_type',"联系方式",20,1500,1,'desc',editor);
+	}
+	if(i){  
+        siteSub('frm',2,true);
+    }
+}
+
+</script>
+  <!--{template user/user_footer}-->
+<!--{template footer}-->

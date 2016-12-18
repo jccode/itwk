@@ -1,0 +1,134 @@
+<!--{template header}--><!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+        <!--{template user/user_nav}--><!--main start-->
+        <section class="clearfix section">
+            <!--{template user/user_side}-->
+            <div class="show_panel ">
+		        <div class="">
+		            <div class="">
+		                <!--main content-->
+		                <div class=" clearfix box default">
+                            <!--header内容头部 start-->
+                            <header class="clearfix box_header">
+                                <h2 class="box_title">待雇主付款</h2>
+                                <div class=" " style="display:none;">
+                                    <nav class="box_nav">
+                                        <ul>
+                                            {loop $third_nav $v}
+                                            <li {if $model_id==$v['1']}class="selectedLava"{/if}>
+                                                <a href="{$_K['siteurl']}/index.php?do={$do}&view={$view}&op={$op}&model_id={$v['1']}#userCenter" title="{$v['2']}">{$v['2']}($v['3'])</a>
+                                            </li>
+                                            {/loop} 
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <div class="clear">
+                                </div>
+                            </header>
+                            <!--header内容头部 end--><!--detail内容 start-->
+                            <article class="box_detail">
+                                <!--messages消息 start-->
+                                
+                                <!--messages消息 end-->
+                                <div class="">
+                                    <!--from表单 start-->
+                                    <div class="clearfix box pad10">
+                                       
+                                        <!--date_table数据表格 start-->
+                                        <div class="data_list">
+                                            <table cellpadding="0" cellspacing="0" class="data_table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">
+                                                          	{$_lang['id']}
+                                                        </th>														
+                                                        <th scope="col" style="width:220px;">
+                                                            {$_lang['task_title']}
+                                                        </th>
+														<th scope="col">
+                                                            	稿件标题					
+                                                        </th>
+                                                        <th scope="col">
+                                                            {$_lang['task_cash']}															
+                                                        </th>
+                                                        <th scope="col">
+                                                            	交稿时间
+                                                        </th>                                                       
+                                                        <th scope="col">
+                                                            {$_lang['operate']}
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {if $task_work_arr}
+                                                    {loop $task_work_arr $v}
+                                                    <tr>
+                                                        <td>
+                                                            $v['work_id']
+                                                        </td>
+														<td>
+                                                           <a href="{$_K['siteurl']}/index.php?do=task&task_id={$v['task_id']}" title="$v['task_title']">
+                                                           	<!--{eval echo kekezu::cutstr($v['task_title'],20)}--></a>
+                                                        </td>
+                                                        <td>
+                                                           <!--{eval echo kekezu::cutstr($v['work_title'],20)}-->
+                                                        </td>
+                                                        <td>
+                                                        {if $v[model_id]==4&&$v[task_cash_coverage]}
+	                                                    	$cove_arr[$v[task_cash_coverage]][cove_desc]
+	                                                    {else}
+	                                                   		$v['task_cash']{$_lang['yuan']}
+	                                                    {/if}
+                                                        </td>
+                                                        <td>
+                                                            <!--{date('Y-m-d H:i',$v['work_time'])}-->
+                                                        </td>                                                        
+                                                        <td>
+                                                         <a href="{$_K['siteurl']}/index.php?do=task&task_id={$v['task_id']}" target="_blank" class="button">查看</a>
+														</td>
+                                                    </tr>
+                                                    {/loop}
+                                                    {else}
+                                                    <tr>
+                                                        <td colspan="6" class="t_c">
+                                                          	  没有记录。
+                                                        </td>
+                                                    </tr>
+                                                    {/if}
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td colspan="6" class="t_r">
+                                                            {$_lang['total']}:{$count}{$_lang['ge']}
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                        <!--data_table数据表格 end-->
+                                        <div class="page clearfix">
+                                            <p>
+                                                {$pages['page']}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!--from表单 end-->
+                                </div>
+                            </article>
+                            <!--detail内容 end-->
+                        </div>
+                    </div>
+                    <!--main content end -->
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--main end-->
+    </div>
+</div>
+<!--contain end-->
+
+<!--{template user/user_footer}-->
+<!--{template footer}-->

@@ -1,0 +1,90 @@
+<!--{template header_top}-->
+<!--{template header_shop_flagship}-->
+<div class="container_24 clearfix">
+	<section class="fla_content clearfix">
+		<!--{template shop/section_nav_flagship}-->
+		<div class="fla_banner clearfix  po_re mt_5">
+			{if $vip_topimg['ban_5']}
+		      <img src="{$_K['siteurl']}/{$vip_topimg['ban_5']}" alt="">
+		     {else}
+			  <img src="{$_K[siteurl]}/{$style_path}/theme/simple/img/shop/job_info_banner.png" alt="">
+			 {/if}
+		</div>
+		<div class="breadcrumbs">
+			您当前的位置：<a href="{$ac_url}">公司首页</a><span class="font_simsun">></span><a href="{$ac_url}&view=job_list">人才招聘</a><span class="font_simsun">></span><a href="{$ac_url}&view=job_list">招聘列表</a><span class="font_simsun">></span><a href="" class="c666">招聘职位：{$job_info[job_title]}</a>
+		</div>
+	<!--{template shop/section_slide_flagship}-->
+	<div class="fla_right_con clearfix fl_r">
+			<div class="box default clearfix">
+				<div class="inner clearfix">
+					<header class="box_title">
+						<h3>招聘列表</h3>
+					</header>
+					<article class="job_info_box clearfix">
+						<h2 class="mb_20"><b>招聘职位：{$job_info['job_title']}</b>{if $job_info['is_top']}<span>急</span>{/if}</h2>
+						<div class="job_msg clearfix">
+							<span class="fl_l">招聘人数：{$job_info['number']}人</span>
+							<span class="fl_r">招聘截止日期：{if $job_info['cut_time']}<!--{eval echo date('Y-m-d',$job_info[cut_time]);}-->{else}长期有效{/if}</span>
+						</div>
+						<table cellpadding="0" cellspacing="0" width="100%" class="job_table mt_10">
+							<tr>
+								<th>职位基本要求</th>
+								<td class="job_nees clearfix">
+									<ul class="clearfix">
+										<li>学历要求： {$job_info['education']}</li>
+										<li>性别要求：  {$job_info['sex']}</li>
+										<li>职位性质：  {$job_info['job_type']}</li>
+										<li>招聘对象：  {$job_info['need_obj']}</li>
+										<li>年龄要求：  {$job_info['age']}</li>
+										<li>工作经验： {$job_info['experience_year']}</li>
+										<li>工作地点：{$local[0]}-{$local[1]}</li>
+										<li>薪资待遇： {$job_info['salary']}</li>
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<th>职位职责和说明</th>
+								<td>{$job_info['intro']}</td>
+							</tr>
+							<tr>
+								<th>联系加入我们</th>
+								<td>
+									<ul>
+										<li>联 系 人： {$job_info['contact_people']} </li>
+										<li>联系电话：  {$job_info['contact_tel']} </li>
+										<li>联系传真： {$job_info['contact_fax']} </li>
+										<li>通信地址：  {$job_info['contact_address']}</li>
+									</ul>
+								</td>
+							</tr>
+						</table>
+						{if $uid!=$job_info['uid']}
+						<a href="javascript:void(0);" onclick="apply();" class="job_btn"></a>
+						{/if}		
+					</article>
+				</div>
+			</div>
+	</div>				
+	<!--{template shop/section_footer_flagship}-->
+	</section>
+</div>
+<script type="text/javascript">
+	var uid = '{$uid}';
+	var sid = '{$sid}';
+	var job_id = '{$job_info[job_id]}';
+	var j_uid = '{$job_info[uid]}';
+	var url = '{$ac_url}&view=job_info&ac=apply';
+    function apply(){
+		if(uid==j_uid){
+			showDialog("您无法向自己发布的职位应聘","alert","操作提示");return false;
+		}else{
+			$.post(url,{uid:uid,job_id:job_id},function(json){
+			if(json.status==1){
+				showDialog(json.msg,'right','操作提示');return false;
+			}else{
+			    showDialog(json.msg,'alert','操作提示');return false;
+			}
+		},'json');
+		}		
+	}
+</script>

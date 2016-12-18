@@ -1,0 +1,25 @@
+/*------------------------------------------------------------------------------------------------------
+*
+* FileName:					domreset.css
+* Description:				CSS框架,DOM重置操作,是framework.css的精简版
+* Browser Version:			适应所有浏览器版本
+* Author:					游影(Yoin,14507247@qq.com)
+* Version:					1.0.0 (2010-11-05)
+* WebSite:					http://www.net-window.com
+*
+--------------------------------------------------------------------------------------------------------*/
+
+
+/*__Global Frame Set >> __HTML Tags
+--------------------------------------------------------------------------------------------------------*/
+body, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, ul, ol, li, form, fieldset, legend, input, textarea, th, td { margin:0px; padding:0px;}
+body, input, select, textarea { font:12px "Courier New", Courier, tahoma, arial, \5b8b\4f53, sans-serif;}
+h1, h2, h3, h4, h5, h6 { font-size:100%;}
+ul,ol { list-style:none;}
+a { text-decoration:none;}
+a:hover { text-decoration:underline;}
+fieldset, img { border:none;}
+
+.cls { clear:both;}
+.nobg { background:none;}
+.nobor { border:none;}

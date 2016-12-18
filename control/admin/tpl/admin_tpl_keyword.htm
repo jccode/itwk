@@ -1,0 +1,122 @@
+<!--{template control/admin/tpl/admin_header}-->
+<div class="page_title">
+    	<h1>文章关键字</h1>
+        <div class="tool">         
+            <a href="index.php?do={$do}&view=keyword" {if $view != 'keyword_edit'}class="here"{/if}>文章关键字管理</a>
+			<a href="index.php?do={$do}&view=keyword_edit" {if $view == 'keyword_edit'}class="here"{/if}>文章关键字添加</a>
+        </div>
+</div> 
+
+<form method="get" action="index.php" id="frm_art_search">
+	<input type="hidden" name="do" value="{$do}" >
+	<input type="hidden" name="view" value="{$view}">
+	<input type="hidden" name="page" value="{$page}">
+	<div class="box search p_relative">
+    	<div class="title"><h2>{$_lang['search']}</h2></div>
+    	<div class="detail" id="detail"> 
+    		<table cellspacing="0" cellpadding="0">    		
+				<tbody>
+					<tr>
+		                <th>关键字</th>
+		                <td>
+		                 <input type="text" class="txt" name="keywords" id="keywords" value="{$keywords}">
+						 *{$_lang['search_by_like']}
+						 </td>
+						<th>{$_lang['list_result']}</th>						
+						<td >						
+						<select name="slt_page_size">
+                			<option value="10" {if $slt_page_size=='10'}selected="selected"{/if}>{$_lang['page_size']}10</option>
+                			<option value="20" {if $slt_page_size=='20'}selected="selected"{/if}>{$_lang['page_size']}20</option>
+                			<option value="30" {if $slt_page_size=='30'}selected="selected"{/if}>{$_lang['page_size']}30</option>
+            			</select>
+           				<button class="pill" type="submit" value={$_lang['search']} name="sbt_search">
+								<span class="icon magnifier">&nbsp;</span>{$_lang['search']}
+							</button>
+						</td>
+					</tr>          			
+           		</tbody>
+			</table>
+    	</div> 
+</div>
+
+
+<div class="box list">
+	 
+
+ 
+<div class="title"><h2>文章关键字列表</h2></div>
+    <div class="detail"> 
+    <div id="ajax_dom">
+  	<input type="hidden" name="page" value="{$page}">
+            <table border="0" cellspacing="0" cellpadding="0"  >
+                <tr style="align-text:center;"> 
+                    <th width="80">
+         			   {$_lang['id']}
+                    </th>
+                    <th width="100">
+ 						关键字
+                    </th>
+                    <th class="motif">
+                       	关键字链接
+                    </th>
+					<th width="70">
+						用户名
+					</th>
+					<th width="50">
+						状态
+					</th>
+                    <th width="120">
+                       	{$_lang['time']} 
+                    </th>
+                    <th width="140">
+                       {$_lang['operate']}
+                    </th>
+                </tr>
+				<!--{eval //print_r($link_arr); }-->
+                {loop $keyword_arr $key $value}
+                <tr class="item">
+                    <td>
+                        <input type="checkbox" name="ckb[]" class="checkbox" value="{$value['keyword_id']}"> {$value['keyword_id']}
+                    </td>
+                    <td>
+                        {$value['word']}
+                    </td>
+                    <td>
+                        {$value['url']}
+                    </td>
+					<td>	
+                        {$value['username']}
+                    </td>
+					<td>
+						{$status_arr[$value['keyword_status']]}
+                    </td>
+                    <td>
+                        <!--{eval echo date('Y-m-d H:i',$value['edit_time'])}-->
+                    </td>
+                    <td>
+                       <a href="index.php?do={$do}&view=keyword_edit&keyword_id={$value['keyword_id']}&page={$page}" class="button dbl_target"> <span class="pen icon"></span>{$_lang['edit']}</a>
+                       <a href="$url&ac=del&keyword_id={$value['keyword_id']}" onclick="return cdel(this);" class="button"> <span class="trash icon"></span>{$_lang['delete']}</a>
+                    </td>
+                </tr>
+				{/loop}
+			<tr>
+			    <td colspan="9">
+			    <label for="checkbox">
+                   <input type="checkbox" id="checkbox" onclick="checkall();">{$_lang['select_all']}
+				</label>	
+            	<input type="hidden" name="sbt_action" class="sbt_action"/>
+				<!--button type="submit" name="sbt_action" onclick="return batch_act(this,'frm_art_search')" value="{$_lang['mulit_delete']}" class="pill negative" >
+					<span class="trash icon"></span>{$_lang['mulit_delete']}
+				</button-->
+        </tr>
+        </table>
+		<div class="page ">
+                    	{$pages['page']}
+                </div>
+		</div>
+
+</div>
+</div>		
+ 
+</form>
+<!--{template control/admin/tpl/admin_footer}-->

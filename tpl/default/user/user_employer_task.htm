@@ -1,0 +1,219 @@
+<!--{template header}--><!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+        <!--{template user/user_nav}--><!--main start-->
+        <section class="clearfix section">
+            <!--{template user/user_side}-->
+            <div class="show_panel ">
+		        <div class="">
+		            <div class="">
+		                <!--main content-->
+		                <div class=" clearfix box default">
+                            <!--header内容头部 start-->
+                            <header class="clearfix box_header">
+                                <h2 class="box_title">{$_lang['task_manage']}</h2>
+                                <div class="clear">
+                                </div>
+                            </header>
+                            <!--header内容头部 end--><!--detail内容 start-->
+                            <article class="box_detail">
+                                <!--messages消息 start-->
+                                <div class="messages m_warn clearfix">
+									<div class="">
+									<strong>友情提示</strong>
+                                    友情提示：您一共发布{$model_name}：{$count}个
+                                	</div>
+								</div>
+                                <!--messages消息 end-->
+                                <div class="">
+                                    <!--from表单 start-->
+                                    <div class="clearfix box pad10">
+                                        <form action="{$url}#userCenter" method="post" id="frm">
+                                            <input type="hidden" name="page" value="{$page}">
+                                            <div class="rowElem tool_bar clearfix">
+                                                <div class=" mr_5 fl_l clearfix">
+                                                    <input type="text" name="task_id" class="togg_u txt_input" value="{if $task_id}{$task_id}{else}{$_lang['please_input_task_id']}{/if}" title="{$_lang['please_input_task_id']}" size="12"/>
+                                                
+                                                    <input type="text" name="task_title" class="togg_u txt_input" value="{if $task_title}{$task_title}{else}{$_lang['please_input_task_name']}{/if}" title="{$_lang['please_input_task_name']}" size="12">
+                                                </div>
+                                                <div class="fl_l">
+                                                    <label class="t_l fl_l">
+                                                        {$_lang['task_status']}{$_lang['zh_mh']}
+                                                    </label>
+                                                    <select class="fl_l" name="status">
+                                                    	<option value='all' {if $status=='all'}selected="selected"{/if}> 所 有 </option>
+                                                        {loop $status_arr $k $v}<option value="$k" {if $k==$status&&$status!='all'}selected="selected"{/if}>{$v}</option>
+                                                        {/loop}
+                                                    </select>
+                                                </div>
+                                                <div class="fl_l">
+                                                    <select class="fl_l" name="ord">
+                                                        {loop $ord_arr $k $v}<option value="$k" {if $k==$ord}selected="selected"{/if}>{$v}  </option>
+                                                        {/loop}
+                                                    </select>
+                                                </div>
+                                                <div class="fl_l">
+                                                    <select class="fl_l" name="page_size">
+                                                        <option value="10" {if $page_size=='10'}selected="selected"{/if}>{$_lang['page_size']}10{$_lang['tiao']} </option>
+                                                        <option value="20" {if $page_size=='20'}selected="selected"{/if}>{$_lang['page_size']}20{$_lang['tiao']} </option>
+                                                        <option value="30" {if $page_size=='30'}selected="selected"{/if}>{$_lang['page_size']}30{$_lang['tiao']} </option>
+                                                    </select>
+                                                </div>
+                                                <div class="fl_r">
+                                                    <button class="block" type="submit" name="sbt_search" value="{$_lang['search']}">
+                                                        <span class="icon magnifier"></span>{$_lang['search']}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <!--date_table数据表格 start-->
+                                        <div class="data_list">
+                                            <table cellpadding="0" cellspacing="0" class="data_table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" style="width:56px;">
+                                                            {$_lang['task_id']}
+                                                        </th>
+                                                        <th scope="col" style="width:220px;">
+                                                            {$_lang['task_title']}
+                                                        </th>
+                                                        <th scope="col"  style="width:56px;">
+                                                            {$_lang['task_cash']}
+                                                        </th>
+                                                        <th scope="col"  style="width:100px;">
+                                                            {$_lang['pub_time']}
+                                                        </th>
+                                                        <th scope="col"  style="width:32px;">
+                                                            {$_lang['status']}
+                                                        </th>
+                                                        <th scope="col" >
+                                                            {$_lang['operate']}
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {if $task_info}
+                                                    {loop $task_info $v}
+                                                    <tr>
+                                                        <td>
+                                                            $v['task_id']
+                                                        </td>
+                                                        <td>
+                                                            <!--{eval $time=time();}-->{if $v['top_time']>$time} <img src="resource/img/ico/zd.png" alt="{$_lang['task_top']}" title="{$_lang['task_top']}">{/if} 
+                                                            {if $v['urgent_time']>$time}<img src="resource/img/ico/jj.png" alt="{$_lang['task_urgent']}" title="{$_lang['task_urgent']}">{/if}
+															<a href="{$_K['siteurl']}/index.php?do=task&task_id={$v['task_id']}" title="$v['task_title']"><!--{eval echo kekezu::cutstr($v['task_title'],20)}--></a>
+                                                        </td>
+                                                        <td>
+                                                        {if $v[model_id]==4||$v[model_id]==5}
+	                                                    	$cove_arr[$v[task_cash_coverage]][cove_desc]
+	                                                    {else}
+	                                                   		$v['task_cash']{$_lang['yuan']}
+	                                                    {/if}
+                                                        </td>
+                                                        <td>
+                                                            <!--{date('Y-m-d H:i',$v['start_time'])}-->
+                                                        </td>
+                                                        <td>
+                                                            $status_arr[$v['task_status']]
+                                                        </td>
+                                                        <td>
+                                                            <a href="{$_K['siteurl']}/index.php?do=task&task_id={$v['task_id']}">{$_lang['view']}</a> |
+                                                            {if $v['task_status']=='0'}
+																<a onclick="return del(this);" href="{$url}&ac=del&task_id=$v['task_id']">{$_lang['delete']}</a> |
+	                                                            <a href="{$_K['siteurl']}/index.php?do=pay&obj_type=pub_task&obj_id=$v['task_id']">{$_lang['pay']}</a> |
+	                                                        {/if}
+															<a href="{$_K['siteurl']}/index.php?do=release&pub_mode=onkey&t_id=$v['task_id']&model_id={$v['model_id']}&pub_mode=onekey">{$_lang['one_key_pub']}</a> 
+															{if ($v['model_id']==3&&$v['task_status']<8)==false&&($v['model_id']==4&&$v['task_status']<4)==false&&$v['task_status']!=10}|
+																<a href="javascript:void(0)" id="apply_invoice" onclick="apply_invoice('{$v[task_id]}','{$v[Invoice_status]}');">{$_lang['task_invoice']}</a>
+															{/if}
+														</td>
+                                                    </tr>
+                                                    {/loop}
+                                                    {else}
+                                                    <tr>
+                                                        <td colspan="6" class="t_c">
+                                                            {$_lang['norecord']}
+                                                        </td>
+                                                    </tr>
+                                                    {/if}
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td colspan="6" class="t_r">
+                                                            {$_lang['total']}:{$count}{$_lang['ge']}
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                        <!--data_table数据表格 end-->
+                                        <div class="page clearfix">
+                                            <p>
+                                                {$pages['page']}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!--from表单 end-->
+                                </div>
+                            </article>
+                            <!--detail内容 end-->
+                        </div>
+                    </div>
+                    <!--main content end -->
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--main end-->
+    </div>
+</div>
+<!--contain end-->
+<script type="text/javascript">
+    function del(obj){
+        var url = obj.href;
+        showDialog("$_lang['confirm_delete_ma']", "confirm", "{$_lang['operate_notice']}", function(){
+           location.href = url;
+        });
+        return false;
+    }
+    
+    //弹框描述
+    function task_payitem(task_id, payitem, payitem_time){
+        var task_id = task_id;
+        var payitem = payitem;
+        var payitem_time = payitem_time;
+        var url = "{$_K['siteurl']}/index.php?do=user&view=employer&op=task&ajax=get_task_desc&task_id=" + task_id + '&payitem=' + payitem + '&payitem_time=' + payitem_time;
+        $.post(url, function(json){
+            if (json.status == 1) {
+                showDialog(json.data, "confirm", "{$_lang['task_top']}", "set_payitem('" + task_id + "','" + payitem + "','" + payitem_time + "');", 1)
+            }
+        }, 'json')
+    }
+    
+    //增值服务 
+    function set_payitem(task_id, payitem, payitem_time){
+        var task_id = task_id;
+        var payitem = payitem;
+        var payitem_time = payitem_time;
+        var url = "{$_K['siteurl']}/index.php?do=user&view=employer&op=task&ajax=set_task_payitem&task_id=" + task_id + '&payitem=' + payitem + '&payitem_time=' + payitem_time;
+        $.post(url, function(json){
+            if (json.status == 1) {
+                showDialog(json.msg, 'right', "{$_lang['friendly_notice']}");
+                return false;
+            }
+        }, 'json');
+        
+    }
+	
+	//申请开票弹窗
+	function apply_invoice(taskId,invoicestatus){
+		if(invoicestatus==1){
+			showDialog("该任务已申请过开票，请前往发票管理页面查看。",'alert','操作提示');
+		}else{
+			showWindow("invoice","{$_K['siteurl']}/index.php?do=ajax&view=invoice&taskid=" + taskId,'get',0);return false;
+		}
+	}
+</script>
+<!--{template user/user_footer}-->
+<!--{template footer}-->

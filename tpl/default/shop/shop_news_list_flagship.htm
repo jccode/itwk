@@ -1,0 +1,51 @@
+<!--{template header_top}-->
+<!--{template header_shop_flagship}-->
+<div class="container_24 clearfix">
+	<section class="fla_content clearfix">
+		<!--{template shop/section_nav_flagship}-->
+		<div class="fla_banner clearfix  po_re mt_5">
+			{if $vip_topimg['ban_2']}
+			<img src="{$_K['siteurl']}/{$vip_topimg['ban_2']}" alt="">
+			{else}
+			<img src="{$_K[siteurl]}/{$style_path}/theme/simple/img/shop/news_info_banner.png" alt="">
+			{/if}
+			{if $uid==$shop_info['uid']}
+		   <div class="tr_editor" id="logo_diy">
+					<a href="javascript:;" onclick="shop_diy_banner(2)">编辑</a>
+		   </div>
+	    {/if}
+		</div>
+		<div class="breadcrumbs">
+			您当前的位置：<a href="{$ac_url}">公司首页</a><span class="font_simsun">></span><a href="{$ac_url}&view=news_list">新闻资讯</a>{if $art_type}<span class="font_simsun">></span><a href="" class="c666">{if $art_type==1}公司新闻{else}行业资讯{/if}</a>{/if}
+		</div>
+		<!--{template shop/section_slide_flagship}-->
+		<div class="fla_right_con clearfix fl_r">
+			<div class="box default clearfix">
+				<div class="inner clearfix">
+					<header class="box_title">
+						<h3>{if $art_type==1}公司新闻{elseif $art_type==2}行业资讯{else}新闻资讯{/if}</h3>
+					</header>
+					{if $art_arr}
+					<article class="news_lists_box clearfix">
+						<ul class="clearfix">
+							{loop $art_arr $k $v}							<li class="clearfix">
+								<div class="clearfix">
+									<a href="index.php?do={$do}&sid={$sid}&view=news_info&art_id=$v[art_id]" class="grid_15 alpha"><!--{eval echo kekezu::cutstr($v['art_title'],50)}--></a>
+									<span class="fl_r c999"><!--{eval echo date('Y-m-d',$v[pub_time]);}--></span>
+								</div>
+								<p><!--{eval echo kekezu::cutstr(strip_tags($v['content']),100)}--></p>
+							</li>	
+							{/loop}											</ul>
+						<div class="page_count fl_r mar10 pt_10">
+							{$pages[page]}
+						</div>
+					</article>
+					{else}
+					<article class="news_lists_box clearfix">暂无资讯</article>
+					{/if}
+				</div>
+			</div>
+		</div>		
+		<!--{template shop/section_footer_flagship}-->
+	</section>
+</div>

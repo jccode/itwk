@@ -1,0 +1,125 @@
+<!--{template header_top}-->
+<!--{template header_shop}-->
+<div class="wrapper clearfix">
+	<div class="container_24 clearfix">
+		<div class="grid_24 clearfix">
+			<div class="nav_lists_shop clearfix mt_20">
+						<!--头部导航-->
+			<!--{template shop/section_nav}-->
+			<!--end 头部导航-->
+			</div>
+			
+			
+			{if $shop_info[shop_level]>1}
+			<!--{template shop/section_slide}-->
+			{/if}
+			<!--内容主体-->
+			<div class="shop_content clearfix mt_10">
+				
+				<!--左内容-->
+				<div class="shop_left clearfix grid_5 alpha">
+					<div  class="box default clearfix shop_info_boxs mb_10">
+					<!--用户头像-->
+						<!--{template shop/section_user}-->
+						<!--end 用户头像-->
+					</div>
+				</div>
+
+				<!--左内容 end-->
+				
+				<!--右内容-->
+				<div class="shop_right clearfix grid_19 omega fl_r ">
+					<div class="box default clearfix firm_box">
+						<!--用户资料-->
+						<!--{template shop/section_info}-->
+						<!--end 用户资料-->
+					</div>
+					<div class="box_shadow"></div>
+					<div class="box default clearfix mt_10 return_list">
+						<div class="inner clearfix">
+							<header class="box_title clearfix">
+								<a href="{$_K['siteurl']}/index.php?do=shop&sid={$shop_info['shop_id']}&view=case_list" class="fl_l"><h2 ><span class="font_simsun">< </span>返回列表</h2></a>								
+							</header>
+							<article class="box_title clearfix border_n">
+								<a href="javascript:void(0);" class="fl_l">{$case_info['case_name']}</a>
+								<div  class=" fl_r">
+									类别：
+									<a href="{$_K['siteurl']}/index.php?do=shop&sid={$shop_info['shop_id']}&view=case_list&cate_id={$case_info['cate_id']}">{$shop_cate[$case_info['cate_id']][cate_name]}</a>
+								</div>
+							</article>
+						</div>
+					</div>
+					<div class="box default clearfix mt_10 pad10">
+						<div class="inner">
+							<div class="clearfix case_info_list">
+								<img class="block" src="{$_K['siteurl']}/{$case_info['case_pic']}">
+								<h2 class="">案例说明</h2>
+								<p class="ws_break mt_10 pb_20 pl_10 pr_10">{$case_info['case_desc']}</p>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix mt_10 mb_20 case_show">
+						<div class="grid_9 alpha">
+							<b class="block t_c font14">
+								<a {if $case_up_info}href="{$_K['siteurl']}/index.php?do=shop&sid={$shop_info['shop_id']}&view=case_info&case_id={$case_up_info['case_id']}"{else}href="javascript:void(0);"{/if}>
+									<span class="font_simsun"><</span> 
+									上一个案例
+								</a>
+							</b>
+							<div class="item clearfix mar0">
+							  	<div class="item_box clearfix">
+							  		{if $case_up_info}
+							  		<a href="{$_K['siteurl']}/index.php?do=shop&sid={$shop_info['shop_id']}&view=case_info&case_id={$case_up_info['case_id']}" class="block">
+							  			<img src="{$_K['siteurl']}/{$case_up_info['case_pic']}" alt="">
+										<p class="ws_hide mt_5">{$case_up_info['case_name']}</p>
+									</a>	
+									<div  class="case_type">
+										类别：
+										<a href="{$_K['siteurl']}/index.php?do=shop&sid={$shop_info['shop_id']}&view=case_list&cate_id={$case_up_info['cate_id']}">{$shop_cate[$case_up_info['cate_id']][cate_name]}</a>
+									</div>
+									{else}
+									没有了
+									{/if}
+								</div>
+							  </div>
+						</div>
+				
+						<div class="grid_9 omega fl_r clearfix">
+							<div class="fl_r">
+								<b class="block t_c font14">
+									<a {if $case_down_info}href="{$_K['siteurl']}/index.php?do=shop&sid={$shop_info['shop_id']}&view=case_info&case_id={$case_down_info['case_id']}"{else}href="javascript:void(0);"{/if}>
+										<span class="font_simsun">></span> 
+										下一个案例
+									</a>
+								</b>
+								<div class="item clearfix mar0">
+								  	<div class="item_box clearfix">
+								  		{if $case_down_info}
+								  		<a href="{$_K['siteurl']}/index.php?do=shop&sid={$shop_info['shop_id']}&view=case_info&case_id={$case_down_info['case_id']}" class="block">
+								  			<img src="{$_K['siteurl']}/{$case_down_info['case_pic']}" alt="">
+											<p class="ws_hide mt_5">{$case_down_info['case_name']}</p>
+										</a>	
+										<div class="case_type">
+											类别：
+											<a href="{$_K['siteurl']}/index.php?do=shop&sid={$shop_info['shop_id']}&view=case_list&cate_id={$case_down_info['cate_id']}">{$shop_cate[$case_down_info['cate_id']][cate_name]}</a>
+										</div>
+										{else}
+										没有了
+										{/if}
+									</div>
+								  </div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!--右内容 end-->
+				
+				<div class="clear"></div>
+			</div>
+			<!--内容主体 end-->
+		</div>
+	</div>
+</div>
+<!--{template shop/section_footer}-->
+<!--{template footer}-->

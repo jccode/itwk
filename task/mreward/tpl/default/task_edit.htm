@@ -1,0 +1,71 @@
+<!--多人悬赏start-->
+<style type="text/css">
+	.prize_ul li{ display: inline; float: left; width: 45%;}
+</style>
+<form action="" method="post" name="frm_edit_2_step2" id="frm_edit_2_step2">
+	<input type="hidden" name="step" value="step2">
+	<input name="model_id" type="hidden" value="2">
+ <div class="rowElem clearfix  " id='sreward_cash'>
+  <label class=""><strong>请设定您的任务赏金：</strong></label>
+   <div class="">
+   		<input class="" name="txt_task_cash" value="{$task_info['task_cash']}"
+		   id="txt_task_cash_2" msgArea="span_task_cash_2"  onkeyup="clearstr(this)"
+		   title="任务预算,不得为小数，最少金额为{$task_config['min_cash']}{$_lang['yuan']}"
+	       limit="required:true;type:float;between:{$task_config['min_cash']}-"
+		   msg="任务预算不得为空,最小金额为{$task_config['min_cash']}{$_lang['yuan']}"
+		   onblur="getMaxDday(this.value,2)" size="10" type="text"/>
+		<span class="ml_5 ">{$_lang['yuan']}</span>
+		<span id="span_task_cash_2"></span>
+		<div class="clear"></div>
+   </div>
+</div>
+<div class=" rowElem clearfix ">
+	<label class=""><strong>您希望威客用多长时间完成任务：</strong></label>
+	<div class="">
+		<input type="text" name="txt_task_period" id="txt_task_period_1" value="{$task_day}"
+		 limit="required:true;type:int;between:1-" msg="时间输入错误" msgArea="span_task_period_2"
+		  onkeyup="clearstr(this);" onblur="valid_task_day(2);">天
+		<span id="span_task_period_2"></span>
+		<div class="clear"></div>
+	</div>
+	<input type="hidden" id="task_minday_2" name="task_minday_2">
+	<input type="hidden" id="task_maxday_2" name="task_maxday_2">
+</div>
+<div class="rowElem clearfix ">
+	<div class="">
+	<label class=""><strong>我需要：</strong></label>
+	
+		<input type="text" name="prize_count" id="txt_prize_count" value="{if $task_info[work_count]}$task_info[work_count]{else}2{/if}" onkeyup="clearstr(this);task_prizeset(this.value)" msgArea="" size=4 >
+	人中标 (最多只能5人) <span id="msg_prize_valid" class="cc00"></span>
+	</div>
+
+	<ul id="multi_prize_c_ul" class=" prize_ul">
+		<li id="prize_1_li"><span class='pl_20'>第一名赏金</span>:<input size="8" name="task_prize[1]" type="text" value="<!--{eval echo intVal($prize_arr[1][prize_cash])}-->" onkeyup="clearstr(this);prize_valid2()" id="task_prize_1"></li>
+		<li id="prize_2_li"><span class='pl_20'>第二名赏金</span>:<input size="8" name="task_prize[2]" type="text" value="<!--{eval echo intVal($prize_arr[2][prize_cash])}-->" onkeyup="clearstr(this);prize_valid2()" id="task_prize_2"></li>
+		<li id="prize_3_li" style="{if $task_info[work_count]<3}display:none{/if}"><span class='pl_20'>第三名赏金</span>:<input size="8"  type="text" name="task_prize[3]" value="<!--{eval echo intVal($prize_arr[3][prize_cash])}-->" onkeyup="clearstr(this);prize_valid2()" id="task_prize_3"></li>
+		<li id="prize_4_li" style="{if $task_info[work_count]<4}display:none{/if}"><span class='pl_20'>第四名赏金</span>:<input size="8"  type="text" name="task_prize[4]" value="<!--{eval echo intVal($prize_arr[4][prize_cash])}-->" onkeyup="clearstr(this);prize_valid2()" id="task_prize_4"></li>
+		<li id="prize_5_li" style="{if $task_info[work_count]<5}display:none{/if}"><span class='pl_20'>第五名赏金</span>:<input size="8"  type="text" name="task_prize[5]" value="<!--{eval echo intVal($prize_arr[5][prize_cash])}-->" onkeyup="clearstr(this);prize_valid2()" id="task_prize_5"></li>
+
+	</ul>
+</div>	
+<div class="rowElem clearfix ">
+	<label class=""><strong>设置入围名额：</strong> <span class="c999">入围奖名额限定2-5人，平分10%赏金</span></label>
+	<div class="">
+		<select name="notice_count" style="width:150px;">
+			<option value="2" {if $task_info['notice_count']==2}selected="selected"{/if}>2</option>
+			<option value="3" {if $task_info['notice_count']==3}selected="selected"{/if}>3</option>
+			<option value="4" {if $task_info['notice_count']==4}selected="selected"{/if}>4</option>
+			<option value="5" {if $task_info['notice_count']==5}selected="selected"{/if}>5</option>
+		</select> 人   
+	</div>
+</div>
+<div class="rowElem clearfix po_re">
+	<label class=""><strong>保证选稿：</strong> <input type="checkbox" name="must_choosework" value="1" {if $task_info[must_choosework]}checked="checked"{/if}></label>
+	<div class="">
+		<label>
+		能提高威客参与热情，能为您提交更多可选稿件；<br>不保证选稿时，不满意可申请全额退款。</label>
+	</div>
+</div>
+	<!--多人悬赏 end-->
+</form>
+<!--from表单 end-->

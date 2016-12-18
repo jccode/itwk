@@ -1,0 +1,480 @@
+<!--{template header_service}-->
+<!--{template header_service_nav}-->	
+<link href="{$_K['siteurl']}/tpl/default/css/task.css" rel="stylesheet"/>
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/task.css" rel="stylesheet"/>						
+<div class="wrapper clearfix">
+	<!--页面头部-->
+		 <header class="clearfix page_header">
+			  <div class="container_24 clearfix"> 
+			   <!--页面导航-->
+			    <div class="breadcrumbs clearfix po_re">
+			    	你的位置：
+			    		<a href="index.php">IT帮手网首页</a>
+						<span class="font_simsun"> > </span>
+						<a href="{$_K['siteurl']}/index.php?do=service">劳务大厅</a>
+						<span class="font_simsun"> > </span>
+						<a href="{$_K['siteurl']}/index.php?do=indus&indus_id={$task_info[indus_pid]}">{$indus_p_arr[$task_info[indus_pid]][indus_name]}</a>
+						<span class="font_simsun">&gt;</span>
+						<a href="{$_K['siteurl']}/index.php?do=indus&indus_id={$task_info[indus_id]}">{$indus_arr[$task_info[indus_id]][indus_name]}</a>
+		
+				
+						<span class="po_ab">
+				    	   <a href="{$_K['siteurl']}/index.php?do=article">新闻中心 </a>|
+						   <a href="{$_K['siteurl']}/index.php?do=special&view=special_list">精彩专题</a>|
+						   <a href="{$_K['siteurl']}/index.php?do=help&view=service">客服中心</a>|
+						   <a class="border_n" target="_blank" href="http://e.weibo.com/epweikecom" rel="nofollow">
+							<img src="{$_K['siteurl']}/tpl/default/theme/simple/img/index/btn_sina.png">
+							官方微博
+							</a>
+					   </span>
+				</div>
+			   <!--end 页面导航-->  
+			 </div>
+		</header> 
+	 <!--end 页面标题-->
+	 
+	 
+	 
+	 
+	 
+	 <!--详情页-需求-->
+	 <section class="clearfix" id="taskScroll">
+	 	<div class="container_24">
+	 		<div class="life_service_top pad20 pr_10 clearfix box default">
+	 			<div class="time_site fl_l pl_10 pr_20"> 
+	 				<h1>$task_info['task_title']</h1>
+					<div class="small_project">
+						<span>任务编号:$task_id</span>
+						<span>雇主：<a href="{$_K['siteurl']}/index.php?do=shop&u_id={$task_info[uid]}">{$task_info[username]}</a></span>
+						<!--{eval $g = $task_obj->_g_userinfo;}-->
+						<span>信用等级：<!--{eval echo keke_glob_class::get_g_level_ico($g['e_level'])}--></span>
+						<span>认证：<!--{eval echo(keke_glob_class::get_auth_ico($g['auth_realname'],$g['auth_mobile'],$g['auth_email'],$g['auth_bank']));}-->
+						</span>
+					</div>
+					<div class="time_site_table pt_10">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							<tbody>
+		  					<tr>
+		    					<td class="left" width="100" height="40"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/site.gif">
+								<label class="pl_10" for="">地点</label></td>
+		    					<td><a href="javascript:;" class="pr_10">{$task_info[city]}<!-- -{$task_info[address]}--></a><a href="javascript:void(0);" id="set_map" onclick="set_map();"  class="set_map"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/mark.gif"></a></td>
+									<script type="text/javascript">
+								   		function set_map(){
+											var url= encodeURI("{$_K['siteurl']}/index.php?do=ajax&view=map&ac=service&area={$task_info[city]}&address={$task_info[address]}");
+											showWindow("map",url,'get',1);return false;						
+										}		
+									</script>
+		  					</tr>
+		  					<tr>
+		    					<td class="left" width="100" height="40"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/time_icon.gif"><label class="pl_10" for="">时间</label></td>
+		    					<td><!--{date('Y-m-d H:i:s',$task_info['start_time'])}--></td>
+		  					</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="offer_events clearfix pt_20">
+						<p>此任务{if $task_info['task_status']==1}正等待审核中{elseif $task_info['task_status']==0}等待雇主付款{elseif $task_info['task_status']==2}正接受投标中{elseif $task_info['task_status']==3}正等待雇主选标{elseif $task_info['task_status']==4}已选定投标{if !$task_info[cash_status]}，等待雇主托管赏金{/if}{elseif $task_info['task_status']==5}正等待雇主验收{elseif $task_info['task_status']==7}暂时被冻结{else}已结束{/if}，您可以：</p>
+						<ul class="clearfix pt_10">
+							
+							{if $process_can['publish']}
+								<li><a href="{$_K['siteurl']}/index.php?do=release&&task_id=$task_id&r_step=step2" class="button">继续发布</a></li>
+							{/if}
+							{if $process_can['task_cancer']}
+								<li><a href="javascript:void(0)" onclick="task_cancer('$task_id')" class="button">放弃需求</a></li>
+							{/if}
+							{if $process_can['task_pay']}
+								<li class="mr_10"><a href="{$_K['siteurl']}/index.php?do=task&task_id=$task_id&op=task_pay" class="submit">托管赏金</a></li>
+							{/if}
+							{if $process_can ['reqedit']}
+								<li><a href="javascript:void(0);" onclick="taskReqedit();" class="submit">补充说明</a></li>
+							{/if}
+							{if $process_can['edit']}
+								<li><a href="javascript:void(0);" onclick="taskEdit();" class="button">修改任务</a></li>
+							{/if}
+							{if $process_can ['task_favor']}
+								<li><a href="javascript:;" onclick="favor('task_id','task','{$model_code}','{$task_info['uid']}','{$task_id}','{$task_info['task_title']}','{$task_id}')" class="button">收藏任务</a></li>
+							{/if}
+							{if $process_can ['task_report']}
+								<li><a href="javascript:void(0);" onclick="report( 'task', '1','{$task_info[task_id]}','{$task_info[uid]}','{$task_info[username]}');" class="button">举报任务</a>
+							{/if}
+							{if $process_can['onekey']}
+								<li class="last"><a href="{$_K['siteurl']}/index.php?do=release" class="button">发布类似需求</a></li>
+							{/if}
+							{if $process_can['work_hand']}
+								
+								{if $my_work}
+									<li class="ml_10"><a href="javascript:;" onclick="workModify('{$_K['siteurl']}/index.php?do=task&op=work_modify&task_id=$task_id&work_id={$my_work[work_id]}');"
+										class="submit">修改报价</a>
+									</li>
+								{else}
+									<li class="ml_10"><a href="javascript:;" onclick="workHand('{$_K['siteurl']}/index.php?do=task&op=work_hand&task_id=$task_id');"
+										class="submit">立即报价</a>
+									</li>
+								{/if}
+								
+							{/if}
+						</ul>
+					</div>
+	 			</div>
+				<div class="attention_number prefix_1 ml_10 clearfix">
+					<span class="block">该需求的关注人数：<strong class="ml_5 mr_5">{$task_info['view_num']}</strong> 人</span>
+					<div class="accord_pay clearfix mt_10 ">
+						<ul class="number clearfix">
+							<li class="month clearfix">
+								<div class="time_rem po_re t_c clearfix">
+									<div class="time_rem_top">
+										该需求{if $task_info['unite_price']==7}一口价{else}按{$price_unit[$task_info['unite_price']]}支付{/if}
+									</div>
+									<div class="time_arrow po_ab">&diams; </div>
+									<div class="time_rem_bottom">
+										<b>￥{$task_info['task_cash']}</b>{if $task_info['unite_price']!=7}/{$price_unit[$task_info['unite_price']]}{/if}
+									</div>
+								</div>
+							</li>
+							<li class="t_c mt_30">
+								<p><b>$task_info[wiki_num]</b></p>
+								人已报价
+							</li>
+						</ul>
+						<div class="mode_box po_re clearfix">
+							
+							<div>{if $task_info[task_type]<3}雇主只选择一位威客{else}单人中标{/if}</div>
+							<div class="c999"  id="d_detail_more_2" style="display:none" >
+							{if $task_info[task_type]<3}
+							雇主只选一位威客为其完成任务,威客一人独享赏金
+							{else}
+							雇主直接雇佣威客参加任务
+							{/if}
+
+							</div>
+							
+							<a href="javascript:();"></a>
+						</div>
+						<script type="text/javascript">
+							$(function(){
+								$('.mode_box').hover(function(){
+									$(this).children('div').eq(1).show();
+								},function(){
+									$(this).children('div').eq(1).hide();
+								})
+							})
+						</script>
+						<div class="mode_box po_re clearfix">
+						    <div>赏金状态: {if $task_info['cash_status']}雇主已托管赏金{else}雇主未托管赏金{/if}
+								<div class="c999">托管赏金：先选威客再托管赏金</div>
+							</div>
+							<div class="c999"  id="d_detail_more_3" style="display:none" >
+								<ol>
+								<li>赏金未托管，先选威客后再托管赏金。</li>
+								<li>威客仅报价，不交稿，中标后待雇主托管赏金后再交稿。</li>
+								</ol>
+							小提示：未托管赏金发生的任何纠纷，一品不予受理。
+						</div>
+							<a href="javascript:();"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="req_res mt_10 clearfix">
+				<h2>需求描述：</h2>
+				<p class="grid_17 omega alpha"><!--{eval echo kekezu::escape($task_info[task_desc])}--></p>
+			</div>
+			{if ($task_info['ext_status']==1||$task_info['uid']==$uid)&&$task_info['ext_desc']}
+			<div class="req_res mt_10 clearfix">
+				
+					<h1 class="font14 pl_5">描述补充{if $task_info['ext_status']==0}(<span class="ea5e00">待审核</span>){/if}</h1>
+					<div id="task_ext_desc">
+							<!--{eval echo kekezu::escape($task_info['ext_desc'])}-->
+					</div>
+				
+			</div>
+			{/if}
+			<div class="service_nav clearfix mt_20">
+				<div class="nav_lists_info  clearfix">
+					<div class="nav_lists_nav clearfix">
+						<ul class="fl_l">
+							{if $task_info['task_type']<3}
+							<li {if !$st}class="selected"{/if}>
+							<a {if !$st}class="selected"{/if} href="{$_K['siteurl']}/index.php?do=task&task_id=$task_id&page_size=$page_size&order=$order">所有报价{if !$st}(<span class="cc00"> $task_info[work_num]</span> ){else}（$task_info[work_num]）{/if}</a></li>{/if}
+					<li {if $st==11}class="selected"{/if}>
+						<a href="{$_K['siteurl']}/index.php?do=task&task_id=$task_id&st=11&page_size=$page_size&order=$order">竞标成功{if $st==11}(<span class="cc00"> {if $search_condit[11][count]}$search_condit[11][count]{else}0{/if} </span> ){else}（{if $search_condit[11][count]}$search_condit[11][count]{else}0{/if}）{/if}</a></li>
+						</ul>
+	
+						<div class="fl_r clearfix mt_5">
+							<div class="exco_case fl_l">
+								<a href="javascript:;" id="desc_toggle_a" onclick="if($(this).html()=='<b>↑</b>展开所有方案'){$(this).html('<b>↓</b>收起所有方案');$('#task_desc_cont').show()}else{$(this).html('<b>↑</b>展开所有方案');$('#task_desc_cont').hide()}"><b>↓</b>收起所有方案</a>
+							</div>
+							<div class="fl_l ml_10" name="order" onchange="location.href=this.value">
+								<select class="block">
+									<option value="{$_K['siteurl']}/index.php?do=task&task_id=$task_id&st=$st&page_size=$page_size" {if $order==1}selected=selected{/if} >按默认排序</option>
+							<option value="{$_K['siteurl']}/index.php?do=task&task_id=$task_id&st=$st&page_size=$page_size&order=2" {if $order==2}selected=selected{/if} >最新稿件在先</option>
+								</select>
+							</div>
+							<div class="page_count clearfix fl_l ml_10">
+						每页显示：
+						<a href="{$_K['siteurl']}/index.php?do=task&task_id=$task_id&st=$st&page_size=12&order=$order" {if $page_size==12}class="selected"{/if} rel="nofollow">12</a>
+						<a href="{$_K['siteurl']}/index.php?do=task&task_id=$task_id&st=$st&page_size=24&order=$order" {if $page_size==24}class="selected"{/if} rel="nofollow">24</a>
+						<a href="{$_K['siteurl']}/index.php?do=task&task_id=$task_id&st=$st&page_size=36&order=$order" {if $page_size==36}class="selected"{/if} rel="nofollow">36</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<div id="task_desc_cont">
+		  	<div  id="gj_summery">
+		{if $work_info}	
+       {loop $work_info $v} 
+       <div class="service_info_cons mt_20 clearfix">
+       	
+				<div class="s_info_lcon fl_l clearfix">
+					<div class="s_lcon_header clearfix">
+						<div class="clearfix">
+							<div class="fl_l">
+								竞标编号：{$v['work_id']}
+							</div>
+							<div class="fl_r c999 s_oper">
+								<a href="{$_K['siteurl']}/index.php?do=task&op=report">举报</a><span class="ml_5 mr_5">|</span><a href="#">投诉</a>
+							</div>
+						</div>
+					</div>
+					<div class="user_info po_re clearfix" uid="{$v['uid']}" wid="{$v['work_id']}">
+					<div class="s_user_body clearfix pad10">
+						<div class="fl_l">
+							<!--{userpic($v[uid],'small')}-->
+						</div>
+						<div class="fl_l ml_10 s_user_con">
+							<p><a href="{$_K['siteurl']}/index.php?do=shop&u_id={$v['uid']}">{$v['username']}</a></p>
+							<p><!--{eval echo keke_glob_class::get_w_level_ico($v['w_level'])}--></p>
+							<p class="pb_5">{$v['residency']}</p>
+						</div>
+					</div>	
+					<div class="s_lcon_footer clearfix">
+						<div class="clearfix">
+							<div class="fl_l">
+								认证状况：
+							</div> 
+							<div class="fl_l s_footer_img">  
+								<!--{eval echo(keke_glob_class::get_auth_ico($v['auth_realname'],$v['auth_mobile'],$v['auth_email'],$v['auth_bank']));}-->
+							</div>
+						 </div>
+					  </div>
+					  
+                 	<!--浮出层-->
+                	 <div class="po_ab user_detail hidden"></div>
+               		 <!--end 浮出层-->
+					<!--end 用户信息-->
+            	 </div>	
+				</div>	
+				
+				<div class="s_info_rcon clearfix fl_l">
+					<div class="  po_re clearfix" id="{$v['work_id']}">
+					<div class="work_status_big work_{$v['work_status']}_big qualified_big1 po_ab" alt="{$work_status[$v['work_status']]}" title="{$work_status[$v['work_status']]}"></div>
+				
+					<div class="s_rcon_header clearfix">
+						<span class="fl_l">报价时间：{$_lang['zh_mh']}<!--{date('Y-m-d H:i:s',$v['work_time'])}--></span>
+						<span class="fl_r fontb pr_5" style='color:#EA5E00'><!--{eval mark_echo($v['mark_status']);}--></span>
+						<div class="fl_r">
+							<a  href="javascript:;" id="link_toggle_a" onclick="toggle_commlist(this,$v['work_id'])"><b class="mr_5">↑</b>展开</a>
+						</div>
+					</div>
+					<div class="s_rcon_body clearfix">
+						<div class="fl_l s_quote">
+							<p>报价</p>
+							<b>￥{$v['quote']}</b>
+						</div>
+						<div class="fl_l s_location">
+							<p>所在地区</p>
+							<b>{$v['area']}</b>
+						</div>
+					</div>
+					
+             <div class="pad20 work_detail">
+			<!--稿件操作-->
+       		 	 	<!--{eval $p=$process_can;}-->
+       		 	 {if ($uid==$task_info['uid']||$uid==$v['uid']||$user_info['group_id'])&&($p['work_choose']||$p['download']||$p['confirm_pay']||$p['work_complate']||$p['upload_source']||$p['work_cancer']||$p['work_comment']||$p['work_mark']||$p['task_mark'])}
+       		 	
+       		 		<div class="work_button_box">
+       		 			
+       		 			{if $process_can['work_choose']}
+			              <span id="work_11_{$v['work_id']}">
+			              	<a href="javascript:void(0);" class="button" onclick="workBid('{$v['work_id']}','11')">选他中标</a>
+			              </span>
+						{/if} 
+						
+						{if $process_can['work_cancer']&&$uid==$v[uid]}
+			            	<a href="javascript:void(0);" class="button" onclick="work_cancer('$task_id','$v['work_id']','11')">撤销投标</a>
+						{/if}
+						
+						{if $v['work_status']==11&&$uid==$v['uid']&&$process_can['upload_source']}
+			              	<a href="javascript:void(0);" class="button" onclick="upload_source('{$v[work_id]}')">上传源文件</a>
+			            {/if}
+						
+						{if ($process_can['download']||$uid==$v['uid']||$user_info['group_id'])&&$v['work_file']}
+			              <span>
+			              	<a href="javascript:void(0);" class="button" onclick="loadFile('{$v[work_id]}')">查看源文件</a>
+			              </span>
+			            {/if}
+						
+						
+						{if $v['work_status']==11&&$uid==$v['uid']&&$process_can['work_complate']}
+			              	<a href="javascript:void(0);" class="button" onclick="complate_task($task_id)">完成任务</a>
+			            {/if}
+						
+						{if $v['work_status']==11&&$process_can['confirm_pay']}
+			              <span id="confirm_pay">
+			              	<a href="javascript:void(0);" class="button" onclick="confirm_pay('$task_id')">确认付款</a>
+			              </span>
+			            {/if}
+						
+						{if $v['work_status']==11&&$process_can['part_pay']}
+			              <span id="part_pay">
+			              	<a href="javascript:void(0);" class="button" onclick="part_pay('$task_id')">分期付款</a>
+			              </span>
+			            {/if}
+						
+						{if $process_can['work_comment']}
+							<span id="confirm_pay">
+			              		<a href="javascript:void(0);" class="button" onclick="$('#work_comment_box_{$v[work_id]}').show();goComm('{$v[work_id]}');">稿件点评</a>
+			            	</span>
+						{/if}
+						
+						{if $mark[$v['work_id']]}
+							{if $process_can['work_mark']&&$v['work_status']=='11'}
+				            	<span>
+				                	<a href="javascript:void(0);" class="button" onclick="mark('{$basic_url}&op=mark&role_type=2&obj_id={$v['work_id']}');">{$_lang['mark_to_work']}</a>
+				                </span>
+				            {/if}
+							{if $process_can['task_mark']&&$v['work_status']=='11'}
+				            	<span>
+				                	<a href="javascript:void(0);" class="button" onclick="mark('{$basic_url}&op=mark&role_type=1&obj_id={$v['work_id']}');">{$_lang['mark_to_g']}</a>
+				               </span>
+				            {/if}
+			            {/if}						
+       		 	</div>
+				{/if}
+				<!--稿件操作 end-->
+				<div class="s_rcon_hidden clearfix" id="task_comment_cont_{$v['work_id']}" style="display:none;">
+						<p><!--{eval echo kekezu::escape($v['work_desc'])}--></p>
+					</div>
+					
+					<!-- 稿件好评 -->
+					{if $mark_list[$v['work_id']]}
+					<div class="good_comment">
+					 			<div class="arrow"></div>
+					 			<span class="c999 fl_r"><!--{date('Y-m-d H:i:s',$task_info['mark_time'])}--></span>
+								<p>雇主的评价：<strong class="ea5e00"><!--{eval mark_echo($v['mark_status']);}--></strong> </p>
+								<p class="g_info ws_break">$mark_list[$v['work_id']]['mark_content']
+								</p>
+								
+					</div>
+					{/if}
+					<!-- end 稿件好评 -->
+					
+					{if $v['comment_num']&&($uid==$task_info['uid']||$uid==$v['uid'])}
+					<summary class="pt_10 font14b">
+					<a href="javascript:void(0);" onclick="loadComment(this,'{$v['work_id']}','{$v['uid']}');">
+						({$v['comment_num']})条回复
+					</a>
+					</summary>
+				 {/if}
+				 
+				 
+				 
+				  
+				 <!-- 稿件留言 -->
+				 <div id="work_{$v['work_id']}_comment"  class="comment_list" style="display:none">
+				 	<!--<h3 class="pl_20 pt_10 pb_10 font14b">稿件点评</h3>-->
+				 	
+				 </div>
+				 <!-- 稿件留言 end -->
+                 <!-- 发布稿件留言 -->   
+			{if $process_can['work_comment']&&($uid==$task_info['uid']||$uid==$v['uid'])}
+				 <div class="work_answer pt_10 pb_10 clearfix" id="work_comment_box_$v[work_id]" style="display:none">
+					<div class="answer-form ">
+                    	<div class="grid_10">
+						<textarea class="tar_comment txt_input" onkeydown="checkCommentInner(this,event)" cols="70">{$_lang['i_say_little']}</textarea>
+                       
+                            <div class="answer-textarea  answer-zone pt_10" style="display:none;">
+                                <button type="button" class="button answer-zone" value="{$_lang['confirm']}" onclick="work_comment(this,'{$v['work_id']}')"><span class="check icon"></span>{$_lang['public']}</button>
+                                <span class="answer_word">{$_lang['you_can_input']}</span>
+                            </div>
+                        </div>
+					</div>
+				</div>
+			{/if}
+			<!-- 发布稿件留言  end-->  
+			
+	   		  <details open  class="mb_20" id="file">
+	    		<div class="affix mt_10" id="work_{$v['work_id']}_file"></div>
+	  		 </details>
+			
+				</div>
+			</div>
+			</div>
+		</div>
+		{/loop}
+		<div class="clearfix mt_20">
+			<div class="page_count fl_r">
+		{$pages['page']}
+            </div>
+		</div> 
+		{/if}
+		</div>
+	 </div>
+	 </section>
+	<!--详情页-需求 end-->
+
+</div>
+<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jQuery.mouseDelay.js"></script>
+
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/xheditor/xheditor.js"></script>
+<script type="text/javascript" >
+	var guid  	 	= parseInt($task_info['uid'])+0;
+	var task_id		= parseInt($task_id)+0;
+	var uid 		= parseInt('{$uid}')+0;
+	var task_status = parseInt($task_status)+0;
+	var basic_url	= "{$basic_url}";
+	var datePrv     = "{$date_prv}";
+	var username    = "{$username}";
+	var delay_count = parseInt('{$delay_count}')+0;
+	var delay_total  = parseInt('{$delay_total}')+0;
+	var trust_mode  = "{$trust_mode}";
+	
+	In.add('mreward_task',{path:"task/{$model_code}/{SKIN_PATH}/{$model_code}_task.js",type:'js'});
+	In('print','task','mreward_task');
+	
+	In.add('easySlider',{path:"{$_K['siteurl']}/resource/js/jqplugins/easySlider1.5.js",type:'js'});
+	In.add('index',{path:"$style_path/js/index.js",type:'js',rely:['easySlider']});
+	
+ 	In.add('lazy',{path:"{$_K['siteurl']}/resource/js/system/lazy.js",type:'js'});
+ 
+	In('easySlider','index','lazy',function(){
+		loadPics();
+	});
+		
+$(".box.model .task .box_detail .small_list li").hover(
+    function(){$(this).addClass('hover')},
+	function(){$(this).removeCss('hover')}
+	);
+	
+	$('.user_info').hover(function(){
+  		$(this).css('z-index',2);
+  	},function(){
+  		$(this).css('z-index',1);
+  	}); 
+	
+	var editor = '';
+	var m = r_step  = '';
+	$(function(){
+		$('#append_parent').ajaxSuccess(function(){
+			if($('.tar_content')){
+				editor = $(".tar_content").xheditor();
+				editor?editor.checkInner():'';
+			}
+		})
+	})
+</script> 
+
+
+<!--{template footer}-->

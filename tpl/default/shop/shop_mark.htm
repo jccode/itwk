@@ -1,0 +1,129 @@
+<!--{template header_top}-->
+<!--{template header_shop}-->
+<div class="wrapper clearfix">
+	<div class="container_24 clearfix">
+		<div class="grid_24 clearfix">
+			<div class="nav_lists_shop clearfix mt_20">
+			
+					<!--头部导航-->
+			<!--{template shop/section_nav}-->
+			<!--end 头部导航-->					
+			
+			</div>
+			
+			{if $shop_info[shop_level]>1}
+			<!--{template shop/section_slide}-->
+			{/if}
+			<!--内容主体-->
+			<div class="shop_content clearfix mt_10">
+				
+				<!--左内容-->
+				<div class="shop_left clearfix grid_5 alpha">
+					<div  class="box default clearfix shop_info_boxs mb_10">
+					<!--用户头像-->
+						<!--{template shop/section_user}-->
+						<!--end 用户头像-->
+					</div>
+				</div>
+				<!--左内容 end-->
+				
+				<!--右内容-->
+				<div class="shop_right clearfix grid_19 omega fl_r ">
+					<div class="box default clearfix firm_box">
+						<!--{template shop/section_info}-->
+					</div>
+					<div class="box_shadow"></div>
+					<div class="box default clearfix mt_10 mark_list">
+						<div class="inner clearfix">
+							<header class="box_title clearfix">
+								<h2>服务评价</h2>
+							</header>
+							<article class="box_title clearfix border_n">
+								<span {if !$mt} class="selected"{/if}><label><input type="radio" onclick='location.href="{$url}";' {if !$mt}checked="checked"{/if}>全部（{$total_mark}）</label></span>
+								<span {if $mt==1} class="selected"{/if}><label><input type="radio" onclick='location.href="{$url}&mt=1";' {if $mt==1}checked="checked"{/if}>好评（<!--{eval echo intval($mark_count[1]['count'])}-->）</label></span>
+								<span {if $mt==2} class="selected"{/if}><label><input type="radio" onclick='location.href="{$url}&mt=2";' {if $mt==2}checked="checked"{/if}>中评（<!--{eval echo intval($mark_count[2]['count'])}-->）</label></span>
+								<span {if $mt==3} class="selected"{/if}><label><input type="radio" onclick='location.href="{$url}&mt=3";' {if $mt==3}checked="checked"{/if}>差评（<!--{eval echo intval($mark_count[3]['count'])}-->）</label></span>
+							</article>
+						</div>
+					</div>
+					{if $mark_list}
+					<div class="clearfix mt_10">
+						
+						 {loop $mark_list $v}
+						<div class="box default clearfix mb_10 po_re">
+							<div class="inner">
+								<header class="mark_header clearfix">
+									<div class="grid_15 alpha omega ws_hide">
+										完成任务：<span>￥ {if $v['task_cash_coverage']}$cash_cove_arr[$v['task_cash_coverage']]['cove_desc']{else}$v['task_cash']{/if}</span>
+										<a href="{$_K['siteurl']}/index.php?do=task&task_id={$v['origin_id']}">{$v['task_title']}</a>
+									</div>
+									<div class="fl_r grid_3 alpha omega">
+										<div class="fl_r">
+											评价：
+											{if $v['mark_status']==3}
+												<b class="bad_praise">差评</b>
+											{elseif $v['mark_status']==2}
+												<b class="min_praise">中评</b>
+											{elseif $v['mark_status']==1}
+												<b class="praise">好评</b>
+											{else}
+												<b class="bad_praise">未评价</b>
+											{/if}
+										</div>
+									</div>
+								</header>
+								<div class="mark_arrow"></div>
+								<article class="mark_con clearfix">
+									<div class="grid_4 omega alpha clearifx mark_lcon">
+										<div class="clearfix mark_user_info ">
+											<div class="fl_l">
+												<!--{userpic($v['by_uid'],'small')}-->
+											</div>
+											<div class="fl_l ml_10">
+												<a href="{$_K['siteurl']}/index.php?do=shop&u_id={$v['by_uid']}" class="block">{$v['by_username']}</a>
+												<p class="c999"><!--{date('Y-m-d',$v['mark_time'])}--></p>
+											</div>
+										</div>
+									</div>
+									<div class="grid_15 omega clearfix  fl_r mark_rcon">
+									<div class="pl_40 pt_10 pr_30 clearfix">
+										<p>
+											<!--{eval $aid = explode(',',$v['aid_star'])}-->
+											<span>{$aids[1]['aid_name']}（<i><!--{eval echo floatval($aid[0])}--></i>）</span>
+											<span>{$aids[2]['aid_name']}（<i><!--{eval echo floatval($aid[1])}--></i>）</span>
+											<span>{$aids[3]['aid_name']}（<i><!--{eval echo floatval($aid[2])}--></i>）</span>
+										</p>
+										<p class="c333 ws_break mt_5 pb_20">
+											{$v['mark_content']}
+										</p>
+									</div>
+									</div>
+								</article>
+							</div>
+						</div>
+						{/loop}
+						
+					</div>
+					<div class="clear"></div>
+					<div class="box default clearfix mb_20">
+						<div class="inner">
+							<div class="page_count fl_r mar10">
+								{$pages['page']}
+							</div>	
+						</div>
+					</div>
+
+					{else}
+							<div class="box default clearfix no_detail mb_10">暂无数据</div>
+						{/if}
+				</div>
+				<!--右内容 end-->
+				
+				<div class="clear"></div>
+			</div>
+			<!--内容主体 end-->
+		</div>
+	</div>
+</div>
+<!--{template shop/section_footer}-->
+<!--{template footer}-->

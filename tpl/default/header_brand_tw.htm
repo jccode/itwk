@@ -1,0 +1,41 @@
+<!--{template header_top_tw}-->
+<link type="text/css" href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/taiwanstyle.css" rel="stylesheet"/>
+<link type="text/css" href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/twpp_form.css" rel="stylesheet" />
+<link type="text/css" href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/twpp_list.css" rel="stylesheet" />
+<!--头部 start-->
+<nav class="nav">
+  <div class="container_24">
+    <div class="menu  clearfix"> <span class="tw_logo"><a href="{$_K['siteurl']}"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/brand/navlogo.png" alt="IT帮手网" /></a><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/brand/navlogtwan.png" alt="台湾馆"></span>
+      <ul>
+        <li> <a href="{$_K['siteurl']}/index.php?do=brand&view=taiwan" {if $op==''}class="selected" {/if}  target="_self"> <span>首页</span></a> </li>
+        <li class="line"></li>
+        <li> <a href="{$_K['siteurl']}/index.php?do=brand&view=taiwan&op=ppk" {if $op=='ppk'}class="selected" {/if} target="_self"> <span>品牌库</span></a> </li>
+        <li class="line"></li>
+        <li> <a href="{$_K['siteurl']}/index.php?do=brand&view=taiwan&op=joinvip"  {if $op=='joinvip'}class="selected" {/if} target="_self"> <span>品牌入驻</span></a> </li>
+        <li class="line"></li>
+        <li> <a href="{$_K['siteurl']}/index.php?do=brand&view=taiwan&op=coper" {if $op=='coper'}class="selected" {/if}  target="_self"> <span>区域合作</span></a> </li>
+        <li class="line"></li>
+      </ul>
+      <span class="hotphone clearfix"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/brand/hotphone.png" alt="台湾地区入驻专线：02-77068100" /></span></div>
+    <div class="clear"></div>
+  </div>
+</nav>
+<!--头部 end-->
+<div class="clearfix wrapper">
+	<header class="clearfix page_header">
+		<div class="container_24">
+			<!--页面导航-->
+			<div class="breadcrumbs clearfix">
+				<div class="fl_l">
+					你的位置：<a href="{$_K['siteurl']}">IT帮手网首页</a> &gt; <a
+						href="{$_K['siteurl']}/index.php?do=brand&view=taiwan">台湾馆</a> {if $op!=''}&gt;  &nbsp;{$op_name}{/if}
+				</div>
+				<div class="fl_r">
+					<a href="{$_K['siteurl']}/index.php?do=article" target="_blank">新闻中心</a>|<a href="{$_K['siteurl']}/index.php?do=special&view=special_list" target="_blank">精彩专题</a>|<a
+						href="http://e.weibo.com/epweikecom" rel="nofollow" target="_blank">官方微博</a>|&nbsp;&nbsp;IT帮手总部入驻专线：<span
+						class="f60">4006-999-467</span>
+				</div>
+			</div>
+			<!--end 页面导航-->
+		</div>
+	</header>

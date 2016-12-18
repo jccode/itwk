@@ -1,0 +1,269 @@
+<!--{template header}-->
+<!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+    	<!--{template user/user_nav}-->
+        <!--main start-->
+        <section class="clearfix section">
+            <!--{template user/user_side}-->
+            <div class="show_panel">
+                <div >
+                	<div >
+                        <!--main content-->
+           				<div class=" clearfix box default">
+                            <!--header内容头部 start-->
+                            <header class="clearfix box_header">
+                                <h2 class="box_title">{if $art_id}编辑{else}发布{/if}职位</h2>
+                              
+                                <div class="clear">
+                                </div>
+                            </header>
+                            <!--header内容头部 end-->
+                            <div class="box_detail">
+                                <div class="clearfix">
+                                    <!--from表单 start-->
+                                    <form action="{$ac_url}" method="post" id="frm" name="frm">
+                                     	<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+										<input type="hidden" name="pk[job_id]" value="{$job_info['job_id']}" id='job_id'>
+                                        <div class="rowElem clearfix">
+                                            <label class="font14 c333 mark t_r">
+                                                                                                                          职位名称{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_9" >
+                                                <input class="txt_input fl_l" name="fields[job_title]" size="50" value="{$job_info['job_title']}" style="width:150px; color:#666;"  type="text" title="请输入职位名称"
+												 id="job_title" limit="required:true;len:2-50" msg="职位名称在2到50个字符之间" msgArea="span_title"/>          
+                                            	<span id="span_title" class="t_r"></span>
+											
+                                            </div>
+											
+                                        </div>
+										 <div class="rowElem clearfix">
+                                            <label class="font14 c333 mark t_r">
+                                                                                                                          职位类别{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_9" >                                             
+												<input type="radio" name="fields[job_type]" {if !$job_info[job_type]||$job_info[job_type]=='全职'}checked="checked"{/if} value="全职">全职
+											    <input type="radio" name="fields[job_type]" {if $job_info[job_type]=='兼职'}checked="checked"{/if} value="兼职">兼职																							 
+                                           </div>					
+                                        </div>
+										<div class="rowElem clearfix">
+                                            <label class="font14 c333 mark t_r">
+                                                                                                                          招聘对象{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_9" >                                             
+												 <select name="fields[need_obj]" style="width:100px; float:left; margin-left:5px;">
+												     {loop $job_obj_arr $k $v}
+												 		<option {if $job_info['need_obj']=='$v'}selected="selected"{/if} value='$v'>$v</option>
+													  {/loop}							
+												 </select>											 
+                                           </div>
+											
+                                        </div>
+										<div class="rowElem clearfix">
+                                            <label class="font14 c333 mark t_r">
+                                                                                                                          所需人数{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_9" >
+                                                <input class="txt_input fl_l" name="fields[number]" size="50" value="{$job_info['number']}" style="width:150px; color:#666;"  type="text" title="请输入所需人数"
+												 id="number" limit="required:true;type:int" msg="请输入所需人数" msgArea="span_number"/>          
+                                            	<span id="span_number" class="t_r"></span>											
+                                            </div>
+											
+                                        </div>
+										<div class="rowElem clearfix">
+                                            <label class="font14 c333 mark t_r">
+                                                                                                                          性别{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_9" >
+                                                <input type="radio" name="fields[sex]" {if !$job_info[sex]||$job_info[sex]=='不限'}checked="checked"{/if} value="不限">不限
+											    <input type="radio" name="fields[sex]" {if $job_info[sex]=='男'}checked="checked"{/if} value="男">男
+												<input type="radio" name="fields[sex]" {if $job_info[sex]=='女'} checked="checked"{/if} value="女">女
+                                            </div>										
+                                        </div>
+										 <div class="rowElem clearfix">
+                                            <label class="font14 c333 mark t_r">
+                                                                                                                          年龄要求{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_9" >                                             
+												 <select name="fields[age]" style="width:100px; float:left; margin-left:5px;">
+												     {loop $job_age_arr $k $v}
+												 		<option {if $job_info['age']==$v}selected="selected"{/if} value='$v'>$v</option>
+													  {/loop}							
+												 </select>											 
+                                           </div>
+											
+                                        </div>
+										 <div class="rowElem clearfix">
+                                            <label class="font14 c333 mark t_r">
+                                                                                                                          学历要求{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_9" >                                             
+												 <select name="fields[education]" style="width:100px; float:left; margin-left:5px;">
+												     {loop $job_education_arr $k $v}
+												 		<option {if $job_info['education']==$v}selected="selected"{/if} value='$v'>$v</option>
+													  {/loop}							
+												 </select>											 
+                                           </div>
+											
+                                        </div>
+										<div class="rowElem clearfix">
+                                            <label class="font14 c333 mark t_r">
+                                                                                                                          工资待遇{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_9" >                                             
+												 <select name="fields[salary]" style="width:100px; float:left; margin-left:5px;">
+												     {loop $job_salary_arr $k $v}
+												 		<option {if $job_info['salary']==$v}selected="selected"{/if} value='$v'>$v</option>
+													  {/loop}							
+												 </select>											 
+                                           </div>
+											
+                                        </div>
+										<div class="rowElem clearfix">
+                                            <label class="font14 c333 mark t_r">
+                                                                                                                          工作经验{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_9" >                                             
+												 <select name="fields[experience_year]" style="width:100px; float:left; margin-left:5px;">
+												     {loop $job_experience_arr $k $v}
+												 		<option {if $job_info['experience_year']==$v}selected="selected"{/if} value='$v'>$v</option>
+													  {/loop}							
+												 </select>											 
+                                           </div>
+											
+                                        </div>
+										<div class="rowElem clearfix">
+                                            <label class="font14 c333 mark t_r">
+                                                                                                                          工作地点{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_9" >                                             
+											<select name="province" id="province"></select><select name="city" id="city"></select>
+                                           </div>
+											
+                                        </div>
+										<div class="rowElem clearfix">
+                                            <label class="font14 c333 mark t_r">
+                                                                                                                          截止日期{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_9" >                                             
+											 <input type="text" name="cut_time" class="txt" value="{if $job_info[cut_time]}<!--{eval echo date('Y-m-d',$job_info[cut_time]);}-->{/if}" size="8" onclick="showcalendar(event, this, 0)"> 
+                                          (留空则视为长期有效)
+										   </div>
+											
+                                        </div>
+                                         <div class="rowElem clearfix" id="desc">
+					                            <label class="font14 c333 mark t_r">职责说明{$_lang['zh_mh']}</label>
+												<div class="grid_13">
+						                           <textarea cols="71" rows="15" name="fields[intro]" id="content"
+												     class="xheditor {tools:'Bold,Fontface,FontSize,FontColor,Italic,Underline,Strikethrough,Align,List,Outdent,Indent,Table',skin:'nostyle',innerCheck:true,wordLimit:1500}">{$job_info['intro']}</textarea>
+					                                <div class="c999 grid_6" id="length_show"></div>
+													<div class="clear"></div>
+													</div>
+					                   </div>
+									   <div class="rowElem clearfix">
+                                            <label class="font14 c333 mark t_r">
+                                                                                                                          联系人{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_9" >
+                                                <input class="txt_input fl_l" name="fields[contact_people]" size="50" value="{$job_info['contact_people']}" style="width:150px; color:#666;"  type="text" title="请输入联系人"
+												 id="contact_people" limit="required:true;len:2-50" msg="请输入联系人" msgArea="span_people"/>          
+                                            	<span id="span_people" class="t_r"></span>
+											
+                                            </div>
+											
+                                        </div>
+										 <div class="rowElem clearfix">
+                                            <label class="font14 c333 mark t_r">
+                                                                                                                          联系电话{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_9" >
+                                                <input class="txt_input fl_l" name="fields[contact_tel]" size="50" value="{$job_info['contact_tel']}" style="width:150px; color:#666;"  type="text" title="请输入联系电话"
+												 id="contact_tel" limit="required:true;type:tel" msg="联系电话格式不对" msgArea="span_tel"/>          
+                                            	<span id="span_tel" class="t_r"></span>
+											
+                                            </div>
+											
+                                        </div>
+										 <div class="rowElem clearfix">
+                                            <label class="font14 c333 mark t_r">
+                                                                                                                          联系传真{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_9" >
+                                                <input class="txt_input fl_l" name="fields[contact_fax]" size="50" value="{$job_info['contact_fax']}" style="width:150px; color:#666;"  type="text" title="请输入联系传真"
+												 id="contact_fax" limit="required:true;type:fax" msg="联系传真格式不对" msgArea="span_fax"/>          
+                                            	<span id="span_fax" class="t_r"></span>
+											
+                                            </div>
+											
+                                        </div>
+										 <div class="rowElem clearfix">
+                                            <label class="font14 c333 mark t_r">
+                                                                                                                          通信地址{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_9" >
+                                                <input class="txt_input fl_l" name="fields[contact_address]" size="100" value="{$job_info['contact_address']}" style="width:500px; color:#666;"  type="text" title="请输入通信地址"
+												 id="contact_address" limit="required:true;len:2-50" msg="请输入通信地址" msgArea="span_address"/>          
+                                            	<span id="span_address" class="t_r"></span>
+											
+                                            </div>
+											
+                                        </div>
+										 <div class="rowElem clearfix">
+                                            <label class="font14 c333 mark t_r">
+                                                                                                                          是否加急{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_9" >
+                                                 <label><input class="border_n" type="checkbox" name="fields[is_top]" value=1 id="top" {if $job_info['is_top']} checked {/if}>
+                                加急</label>
+											
+                                            </div>
+											
+                                        </div>
+					  			
+                                        <!--发布信息end-->
+                                        <div class="rowElem clearfix form_button">
+                                            <button name="sbt_edit" class="submit font14b" type="button" value="{$_lang['save']}" onclick="check_edit('frm')">
+                                                <span class="check icon"></span>提交{$_lang['save']}
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <!--from表单 end-->
+                                </div>
+                            </div>
+                            <!--detail内容 end-->
+                        </div>
+                        <!--main content end-->
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--main end-->
+    </div>
+</div>		
+<script type="text/javascript">
+	
+	In('form','custom','xheditor','pcas',function(){
+	    new PCAS("province","city","{$loca['0']}","{$loca['1']}");
+	}) ;
+	var edit='';
+	$(function(){		
+		  editor = $("#content").xheditor({});
+		  editor.checkInner();	
+	})
+	/**
+* 表单提交 编辑文章
+* @param  obj
+*/
+function check_edit(obj){
+	var i = contentCheck('content',"职责说明",20,1500,1,'desc',editor);	
+	if(i){  
+        siteSub('frm',2,true);
+    }
+}
+</script>
+<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+<!--contain end-->
+<!--{template user/user_footer}-->
+<!--{template footer}-->

@@ -1,0 +1,183 @@
+<!--{template header_top}-->
+<!--{template header_shop}-->
+
+<div class="wrapper clearfix">
+	<div class="container_24 clearfix">
+		<div class="grid_24 clearfix">
+			<div class="nav_lists_shop clearfix mt_20">
+				<!--头部导航-->
+			<!--{template shop/section_nav}-->
+			<!--end 头部导航-->
+			</div>
+			
+		
+			{if $shop_info[shop_level]>1}
+			<!--{template shop/section_slide}-->
+			{/if}
+			<!--内容主体-->
+		
+			<div class="shop_content clearfix mt_10">
+				
+				<!--左内容-->
+				<div class="shop_left clearfix grid_5 alpha">
+					<div  class="box default clearfix shop_info_boxs mb_10">
+						<!--用户头像-->
+						<!--{template shop/section_user}-->
+						<!--end 用户头像-->
+					</div>
+				</div>
+				<!--左内容 end-->
+				
+				<!--右内容-->
+				<div class="shop_right clearfix grid_19 omega fl_r ">
+					<div class="box default clearfix sale_service_box">
+					<div class="inner clearfix">
+							<div class="fl_l sale_left">
+								<img src="<!--{eval echo kekezu::format_url($service_info['pic'])}-->" class="block" alt="{$service_info['title']}"> 
+							</div>
+							<div class="fl_l sale_right">
+								<div class="sale_service_con">
+									<h1 class="ws_hide">
+										<a href="{$_K['siteurl']}/index.php?do=shop&sid={$sid}&view=service_info&service_id={$service_info['service_id']}&service_type={$v['service_type']}">
+											【{if $service_info[service_type]==1}劳务{else}创意{/if}】{$service_info['title']}</a>
+									</h1>
+									<div class="ml_10 clearfix">
+										<p>服务分类：<!--{eval echo get_industry_name($service_info['indus_pid'])}-->
+										<span class="font_simsun ml_5 mr_5 c666">></span><!--{eval echo get_industry_name($service_info['indus_id'])}--></p>
+										<p>服务报价：<b><span class="font20">￥{$service_info['price']}</span>元/$price_unit[$service_info['unite_price']]</b></p>
+										<p>浏览 {$service_info['views']} 次，被购买 {$service_info['sale_num']} 次</p>
+										<p>好评率：{if $shop_info['w_good_rate']}{$shop_info['w_good_rate']}{else}100{/if}%</p>
+										<div class=" clearfix mt_10 mb_10">
+											<button type="button" onclick="location.href='{$_K[siteurl]}/index.php?do=hiretask&tuid=$shop_info[uid]&service_id={$service_info[service_id]}'" class="button bnt_two fl_l ml_10">
+												购买服务
+											</button>
+											<button type="button" onclick="favor('service_id','service','service','{$service_info[uid]}','{$service_info[service_id]}','{$service_info[title]}','{$service_info[service_id]}')"  class="button bnt_two fl_l ml_10">
+												收藏这个服务
+											</button> 
+										</div>
+										<p>购买服务，雇主威客一对一，满意再付款，交易有保障！</p>
+										<p class="c06c mt_5">
+											<!--{eval $share = '#卖服务#刚才在@IT帮手网 看到一位叫【'.$shop_info['shop_name'].'】的朋友，如果你给他【'.$service_info['price'].'元】他就为你提供【'.$service_info['title'].'】的服务，太有才了，我觉得这个服务很多人都需要！你可以来看看';}-->
+											分享到：
+											<a href="#" target="_blank" onclick="_fx(this,{'key':'sina','url':'$prom_url','title':'$share','overview':''});"  title="分享到新浪微博"><img src="{$_K['siteurl']}/resource/img/ico/sina.gif"></a>
+											<a href="#" target="_blank" onclick="_fx(this,{'key':'qq','url':'$prom_url','title':'$share','overview':''});" title="分享到腾讯微博"><img src="{$_K['siteurl']}/resource/img/ico/ten.gif"></a>
+											<a href="#" target="_blank" onclick="_fx(this,{'key':'sohu','url':'$prom_url','title':'$share','overview':''});" title="分享到网页微博"><img src="{$_K['siteurl']}/resource/img/ico/sh.gif"></a>
+											<a href="#" target="_blank" onclick="_fx(this,{'key':'kx','url':'$prom_url','title':'$share','overview':''});" title="分享到开心网"><img src="{$_K['siteurl']}/resource/img/ico/kai.gif"></a>
+											<a href="#" target="_blank" onclick="_fx(this,{'key':'db','url':'$prom_url','title':'$share','overview':''});" title="分享到豆瓣网"><img src="{$_K['siteurl']}/resource/img/ico/dou.gif"></a>
+											<a href="#" target="_blank" onclick="_fx(this,{'key':'hi','url':'$prom_url','title':'$share','overview':''});" title="分享到百度Hi"><img src="{$_K['siteurl']}/resource/img/ico/baidu.gif"></a>
+											<a href="#" target="_blank" onclick="_fx(this,{'key':'qzone','url':'$prom_url','title':'$share','overview':''});" title="分享到QQ空间"><img src="{$_K['siteurl']}/resource/img/ico/zone.gif"></a>
+										</p>										
+									</div>
+									<script src="{$_K['siteurl']}/resource/js/fx.js"></script>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="box_shadow"></div>
+					<div class="clearfix mt_10">
+						<div class="sale_tab clearfix  fl_l">
+							<ul class="clearfix">
+								<li id="tab_plac_1" class="selected" onmouseover="swaptab('plac','selected','',3,1)"><a href="javascript:;">服务详情</a></li>
+								<!-- <li id="tab_plac_2" onmouseover="swaptab('plac','selected','',3,2)"><a href="#">服务评价</a></li>
+								<li id="tab_plac_3" onmouseover="swaptab('plac','selected','',3,3)"><a href="#">支付方式</a></li> -->
+							</ul>
+						</div>
+						<div class="clear"></div>
+						<div class="sale_div clearfix">
+							<ul class="clearfix">
+								<li id="div_plac_1" class="">
+									{$service_info['content']}
+									<!-- <img src="{$style_path}/theme/simple/img/style/zdy.jpg" class="block" alt=""> -->
+									<div class="pt_15 clearfix">
+										<h2 class="ml_10">交易保障</h2>
+										<div class="clearfix mt_5">
+											<div class="tran_pro fl_l">
+												<div class="clearfix">
+													<h1>满意后付款</h1>
+													<p>雇主先将赏金托管到IT帮手网，让IT帮手网代为保管。</p>
+													<p>在获得了满意的服务后，IT帮手网才将钱支付给威客。</p>
+												</div>
+											</div>
+											<div class="tran_pro fl_r">
+												<div class="clearfix">
+													<h1>交易更安全</h1>
+													<p>雇主先将赏金托管到IT帮手网，让IT帮手网代为保管。</p>
+													<p>在获得了满意的服务后，IT帮手网才将钱支付给威客。</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="pt_15 clearfix">
+										<h2 class="ml_10">购买服务流程</h2>
+										<table class="mt_5 sale_step"  width="100%">
+											<tr>
+												<td rowspan="3" class="b_n">购买服务</td>
+												<td rowspan="3" class="bg">托管赏金</td>
+												<td rowspan="3">威客按照要求为您服务</td>
+											</tr>
+											<tr>
+												<td>验收满意</td>
+												<td>IT帮手网付款给威客</td>
+												<td>交易完成</td>
+											</tr>
+											<tr>
+												<td>验收不满意</td>
+												<td>服务到您满意为止</td>
+												<td  class="bg_n">&nbsp;</td>
+											</tr>
+										</table>
+									</div>
+								</li>
+								<li id="div_plac_2" class="hidden">
+									服务评价
+								</li>
+								<li id="div_plac_3" class="hidden">
+									联系方式
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="box default clearfix mt_10">
+						<div class="inner">
+							<header>
+								<h2 class="box_title border_n">
+									店主推荐的服务
+								</h2>
+							</header>
+						</div>
+					</div>
+				  {if $istop_service_arr}
+					<div class="clearfix mt_10 mb_30 sale_case_show">
+						<div class="case_show">						 
+							{loop $istop_service_arr $k $v}
+								<div class="{if $k==0}item clearfix mar0{else}item clearfix{/if}">
+								  	<div class="item_box clearfix">
+								  		<a href="{$_K['siteurl']}/index.php?do=shop&sid={$v['shop_id']}&view=service_info&service_id={$v['service_id']}&service_type={$v['service_type']}" class="block t_c">
+								  			<img src="<!--{eval echo kekezu::format_url($v['pic'])}-->" alt="{$v['title']}">
+											<p class="ws_hide">【{if $v[service_type]==1}劳务{else}创意{/if}】{$v['title']}</p>
+											<p><b><span>￥{$v['price']}</span> 元/$price_unit[$service_info['unite_price']]</b></p>
+										</a>
+									</div>
+								 </div>
+						      {/loop}				
+						  </div>
+					   </div>
+				    {else}
+						<div class="clearfix mb_30 sale_case_show" style="background-color:#ffffff;">&nbsp;&nbsp;&nbsp;暂无推荐服务</div>
+				    {/if}	
+				  </div>
+				</div>
+				<!--右内容 end-->
+				
+				<div class="clear"></div>
+			</div>
+			<!--内容主体 end-->
+		</div>
+	</div>
+<script type="text/javascript">
+	var uid = parseInt("{$uid}") + 0;
+</script>
+	
+	
+<!--{template shop/section_footer}-->
+<!--{template footer}-->

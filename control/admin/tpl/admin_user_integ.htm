@@ -1,0 +1,200 @@
+<!--{template control/admin/tpl/admin_header}--> 
+{if $op!='mark'}
+ {if $close == '1'}
+	<script type="text/javascript">
+	 	$(document).ready(function(){
+			var win = art.dialog.open.origin;
+			art.dialog.open.api.close();
+			win.location.replace(win.location.href.replace('&close=1',''));
+		});
+	</script>
+ {/if}
+<div class="page_title">
+	<h1>诚信保障</h1>
+     <div class="tool"> 
+        <a href="index.php?do=$do&view=$view&op=apply" {if $op=='apply'}class="here"{/if}>申请记录</a>
+        <a href="index.php?do=$do&view=$view&op=refund" {if $op=='refund'}class="here"{/if}>退款记录</a>
+	</div>
+</div>
+<!--页头结束--> 
+
+      <div class="box search p_relative">
+    	<div class="title"><h2>{$_lang['search']}</h2></div>
+        <div class="detail" id="detail">
+			<form action="#" method="post">
+        	<input type="hidden" name="do"   value="$do">
+			<input type="hidden" name="view" value="$view">
+			<input type="hidden" name="op" value="$op">
+			<input type="hidden" name="page" value="$page">
+			<table cellspacing="0" cellpadding="0">
+			 <tbody>
+			 	<tr>
+			 		<th>检索条件：</th>
+					<td>
+						<select name="condit" style="width:80px;">
+							<option value="all" {if !$condit||$condit=='all'}selected="selected"{/if}>--所有--</option>
+							<option value="uid" {if $condit=='uid'}selected="selected"{/if}>用户编号</option>
+							<option value="username" {if $condit=='username'}selected="selected"{/if}>用户名</option>
+						</select>
+						关键字：
+						<input type="text" class="txt" name="txt_val" value="{$txt_val}">
+					</td>
+					{if $op=='apply'}
+				 		<th>申请状态</th>
+						<td>
+							<select name="slt_status" style="width:70px;">
+				      		<option value="" {if !$slt_status}selected="selected"{/if}>所有</option>
+							<option value="-1" {if $slt_status=='-1'}selected="selected"{/if}>未付款</option>
+							<option value="1" {if $slt_status=='1'}selected="selected"{/if}>已付款</option>
+							</select>
+						</td>
+					{else}
+				 		<th>申请状态</th>
+						<td>
+							<select name="slt_status" style="width:70px;">
+				      		<option value="" {if !$slt_status}selected="selected"{/if}>所有</option>
+							<option value="-1" {if $slt_status=='-1'}selected="selected"{/if}>未处理</option>
+							<option value="1" {if $slt_status=='1'}selected="selected"{/if}>已处理</option>
+							</select>
+						</td>
+					{/if}
+			 	</tr>
+				<tr>
+					<th>{$_lang['show_number']}</th>
+					<td>
+						<select name="slt_page_size" class="ps vm">
+						<option value="10" {if $slt_page_size=='10'}selected="selected"{/if}>{$_lang['page_size']}10</option>
+						<option value="20" {if $slt_page_size=='20'}selected="selected"{/if}>{$_lang['page_size']}20</option>
+						<option value="30" {if $slt_page_size=='30'}selected="selected"{/if}>{$_lang['page_size']}30</option>
+						</select>
+					</td>
+					<th>{$_lang['result_order']}</th>
+					<td>
+						
+						<select name="ord[]">
+                        <option value="uid" {if $ord['0']=='uid' or !isset($ord['0'])} selected="selected"{/if}>{$_lang['default_order']}</option>
+                        <option value="reg_time" {if $ord['0']=='reg_time' } selected="selected"{/if}>{$_lang['register_time']}</option>
+						<option value="uid" {if $ord['0']=='uid' } selected="selected"{/if} > {$_lang['user_uid']} </option>
+                        </select>
+                        <select name="ord[]">
+                        <option {if $ord['1']=='desc' or !isset($ord['1'])}selected="selected" {/if} value="desc">{$_lang['desc']}</option>
+                        <option {if $ord['1']=='asc'}selected="selected" {/if} value="asc">{$_lang['asc']}</option>
+                        </select>
+						<button type="submit" name="sbt_search" value="$_lang['search']" class="pill" />
+							<span class=icon magnifier>&nbsp;</span>{$_lang['search']}</button></td>
+				</tr>
+				
+			 </tbody>
+			</table>
+			</form>
+        </div>
+	 </div>
+
+    <div class="box list">
+    	<div class="title"><h2>{$_lang['user_list']}</h2></div>
+        <div class="detail">
+			<form method="post" action="#" id="frm_user_search">
+				<div id="ajax_dom">
+					<input type="hidden" name="page" value="{$page}" />
+			  		<table cellpadding="0" cellspacing="0">
+			  		<thead>
+			          <tr>
+			            <th width="20" >编号</th>
+			            <th width="20">用户编号</th>
+			            <th width="20">用户名</th>
+			            <th width="20">{if $op=='apply'}申请{else}退款{/if}状态</th>
+						<th width="80">付款金额</th>
+						<th width="80">提交时间</th>
+						<th width="45">操作</th>
+			         </tr>
+					 </thead>
+					 <tbody> 
+					{loop $list $k $v}
+			        <tr class="item">
+			            <td class="td25">{$v['id']}</td>
+			            <td>{$v[uid]}</td>
+			            <td>{$v[username]}</td>
+			            <td>
+			            	{if $op=='apply'}
+								{if $v['status']==1}已付款{else}未付款{/if}
+							{else}
+								{if $v['status']==1}已处理{else}未处理{/if}
+							{/if}
+						</td>
+						<td>{$v['pay_cash']}</td>
+						<td><!--{date('Y-m-d H:i:s',$v['on_time'])}--></td>
+						<td>
+			            	{if $op=='apply'}
+								{if $v['status']==-1}
+									<a class="button" href="javascript:void(0);"
+									 onclick="integ('pay',$v['id']);"><span class="check icon"></span>点亮图标</a>
+							{/if}
+							{else}
+								{if $v['status']==-1}
+									<a class="button" href="javascript:void(0);"
+									  onclick="integ('pass',$v['id']);"><span class="lock icon"></span>熄灭图标</a>
+								{/if}
+							{/if}
+							{if $v['remark']}
+								<a class="button" href="javascript:void(0);" onclick="integ('show',$v['id']);"><span class="view icon"></span>查看备注</a>
+							{/if}
+						</td>
+						<script type="text/javascript">
+							function integ(t,i){
+								var url = 'index.php?do=user&view=integ&op=mark&page={$page}&t='+t+'&ini_id='+i;
+								var tit   = t=='pay'?'点亮诚信保障图标':(t=='pass'?'熄灭诚信保障图标':'查看备注');
+								art.dialog.open(url,{
+									title:tit,
+									width:500
+								});
+							}
+						</script>
+ 			        </tr>
+					{/loop}
+					 </tbody>
+			        </table>
+					<div class="page">{$pages['page']}</div>
+					</div>
+			</form>
+        </div>
+	</div>
+{else}
+<div class="box post">
+        <div class="tabcon">
+        	<div class="title"><h2>{if $t=='pay'}点亮诚信保障图标{elseif $t=='pass'}熄灭诚信保障图标{else}查看备注{/if}</h2></div>
+            <div class="detail">
+               <form action="index.php?do=user&view=integ&ac=$t&ini_id=$ini_id&page=$page" method="post" name="frm_mark" id="frm_mark">
+                   <table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tbody>
+                      <tr>
+                        <th scope="row">{if $t!='show'}填写{else}查看{/if}备注</th>
+                        <td>
+                        	<textarea name="remark" id="remark" cols="50" rows="6">{$remark}</textarea>
+						</td>
+                      </tr>
+					 </tbody>
+					 {if $t!='show'}
+					 <tfoot>
+                      <tr>
+                        <th scope="row">&nbsp;</th>
+                        <td>
+                            <div class="clearfix padt10">
+                                <button class="positive primary pill button" type="button" value="{$_lang['submit']}" onclick="sbt();"><span class="check icon"></span>{$_lang['submit']}</button>
+                           </div>
+                        </td>
+                      </tr>
+					 </tfoot>
+					 {/if}
+                    </table>
+                    
+                </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+	function sbt(){
+		$('#frm_mark').submit();
+	}
+</script>
+{/if}
+<!--{template control/admin/tpl/admin_footer}-->

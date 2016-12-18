@@ -1,0 +1,112 @@
+@CHARSET "UTF-8";
+/*-------- 新闻资讯列表------------ */
+/* 导航部分 */
+.simple_style .article_nav{background:#09c;;}
+		.simple_style .article_nav li.selected a{background:#fff; color:#333;}
+		.simple_style .article_nav li a{background:#4DB8DB; }
+.nav_right a{ color:#fff;}
+
+ 
+/*新导航样式*/
+.mainav {  background: url(../img/nav/navlibg_article.gif) repeat-x;}
+#navlisbox li { background:url(../img/nav/fenge_x_article.gif) no-repeat left top; }
+#navlisbox li.on { background:#fff url(../img/nav/backon_article.gif) no-repeat; }
+#navlisbox li .fengeix {background:url(../img/nav/fenge_x_article.gif) no-repeat right top; }
+#navlisbox li .navlit_box .on { background:url(../img/nav/navlit_article.gif) no-repeat;}
+#navlisbox li .navlit_box span a:hover {background:url(../img/nav/navlit_article.gif) no-repeat;}
+.menu .spci_a { background:#00719f;}
+.menu .spci_a:hover {background: url(../img/nav/secuces_article.gif) no-repeat;}
+
+
+
+/* 列表部分 */
+.wrapper{background:#efefef;}	
+	.location{color: #333333; height:45px; line-height:45px; background:#fff;}
+	.bodier{width:1000px; margin:0 auto;}
+		.main{float:left; width:720px; overflow:hidden;}
+			.commission{border:1px solid #dfdfdf;}
+				.commission dt{background:url(../img/news/title_bg.gif) repeat-x; height:33px; line-height:33px; border-bottom:1px solid #dfdfdf; padding:0 15px;}
+					.aboutZoneHD{color:#333; font-size:14px; font-weight:bold; float:left;}
+				.commission dd{background:#fff; padding-left:15px; padding-right:15px; padding-top:10px; padding-bottom:15px;}
+					.commission dd li{color:#999; font-size:14px; font-family:"宋体"; height:35px; line-height:35px;}
+						.commission dd ul{border-bottom:1px solid #dfdfdf;}	
+							.commission dd li a{color:#333; background:url(../img/news/dot.gif) no-repeat 0 5px; padding-left:30px; float:left; display:inline-block;}
+							.commission dd li span{float:right; display:inline-block;}
+
+/* 列表右边部分 */
+.aside{width:268px; float:left; margin-left:10px;}	
+	.aside .search{background:#fff; border:1px solid #dfdfdf;}	
+		.aside .search input{box-shadow:0 2px 5px rgba(0,0,0,0.1) inset; width:170px; font-size:14px;}	
+			.aside .search	label button{height:30px; vertical-align:middle; font-weight:bold; font-size:14px;}	
+.hot .commission dd{padding:10px 5px;}	
+	.hot .commission dd ul{border:none;}	
+		.hot .commission dd li{float:left; width:120px; text-align:center; height:auto; padding-left:4px; padding-right:4px; padding-bottom:3px;}
+			.hot li .img_big{background:#fff; border:1px solid #dfdfdf; padding:4px; display:inline-block;}
+			.hot .commission dd li a{padding:0; background:none;}
+			.hot .commission dd li p{font-size:12px; color:#666; line-height:25px; width:120px; overflow:hidden; height:30px;}
+	.attent .commission dd ul{border:none;}	
+		.attent .commission dd li{font-size:12px; line-height:25px; height:25px;}
+			.attent .commission dd li a{padding-left:20px; display:inline-block; background:url(../img/news/dot.gif) no-repeat 0 1px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; width:90%;}
+			/*.attent .commission dd li a:hover{overflow:visible; width:auto; position:relative; z-index:2;}*/
+.service_comment .slide {height:240px; padding:10px; _padding:10px 0 10px 8px; background-color:#FFFFFF;}
+	.service_comment .slide .banner {background: none repeat scroll 0 0 #FFFFFF; z-index:1; height:240px; overflow:hidden;}
+	.service_comment .slide .banner #slides {width:246px;}
+	.service_comment .slide .slides_container {_width:250px;}
+		.service_comment .slide .slides_container .caption {height:40px; left:0; width:250px; line-height:40px;}
+		.service_comment .slide .banner img {width:250px; height:200px;}
+		.service_comment .slide .banner .pagination {bottom:12px; position:absolute; right:10px; z-index:10;}
+			.service_comment .slide .banner .pagination li {float:left; margin:0 1px;}
+			.service_comment .slide .banner .pagination li a {background-image: url("../img/style/pagination.png"); background-position: 0 0; display: block; float: left; height: 0; overflow: hidden; padding-top: 12px; width: 12px;}
+			.service_comment .slide .banner .pagination li.current a {background-position: 0 -12px;}
+.case .box_head {background: none repeat scroll 0 0 #F4F4F4; height: 40px; overflow: visible; border-bottom:1px solid #D4D4D4;}
+	.case .box_head .box_nav {margin-bottom:-1px; padding-top:9px;}
+		.case .box_head .box_nav ul li {background: -moz-linear-gradient(center top , #FFFFFF, #EFEFEF) repeat-x scroll 0 0 #F5F5F5; border: 1px solid #D4D4D4; height: 30px; margin-left:5px; padding: 0; text-align: center; width: 80px; float:left; display:inline;}
+		.case .box_head .box_nav a {color: #333333; display: block; font-size: 12px; line-height: 30px; position: relative; width: 80px; z-index: 2;}
+		.case .box_head .box_nav ul li {background-color:#FFFFFF;}
+		.case .box_head .box_nav ul li.selectedLava a {font-weight:bold;}
+		.case .box_head .box_nav ul li.backLava {background-image: none; border-bottom-color: #FFFFFF; bottom: 0; margin: 0; z-index: 1;}
+	.case .case_show {background-color:#FFFFFF;}
+	.case .case_show #div_case_1,#div_case_2,#div_case_3 {height:300px; background-color:#FFFFFF; position:relative; padding:10px 0 0 17px; overflow:hidden;}
+		.case .case_show a.left_arrow {background: url("../img/hire/rbtleft.gif") no-repeat scroll 0 0 transparent; display: block; float: left; height: 17px; text-indent: -9999px; width: 15px; position:absolute; top:90px; left:5px;}
+		.case .case_show a.right_arrow {background: url("../img/hire/rbtright.gif") no-repeat scroll 0 0 transparent; display: block; float: left; height: 17px; text-indent: -9999px; width: 15px; position:absolute; top:90px; right:5px;}
+	.jcarousel .pic {width:200px; padding:4px; border:solid 1px #DFDFDF;}
+	.jcarousel .title {text-align:center; color:#0066CC; height:30px; line-height:30px;}
+		.jcarousel .info span {color:#EA5E00; font-weight:bold;}
+		.jcarousel .info span.name {color:#0066CC; font-weight:normal;}
+	.case .case_show .btn_box {background-color:#FFFFFF; padding:0 0 10px 15px;}
+		.case .case_show .btn_box button {font-family:微软雅黑; font-size:25px; line-height:35px; margin-bottom:10px; padding:5px 15px;}
+		.case .case_show .btn_box button span {font-weight:bold;}
+
+/*-------- 新闻资讯详细------------ */
+.commission .article_title{border-bottom:1px solid #dfdfdf;}
+	.commission .article_title h1{font-size:20px; font-family:"微软雅黑"; font-weight:bold; text-align:center; color:#333; line-height:50px;}
+.article_detaile{border-bottom:1px solid #dfdfdf;}
+.article_detaile .tip_info{ background:#f7f7f7; border:1px solid #eee; padding:10px 20px; clear:both; margin-top:10px;}
+	.article_detaile .detail{ /*text-indent:28px;*/ line-height:30px;}
+	.article_detaile .detail img{ max-width: 618px; }
+	#ie6 .article_detaile .detail img{width:618px;}
+.related .commission dd ul{border-bottom:none;}	
+	.related ul li{float:left; width:340px; font-size:12px; color:#333; height:28px; line-height:28px;}
+		.related ul li a{background:url(../img/news/dot.png) no-repeat 0 2px; padding-left:20px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; width:90%;}
+		/*.related ul li a:hover{width:auto; overflow:visible; position:relative; z-index:3;}*/
+.main .help{background:#;}
+.free_register{border:1px solid #dfdfdf; background:#fff; padding:10px 10px 20px 10px;}
+	.free_register b{font-size:15px; color:#333; font-family:"微软雅黑"; font-weight:normal; display:block;}
+		.free_register ul li{width:328px; float:left;}
+			.free_register .descrip b{font-size:20px; font-family:"微软雅黑"; line-height:20px;}
+				.free_register .descrip b.employer{color:#666;}
+				.free_register .descrip b.solve{color:#ff5611; font-weight:bold;}
+			.free_register .descrip p{color:#999; line-height:20px;}	
+	.free_register .register_members li{width:200px;}
+		.free_register .register_members li button{padding:5px 15px; *padding:0px; font-size:30px; font-family:"微软雅黑"; font-weight:normal; line-height:35px;}
+		
+#wrapper{ background:#EFEFEF;}
+/*
+@media only screen and (min-width: 240px) and (max-width: 500px){
+	.main,
+	.aside{ width: auto; float: none; clear: both; margin-left: 10px; margin-right: 10px}
+	.bodier{ width: auto;}
+	.commission dd li a{ width: 60%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+	.hot .commission dd li a{ width: auto;}
+	.hot .commission dd{ padding:10px;}
+}*/

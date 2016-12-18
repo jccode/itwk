@@ -1,0 +1,208 @@
+<!--{template header}-->
+<!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+    	<!--{template user/user_nav}-->
+        <!--main start-->
+        <section class="clearfix section">
+            <!--{template user/user_side}-->
+            <div class="show_panel">
+                <div >
+                	<div >
+                        <!--main content-->
+           				<div class=" clearfix box default">
+                            <!--header内容头部 start-->
+                            <header class="clearfix box_header">
+                                <h2 class="box_title">资料完善</h2>
+                                <div class="clearfix">
+                                    <nav class="box_nav">
+                                        <ul>
+                                        	<li  {if $opp=="basic"}class="selectedLava"{/if}>
+                                        		<a href="{$ac_url}&opp=basic#userCenter" title="基本资料">基本资料</a>
+                                        	</li>
+											<li   {if $opp=="exp"}class="selectedLava"{/if}>
+                                        		<a href="{$ac_url}&opp=exp#userCenter" title="成长经历">成长经历</a>
+                                        	</li>
+											<li   {if $opp=="cert"}class="selectedLava"{/if}>
+                                        		<a href="{$ac_url}&opp=cert#userCenter" title="技能证书">技能证书</a>
+                                        	</li>
+											<!-- <li   {if $opp=="contact"}class="selectedLava"{/if}>
+				                        		<a href="{$ac_url}&opp=contact#userCenter" title="联系方式">联系方式</a>
+				                        	</li> -->
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <div class="clear">
+                                </div>
+                            </header>
+                            <!--header内容头部 end-->
+                            <div class="box_detail">
+                                <div class="clearfix">
+                                    <!--from表单 start-->
+                                    <form action="{$ac_url}&opp={$opp}" method="post" id="frm" name="frm">
+                                     	<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+									    <input type="hidden" name="pk[uid]" value="{$uid}"><!--基本资料start-->
+                                        <div class="rowElem clearfix">
+                                            <label class="font14 c333 mark t_r">
+                                                {$_lang['real_name']}{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_9" >
+                                                <input class="txt_input fl_l" name="conf[truename]" size="39" {if $real_pass}disabled="disabled"{/if} style="width:150px; color:#666;"  type="text" value="{$user_info['truename']}" title="{$_lang['real_name_tip']}"
+												 id="truename" limit="required:false;len:2-10" msg="{$_lang['realname_can_not_more_than_ten']}" msgArea="span_truename"/>
+												 
+												 <select name="conf[sex]" style="width:70px; float:left; margin-left:5px;">
+												 		<option {if $user_info['sex']=="先生"}selected="selected"{/if}>先生</option>
+														<option {if $user_info['sex']=="女士"}selected="selected"{/if}>女士</option>
+														<option {if $user_info['sex']=="保密"}selected="selected"{/if}>保密</option>
+												 </select>											 
+                                            
+                                            	<span id="span_truename" class="t_r"></span>
+											
+                                            </div>
+											 <div class="grid_2 prefix_1">
+                                                <select name="sect[truename]">
+                                                    <option value="2" {if $sect_info['truename']['v1']=='2'}selected="selected"{/if}>{$_lang['user_public']}&nbsp;</option>
+													<option value="1" {if $sect_info['truename']['v1']=='1'}selected="selected"{/if}>{$_lang['user_private']}&nbsp;</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="rowElem clearfix">
+                                            <label class="font14 c333 mark t_r">
+                                               	 所在地区{$_lang['zh_mh']}
+                                            </label>
+											<div class="grid_12">
+    											<select name="province" style="width:140px"></select>
+                                                <select name="city" style="width:140px"></select>
+                                                <select name="area" style="width:140px"></select>
+											</div>
+						                </div>
+                                       
+										<div class="rowElem clearfix">
+                                            <label class="font14 c333 mark t_r">
+                                                	{$_lang['detail_address']}{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_14">
+                                                <input class="txt_input write_input" style="width:423px" name="conf[address]" size="39"  type="text" value="{$user_info['address']}" title="{$_lang['company']}{$_lang['detail_address']}"
+												 id="address" limit="required:false;len:5-" msg="{$_lang['detail_address_error']}" msgArea="span_address"/>
+												<input type="hidden" name="point" id="point" value="conf[point]">
+                                            	<input type="hidden" name="px" id="px" >
+												<input type="hidden" name="py" id="py">
+												<a href="javascript:void(0);" id="set_map" onclick="set_map();"  class="set_map">标注地图</a><br />
+												<script type="text/javascript">
+											   		function set_map(){
+														showWindow("map","{$_K['siteurl']}/index.php?do=ajax&view=map",'get',1);return false;						
+													}		
+												</script>
+                                            	<span id="span_address" ></span>												
+                                            </div>
+                                        </div>
+										<div class="rowElem clearfix">
+                                                <label class="font14 c333 mark t_r">
+                                                    {$_lang['mobile']}{$_lang['zh_mh']}
+                                                </label>
+                                                <div class="grid_9">                                                
+                                                  <input class="txt_input write_input" style="width:240px;" name="conf[mobile]" id="mobile" type="text" 
+												  value="{$user_info['mobile']}" title="{$_lang['fill_in_your_own_phonenum']}" limit="required:false;type:mobileCn" 
+												  msg="{$_lang['wrong_format_about_phonenum']}" msgArea="span_mobile" 
+												  size="39" {if $user_info['auth_mobile']}disabled="true"{/if}  ajax="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=mobile&check_mobile="/>							   
+												   {if $user_info['auth_mobile']}
+													手机已认证
+													{else}
+												    <a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=mobile" class="ml_5">手机认证</a>
+                                              		 {/if}
+                                            	    <span id="span_mobile"></span>
+                                            	</div>
+												 <div class="grid_2 prefix_1">
+                                                <select name="sect[mobile]">
+                                                    <option value="2" {if $sect_info['mobile']['v1']=='2'}selected="selected"{/if}>{$_lang['user_public']}&nbsp;</option>
+													<option value="1" {if $sect_info['mobile']['v1']=='1'}selected="selected"{/if}>{$_lang['user_private']}&nbsp;</option>
+                                                    
+                                                </select>
+                                            </div>
+                                        </div>
+										<div class="rowElem clearfix">
+                                                <label class="font14 c333 mark t_r">
+                                                	&nbsp;
+                                                </label>
+                                                <div class="grid_10">
+                                                   	 用于接收重要提醒（仅方便用于IT帮手网客服联系您，请放心填写）
+                                                </div>
+                                            
+                                        </div>
+										<div class="rowElem clearfix">
+                                           
+                                                <label class="font14 c333 mark t_r">
+                                                   QQ{$_lang['zh_mh']}
+                                                </label>
+                                                <div class="grid_9">
+                                                    <input class="txt_input write_input" style="width:240px;" name="conf[qq]" id="qq" type="text" value="{$user_info['qq']}" title="{$_lang['fill_in_your_own_qqnum']}" limit="required:false;type:int;len:5-13" msg="{$_lang['wrong_format_about_qqnum']}" msgArea="span_qq" size="39" />
+                                            	   <span id="span_qq" ></span>
+                                            	</div>
+												 <div class="grid_2 prefix_1">
+                                                <select name="sect[qq]">
+                                                    <option value="2" {if $sect_info['qq']['v1']=='2'}selected="selected"{/if}>{$_lang['user_public']}&nbsp;</option>
+													<option value="1" {if $sect_info['qq']['v1']=='1'}selected="selected"{/if}>{$_lang['user_private']}&nbsp;</option>
+                                                </select>
+                                            </div>
+                                        </div>
+										<div class="rowElem clearfix">
+                                                <label class="font14 c333 mark t_r">
+                                                  	电子邮箱{$_lang['zh_mh']}
+                                                </label>
+                                                <div class="grid_9">
+                                                    <input class="txt_input write_input" style="width:240px;" name="conf[email]" id="email" 
+													ajax="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=email&check_email=" type="text" 
+													value="{$user_info['email']}" title="{$_lang['fill_in_your_own_email']}" limit="required:false;type:email" 
+													msg="{$_lang['wrong_format_about_mailaddress']}" msgArea="span_email" size="39" {if $user_info['auth_email']}disabled="true"{/if} />
+													{if $user_info['auth_email']}
+													邮箱已认证
+													{else}
+													<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=email" class="ml_5" >邮箱认证</a>
+													{/if}
+                                            	<span id="span_email" ></span>
+												
+                                            </div>
+											<div class="grid_2 prefix_1">
+                                                <select name="sect[email]">
+                                                    <option value="2" {if $sect_info['email']['v1']=='2'}selected="selected"{/if}>{$_lang['user_public']}&nbsp;</option>
+													<option value="1" {if $sect_info['email']['v1']=='1'}selected="selected"{/if}>{$_lang['user_private']}&nbsp;</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!--基本资料end-->
+                                        <div class="rowElem clearfix form_button">
+                                            <button name="sbt_edit" class="submit font14b" type="button" value="{$_lang['save']}" onclick="checkFormData();">
+                                                <span class="check icon"></span>提交{$_lang['save']}
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <!--from表单 end-->
+                                </div>
+                            </div>
+                            <!--detail内容 end-->
+                        </div>
+                        <!--main content end-->
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--main end-->
+    </div>
+</div>		
+<script type="text/javascript">
+	function checkFormData() {
+		$.ajaxSetup({async: false});
+		$('#mobile').triggerHandler('blur');
+		siteSub('frm',2,true);
+	}
+
+	In('form','custom','xheditor','pcas',function(){
+	    new PCAS("province","city","area","{$loca['0']}","{$loca['1']}","{$loca['2']}");
+	}) ;
+</script>
+<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+<!--contain end-->
+<!--{template user/user_footer}-->
+<!--{template footer}-->

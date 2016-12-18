@@ -1,0 +1,203 @@
+<!--{template header}-->
+<style type="text/css">
+	.file_box{ width: 420px;}
+	.form_button{ margin-top:0;}
+	.winbody .uploadify,
+	.winbody .uploadify-queue{ margin-bottom:0;}
+	.winbody .uploadify-queue-item{ padding:0; border:none; background:#fff;}
+	.tipsy{ z-index:9999;}
+	.tipsy-inner{ max-width:450px;}
+	.tipsy p{ margin:5px; text-align:left;}
+	
+</style>
+<div class="winbody pt_10">
+
+ <!--messages消息 start-->
+ 
+  <div class="messages m_warn" id="notice_id">
+  	<strong>温馨提醒：</strong>
+       {$_lang['please_fill_manuscript_content']}.
+   </div>
+
+   
+  <!--messages消息 end-->
+ <div class="clearfix pl_10 pr_10">
+
+
+   <div class="clearfix box" id="upload_tip">
+    <!--from表单 start-->
+    <form method="post" id="frm_reward" name="frm_reward" action='#'>
+     <div class="rowElem clearfix">
+     	<label class="fl_l t_r">上传附件：</label>
+     	<div class="fl_l file_box">	
+		<div class="fl_r pt_5">
+           	一次最多上传5个， 每个不超过{$basic_config['max_size']}M
+           <a href="javascript:;" class="file_type" title="<p>1. 上传附件支持常见的办公软件文档格式(office文档格式)，常见的压缩文件格式(rar,zip,7z)，常见的图片格式(jpg,png,gif)等，其他不常见的格式建议压缩成RAR文档再上传。</p><p>2. 最多可上传附件5个附件，每个文件大小不得超过2M。</p>
+<p>3. 图形文件不支持CMYK模式(将无法正常显示)。</p><p>4. 文件名称须符合正常规范(勿在文件名中包含其他符号，如点号等)</p>">无法正常上传？</a>
+		</div>
+		<input type="hidden" name="file_ids" id="file_ids">
+			<!--{eval $flie_types = kekezu::get_ext_type();}-->
+			 	<div class="file_box"><input type="file" class="file" name="upload" id="upload"></div>
+		  	 	
+			 </div>
+
+      </div>
+       <div class="rowElem clearfix" id="desc">
+
+      		 <label class="fl_l t_r">{$_lang['manuscript_description']}{$_lang['zh_mh']} </label>
+			 <div class="fl_l">
+	      		 <textarea cols="68" rows="8" name="tar_content" id="tar_content" style="width:415px;height:120px"
+				   class="tar_content xheditor {tools:'Bold,FontSize,Fontface,FontColor,Italic,Underline,Strikethrough,Align,List,Outdent,Indent,Table',skin:'nostyle',innerCheck:true,wordLimit:1500}"></textarea>
+	               <div class="clear"></div>
+	             <div class="c999" id="length_show"></div>
+				 
+			 </div>
+      </div>
+	  {if $g_hide} 
+       <div class="rowElem clearfix">
+		 	  <div class="messages m_warn" id="notice_id">
+		   		 雇主已经设置任务稿件为隐藏,您的稿件将仅雇主可见！
+		   	  </div>
+       </div>
+	  {else}
+		  {if $payitem['item_cash']<=0.00||$remain||$dz_credit||$isvip}<!--还有购买余量，论坛积分，vip-->  
+		 <div class="rowElem clearfix">
+	      		 <label class="fl_l t_r">{$_lang['hide_manuscript']}{$_lang['zh_mh']} </label>
+				 <div class="fl_l">
+				 	{if $payitem['item_cash']>0.00}
+					
+						{if $payitem['vipfree']&&$isvip}
+		              		<input type="checkbox" name="hidemode" value="vip"/><label>我要隐藏稿件（VIP特权）</label>
+						{elseif $payitem['integral_cost']&&$dz_credit>=$payitem['integral_cost']}
+		              		<input type="checkbox" name="hidemode" value="dzcredit"/><label>我要隐藏稿件（论坛积分兑换,共需$payitem['integral_cost']点,您剩余{$dz_credit}点）</label>
+						{elseif $remain}
+	      		 			<input type="checkbox" name="hidemode" value="remain"/><label>我要隐藏稿件（使用余额,还剩{$remain}次）</label>
+						{/if}
+					{else}
+	      		 		<input type="checkbox" name="hidemode" value="free"/><label>我要隐藏稿件（免费试用）</label>
+					{/if}
+					<div class="clear"></div>
+					<div class="messages" style="width:315px;display:none;">
+						<input type="radio" name="hidework" value="1" checked="checked" class="pl_30" onclick="$('#hi_1').show().next().hide();">结束任务后公开
+						<input type="radio" name="hidework" value="2" class="pl_30" onclick="$('#hi_1').hide().next().show();">作品永久保密
+						<div id="hi_1">说明：让更多雇主了解您的设计实力，获得更多订单机会</div>
+						<div style="display:none;">说明：永久保密您的稿件，但您的实力也就一同被隐藏了哦</div>
+	                </div>
+				 </div>
+	      </div>
+		  {else}
+      		 <div class="rowElem clearfix">
+		 	 	 <div class="messages m_warn" id="notice_id">
+		   			购买隐藏稿件后,可以最大限度的保证您的成功。<a href="{$_K['siteurl']}/index.php?do=user&view=witkey&op=toolbox&show=buy#userCenter" target="_blank">{$_lang['to_purchase']}&gt;&gt;</a>
+		   	 	 </div>
+      		 </div>	  	  
+		  {/if}
+	  {/if}
+   </form>
+  <!--from表单 end-->
+  </div>
+
+
+ </div>
+ <div class="rowElem clearfix form_button">
+       	 	 <button type="button" class="submit" value={$_lang['save']} onclick="subWork();">{$_lang['save']}</button>
+		 	 <button type="button" class="button bwhite" value={$_lang['cancel']} onclick="hideWindow('work_hand');">{$_lang['cancel']}</button>
+      </div>
+</div>
+
+<script type="text/javascript">
+	/**
+	 * 需要提交textarea提交的操作用此方法.补充需求，
+	 */
+		$(function(){
+			if($('#SWFUpload_0').length==0){
+				construct();
+			}
+			$(":checkbox[name='hidemode']").click(function(){
+				$(this).nextAll('.messages').toggle();
+			})
+		})
+		function construct(){
+			uploadify({
+					auto:true,
+					size:"{$basic_config['max_size']}MB",
+					exts:'{$flie_types}',
+					limit:5},
+					{
+						objType:'work',
+						task_id:'{$task_id}'
+					}
+				);
+		}
+</script>
+<script src="{$_K['siteurl']}/resource/js/jquery.bgiframe.pack.js"></script>
+<script>
+	$(function(){
+		$('div.fwinmask').bgiframe();;
+	})
+</script>
+<script type="text/javascript">
+	In('form','tipsy');
+	
+	//提交标识
+	var subing = 0;
+	function subWork(){
+		var i = checkForm(document.getElementById('frm_reward'));		
+		if(i){
+		var shtml 	 = contentCheck('tar_content','{$title}',5,1500,1,'upload_tip',editor);
+			if(shtml){
+				var data= $("#frm_reward").serialize();
+				var url = "{$_K['siteurl']}/index.php?do=task&task_id={$task_id}&op={$op}&sbt_edit=1";
+				var winObj = $('body');
+				//var maskD  = $("<div class='mask_d'><img src='{$_K['siteurl']}/{SKIN_PATH}/{$_K['theme']}/img/system/loading.gif' class='mask_i'></div>");
+				if(subing==1){return;}
+				subing = 1;
+				$.ajax({
+						url:url,
+						data:data,
+						dataType:'json',
+						beforeSend:function(){
+								//winObj.prepend(maskD);
+						},
+						success:function(json){
+							//maskD.remove();
+							if(json.status=='1'){
+								showDialog(json.data,'right',json.msg,"location.href='{$_K['siteurl']}/index.php?do=task&task_id={$task_id}'");hideWindow('work_hand');
+							}
+							else{
+								showDialog(json.data,'alert',json.msg);
+							}
+							subing = 0;
+							return false;
+						},
+						error:function(){
+							//maskD.remove();
+							showDialog("{$_lang['sys_busy_work_fail']}",'alert',"{$_lang['operate_notice']}");
+							subing = 0;
+							return false;
+						}
+				})
+			}
+		}
+	}
+
+	/**
+	 * 上传完成后的后续操作
+	 * @param data 响应的json对象
+	 */
+	function uploadResponse(json){
+		if($("#"+json.fid).length<1){
+				var file_ids = $("#file_ids").val();
+				 if(file_ids){
+					$("#file_ids").val(file_ids+','+json.fid)
+				}else{	
+					$("#file_ids").val(json.fid);
+					$("#upload").val('');
+				}
+		}
+	}
+	$(function(){
+		$('a.file_type').tipsy({gravity:$.fn.tipsy.autoNS,html: true});
+	})
+</script>
+<!--{template footer}-->

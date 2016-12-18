@@ -1,0 +1,201 @@
+<!--{template header}-->
+<style type="text/css">
+	.valid_error span{ display:inline-block; width:180px;}
+</style>
+<!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+    	<!--{template user/user_nav}-->
+        <!--main start-->
+        <section class="clearfix section">
+            <!--{template user/user_side}-->
+            <div class="show_panel">
+                <div >
+                	<div >
+                        <!--main content-->
+           				<div class=" clearfix box default">
+                            <!--header内容头部 start-->
+                            <header class="clearfix box_header">
+           <h2 class="box_title">认证中心</h2>
+      <div class="grid_17 omega">
+       <nav class="box_nav">
+        <ul>
+         <li {if $selected['step1']}class="selectedLava"{/if}>
+           <a href="javascript:void(0);" title="{$_lang['auth_add_step1']}">1.{$_lang['email_auth_step1']}</a> 
+		 </li>
+	     <li {if $selected['step2']}class="selectedLava"{/if}>
+           <a href="javascript:void(0);" title="{$_lang['auth_add_step2']}">2.{$_lang['email_auth_step2']}</a>
+		 </li>	
+		 <li {if $selected['step3']}class="selectedLava"{/if}>
+           <a href="javascript:void(0);" title="{$_lang['auth_add_step3']}">3.{$_lang['email_auth_step3']}</a>
+		 </li>
+        </ul>
+       </nav>
+      </div>
+    <div class="clear"></div>
+  </header>
+  <!--header内容头部 end-->
+  
+   {if $verify}
+		 <!--{template verify_secode}-->
+{else}
+  <!--detail内容 start-->
+   <article class="box_detail">
+     <!--messages消息 start-->   
+      <div class="messages m_warn">
+         <strong>友情提示</strong>
+		 	{$_lang['email_prompt_1']}<br /> 
+			{$_lang['email_prompt_2']}<br />
+			{$_lang['email_prompt_3']}</br>
+			{$_lang['email_prompt_4']}
+           
+      </div> 
+     <!--messages消息 end-->
+     <div class="clearfix">
+
+{if $auth_step=='step1'}
+<div class="pad10  form_box">
+ <form method="post" id="frm" name="frm">
+  <input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+  <div class="rowElem clearfix">
+    <label class="grid_5 t_r">{$_lang['email_auth_username']}{$_lang['zh_mh']}</label>{$username}
+  </div>
+  <div class="rowElem clearfix" >
+    <label class="grid_5 t_r">{$_lang['email_address']}{$_lang['zh_mh']}</label>
+      <input type="text" name="fds[email]" id="email" msgArea="span_email" ajax="index.php?do=user&view=setting&op=auth&auth_code=email&check_email=" 
+	  size="30" value="{$user_info[email]}" limit="required:true;type:email" msg="您输入的邮箱格式不正确"/>
+	  <span id="span_email"></span> 
+  </div>
+   <div class="rowElem clearfix form_button">
+        <button type="button" name="sbt_add" class="submit" value="{$_lang['next_step']}" onclick="user_auth();">{$_lang['next_step']}</button>
+   </div>
+  </form> 
+ </div> 
+{elseif $auth_step=='step2'}
+ <div class=" ">
+  <div class="">
+   <div class="completedata">
+     <ul>
+       <li class="clearfix">
+
+             <p class="pl_10">
+             	{$_lang['mail_confirmation_link']}
+			</p>
+			<div class="clear"></div>
+			<p class="t_c pad20">
+				<a class="button primary positive" onclick="gomail('{$mail_ext}');" href="javascript:void(0)">{$_lang['immediately_check_mail']}</a>
+			</p>
+			 
+ 
+       </li>
+	   <li class="clearfix">
+		<div class="pl_10">
+		  <p class="f140">{$_lang['if_you_do_not_receive_mail']}</p>
+			{$_lang['mail_to_reach_the_required_few_minutes']}<strong>{$_lang['rubbish']}</strong>{$_lang['or']}
+			<a href="javascript:void(0)" onclick="resend()">{$_lang['retry_again']}</a><br>
+			{$_lang['error_email_address_we_recommend_that_you']}<a href="index.php?do=user&view=payitem&op=auth&del_auth_id=$auth_info[email_a_id]&auth_step=step1&auth_code=email#userCenter">{$_lang['change_mail_address']}</a>
+		</div>
+
+       </li>
+      </ul>
+     </div>
+   </div>
+</div>
+{elseif $auth_step == 'step3'}
+ <div class="">
+  <div class="cc00 font14b t_c">
+   {if $auth_info&&$auth_info[auth_status]==2}
+      {$_lang['regrettably_not_pass_email_auth']}&lt;&lt;<a href="{$ac_url}&auth_step=step1">{$_lang['reauth']}</a><<<a href="javascript:void(0);">{$_lang['contact_customer_service']}</a>
+   {else}
+		{$_lang['congratulations_pass_email_auth']}
+   {/if}
+  </div>
+  <div class="">
+    <div class="completedata">
+       <ul>
+         <li class="clearfix pad10 border_b_c">
+          
+             <div class=" grid_2 "><!--{userpic($uid,small)}--></div>
+             <div class=" grid_6 ">
+               <div class="font14b">{$_lang['email_auth']}</div>
+               <div class="c999">{$_lang['use_common_email']}</div>
+             </div>
+         </li>
+		 <li class="clearfix pad10 border_b_c">
+              <div class=" grid_2 ">{$_lang['username']}{$_lang['zh_mh']}</div>
+			<div class=" grid_6 ">
+			   <div class="font14b">{$auth_info[username]}</div>
+			</div>
+
+         </li>
+		 <li class="clearfix pad10 border_b_c">
+
+			  <div class=" grid_2 ">{$_lang['email_address']}{$_lang['zh_mh']}</div>
+			  <div class=" grid_6 ">
+                 <div class="c999">{$auth_info[email]}</div>
+              </div>
+   
+         </li>
+       </ul>
+     </div>
+    </div>
+  </div>
+</div> 
+{/if}
+ </div> 
+ <div class="clear"></div> 
+</article>
+<!--detail内容 end-->
+{/if}
+</div>
+<!--main content end -->
+<div class="clear"></div>
+</div>
+</div>
+ </section>
+ <!--main end-->
+ </div>
+</div>
+<script type="text/javascript">
+	In('form');
+	function gomail(type){
+		var url = 'http://mail.'+type+'';
+		window.open(url); 
+	}
+	function resend(){
+		$.getJSON("{$ac_url}&auth_step=step2&resend=1",function(json){
+			showDialog(json.msg,'notice',"{$_lang['operate_tips']}");return false;
+		});
+	}
+	function user_auth(){
+		var i = checkForm(document.getElementById("frm"));
+        if (i) {
+			if($('#email').attr('valid')==2){
+				mail_send();
+			}else{
+				document.getElementById("email").focus();
+				document.getElementById("email").blur();
+				$('#email').ajaxSuccess(function(){
+					if($('#email').attr('valid')==2){
+						mail_send();
+					}else{
+						document.getElementById("email").focus();
+					}
+				})
+			}
+		}
+	}
+	function mail_send(){
+		var email=$("#email").val();
+		$.getJSON("{$ac_url}&auth_step=step2&send_mail=1&email="+email,function(json){
+			if(json.status=='1'){
+				showDialog(json.msg,'notice',"{$_lang['operate_tips']}",'location.href="{$ac_url}&auth_step=step2#userCenter"','','',1);
+			}else{
+				showDialog(json.msg,'alert',"{$_lang['operate_tips']}");
+			}
+			return false;
+		})
+	}
+</script>
+<!--{template user/user_footer}-->
+<!--{template footer}-->

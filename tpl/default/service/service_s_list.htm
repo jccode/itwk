@@ -1,0 +1,195 @@
+<!--{template header_service}-->
+<!--{template header_service_nav}-->
+<div class="wrapper clearfix">
+	<!--页面头部-->
+		 <header class="clearfix page_header">
+			  <div class="container_24 clearfix"> 
+			   <!--页面导航-->
+			    <div class="breadcrumbs clearfix po_re">
+			    	你的位置：
+			    	   <a href="{$_K['siteurl']}/index.php">IT帮手网首页</a>
+					   <span class="font_simsun"> > </span>
+					   <a href= "{$_K['siteurl']}/index.php?do=service&view=index&province={$province}&city={$city}">劳务大厅</a>
+					   <span class="font_simsun"> > </span> 
+					   <a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$p">{$service_indus_p_arr[$p]['indus_name']}</a>			   
+					   <span class="font_simsun"> > </span> 
+					   <a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$c">{$service_indus_c_arr[$c]['indus_name']}</a>
+				
+						<span class="po_ab">
+				    	  <a href="{$_K['siteurl']}/index.php?do=article">新闻中心</a>|
+						   <a href="{$_K['siteurl']}/index.php?do=special&view=special_list">精彩专题</a>|
+						   <a href="{$_K['siteurl']}/index.php?do=help&view=service">客服中心</a>|
+						   <a href="http://e.weibo.com/epweikecom" rel="nofollow">官方微博</a>
+					   </span>
+				</div>
+			   <!--end 页面导航-->  
+			 </div>
+		</header> 
+	 <!--end 页面标题-->
+	 <section class="clearfix">
+	 	<div class="container_24">
+	 		<div class="clearfix condition_list_con">
+		 		<div class="condition_list_arrow">&diams; </div>
+		 		<div class="box default clearfix condition_list">  
+		 			<div class="inner clearfix">
+		 				<dl class="border_n clearfix">
+		 					<dt>分类：</dt>
+							<dd>
+								<a href= "{$_K['siteurl']}/index.php?do=indus&indus_id=$p{$ac_url_list[indus_id]}" {if !$c}class="selected"{/if}>不限</a>
+								{loop $service_son_indus_arr $v}
+									<a href= "{$_K['siteurl']}/index.php?do=indus&indus_id=$v[indus_id]{$ac_url_list[indus_id]}" {if $c == $v['indus_id']}class="selected"{/if}>
+										{$v['indus_name']}</a>
+								{/loop}
+							</dd>
+		 				</dl>
+						<dl class="clearfix">
+		 					<dt>区域：</dt>
+							<dd>
+								<a href= "{$ac_url_list[area]}&area=all" {if !$area||$area=='all'}class="selected"{/if}>不限</a>
+								{loop $area_arr $v}
+								{if $v!='市辖区'&&$v!='市辖县'}
+								<a href= "{$ac_url_list[area]}&area=<!--{eval echo urlencode($v)}-->" {if $v==$area}class="selected"{/if}>{$v}</a>
+								{/if}
+								{/loop}
+							</dd>
+		 				</dl>
+		 			</div>
+		 		</div>
+			</div>
+			<div class="clearfix service_con mt_10">
+				<div class="service_lcon clearfix">
+					<div class="lists_tab  clearfix">
+							<nav class="box_nav clearfix">
+								   <ul class="ov_hide block clearfix fl_l">
+					                  <li id="tab_plac_1" onclick="swaptab('plac','selectedLava','',2,1)" >
+					                  	<a href="javascript:void(0);" title="所有服务列表">所有服务列表</a>
+									  </li>
+					                  <li id="tab_plac_2" onclick="swaptab('plac','selectedLava','',2,2)">
+					                  	<a href="{$_K['siteurl']}/index.php?do=indus&indus_id={$p}&view=n_list" title="所有需求列表">所有需求列表</a>
+									  </li>
+					               </ul>
+								   <div class="fl_r service_page">
+								   		<span>每页显示条数：</span> 
+										<a href= "{$ac_url_list[page_size]}&page_size=12" {if $page_size == 12}class="selected"{/if}>12</a>
+										<a href= "{$ac_url_list[page_size]}&page_size=24" {if $page_size == 24}class="selected"{/if}>24</a>
+										<a href= "{$ac_url_list[page_size]}&page_size=48" {if $page_size == 48}class="selected"{/if}>48</a>
+								   </div>
+							</nav>
+					</div>
+					<div class="lists_div box default clearfix">
+						  <div class="inner">
+						   		<header class="box_header clearfix">
+						   			<div class="fl_l">
+						   				共找到<b> {$count} </b>条服务信息
+						   			</div>
+									<div class="fl_r">
+										<b>排序：</b>										
+									    <a href= "{$ac_url_list[o]}&o={if $o==1||!$o}2{else}1{/if}" {if !$o||$o==1||$o==2}class="service_ybtns mr_5"{else}class="service_wbtns mr_5"{/if}>发布时间<b> {if $o!=1}↑{else}↓{/if}</b></a>
+										<a href= "{$ac_url_list[o]}&o={if $o==3||!$o}4{else}3{/if}" {if $o==3||$o==4}class="service_ybtns"{else}class="service_wbtns"{/if}>价格大小<b> {if $o!=3}↑{else}↓{/if}</b></a>
+									</div>
+						   		</header>
+								<article class="clearfix pt_5 pb_5 c999">
+									<span class="grid_3 alpha omega t_c">服务配图</span>
+									<span class="grid_10 alpha omega pl_20 ">报价/标题/联系方式/服务简介</span>
+									<span class="fl_r mr_30 pr_10">操作</span>
+								</article>
+						  </div>
+					</div>
+					<div class="service_list_cons clearfix">
+						<dl class="clearfix">
+							<dt class="hidden">所有需求列表</dt>
+							 {loop $service_arr $k $v}
+								<dd {if $k==0}class="clearfix"{else}class=" clearfix"{/if}>
+									<ul class="clearfix">
+										<li class="grid_3 alpha omega">
+											<div class="need_pro_img">
+												<img src="{$v['pic']}" alt="{$v['title']}" >
+											</div>
+										</li>
+										<li class="grid_13 omega pl_20 alpha">
+											<p>
+												<b>￥{$v['price']}元/{$price_unit_arr[$v['unite_price']]}</b>
+											</p>
+											<p class="ws_hide">
+												<a href="{$_K['siteurl']}/index.php?do=shop&sid={$v['shop_id']}&view=service_info&service_id={$v['service_id']}&service_type={$v['service_type']}">{$v['title']}</a>
+											</p>
+											<p class="service_touch">
+												<span>浏览{if $v['views']} {$v['views']} {else} 0 {/if}次</span>
+												<span>出售{if $v['sale_num']} {$v['sale_num']} {else} 0 {/if}次</span>
+											</p>
+											<p class="text_con ws_break">
+												<!--{eval $v['content'] = strip_tags($v['content']);}-->
+												<!--{eval echo kekezu::cutstr($v['content'],158)}-->...
+											</p>
+										</li>
+										<li class="mr_10 fl_r s_btn">
+											<p class="s_lists_btn">
+												<a class="button" href="{$_K['siteurl']}/index.php?do=shop&sid={$v['shop_id']}&view=service_info&service_id={$v['service_id']}&service_type={$v['service_type']}">购买服务</a>
+											</p>
+											<p class="s_lists_btn">
+												<a class="button" href="javascript:void(0)"  onclick="favor('service_id','service','service','{$v[uid]}','{$v[service_id]}','{$v[title]}','{$v[service_id]}')">收藏服务</a>
+											</p>
+											<!-- <a class="button" href="#">收藏服务</a> -->
+										</li>
+									</ul>
+								</dd>
+							  {/loop}
+						</dl>
+					</div>
+				</div>
+				<div class="service_rcon clearfix">
+					<div class="box default clearfix recommend_s">
+						<div class="inner">
+							<header class="box_header">
+								推荐服务
+							</header>
+							<article class="clearfix pt_5 pb_5 pl_10 pr_10">
+								<a href="{$_K['siteurl']}/index.php?do=user&view=space&op=service" class="fl_r">我想出现在下面的推荐区</a>
+							</article>
+						</div>
+					</div>
+					{loop $service_istop_arr $v}
+					<div class="box default clearfix mt_20">
+						<div class="inner">
+							<div class="others_service">
+								<img src="{$v['pic']}" alt="{$v['title']}">
+								<p><b>￥{$v['price']}元/{$price_unit_arr[$v['unite_price']]}</b></p>
+								<a href="{$_K['siteurl']}/index.php?do=shop&sid={$v['shop_id']}&view=service_info&service_id={$v['service_id']}&service_type={$v['service_type']}">{$v['title']}</a>												
+								<p>浏览{if $v['views']} {$v['views']} {else} 0 {/if}次，出售{if $v['sale_num']} {$v['sale_num']} {else} 0 {/if}次</p>
+							</div>
+						</div>
+					</div>
+					{/loop}
+				</div>
+			</div>
+			<div class="box clearfix default mt_20 ">
+				<div class="inner">
+					<div class="service_page_box clearfix">
+						<b class="fl_l font14 c333 ml_10">{if $count_page}{$count_page}/{$page}{else}0/0{/if}</b>
+						<div class="page_count fl_r">
+							{$pages[page]}
+							<!-- <a href="#">上一页</a>
+                            <a href="#" class="selected">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+							<a href="#">4</a>
+							<a href="#">5</a>
+							<a href="#">6</a>
+							<a href="#">7</a>
+							<a href="#">8</a>
+							<a href="#">9</a>
+							<a href="#">10</a>
+							<a href="#">下一页</a> -->
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	 </section>
+</div>	 
+<script>
+	var uid = '{$uid}';
+
+</script>
+<!--{template service/service_city_box}-->
+<!--{template footer}-->

@@ -1,0 +1,341 @@
+<!--{template header}-->
+<link rel="stylesheet" href="{$_K['siteurl']}/{SKIN_PATH}/css/news.css">
+<link rel="stylesheet" href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/news.css">
+<style>
+	.scroll.jcarousel li{ width:210px;}
+</style>
+<div class="wrapper">
+	<!--start 页面标题-->
+	<header class="clearfix page_header">
+		<div class="container_24">
+            <!--页面导航-->
+            <div class="heidtile clearfix">
+                <span>你的位置：</span>
+                <span><a href="{$_K['siteurl']}/index.php">IT帮手网首页</a>&nbsp;&gt;&nbsp;</span>
+                <span><a href="{$_K['siteurl']}/index.php?do=article">新闻中心</a>&nbsp;&gt;&nbsp;</span>
+                <span><a href="{$_K['siteurl']}/index.php?do=article&art_cat_id={$art_cat_id}">{$art_info[cat_name]}</a>&nbsp;&gt;&nbsp;</span>
+                <h1><a href="#">{$art_info[art_title]}</a></h1>
+               <!-- <a class="fl_r mr_10" href=".cn/zt/APPS/android/" target="_blank">下载移动客户端，交易随时随地掌控</a>-->
+            </div>
+            <!--end 页面导航-->
+		</div>
+	</header>
+	<!--end 页面标题-->
+	<!--主内容-->
+	<div class="bodier clearfix pt_10">
+		<!--左边部分 start-->
+		<div class="main bor2">
+			<div class="aboutZone commission pl_20 pr_20 pb_20" style="background:#fff;">
+				<div class="article_title"><h1>{$art_info[art_title]}</h1></div>
+				<div class="article_detaile pt_10 pl_20 pr_20 pb_20 clearfix">
+					<p class="c999 t_c">发布时间：<!--{date('Y-m-d h:i:s',$art_info['pub_time'])}--> 阅读次数：{$art_info['views']}次 <span class="c666">分享有奖：</span></p>
+					<div class="tip_info"><!--{tag 文章导读}--></div>
+					<div class="font14 c333 pt_20 detail">
+						<!--{eval echo htmlspecialchars_decode($art_info['content']);}-->
+					</div>
+				</div>
+				<div class="clearfix mt_10">
+					<span class="fl_l">上一篇：{if $art_up_info}
+					<a href="{$_K['siteurl']}/index.php?do=article&art_cat_id={$art_up_info['art_cat_id']}&art_id={$art_up_info['art_id']}">
+						<!--{eval echo kekezu::cutstr($art_up_info['art_title'],40)}-->...
+					</a>{else}没有了{/if}</span>
+					<span class="fl_r">下一篇：{if $art_down_info}
+						<a href="{$_K['siteurl']}/index.php?do=article&art_cat_id={$art_down_info['art_cat_id']}&art_id={$art_down_info['art_id']}">
+						<!--{eval echo kekezu::cutstr($art_down_info['art_title'],40)}-->...
+						</a>{else}没有了{/if}</span>
+				</div>
+			</div>
+			
+			<div class="related mt_10">
+				<div class="aboutZone commission">
+					<dl class="clearfix">
+						<dt>
+							<div class="aboutZoneHD">相关文章</div>
+							<a href="{$_K['siteurl']}/index.php?do=article&art_cat_id={$art_cat_id}" class="fl_r c666">更多&gt;</a>
+						</dt>
+						<dd class="clearfix">
+							<ul class="clearfix">
+									{if $about_info}
+					{loop $about_info $k $v}
+						<li ><a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$v[art_cat_id]&art_id={$v[art_id]}">{$v[art_title]}</a></li>
+					{/loop}
+					{else}
+						<li >没有找到相关文章</li>
+					{/if}
+							
+							</ul>
+						</dd>
+					</dl>
+				</div>
+			</div>
+		
+		
+		<div class="help mt_10">
+			<a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=590">
+				<img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/news/help.gif"></a></div>
+			<div class="free_register mt_10">
+				<b>我们提供的，不仅仅是资讯。免费注册IT帮手网会员，您可以——</b>
+				<ul class="pt_10 clearfix">
+					<li class="pad10" style="border-right:1px solid #dfdfdf;">
+						<div class="pic fl_l pr_20 pt_10"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/news/pencil.gif"></div>
+						<div class="descrip fl_l clearfix">
+							<b class="employer">成为雇主</b>
+							<b class="solve">百万威客为您解决难题！</b>
+							<p class="pt_5">多方案 低价格 价格由您定！</p>
+						</div>
+					</li>
+					<li class="pad10" style="birder-right:1px solid #dfdfdf;">
+						<div class="pic fl_l pr_20 pt_10 pl_20"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/news/money.gif"></div>
+						<div class="descrip fl_l clearfix">
+							<b class="employer">成为威客</b>
+							<b class="solve">凭技能 ，赚取真金白银！</b>
+							<p class="pt_5">威客时代，轻松赚钱，首选IT帮手网！</p>
+						</div>
+					</li>
+				</ul>
+				<ul class="register_members pl_30 pt_10 clearfix">
+					<li class="pl_10"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/news/words.gif"></li>
+					<li><button class="big submit block" type="submit" onclick="location.href='{$_K['siteurl']}/index.php?do=register'">免费注册会员</button></li>
+				</ul>
+			</div>
+		</div>
+		<!--左边部分 end-->
+		
+		<!--右边部分 start-->
+		<div class="aside">
+			<div class="search pad10">
+				<div><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/news/fond_article.gif"></div>
+				<div class="pt_5 pb_5">
+					<input class="c999 txt_input" type="text" id="keyword" name="keyword" value="请输入关键字" original-title="">
+					<label><button class="button" type="button" id="search_art">搜索</button></label>
+				</div>
+			</div>
+			<div class="service_comment mt_10">
+				<div class="aboutZone commission">
+					<dl class="clearfix">
+						<dt>
+							<div class="aboutZoneHD">特色服务推荐区</div>
+							<a href="#" class="fl_r c666">更多<span class="font_simsun">></span></a>
+						</dt>
+					</dl>
+					<div class="clearfix slide">
+						<div class="banner po_re">
+				        	<div id="slides">
+				          	<!--图片内容区域 start-->
+				            	<div class="slides_container">
+								<!--{ad_show(ARTICLE_RIGHT_SLIDE,1)}-->				
+				            	</div>
+				          	<!--图片内容区域 end-->
+				        	</div>
+				        </div>
+					</div>
+				</div>
+			</div>
+			<div class="case mt_10">
+				<div class="aboutZone commission">
+					<dl class="clearfix">
+						<dt>
+							<div class="aboutZoneHD">成功案例展示区</div>
+							<a href="/case/" class="fl_r c666">更多<span class="font_simsun">></span></a>
+						</dt>
+					</dl>
+					<div class="case_show clearfix">
+						<header class="box_head clearfix">
+							<nav class="box_nav clearfix">
+			                   <ul class="clearfix">
+			                      <li id="ul_case_1" onmouseover="swaptab('case','selectedLava','',3,1);"><a href="javascript:void(0);" title="维护">维护</a></li>
+			                      <li id="ul_case_2" onmouseover="swaptab('case','selectedLava','',3,2);"><a href="javascript:void(0);" title="平面设计">平面设计</a></li>
+								  <li id="ul_case_3" onmouseover="swaptab('case','selectedLava','',3,3);"><a href="javascript:void(0);" title="推广">推广</a></li>
+			                   </ul>
+			                 </nav>
+						</header>
+						<div id="div_case_1">
+							<a href="#" class="left_arrow" onclick="$('#jcarousel').jcarousel('scroll', '-=1'); return false;"></a>
+							<div id="jcarousel" class="scroll clearfix" style="width:210px; height:280px;">
+								<ul style="margin:0 auto;">
+									{loop $case_629_info $v}
+									<li>
+										<div class="pic clearfix">
+											<a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$v['art_cat_id']&art_id=$v['art_id']" ><img src="{$v['art_pic']}" alt="$v['art_title']" width="200px;" height="150px;"></a>
+										</div>
+										<div class="title">{$v['art_title']}</div>
+										<div class="info">
+											<p>赏金：<span>￥{$v['task_cash']}元</span></p>
+											<p>关注：{$v['view_num']}人&nbsp;&nbsp;方案：{$v['work_num']}个</p>
+											<p>中标：<span class="name">{if $v['w_username']}{$v['w_username']}{else}站内威客{/if}</span></p>
+										</div>	
+									</li>
+									{/loop}
+								</ul>
+							</div>
+							<a href="#" class="right_arrow" onclick="$('#jcarousel').jcarousel('scroll', '+=1'); return false;"></a>
+						</div>
+						<div id="div_case_2" class="hidden">
+							<a href="#" class="left_arrow" onclick="$('#jcarousel1').jcarousel('scroll', '-=1'); return false;"></a>
+							<div id="jcarousel1" class="scroll clearfix jcarousel" style="width:210px; height:280px;">
+								<ul style="margin:0 auto;">
+									{loop $case_628_info $v}
+									<li>
+										<div class="pic clearfix">
+											<a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$v['art_cat_id']&art_id=$v['art_id']" ><img src="{$v['art_pic']}" alt="$v['art_title']" width="200px;" height="150px;"></a>
+										</div>
+										<div class="title">{$v['art_title']}</div>
+										<div class="info">
+											<p>赏金：<span>￥{$v['task_cash']}元</span></p>
+											<p>关注：{$v['view_num']}人&nbsp;&nbsp;方案：{$v['work_num']}个</p>
+											<p>中标：<span class="name">{if $v['w_username']}{$v['w_username']}{else}站内威客{/if}</span></p>
+										</div>	
+									</li>
+									{/loop}
+								</ul>
+							</div>
+							<a href="#" class="right_arrow" onclick="$('#jcarousel1').jcarousel('scroll', '+=1'); return false;"></a>
+						</div>
+						<div id="div_case_3" class="hidden">
+							<a href="#" class="left_arrow" onclick="$('#jcarousel2').jcarousel('scroll', '-=1'); return false;"></a>
+							<div id="jcarousel2" class="scroll clearfix jcarousel" style="width:210px; height:280px;">
+								<ul style="margin:0 auto;">
+									{loop $case_630_info $v}
+									<li>
+										<div class="pic clearfix">
+											<a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$v['art_cat_id']&art_id=$v['art_id']" ><img src="{$v['art_pic']}" alt="$v['art_title']" width="200px;" height="150px;"></a>
+										</div>
+										<div class="title">{$v['art_title']}</div>
+										<div class="info">
+											<p>赏金：<span>￥{$v['task_cash']}元</span></p>
+											<p>关注：{$v['view_num']}人&nbsp;&nbsp;方案：{$v['work_num']}个</p>
+											<p>中标：<span class="name">{if $v['w_username']}{$v['w_username']}{else}站内威客{/if}</span></p>
+										</div>	
+									</li>
+									{/loop}
+								</ul>
+							</div>
+							<a href="#" class="right_arrow" onclick="$('#jcarousel2').jcarousel('scroll', '+=1'); return false;"></a>
+						</div>
+						<div class="btn_box">
+							<button style="width:232px;" class="big submit block" onclick="location.href='{$_K['siteurl']}/index.php?do=release'" type="submit">有需求，<span>发布任务</span></button>
+							<button style="width:232px;" class="big submit block" onclick="location.href='{$_K['siteurl']}/index.php?do=task_list'" type="submit">有能力，<span>中标赚钱</span></button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="hot mt_10">
+				<div class="aboutZone commission">
+					<dl class="clearfix">
+						<dt>
+							<div class="aboutZoneHD">推荐热点</div>
+							<a href="#" class="fl_r c666">更多<span class="font_simsun">></span></a>
+						</dt>
+						<dd class="clearfix">
+							<ul class="clearfix">
+								{if $recommend_info}
+								{loop $recommend_info $k $v}
+								<li>
+									<a href="{$_K['siteurl']}/index.php?do=article&art_cat_id={$v[art_cat_id]}&art_id={$v[art_id]}"><img class="img_big" style="width:110px; height:80px;" src="{$v[art_pic]}"></a>
+									<p><a href="{$_K['siteurl']}/index.php?do=article&art_cat_id={$v[art_cat_id]}&art_id={$v[art_id]}">{$v[art_title]}</a></p>
+								</li>
+								{/loop}
+								{else}
+								<li class="ml_10">没有找到相关信息</li>
+								{/if}
+							</ul>
+						</dd>
+					</dl>
+				</div>
+			</div>
+			<div class="attent mt_10">
+				<div class="aboutZone commission">
+					<dl class="clearfix">
+						<dt>
+							<div class="aboutZoneHD">热门关注</div>
+							<a href="#" class="fl_r c666">更多<span class="font_simsun">></span></a>
+						</dt>
+						<dd class="clearfix">
+							<ul class="clearfix">
+								{if $hot_info}
+								{loop $hot_info $k $v}
+								<li>
+									<a href="{$_K['siteurl']}/index.php?do=article&art_cat_id={$v[art_cat_id]}&art_id={$v[art_id]}">{$v[art_title]}</a>
+								</li>
+								{/loop}
+								{else}
+								<li class="ml_10">没有找到相关信息</li>
+								{/if}
+							</ul>
+						</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+		<!--右边部分 end-->
+	</div>
+
+</div>
+<!--end 主内容-->
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.autoscroll.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.pagination.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/easySlider1.5.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/slides.min.jquery.js"></script>
+<!--script type="text/javascript" src="{$_K['siteurl']}/{$style_path}/js/index.js"></script-->
+<script type="text/javascript" >
+$(function(){
+	//幻灯
+	$('#slides').slides({
+		  preload: true,
+		  preloadImage: SITEURL+'/resource/img/system/loading.gif',
+		  play: 5000,
+		  pause: 2500,
+		  hoverPause: true,
+		  animationStart: function(){
+				$('.caption').fadeOut();
+			},
+			animationComplete: function(current){
+				$('.caption').fadeIn();
+				/*if (window.console && console.log) {
+					// example return of current slide number
+					console.log(current);
+				};*/
+			}
+	});
+
+	if($('#jcarousel,#jcarousel1,#jcarousel2').length>0){
+		$('#jcarousel,#jcarousel1,#jcarousel2').jcarousel({
+		    wrap: 'circular',
+			 animation: 200
+		}).jcarouselAutoscroll({
+		   interval:  3000
+		});
+		
+	};
+	
+	if($('.jcarousel-pagination').length>0){
+		$('.jcarousel-pagination').jcarouselPagination({
+			   perpage: 1
+			});	
+	};
+
+	$('#keyword').focus(function(){
+		if(this.value == '请输入关键字'){
+			this.value = '';
+		}
+	});
+	
+	$('#keyword').blur(function(){
+		if(this.value == ''){
+			this.value = '请输入关键字';
+		}
+	});
+	
+	$("#search_art").click(function(){
+		if($("#keyword").val() != '请输入关键字'){
+			var keyw =  $("#keyword").val();
+			window.location.href= "{$_K['siteurl']}/index.php?do=article&art_cat_id=art_cat_id&op={$op}&keyword=" + keyw;
+			window.event.returnValue = false;
+		}
+	});
+
+});
+	
+</script>
+<!--{template footer}-->

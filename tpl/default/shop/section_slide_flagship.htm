@@ -1,0 +1,396 @@
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/shop.css" rel="stylesheet">
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/shop_flagship.css" rel="stylesheet">
+<div class="section_slide_flagship clearfix">
+	<div class="company_condition clearfix">
+		<!--关于我们 start-->
+		{if $view=='about'}
+		<div class="clearfix station_search">
+			<header class="box_header clearfix">
+				<h2 class="box_title pl_10 fl_l">关于我们</h2>
+				<!--<a href="#" class="fl_r pr_10 font_simsun block c666">更多<span class="pr_5">&gt;</span></a>-->
+			</header>
+			<div class="specific clearfix pad10" style="padding-bottom:0;">
+				<ul class="about_us clearfix">
+					<li><a href="index.php?do={$do}&sid={$sid}&view=about&art=1#about" class="{if !$art||$art==1}selected{/if} block"><span class="font_simsun pr_5">&gt;</span>公司简介</a></li>
+					<li><a href="index.php?do={$do}&sid={$sid}&view=about&art=2#about" class="{if $art==2}selected{/if} block"><span class="font_simsun pr_5">&gt;</span>荣誉资质</a></li>
+					<li><a href="index.php?do={$do}&sid={$sid}&view=about&art=3#about" class="{if $art==3}selected{/if} block"><span class="font_simsun pr_5">&gt;</span>团队实力</a></li>
+					<li><a href="index.php?do={$do}&sid={$sid}&view=about&art=4#about" class="{if $art==4}selected{/if} block"><span class="font_simsun pr_5">&gt;</span>公司风采</a></li>
+					<li><a href="index.php?do={$do}&sid={$sid}&view=about&art=5#about" class="{if $art==5}selected{/if} block"><span class="font_simsun pr_5">&gt;</span>联系方式</a></li>
+				</ul>
+			</div>	
+		</div>		
+		{/if}
+		<!--关于我们 end-->
+		<!--人才招聘 start-->
+		{if $view=='job_list'||$view=='job_info'}
+		<div class="clearfix  station_search">
+			<header class="box_header clearfix">
+				<h2 class="box_title pl_10 fl_l">人才招聘</h2>
+				<!--<a href="#" class="fl_r pr_10 font_simsun block c666">更多<span class="pr_5">&gt;</span></a>-->
+			</header>
+			<div class="specific clearfix pad10" style="padding-bottom:0;">
+				<ul class="about_us clearfix">
+					<li><a href="{$ac_url}&view=job_list" class="selected block"><span class="font_simsun pr_5">&gt;</span>招聘列表</a></li>
+					<!--<li><a href="#" class="block"><span class="font_simsun pr_5">&lt;</span>人才理念</a></li>-->
+				</ul>
+			</div>	
+		</div>
+		{/if}
+		<!--人才招聘 end-->
+		<!--案例展示 start-->
+		{if $view=='case_list'||$view=='case_info'}
+		<div class="clearfix station_search">
+			<header class="box_header clearfix">
+				<h2 class="box_title pl_10 fl_l">案例展示</h2>
+				<!--<a href="#" class="fl_r pr_10 font_simsun block c666">更多<span class="pr_5">&gt;</span></a>-->
+			</header>
+			<div class="specific clearfix pad10" style="padding-bottom:0;">
+				<ul class="about_us clearfix">
+					{loop $shop_cate $k $v}
+					<li><a href="{$ac_url}&view=case_list&cate_id={$v[cate_id]}" class="{if $cate_id===$v['cate_id']}selected{/if}  block"><span class="font_simsun pr_5">&gt;</span>$v[cate_name]</a></li>
+					{/loop}
+					
+				</ul>
+			</div>	
+		</div>
+		{/if}
+		<!--案例展示 end-->
+		<!--新闻资讯 start-->
+		{if $view=='news_list'||$view=='news_info'}
+		<div class="clearfix  station_search">
+			<header class="box_header clearfix">
+				<h2 class="box_title pl_10 fl_l">新闻资讯</h2>
+				<!--<a href="#" class="fl_r pr_10 font_simsun block c666">更多<span class="pr_5">&gt;</span></a>-->
+			</header>
+			<div class="specific clearfix pad10" style="padding-bottom:0;">
+				<ul class="about_us clearfix">
+					<li><a href="index.php?do=shop&sid={$sid}&view=news_list&art_type=1" class="block {if $art_type==1}selected{/if}"><span class="font_simsun pr_5">&gt;</span>公司新闻</a></li>
+					<li><a href="index.php?do=shop&sid={$sid}&view=news_list&art_type=2" class="block {if $art_type==2}selected{/if}"><span class="font_simsun pr_5">&gt;</span>行业资讯</a></li>
+					
+				</ul>
+			</div>	
+		</div>
+		{/if}
+		<!--新闻资讯 end-->
+		<!--出售服务 start-->
+		{if $view=='service_list'||$view=='service_info'}
+		<div class="clearfix station_search">
+			<header class="box_header clearfix">
+				<h2 class="box_title pl_10 fl_l">出售服务</h2>
+				<!--<a href="#" class="fl_r pr_10 font_simsun block c666">更多<span class="pr_5">&gt;</span></a>-->
+			</header>
+			
+			<div class="specific clearfix pad10" style="padding-bottom:0;">
+				<ul class="about_us clearfix">
+					{loop $indus_ids $k $v}
+					<li><a href="{$url}&indus=$v[0]#service_list" class=" {if $indus==$v[0]}selected{/if} block"><span class="font_simsun pr_5">&gt;</span>$indus_new_arr[$v[0]][indus_name]</a></li>
+					{/loop}
+				</ul>
+			</div>	
+			
+		</div>
+		{/if}
+		<!--出售服务 end-->
+				
+		{if $view=='index'||$view=='diy'}
+		<div class="inner clearfix">
+			<ul class="clearfix">
+				<li class="first"><h1>{$shop_info['shop_name']}</h1></li>
+				<li><div class="fl_l">能力等级：</div><span><!--{eval echo keke_glob_class::get_w_level_ico($shop_info['w_level'])}--></span></li>
+				<li><div class="fl_l">认证状况：</div>
+				<span>
+					<!--{eval echo(keke_glob_class::get_auth_ico($shop_info['auth_realname'],$shop_info['auth_mobile'],$shop_info['auth_email'],$shop_info['auth_bank']));}-->
+				</span>
+				</li>
+				{if $shop_info['integrity']}
+				<li><div class="fl_l">诚信状况：</div><span><img alt="" src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/credibility_of.jpg"></span></li>
+			    {/if}
+				{if $shop_info['shop_type']==3}
+				<li><div class="fl_l">公司认证：</div><span><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/style/cer_pass.jpg" alt="loading"/></span></li>
+				{/if}
+				<li><div class="fl_l">雇主评价：</div><span>好评率：</span><b class="ea5e00">{if $shop_info['w_good_rate']}{$shop_info['w_good_rate']}{else}100{/if}%</b></li>
+			</ul>
+			<div class="share pl_10 clearfix">
+				<strong>分享商铺：</strong>
+				<script src="{$_K['siteurl']}/resource/js/fx.js"></script> 
+				<!--{eval $share = '刚才在@IT帮手网 看到这个商铺【'.$shop_info['shop_name'].'】，卖的全是文创产品，如果你有需要，可以来看看，实力相当不错哦，值得收藏！';}-->
+				<a href="#" target="_blank" onclick="_fx(this,{'key':'sina','url':'{$_K[siteurl]}/shop-sid-{$shop_info[shop_id]}.html','title':'{$share}','overview':''});" title="分享到新浪微博"><img src="{$_K['siteurl']}/resource/img/ico/sina.gif"></a>
+				<a href="#" target="_blank" onclick="_fx(this,{'key':'qq','url':'{$_K[siteurl]}/shop-sid-{$shop_info[shop_id]}.html','title':'{$share}','overview':''});" title="分享到腾讯微博"><img src="{$_K['siteurl']}/resource/img/ico/ten.gif"></a>
+				<a href="#" target="_blank" onclick="_fx(this,{'key':'sohu','url':'{$_K[siteurl]}/shop-sid-{$shop_info[shop_id]}.html','title':'{$share}','overview':''});" title="分享到网页微博"><img src="{$_K['siteurl']}/resource/img/ico/sh.gif"></a>
+				<a href="#" target="_blank" onclick="_fx(this,{'key':'kx','url':'{$_K[siteurl]}/shop-sid-{$shop_info[shop_id]}.html','title':'{$share}','overview':''});" title="分享到开心网"><img src="{$_K['siteurl']}/resource/img/ico/kai.gif"></a>
+				<a href="#" target="_blank" onclick="_fx(this,{'key':'db','url':'{$_K[siteurl]}/shop-sid-{$shop_info[shop_id]}.html','title':'{$share}','overview':''});" title="分享到豆瓣网"><img src="{$_K['siteurl']}/resource/img/ico/dou.gif"></a>
+			</div>
+			<div class="t_c"><a href="{$_K['siteurl']}/index.php?do=hiretask&tuid={$shop_info['uid']}" class="employment_bg">雇佣TA为我服务</a></div>
+			<ul class="invited_collection clearfix">
+				<li><a href="javascript:;" onclick="talent_invite({$shop_info['uid']})" class="c666">邀请投标</a></li>
+				<li><a href="javascript:;" onclick="favor('shop_id','shop','shop','{$shop_info[uid]}','{$shop_info[shop_id]}','{$shop_info[shop_name]}','{$shop_info[shop_id]}')" class="c666">收藏	TA</a></li>
+				<li><a href="javascript:;" onclick="sendMessage({$shop_info['uid']},'{$shop_info['username']}')" class="c666">站内信</a></li>
+			</ul>
+		</div>
+		{/if}
+		<!--好评 start-->
+		{if $view=='mark'}
+		<div class="inner  clearfix">
+			<h1 class="title">{$shop_info['shop_name']}</h1>
+			<div class="praise"><span class="praise_rate">好评率：</span><span class="ea5e00">{if $shop_info['w_good_rate']}{$shop_info['w_good_rate']}{else}100{/if}%</span></div>
+			<ul class="service_dynamic mb_10 pt_10 pb_10 clearfix">
+				<li><h1>服务动态评分：</h1></li>
+				 {loop $buyer_aid $k $v}
+				<li>
+					<div class="fl_l">{$v['aid_name']}{$_lang['zh_mh']}</div>
+					<div class="fl_l">
+						<!--{eval echo keke_user_mark_class::gen_star2($v['avg']);}-->
+					</div>
+				</li>
+				{/loop}		
+			</ul>
+			<ul class="service_dynamic mb_10 pt_10 pb_10 clearfix">
+				<li><h1>交易信息：</h1></li>
+				<li>
+					<div class="fl_l">交易总收入：</div>
+					<span class="ea5e00 font14b mr_5"><!--{eval echo floatval($income['cash']+$income['credit'])}--></span>元
+				</li>
+				<li>
+					<div class="fl_l">交易总次数：</div>	
+					<span class="ea5e00 font14b mr_5">{$take_num}</span>次
+				</li>
+			</ul>
+			<div class="t_c"><a href="{$_K['siteurl']}/index.php?do=hiretask&tuid={$shop_info['uid']}" class="employment_bg">雇佣TA为我服务</a></div>
+			<ul class="invited_collection clearfix">
+				<li><a href="javascript:;" onclick="talent_invite({$shop_info['uid']})" class="border_n">邀请投标</a></li>
+				<li><a href="javascript:;" onclick="favor('shop_id','shop','shop','{$shop_info[uid]}','{$shop_info[shop_id]}','{$shop_info[shop_name]}','{$shop_info[shop_id]}')" class="c666">收藏TA</a></li>
+				<li><a href="javascript:;" onclick="sendMessage({$shop_info['uid']},'{$shop_info['username']}')" class="c666">站内信</a></li>
+			</ul>
+		</div>
+		{/if}
+		<!--好评 end-->
+		<!-- 站内搜索 start-->
+		{if $view!='mark'}
+		<div class="clearfix mt_10 station_search">
+			<header class="box_header clearfix">
+				<h2 class="box_title pl_10">站内搜索</h2>
+			</header>
+			<div class="specific clearfix pad10">
+				<form action="{$_K['siteurl']}/index.php" method="post" id="frm_search" class="clearfix fl_l">              
+				<input  style="width:148px; margin-right:5px;"  type="text" name="keyword" id="search_key" value="输入相关关键词" onblur="if(this.value==''){this.value='输入相关关键词'};" onfocus="if(this.value=='输入相关关键词'){this.value=''};">
+				 </form>
+				<button id="search_btn" style=" vertical-align:middle; _padding:0px 10px; padding:6px 10px;" class="big button submit" type="submit">搜索</button>
+				<p class="mt_10"><span>热门：</span><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=63" class="pr_5">维护</a><a class="pr_5" href="{$_K['siteurl']}/index.php?do=indus&indus_id=64">开发</a><a class="pr_5" href="{$_K['siteurl']}/index.php?do=indus&indus_id=59">文案写作</a></p>
+			</div>	
+		</div>
+		{/if}
+		<!--站内搜索 end-->
+		<script type="text/javascript">		
+	        $("#search_btn").click(function (){
+		    var searchKey = $.trim($("#search_key").val());
+		    if(searchKey&&searchKey!='输入相关关键词'){
+			var link    = encodeURI("{$_K['siteurl']}/index.php?do=task_list&k="+searchKey);
+				$('#frm_search').attr('action',link);
+			window.open(link);
+	}
+	});
+		</script>
+		
+		<!--资质荣誉 start -->
+	    {if $view=='index'&&$shop_info['shop_type']==3}
+		<div class="clearfix mt_10 station_search">
+			<header class="box_header clearfix">
+				<h2 class="box_title pl_10 fl_l">资质荣誉</h2>
+				<!--<a href="{$ac_url}&view=about&art=2" class="fl_r pr_10 font_simsun block c666">更多<span class="pr_5">&gt;</span></a>-->
+			</header>
+			{if $cert_ext_arr}
+			<div class="specific clearfix" style="_width:238px; _overflow:hidden;">
+				<div class="honor fl_l">
+					<div id="jcarousel" class="scroll clearfix" style="width:220px; height:190px;">
+						<ul style="margin:0 auto;">
+						{loop $cert_ext_arr $k $v}
+							<li>
+								<div class="pic clearfix">
+									<a href="javascript:;" onclick="bigimg('<!--{eval echo kekezu::format_url($v[v2])}-->','{$v[v1]}')"><img width="220" height="157" src="<!--{eval echo kekezu::format_url($v[v2])}-->" alt="{$v[v1]}"/></a>
+									<p class="t_c c333" style="width:220px;">$v[v1]</p>
+								</div>
+							</li>
+							
+						{/loop}	
+						</ul>
+					</div>
+				</div>
+			</div>	
+			{else}
+				<div class="specific clearfix" style="_width:238px; _overflow:hidden;">暂无资质荣誉</div>
+			{/if}
+		</div>
+	    {/if}
+		<!--资质荣誉 end -->
+			<!--公司新闻 start-->
+		{if $view=='about'||view=='news_info'||$view=='service_list'||$view=='case_list'||$view=='case_info'}
+		<div class="clearfix mt_10 station_search">
+			<header class="box_header clearfix">
+				<h2 class="box_title pl_10 fl_l">公司新闻</h2>
+				<a href="{$ac_url}&view=news_list" class="fl_r pr_10 font_simsun block c666">更多<span class="pr_5">&gt;</span></a>
+			</header>
+			{if $gs_news}
+			<div class="specific clearfix pad10">
+				<ul class="company_news clearfix">
+					{loop $gs_news $k $v}
+					<li><a href="{$ac_url}&view=news_info&art_id=$v['art_id']" class="block">$v['art_title']</a></li>
+					{/loop}
+				</ul>
+			</div>	
+			{else}
+			<div class="specific clearfix pad10">暂无公司新闻</div>	
+			{/if}
+		</div>
+		{/if}
+		<!--公司新闻 end-->
+		<!--热门公司新闻 start-->
+		{if $view=='news_list'}
+		<div class="clearfix mt_10 station_search">
+			<header class="box_header clearfix">
+				<h2 class="box_title pl_10 fl_l">热门公司新闻</h2>
+				<a href="{$ac_url}&view=news_list" class="fl_r pr_10 font_simsun block c666">更多<span class="pr_5">&gt;</span></a>
+			</header>
+			{if $hot_news_arr}
+			<div class="specific clearfix pad10">
+				<ul class="company_hot_news clearfix">
+					{loop $hot_news_arr $k $v}
+					<li><span class="{if $k<3}hot{else}ordinary{/if}"><!--{eval echo $k+1;}--></span><a href="{$ac_url}&view=news_info&art_id=$v[art_id]" class="block">$v['art_title']</a></li>
+					{/loop}			
+				</ul>
+			</div>	
+			{else}
+			<div class="specific clearfix pad10">暂无热门公司新闻</div>
+			{/if}
+		</div>
+		{/if}
+		<!--热门公司新闻 end-->
+		<!--关注最多的服务start-->
+		{if $view=='service_info'}
+		<div class="clearfix mt_10 station_search">
+			<header class="box_header clearfix">
+				<h2 class="box_title pl_10 fl_l">被关注最多的服务</h2>
+				<a href="{$ac_url}&view=service_list" class="fl_r pr_10 font_simsun block c666">更多<span class="pr_5">&gt;</span></a>
+			</header>
+			{if $focus_service_arr}
+			<div class="specific clearfix pad10">
+				<ul class="company_hot_news clearfix">
+					{loop $focus_service_arr $k $v}
+					<!--{eval $j = $k+1;}-->
+					<li><span class="{if $k<3}hot{else}ordinary{/if}">{$j}</span><a href="{$ac_url}&view=service_info&service_id=$v[service_id]&service_type={$v['service_type']}" class="block">$v['title']</a></li>
+					{/loop}			
+				</ul>
+			</div>	
+			{else}
+			<div class="specific clearfix pad10">暂无服务</div>
+			{/if}
+		</div>
+		{/if}
+		<!--关注最多的服务 end-->
+		<!--联系方式 start -->
+		<div class="clearfix mt_10 station_search">
+			<header class="box_header clearfix">
+				<h2 class="box_title pl_10 fl_l">联系方式</h2>
+				<!--<a href="{$ac_url}&view=about&art=5" class="fl_r pr_10 font_simsun block c666">更多<span class="pr_5">&gt;</span></a>-->
+			</header>
+			<div class="specific clearfix pad10">
+				<dl>
+					<dt>{$shop_info['shop_name']}</dt>
+					<dd>地址：{if $shop_info['address']}{$shop_info['address']}{else}暂无{/if}</dd>
+				<!--	<dd>邮编：123456</dd>-->
+					<dd>手机：{if $shop_info['mobile']}{$shop_info['mobile']}{else}暂无{/if}</dd>
+					<dd>电话：{if $shop_info['phone']}{$shop_info['phone']}{else}暂无{/if}</dd>
+					<dd>邮箱：{if $shop_info['email']}{$shop_info['email']}{else}暂无{/if}</dd>
+					<dd>QQ:{if $shop_info['qq']}{$shop_info['qq']}{else}暂无{/if}</dd>
+				</dl>
+			</div>	
+		</div>
+		<!--联系方式 end -->
+		
+	
+		
+	
+		
+		
+		
+		
+		
+	
+		
+		
+		
+		
+	</div>
+</div>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/easySlider1.5.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/slides.min.jquery.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/artdialog/jquery.artDialog.js"></script>
+<script>function bigimg(src,title){art.dialog({padding: 0,title: title,content: '<img src="'+src+'" />',lock: true});}</script>
+<script type="text/javascript" >
+		
+		var uid = parseInt('{$uid}')+0; 
+		 //人才邀请
+		function talent_invite(i_uid){	
+			if (check_user_login()) {
+				showWindow('task_invite'+i_uid,'/index.php?do=ajax&view=invite&opp=task_list&i_uid='+i_uid,'get',0);
+				return false;
+			}
+		}						
+$(function(){
+	//幻灯
+	$('#slides').slides({
+		  preload: true,
+		  preloadImage: SITEURL+'/resource/img/system/loading.gif',
+		  play: 5000,
+		  pause: 2500,
+		  hoverPause: true,
+		  animationStart: function(){
+				$('.caption').fadeOut();
+			},
+			animationComplete: function(current){
+				$('.caption').fadeIn();
+				/*if (window.console && console.log) {
+					// example return of current slide number
+					console.log(current);
+				};*/
+			}
+	});
+
+	if($('#jcarousel,#jcarousel1,#jcarousel2').length>0){
+		$('#jcarousel,#jcarousel1,#jcarousel2').jcarousel({
+		    wrap: 'circular',
+			 animation: 200
+		}).jcarouselAutoscroll({
+		   interval:  3000
+		});
+		
+	};
+	
+	if($('.jcarousel-pagination').length>0){
+		$('.jcarousel-pagination').jcarouselPagination({
+			   perpage: 1
+			});	
+	};
+
+	$('#keyword').focus(function(){
+		if(this.value == '请输入关键字'){
+			this.value = '';
+		}
+	});
+	
+	$('#keyword').blur(function(){
+		if(this.value == ''){
+			this.value = '请输入关键字';
+		}
+	});
+	
+	$("#search_art").click(function(){
+		if($("#keyword").val() != '请输入关键字'){
+			var keyw =  $("#keyword").val();
+			window.location.href= "{$_K['siteurl']}/index.php?do=article&art_cat_id=art_cat_id&op={$op}&keyword=" + keyw;
+			window.event.returnValue = false;
+		}
+	});
+
+});
+	
+</script>

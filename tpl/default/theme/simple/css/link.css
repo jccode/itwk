@@ -1,0 +1,16 @@
+.simple_style .page_header,.simple_style .content{ background:#efefef;}
+.link_words{padding:25px 20px;}
+.link_words li{float:left; padding:5px 10px; width:139px; overflow:hidden; height:25px;}
+	.link_words li a{color:#666; font-size:14px;}
+.link_left{padding:15px; width:270px; border-right:1px solid #dfdfdf;}
+	.link_left li{ line-height:20px;}
+	.link_left .icon_link{ background:#06f; margin:10px 6px 0 5px;}	
+	.link_left span{color:#06f;}
+.link_right{padding:15px 20px;}
+	.link_right .img_link_l{width:400px; float:left;}
+		.link_right .img_link_l textarea{width:390px; height:62px; display:block; margin:8px 0 10px;}
+		.preview_link .preview{border:1px solid #dfdfdf; padding:5px; width:160px; height:60px; text-align:center; line-height:60px;}
+			.preview_link .preview img{display:block; width:160px; height:60px;}
+			.preview_link .preview span{color:#06f; font-size:14px;}
+	.link_right .img_link_r{width:240px; float:left; padding-left:17px;}
+		.link_right .img_link_r textarea{width:230px; height:62px; display:block;  margin:8px 0 10px;}	

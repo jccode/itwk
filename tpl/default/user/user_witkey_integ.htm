@@ -1,0 +1,121 @@
+<!--{template header}-->
+	<!--main start-->
+<div class="wrapper">
+	<div class="container_24">
+		<!--{template user/user_nav}-->
+		<section class="clearfix section ">
+		<!--{template user/user_side}-->
+            <div class="show_panel">
+		        <div class="">
+		            <div class="">
+		                <!--main content-->
+		                <div class=" clearfix box default">
+		                	<div class="inner">
+                	 			<header class="box_header clearfix">
+                					<h2 class="box_title">诚信保障</h2>
+								</header>
+								<div class="box_detail clearfix">
+									<div class="user pb_20 clearfix c333">
+										<label class="fl_l font14b"><strong>功能开通信息：</strong></label>
+										<div class="user_detail fl_l pl_20 grid_13">
+											<ul>
+												{if $user_info['integrity']}
+												  {if $int_time}
+													<li>状态：<span class="cc00">已申请熄灭图标，请等待客服核实... </span></li>
+													<li>申请时间：<!--{date('Y-m-d H:i:s',$int_time)}--></li>
+												  {else}
+													<li>状态：
+														<img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/credibility_of.jpg" alt="">已开通
+														 <button type="button" class="button" onclick="applyRefund();"><span class="move icon"></span>熄灭图标</button>
+													</li>
+												  {/if}
+												{else}	
+													<li>
+														状态：未开通<button type="button" class="button" onclick="applyInteg();"><span class="cog icon"></span>开通</button>
+													</li>
+												{/if}
+											</ul>
+										</div>
+										<div class="user_detail fl_r pr_20 grid_2">
+											<button type="button" onclick="location.href='/index.php?do=integrity'" class="button"><span class="book icon"></span>查看详情</button>
+										</div>
+									</div>
+									<div class="all_authent pt_10">
+										<h1 class="font14b c333">您需要提供什么？</h1>
+										<ul class="clearfix">
+											<li style="width:98%;height:30px">
+												<div class="clearfix">
+													诚信保障服务是由预先向IT帮手网缴存2000元保证金，为交易中的雇主权益进行保障的服务。
+												</div>
+											</li>
+										</ul>
+									</div>
+									<div class="all_authent pt_10">
+										<h1 class="font14b c333">您可以得到什么？</h1>
+										<ul class="clearfix">
+											<li style="width:98%;height:30px">
+												<div class="clearfix">
+													点亮您的诚信保障图标，在网站各相关页面将得到全面的展示，是诚信交易的身份表示，让更多的雇主青睐并放心选择您进行交易。
+												</div>
+											</li>
+										</ul>
+									</div>
+									<div class="all_authent pt_10">
+										<h1 class="font14b c333">您需要保障什么？</h1>
+										<ul class="clearfix">
+											<li style="width:202px">
+												<div class="clearfix">
+													<span class="fl_l">
+													<img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/cation_one.gif">
+													<strong class="pl_5 c333">免费修改</strong></span>
+													<span class="pl_5 c090 fl_r already_authent">&nbsp;</span>
+												</div>
+												<div class="pt_10"><p>只要雇主购买自己的作品，则免费提供修改服务，直到雇主满意为止。</p></div>
+											</li>
+											<li style="width:202px">
+												<div class="clearfix">
+													<span class="fl_l">
+													<img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/cation_one.gif">
+													<strong class="pl_5 c333">保证完成</strong></span>
+													<span class="pl_5 c090 fl_r already_authent">&nbsp;</span>
+												</div>
+												<div class="pt_10"><p>只要雇主购买选择自己，则需要按照双方约定内容来完成作品。</p></div>
+											</li>
+											<li style="width:202px">
+												<div class="clearfix">
+													<span class="fl_l">
+													<img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/cation_one.gif">
+													<strong class="pl_5 c333">原创保证</strong></span>
+													<span class="pl_5 c090 fl_r already_authent">&nbsp;</span>
+												</div>
+												<div class="pt_10"><p>提交的稿件必须保证原创。</p></div>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+				
+                		</div>				
+	 					<!--main content end -->
+						<div class="clear"></div>
+  					</div>
+ 				</div>
+			</div>
+ 		</section>
+	</div>
+</div>
+<script type="text/javascript">
+	function applyInteg(){
+		showDialog('申请开通诚信保障服务将缴付2000元,点击确认前往付款','confirm','操作提示',function(){
+			showWindow('apply',"{$_K['siteurl']}/index.php?do=$do&view=$view&op=$op&ac=apply",'get',0);
+		});
+	}
+	function applyRefund(){
+		showDialog('您确认熄灭您的诚信保障图标?','confirm','操作提示',function(){
+			showWindow('apply',"{$_K['siteurl']}/index.php?do=$do&view=$view&op=$op&ac=refund",'get',0);
+		});
+	}
+</script>
+ <!--main end-->
+ <!--{template user/user_footer}-->
+<!--{template footer}-->

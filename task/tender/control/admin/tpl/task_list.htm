@@ -1,0 +1,195 @@
+<!--{template control/admin/tpl/admin_header}--> 
+ 
+	<div class="page_title">	
+    	<h1>{$_lang['normal_tender']}{$_lang['task_manage']}</h1>
+         <div class="tool">
+         	<a href="index.php?do=model&model_id=4&view=list&status=0" class="here">{$_lang['task_list']}</a>
+			
+		 </div>
+	</div>
+    <!--页头结束-->
+
+    <!--提示结束-->
+     <div class="box search p_relative">
+    	<div class="title"><h2>{$_lang['search']}</h2></div>
+        <div class="detail" id="detail">
+           
+		    <form action="index.php?do=model&model_id=4&view=list&task_type=$task_type&cove=$cove" method="post">
+				 <input type="hidden" value="{$page}" name="page">
+				<table cellspacing="0" cellpadding="0">
+					<tbody>
+                        <tr>
+                            <th>{$_lang['task_id']}</th>
+                            <td><input type="text" value="$task_id" name="task_id" class="txt" size=7/></td>
+                            <th>{$_lang['task_title']}</th>
+                            <td>
+                            	<input type="text" value="$task_title" name="task_title" class="txt"/>
+								{$_lang['search_by_like']}
+							</td>
+                            <th>任务状态</th>
+                            <td>
+                            	<select class="ps vm" name="task_status" id="catid">
+                            		<option value="" {if $task_status==''} selected="selected" {/if}>---所有---</option>
+                            	{loop $status_arr $k $v}
+									<option value="$k" {if $task_status!='' && $task_status==$k}selected="selected"{/if}>{$v}</option>
+								{/loop}	
+								</select>
+							</td>
+							<th>赏金托管</th>
+                            <td>
+                            	<select class="ps vm" name="cash_status" id="catid">
+                            		<option value="all" {if $cash_status!==0||$cash_status=='all'} selected="selected" {/if}>-不限-</option>
+                            		<option value="1" {if $cash_status=='1'} selected="selected" {/if}>是</option>
+                            		<option value="0" {if $cash_status=='0'} selected="selected" {/if}>否</option>
+                            	</select>
+							</td>
+						 </tr>
+                        <tr>
+                        	<th>开始日期</th>
+                            <td>
+                            	<input type="text" name="start_time" class="txt" onclick="showcalendar(event, this, 0)" size="12"/>
+							</td>
+							<th>结束日期</th>
+                            <td>
+                            	<input type="text" name="end_time" class="txt" onclick="showcalendar(event, this, 0)" size="12"/>
+							</td>
+							
+							<th>{$_lang['result_order']}</th>
+							<td>
+								
+								<select name="ord[]">
+                                <option value="task_id" {if $ord['0']=='task_id' or !isset($ord['0'])} selected="selected"{/if}>{$_lang['default_order']}</option>
+                                <option value="start_time" {if $ord['0']=='start_time' } selected="selected"{/if}>{$_lang['pub_time']}</option>
+                                </select>
+                                <select name="ord[]">
+                                <option {if $ord['1']=='desc' or !isset($ord['1'])}selected="selected" {/if} value="desc">{$_lang['desc']}</option>
+                                <option {if $ord['1']=='asc'}selected="selected" {/if} value="asc">{$_lang['asc']}</option>
+                                </select>
+							</td>
+                            <th>{$_lang['list_result']}</th>
+                            <td><select name="page_size">
+									<option value="10" {if $page_size=='10'}selected="selected"{/if}>{$_lang['page_size']}10</option>
+									<option value="20" {if $page_size=='20'}selected="selected"{/if}>{$_lang['page_size']}20</option>
+									<option value="30" {if $page_size=='30'}selected="selected"{/if}>{$_lang['page_size']}30</option>
+								</select>
+                              	<button class="pill" type="submit" value="{$_lang['search']}" name="sbt_search">
+                            		<span class="magnifier icon">&nbsp;</span>{$_lang['search']}
+								</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+			
+        </div>
+    </div>
+    <!--搜索结束-->
+    <div class="box list">
+    	<div class="title"><h2>{$_lang['normal_tender']}{$_lang['task_list']} (<!--{eval echo $table_obj->_count}-->)</h2></div>
+        <div class="detail">
+        	<form action="" id='frm_list' method="post">
+        	<input type="hidden" value="{$page}" name="page">
+			<input type="hidden" name="w[page_size]" value="{$page_size}">
+              <div id="ajax_dom">
+              <input type="hidden" value="{$page}" name="page">
+              <table cellpadding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="8%">ID</th>
+                    <th width="27%">{$_lang['task_title']}</th>
+                    <th width="8%">{$_lang['task_status']}</th>
+					<th width="15%">{$_lang['pub_time']}</th>
+                    <th width="8%">{$_lang['task_cash']}</th>
+					<th width="8%">{$_lang['pub_name']}</th>
+                    <th width="25%">{$_lang['operate']}</th>
+                  </tr>
+                  {loop $task_arr $k $v}
+                  <tr class="item">
+                 	<td class="td25"><input type="checkbox" name="ckb[]" class="checkbox" value="{$v[task_id]}" class="checkbox">{$v[task_id]}</td>
+                    <td class="td28"><a href="../../index.php?do=task&task_id={$v['task_id']}" target="_blank">
+                    	<!--{eval echo kekezu::cutstr($v[task_title],36)}--></a>
+						{if $v[is_recommend]==1}<font color="red">[{$_lang['recommended']}]</font>{/if}
+					</td>
+                    <td>$status_arr[$v[task_status]]</td>
+					<td><!--{eval echo date('Y-m-d H:i',$v[start_time])}--></td>
+                    <td>{if $v[task_cash_coverage]}$cash_cove[$v[task_cash_coverage]][cove_desc]{else}$v['task_cash']{/if}</td>
+                    <td>$v[username]</td>
+                    <td>
+                    	{if $v[task_status]==1}
+                    	<a href="javascript:void(0);" onclick="return operat_confirm('pass',$v['model_id'],$v['task_id'])" class="button"><span class="check icon"></span>{$_lang['pass']}</a>
+						<a href="javascript:void(0);" onclick="return operat_confirm('nopass',$v['model_id'],$v['task_id'])" class="button"><span class="cross icon"></span>{$_lang['nopass']}</a>
+						{/if}
+						{if in_array($v[task_status],array('2','3','4','5'))}
+                    	<a href="javascript:;" onclick="return show_freeze(this,'index.php?do=model&model_id=$v['model_id']&view=edit&task_id=$v['task_id']&sbt_act=freeze')" class="button"><span class="lock icon"></span>{$_lang['freeze']}</a>
+						{/if}
+						{if $v[is_recommend]!=1 && in_array($v[task_status],array('2','3'))}
+						<a href="javascript:void(0)" onclick="return operat_confirm('recommend',$v['model_id'],$v['task_id'])" class="button"><span class="cog icon"></span>{$_lang['recommend']}</a>
+						{/if}
+						{if $v[task_status]==7&&keke_task_config::valid_frost_type($v['task_id'])}
+						<a href="index.php?do=model&model_id=$v[model_id]&view=list&task_id=$v[task_id]&ac=unfreeze&page={$page}" class="button"><span class="cog icon"></span>{$_lang['cancel_freeze']}</a>
+						{/if}
+						{if $v[is_recommend]==1}
+							<a href="index.php?do=model&model_id=$model_id&view=list&ac=unrecommend&task_id={$v[task_id]}&page={$page}" class="button"><span class="cog icon"></span>{$_lang['cancel_recommend']}</a>
+						{/if}
+						<a href="index.php?do=model&model_id=$v[model_id]&view=edit&task_id=$v[task_id]&page={$page}" class="button dbl_target"><span class="pen icon"></span>{$_lang['edit']}</a>
+						{if in_array($v[task_status],array('0','10'))}
+						<a href="index.php?do=model&model_id=$v[model_id]&view=list&ac=del&task_id=$v[task_id]&page=$page"  onclick="return cdel(this);" class="button"><span class="trash icon"></span>{$_lang['delete']}</a>
+						{/if}
+						<a class="button" href="index.php?do=$do&model_id={$v[model_id]}&view=track&task_id={$v[task_id]}">任务跟踪</a>
+					</td>
+                  </tr>
+                  {/loop}
+                  
+                  <tr>
+                    <td colspan="7">
+	                    <div class="page fl_right">{$pages[page]}</div>
+	                    
+	                    <div class="clearfix">
+	                  		<input type="checkbox" onclick="checkall();" id="checkbox" name="checkbox"/>
+	                        <label for="checkbox">{$_lang['select_all']}</label>
+	                            <input type="hidden" name="sbt_action" class="sbt_action"/>
+	                        <!--button type="submit" value="{$_lang['mulit_delete']}" onclick="return batch_act(this,'frm_list');" class="pill negative" ><span class="icon trash"></span>{$_lang['mulit_delete']}</button-->
+	                        <button type="submit" value="{$_lang['mulit_pass']}" onclick="return batch_act(this,'frm_list');"  class="positive pill negative"><span class="icon check">&nbsp;</span>{$_lang['mulit_pass']}</button>
+	                    	<!--<button type="submit" value="{$_lang['mulit_freeze']} " onclick="return batch_act(this,'frm_list');"    class="pill negative"><span class="lock icon"></span>{$_lang['mulit_freeze']}</button>-->
+							<button type="submit" class="positive pill negative"  onclick="return batch_act(this,'frm_list');" value="{$_lang['mulit_unfreeze']}"><span class="unlock icon"></span>{$_lang['mulit_unfreeze']}</button>
+	                    </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table></div>
+        	</form>
+        </div>       
+    </div>
+	<!--主体结束-->
+<script>
+	function show_freeze(o,url){ 
+		art.dialog.open(url,{title:"任务冻结",height:400,width:700,noFn:function(){
+			$(o).show();
+		}});
+		$(o).hide();
+		return false;
+	}	
+	
+	function operat_confirm(operat_type,model_id,task_id){
+		var str_content;
+		var ac=operat_type;
+		switch(operat_type){
+			case 'recommend':
+				str_content = '是否确定推荐此任务？';
+				break;
+			case 'pass':
+				str_content = '是否确定审核通过？';
+				break;
+			case 'nopass':
+				str_content = '是否确定审核失败？';
+				break;
+			case 'close':
+				str_content = '是否确定关闭任务？';
+				break;
+		}
+		art.dialog.confirm(str_content,function(){
+			url = "index.php?do=model&model_id="+ model_id +"&view=list&task_id="+ task_id +"&ac="+ ac +"&page={$page}";
+			location.href = url;
+		});
+	}
+</script>
+<!--{template control/admin/tpl/admin_footer}-->

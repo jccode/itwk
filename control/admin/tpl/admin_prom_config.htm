@@ -1,0 +1,190 @@
+<!--{template control/admin/tpl/admin_header}-->
+<div class="page_title">
+    <h1>{$_lang['prom_config_manage']}</h1>
+    <div class="tool">
+        <a {if $op=="config"||!$op}class="here"{/if} href="index.php?do=$do&view=$view&op=config">{$_lang['register_prom']}</a>
+        <a {if $op=="pub_task"}class="here"{/if} href="index.php?do=$do&view=$view&op=pub_task">{$_lang['task_prom']}</a>
+        <a {if $op=="task_bid"}class="here"{/if} href="index.php?do=$do&view=$view&op=task_bid">{$_lang['bid_prom']}</a>
+    </div>
+</div> 
+{if $op=='config'||!$op}
+<div>
+    <div class="box tip clearfix p_relative">
+        <div class="control">
+            <a href="javascript:void(0);" title="{$_lang['close']}"><b>&times;</b></a>
+        </div>
+        <div class="title">
+            <h2>{$_lang['tips']}</h2>
+        </div>
+        <div class="detail pad10">
+            <ul>
+            	<li>{$_lang['prom_config_notice']}{$_lang['zh_jh']}</li>
+				<li>{$_lang['register_prom_must_one_auth']}{$_lang['zh_jh']}</li>
+			</ul>
+        </div>
+    </div>
+    <div class="box post">
+        <div class="tabcon">
+            <div class="title">
+                <h2>{$_lang['register_prom']}</h2>
+            </div>
+            <div class="detail">
+                <form name="frm_config_basic" id="frm_config_basic" action="{$url}" method="post">
+                    <input type="hidden" name="op" value="{$op}">
+					<div class="gut">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr><th scope="row" width="120">
+                                    {$_lang['is_open_global_prom']}{$_lang['zh_mh']}
+                                </th><td>
+                                 
+                        	       <label for="prom_open"><input type="radio" id="prom_open"  name="prom_reg_is_open" value='1' {if $global_config['prom_open']['v']==1}checked="checked"{/if}>{$_lang['open_prom']}</label>
+                                   <label for="prom_close"><input type="radio" id="prom_close" name="prom_reg_is_open" value='0' {if $global_config['prom_open']['v']==0}checked="checked"{/if}>{$_lang['closed_prom']}</label>
+                                   ({$_lang['this_set_global_effective']})
+                                </td></tr>
+                           <tr>
+                                <th scope="row">
+                                  {$_lang['prom_reward']}{$_lang['zh_mh']}
+                                </th>
+                                <td>
+                                    	<span style="float:left;padding:10px">用户注册后通过</span>
+										<ul style="display:inline;float:left;padding:10px">
+											{loop $auth_item $k $v}
+												<li>
+													<input type="checkbox" name="auth_code[]" value="{$k}" {if strpos($auth['config'],$k)!==FALSE}checked="checked"{/if}>{$v['auth_title']}
+												</li>
+											{/loop}
+										</ul>
+										<div style="float:left;padding:10px">
+										推广者将获得
+                                    	<input type="text" size=5 name="auth_cash" class="txt" value="{$auth['cash']}">{$_lang['yuan_cash']}，
+										<input type="text" size=5 name="auth_credit" class="txt" value="{$auth['credit']}">{CREDIT_NAME}{$_lang['zh_jh']}
+										</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    &nbsp;
+                                </th>
+                                <td>
+                                    <button type="submit" name="sbt_edit" class="positive pill primary  button" value="{$_lang['submit']}"><span class="icon check"></span>
+                                        {$_lang['submit']}
+                                    </button>
+                                    <button type="button" name="sbt_edit" class="primary pill button" value="{$_lang['return']}" onclick="history.go(-1);"><span class="icon uparrow"></span>
+                                        {$_lang['return']}
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+{else}
+    <div>
+        <div class="box tip clearfix p_relative">
+            <div class="control">
+                <a href="javascript:void(0);" title="{$_lang['close']}"><b>&times;</b></a>
+            </div>
+            <div class="title">
+                <h2>{$_lang['tips']}</h2>
+            </div>
+            <div class="detail pad10">
+                <ul>
+                    <li>
+                    	{if $op=='pub_task'}
+                     	   {$_lang['task_prom_notice']}{$_lang['zh_jh']}
+						{elseif $op=='task_bid'}
+							用户承接任务
+						{/if}
+                    </li>
+                </ul>
+            </div>
+        </div>
+  <div class="box post">
+    <div class="tabcon">
+      <div class="title">
+        <h2>
+           {if $op=='pub_task'}
+				{$_lang['task_prom']}
+		   {elseif $op=='task_bid'}
+				{$_lang['bid_prom']}
+		  {/if}
+		</h2>
+      </div>
+      <div class="detail">
+       <form name="frm_config_basic" id="frm_config_basic" action="{$url}" method="post">
+         <input type="hidden" name="op" value="{$op}">
+            <div class="gut">
+               <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                 <tr>
+                    <th width="120"><font style="text-align:right">{$_lang['specified_task_model']}</font></th>
+					{if $op=='pub_task'}
+                       <td>只有勾选的任务模型，任务完成后才会结算推广费用<br/>
+                         {loop $model_info $k $v}
+							{if $v['model_type']==$model_type}
+								<label for="model_{$k}"><input type="checkbox" id="model_{$k}" name="ckb_model[]" value="$v['model_id']" {if FALSE!==strpos($prom_config['model'],$v['model_id'])}checked="checked"{/if}>
+                            		{$_lang['limit']}{$v['model_name']}</label><br>
+							{/if}
+                         {/loop}
+                       </td>
+					 {else}
+					 	<td>
+					 		只有单人悬赏任务才会结算中标推广收益。
+					 	</td>
+					{/if}
+				</tr>
+           {if $op=='pub_task'}
+				<tr>
+					<th><font>推广者收益</font></th>
+						<td>
+							<input type="text" size="5" class="txt" name="pub_task_rate" id="pub_task_rate" value="{$prom_config['rate']}">%
+							（此比例请谨慎配置,请仔细核对个模型的收费比例）
+					   </td>
+				</tr>
+		   {elseif $op=='task_bid'}
+				<tr><th><font>{$_lang['undertake_task_prom_proift']}</font></th>
+						<td>
+							<input type="text" size="5" class="txt" name="bid_task_rate" id="bid_task_rate" value="{$prom_config['rate']}" />%
+								(任务总赏金的百分比,请仔细核对后谨慎配置)
+						</td>
+				</tr>
+		  {/if}
+                <tr>
+                   <th scope="row"> &nbsp;</th>
+                  <td>
+                     <button type="submit" name="sbt_edit" class="positive primary pill button"><span class="icon check"></span>
+                        {$_lang['submit']}
+                    </button>
+                    <button type="button" name="sbt_edit" class="primary pill button" onclick="to_back();"><span class="icon uparrow"></span>
+                        {$_lang['return']}
+                    </button>
+                  </td>
+                </tr>
+             </table>
+           </div>
+        </form>
+      </div>
+   </div>
+  </div>
+ </div>
+{/if}	 
+ <script type="text/javascript">
+<!--
+$(function(){
+	$(".control").add(".title").click(function(){
+		$(".tip").children().not($(".control,.title")).slideToggle('200');
+	});
+ 	var optif = $("#allow_prom_reg option:selected");
+	$("#prom_cash").val(optif.attr("cash"));
+	$("#prom_credit").val(optif.attr("credit"));
+})
+ $("#allow_prom_reg").change(function(){
+ 	var opti = $("#allow_prom_reg option:selected");
+	$("#prom_cash").val(opti.attr("cash"));
+	$("#prom_credit").val(opti.attr("credit"));
+ })
+//-->
+</script> 
+<!--{template control/admin/tpl/admin_footer}-->

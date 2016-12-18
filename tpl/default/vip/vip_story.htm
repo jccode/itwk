@@ -1,0 +1,99 @@
+<!--{template header}-->
+<!--{template new_head_nav}-->
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/vip.css" rel="stylesheet"/>
+<div class="wraper">
+	<header class="clearfix page_header">
+		<div class="container_24">
+			<div class="heidtile clearfix">
+            	<span>你的位置：</span>
+                <span><a href="{$_K['siteurl']}/index.php">IT帮手网首页</a>&nbsp;&gt;&nbsp;</span>
+            	<span><a href="{$_K['siteurl']}/index.php?do=vip&view=index">VIP专区</a>&nbsp;&gt;&nbsp;</span>
+				<h1><a href="{$_K['siteurl']}/index.php?do=vip&view=story">赚钱故事</a></h1>
+        	</div>
+		</div>
+	</header>
+	<section class="clearfix content">
+		<div class="container_24 clearfix">
+			<div class="t_c"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/story_banner.gif"></div>
+			<div class="story_shop mt_10">
+			  <ul class="clearfix">
+				{loop $story_arr $v}
+					<li>
+						<div class="story_shop_detail">
+							<div class="story_shop_dleft po_re">
+								<a href="{$_K['siteurl']}/index.php?do=shop&u_id={$v['r_uid']}">
+									<!--{userpic($v['uid'],'middle')}-->{if $v['isvip']}<div class="po_ab vip_top"></div>{/if}</a>
+								<div class="t_c"><a href="{$_K['siteurl']}/index.php?do=shop&sid={$v['shop_id']}">进入他的商铺</a></div>
+							</div>
+							<div class="story_shop_dright fl_l pl_20">
+								<ul>
+								<p class="c666 pb_5"><strong>{$v['art_title']}</strong></p>
+								<p class="c999 lineh_20">
+								    <!--{eval $v['content'] = htmlspecialchars_decode($v['content']);}-->
+									<!--{eval echo(kekezu::cutstr(strip_tags($v['content']),240));}-->
+										[<a href="{$_K['siteurl']}/index.php?do=article&art_cat_id={$v['art_cat_id']}&art_id={$v['art_id']}">查看全部</a>]</p>
+								</ul>
+							</div>
+						</div>
+					 </li>
+				 {/loop}					
+				</ul>
+				<div class="page pr_20">{$pages['page']}</div>
+				<div class="clear"></div>
+				<div class="t_c pt_30">
+					<div class="pb_10"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/six_right.gif"></div>
+					<a href="{$_K['siteurl']}/index.php?do=vip&view=open"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/opend_vip.gif"></a>
+				</div>
+			</div>
+		</div>
+		<!--{template footer}-->
+	</section>
+</div>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.autoscroll.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.pagination.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/slides.min.jquery.js"></script>
+
+<script type="text/javascript" >
+/*In.add('easySlider',{path:"{$_K['siteurl']}/resource/js/jqplugins/easySlider1.5.js",type:'js'});
+	In.add('index',{path:"$style_path/js/index.js",type:'js',rely:['easySlider']});
+	
+ 	In.add('lazy',{path:"{$_K['siteurl']}/resource/js/system/lazy.js",type:'js'});
+ 
+	In('easySlider','index','lazy',function(){
+		loadPics();
+	});*/
+$('#carousel,#jcarousel2').jcarousel({
+    wrap: 'circular',
+	 animation: 200
+}).jcarouselAutoscroll({
+   interval:  3000
+});
+$('#jcarousel,#jcarousel2').jcarousel({
+    wrap: 'circular',
+	 animation: 200
+}).jcarouselAutoscroll({
+   interval:  3000
+});
+$('.jcarousel-pagination').jcarouselPagination({
+   perpage: 1
+});	
+//幻灯
+	$('#slides').slides({
+		  preload: true,
+		  preloadImage: SITEURL+'/resource/img/system/loading.gif',
+		  play: 5000,
+		  pause: 2500,
+		  hoverPause: true,
+		  animationStart: function(){
+				$('.caption').fadeOut();
+			},
+			animationComplete: function(current){
+				$('.caption').fadeIn();
+				if (window.console && console.log) {
+					// example return of current slide number
+					console.log(current);
+				};
+			}
+	});
+</script>

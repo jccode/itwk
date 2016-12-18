@@ -1,0 +1,39 @@
+.simple_style .page_header,.simple_style .content{ background:#efefef; border:none;}
+	.map_lcon{width:192px;}
+		.map_lcon img{top:-1px; left:-1px;}
+		.map_licon{ background:url(../img/style/map_licon.gif) no-repeat 0 0; width:48px; height:48px; display:block; float:left; overflow:hidden;}
+			.map_licon.ep_index{ background-position:0 0;}
+			.map_licon.task_list{ background-position:0 -48px;}
+			.map_licon.hire{ background-position:0 -96px;}
+			.map_licon.service{ background-position:0 -144px;}
+			.map_licon.talent{ background-position:0 -192px;}
+			.map_licon.promotion{ background-position:0 -240px;}
+			.map_licon.no_img{ background-position:0 240px;}
+		.map_ltitle{ margin:5px 0 0 15px;}
+			.map_ltitle p{ line-height:20px; white-space:nowrap;}
+				.map_ltitle p a{font-size:14px; font-weight:bold; color:#333;}	
+	.map_rcon{width:798px;}
+		.map_ricon{background:url(../img/style/map_ricon.gif) no-repeat 0 0; width:32px; height:32px; display:block; float:left; overflow:hidden;}
+			.map_rlist{ border-top:1px solid #e9e9e9; padding:15px 0;}
+				.map_rlist li{ float:left; width:372px;}
+					.map_rlist li.w_auto{ width:auto;}
+					.map_rlist li.r_li{ padding-left:36px; width:348px;}
+					.map_rlist li span{ margin:5px 0 0 0;}
+					.map_rlist li div.fl_l{width:316px; overflow:hidden;}
+					.map_rlist li.w_auto div.fl_l{width:724px;}
+						.map_rlist li h2{color:#333; line-height:25px; padding-left:15px;}
+						.map_rlist li p a{color:#666; padding-left:15px; display:inline-block; white-space:nowrap;}
+				.map_ricon.b_mem{ background-position:0 0;}
+				.map_ricon.a_man{ background-position:0 -32px;}
+				.map_ricon.i_emp{ background-position:0 -64px;}
+				.map_ricon.i_wit{ background-position:0 -96px;}
+				.map_ricon.t_pat{ background-position:0 -128px;}
+				.map_ricon.h_cen{ background-position:0 -160px;}
+				.map_ricon.a_ser{ background-position:0 -192px;}
+				.map_ricon.e_city{ background-position:0 -224px;}
+				.map_ricon.f_col{ background-position:0 -256px;}
+				.map_ricon.n_new{ background-position:0 -288px;}
+				.map_ricon.c_cat{ background-position:0 -320px;}
+				.map_ricon.l_kin{ background-position:0 -352px;}
+	.simple_style .help_footer_box{ background:#fff;}
+	.simple_style{ background:#efefef;}			

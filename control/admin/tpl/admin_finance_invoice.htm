@@ -1,0 +1,185 @@
+<!--{template control/admin/tpl/admin_header}-->
+<div class="page_title">
+    <h1>{$_lang['financial_model']}</h1>
+    <div class="tool">
+		<a href="index.php?do={$do}&view=all">{$_lang['flow_record']}</a>
+	    <a href="index.php?do={$do}&view=report">{$_lang['graphic_report']}</a>
+	    <a href="index.php?do={$do}&view=recharge">{$_lang['recharge_audit']}</a>
+	   <a href="index.php?do={$do}&view=withdraw" >{$_lang['withdraw_audit']}</a>
+	   <a href="index.php?do={$do}&view=invoice" class="here">开票管理</a>
+    </div>
+</div>
+
+<div class="box search p_relative">
+    <div class="title">
+        <h2>{$_lang['search']}</h2>
+    </div>
+    <div class="detail" id="detail">
+        <form action="index.php?do={$do}&view=invoice" method="post" id=frm_user_search>
+        	<input type="hidden" value="{$page}" name="page">
+        	 <table cellspacing="0" cellpadding="0">
+                <tbody>
+                    <tr>
+                    	<th>
+                            {$_lang['task_title']}
+                        </th>
+                        <td>
+                            <input type="text" value="{$w['task_title']}" name="w[task_title]" class="txt" />
+                        </td>
+						 <th>
+                            {$_lang['username']}
+                        </th>
+                        <td>
+                            <input type="text" value="{$w['username']}" name="w[username]" class="txt"/>
+                        </td>
+						<th></th>
+						<td></td>
+					</tr>
+					<tr>
+						<th>{$_lang['iv_datetime']}</th>
+						<td>
+							<input type="text" name="start_time" class="txt" value="{$start_time}" size="12" onclick="showcalendar(event, this, 0)"> - <input type="text" name="end_time" value="$end_time" class="txt" size="12" onclick="showcalendar(event, this, 0)">
+						</td>
+                        <th>
+                            {$_lang['result_order']}
+                        </th>
+                        <td>
+                        <select name="w[ord][]">
+                            <option value="iv_id" {if $w['ord']['0']=='iv_id' or !isset($w['ord']['0'])} selected="selected"{/if}>{$_lang['default']}{$_lang['order']}</option>
+                            <option value="iv_datetime" {if $w['ord']['0']=='iv_datetime' } selected="selected"{/if}>{$_lang['iv_datetime']}</option>
+                        </select>
+                        <select name="w[ord][]">
+                             <option {if $w['ord']['1']=='desc' or !isset($w['ord']['1'])}selected="selected" {/if} value="desc">{$_lang['desc']}</option>
+                             <option {if $w['ord']['1']=='asc'}selected="selected" {/if} value="asc">{$_lang['asc']}</option>
+                        </select>
+                        </td>
+                        <th>
+                        	{$_lang['list_result']}
+                        </th>
+                        <td>
+                            <select name="w[page_size]">
+                               <option value="10" {if $w['page_size']=='10'}selected="selected"{/if}>{$_lang['page_size']}10</option>
+                               <option value="20" {if $w['page_size']=='20'}selected="selected"{/if}>{$_lang['page_size']}20</option>
+                               <option value="30" {if $w['page_size']=='30'}selected="selected"{/if}>{$_lang['page_size']}30</option>
+                             </select>
+                             <button class="pill" type="submit" value={$_lang['search']} name="sbt_search">
+                                <span class="icon magnifier">&nbsp;</span>{$_lang['search']}
+                              </button>
+                           </td>
+                        </tr>
+                  </tbody>
+            </table>
+        </form>
+    </div>
+ </div>
+<!--搜索结束-->
+<div class="box list">
+    <div class="title">
+        <h2>开票管理</h2>
+    </div>
+     <div class="detail">
+        <form action="index.php?do={$do}&view=invoice" method="post" id='frm_art_action' >
+			<input type="hidden" name="w[page_size]" value="{$page_size}">
+			<div id="ajax_dom"><input type="hidden" value="{$page}" name="page">
+		  <table cellpadding="0" cellspacing="0">
+             <tbody>
+               <tr>
+                    <th width="20">
+           				编号
+					</th>
+                    <th>
+                  		标题
+					</th>
+					<th>
+						申请人ID
+					</th>
+					<th>
+						申请人名
+					</th>
+                    <th>
+						开票金额
+                    </th>
+                    <th>
+                      	 手续费
+                    </th>
+					<th>
+						增值费
+					</th>
+                    <th>
+                      	申请时间
+                    </th>
+                    <th>
+                      	 开票状态
+                    </th>
+                    <th>
+                      	 处理人ID
+                    </th>
+                    <th>
+						处理人名
+                    </th>
+                    <th>
+ 						操作
+                    </th>
+                </tr>
+  				 {loop $data_arr $key $v}
+                <tr class='item'>
+					<td>{$v['iv_id']}</td>
+                    <td>
+                     	{$v['task_title']}
+                    </td>
+                    <td>
+                        {$v['uid']}
+                    </td>
+                    <td>
+                      {$v['username']}
+                    </td>
+                    <td>
+                        {$v['iv_price']}
+                    </td>
+                    <td>
+                        {$v['iv_taxes']}
+                    </td>
+                    <td>
+                        {$v['iv_item_cash']}
+                    </td>
+                    <td>
+                    	<!--{date('Y-m-d H:i:s',$v['iv_datetime'])}-->
+                    </td>
+					  <td>
+					{$iv_status[$v['iv_status']]}
+                    </td>
+					 <td>
+					{if $v['iv_checkuid']}{$v['iv_checkuid']}{else}暂无{/if}
+                    </td>
+					<td>
+					{if $v['iv_checkusername']}{$v[iv_checkusername]}{else}暂无{/if}
+                    </td>
+                    <td>
+                     <a href="index.php?do={$do}&view=invoice_info&iv_id={$v['iv_id']}&page={$page}" class="button dbl_target"><span class="book icon"></span>处理</a>
+                    </td>
+                </tr>
+				{/loop}
+                    <tr>
+                    <td colspan="9">
+                           <div class="clearfix">
+						  </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+			  <div class="page">{$pages['page']}</div>
+			  </div>
+        	</form>
+        </div>
+    </div>
+<!--{template control/admin/tpl/admin_footer}-->
+<script type="text/javascript">
+    function cancel(obj){
+        var url = obj.href;
+        showDialog("$_lang['iv_cancel_ma']", "confirm", "{$_lang['operate_notice']}", function(){
+           location.href = url;
+        });
+        return false;
+    }
+</script>
+   

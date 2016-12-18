@@ -1,0 +1,124 @@
+<!--{template header}-->
+<div class="winbody {$_K['theme']}_style">
+ <div class="clearfix box pad10">
+
+	<div class="messages m_infor">
+    <span class="icon16"></span>
+				 {$_lang['the_current_article']}<!--{eval echo $delay_count+1}-->次延期,
+				 本次最少新增稿件{$min_count}个,最大延长天数{$max_day}{$_lang['day']},
+				 您还可<!--{eval echo $delay_total-$delay_count-1}-->{$_lang['times']}{$_lang['zh_jh']}
+	</div>
+    
+    <!--from表单 start-->
+    <form method="post" id="frm_delay" name="frm_delay" action="">
+    <div class="rowElem clearfix">
+
+      		 <label class="fl_l">{$_lang['your_current_balance_is']}{$_lang['zh_mh']} </label>
+             <div class="fl_l">
+			  <strong class="red">{$user_info['balance']}</strong>{$_lang['cash']},稿件单价为：<strong class="red">{$single_cash}</strong>{$_lang['cash']}
+              <div class="clear"></div>
+				<div class="c999">{$_lang['bounty_higher__info']}{$_lang['zh_jh']}</div>
+			</div>
+
+     </div>
+	 <div class="rowElem clearfix">
+
+      		 <label class="fl_l">延期模式{$_lang['zh_mh']} </label>
+             <div class="fl_l">
+              	<input type="radio" name="delay_mode" id="not_delay" value="1" checked /><label>增加稿件</label>
+      		 	<input type="radio" name="delay_mode" id="delay" value="2"/><label>延长时间</label>
+			 </div>
+      </div>
+     <div class="rowElem clearfix">
+
+      		<label class="fl_l">您希望增加稿件{$_lang['zh_mh']}</label>
+			 <div class="fl_l">
+				<input type="text" name="delay_count" class="txt_input" id="delay_count" value="{$min_count}"
+				 onkeyup="clearstr(this);" limit="required:true;type:int;between:{$min_count}-" msgArea="span_count"
+				  msg="最少需新增稿件{$min_count}个" title="请填写新增稿件数量"><span id="span_count"></span>(最少增加{$min_count}个稿件)
+			  </div><div class='clear'></div><div class='fl_l' style='padding-left:100px;'>您需支付:<font color="red" id='show_cash'><!--{eval echo $min_count*$single_cash;}--></font>元</div>
+      </div>
+     <div class="rowElem clearfix" id="is_delay" style='display:none'>
+
+      		<label class="fl_l">您希望延长时间{$_lang['zh_mh']}</label>
+			 <div class="fl_l">
+				<input type="text" name="delay_day" class="txt_input" id="delay_day" msgArea="span_day" ignore='true'
+				 onkeyup="clearstr(this);" value="{$max_day}" limit="required:true;type:int;between:1-{$max_day}"
+				  msg="延长天数为1-{$max_day}天" title="请选择延长天数"><span id="span_day"></span>(最多延长{$max_day}{$_lang['day']})
+			 </div>
+
+      </div>
+     <div class="rowElem clearfix">
+       	 <div class="grid_10 omega">
+      		<label class="c999">{$_lang['markup_extension_rule']}</label>
+             </div>
+      </div>
+	  <div class="rowElem clearfix">
+			 <div class="messages">
+			  	<ul>
+			  		<li>1.计件悬赏共可延期 <!--{eval echo $delay_total}-->{$_lang['times']}</li>
+			  		<li>2.单次最少新增稿件数量限制会随延期次数而定</li>
+					<li>3.延长时间为免费,单次最大延长{$max_day}</font>{$_lang['day']}</li>
+			  		{loop $delay_rule $k $v}
+						<li><!--{eval echo $k+4;}-->.{$_lang['di']}<!--{eval echo $k+1;}-->次延期最少需新增稿件<!--{eval echo intval($v['defer_rate']);}-->件</li>
+					{/loop}
+			  	</ul>
+			  </div>
+      </div>
+      <div class="rowElem clearfix form_button">
+       	 	 <button type="button" class="button" value="{$_lang['delayed_increase']}" onclick="Delay();"><span class="check icon"></span>{$_lang['delayed_increase']}</button>
+		 	 <button type="button" class="button" value={$_lang['cancel']} onclick="hideWindow('taskdelay')"><span class="reload icon"></span>{$_lang['cancel']}</button>
+      </div>
+   </form>
+  <!--from表单 end-->
+  </div>
+
+</div>
+<script type="text/javascript">
+	var sinCash = '{$single_cash}';
+	$(function(){
+		In('form');
+		$("#delay").click(function(){
+			$("#is_delay").show().prev().hide();
+			$('#delay_count').attr('ignore','true');
+			$('#delay_day').removeAttr('ignore');
+			});
+		$("#not_delay").click(function(){
+			$("#is_delay").hide().prev().show();
+			$('#delay_count').removeAttr('ignore');
+			$('#delay_day').attr('ignore','true');
+			})
+	    var s= $('.messages');
+        msgshow(s);
+		$('#delay_count').keyup(function(){
+			var c    = parseInt($(this).val());
+			var cash = c*sinCash;
+				$('#show_cash').html(cash);
+		})
+	});
+        //显示消息
+        function msgshow(ele){
+        	var t = setTimeout(function(){
+        		ele.slideDown(200);
+        		clearTimeout(t);
+            },400);
+        };
+		function Delay(){
+			var i = checkForm(document.getElementById("frm_delay"));
+				if(i){
+					var data = $('#frm_delay').serialize();
+					var url  = '{$_K[siteurl]}/index.php?do=task&task_id={$task_id}&op=taskdelay&sbt=1&';
+					hideWindow('taskdelay');	
+					$.post(url+data,function(json){
+						if(json.status==1){
+							showDialog(json.msg,'right','操作提示',function(){
+								location.href = json.data;
+							});return false;
+						}else{
+							showDialog(json.msg,'alert','操作提示');return false;
+						}
+					},'json');
+				}
+		}
+</script>
+<!--{template footer}-->

@@ -1,0 +1,100 @@
+<!--{template header}-->
+<style type="text/css">
+	.winbody td{ padding:5px 0;}
+	.valid_error { margin-left:5px;}
+	.valid_error span{ display:inline-block; width:145px;}
+</style>
+<div class="winbody">
+ <div class=" {$_K['theme']}_style">
+ <!--main content-->
+   <div class="pad10 clearfix">
+    <!--from表单 start-->
+    <form action="" method="post" id="frm_link" name="frm_link">			
+    	<div class="rowElem clearfix" id="upload_tip">
+		 <table>
+		 	<tr>
+		 		<td width="60">网站名称：</td>
+				<td>
+					<input type="text" class="txt_input" size="40" class="text" name="link_name" id="link_name" 
+					limit="required:true;len:2-20" title="网站名称" msg="网站名称不得为空,2-20字" msgArea="span_link_name">
+				</td>
+				<td><span id="span_link_name">&nbsp;</span></td>
+		 	</tr>
+			<tr>
+		 		<td>网站地址：</td>
+				<td>
+				    <input type="text" class="txt_input" size="40" class="text" name="link_url" id="link_url" 
+					limit="required:true;type:url;len:3-100" title="网站地址" msg="请输入正确的地址" msgArea="span_link_url">					
+				</td>
+				<td>
+					<span id="span_link_url">&nbsp;</span>
+				</td>
+		 	</tr>
+		<!--	<tr>
+		 		<td>LOGO标志：</td>
+				<td>
+					<input type="file" name="link_pic" id="case_pic" ext=".jpg,.gif,.png,.jpeg" class="button block t_c" 
+					onchange="isExtName(this,1);" >
+				</td>
+				<td>
+					<span id="span_title">&nbsp;建议尺寸为90*120像素，格式为jpg,gif,png</span>
+				</td>
+		 	</tr> -->
+			<tr>
+		 		<td>验证码：</td>
+				<td>					
+					<input style="width:65px;" class="fl_l txt_input" name="txt_code" type="text" size="8" id="txt_code" limit="required:true;len:4" msg="请输入验证码" msgArea="secode_msg"ajax="{$_K['siteurl']}/index.php?do=ajax&view=code&txt_code=" >
+					<img id="secode_img" src="{$_K['siteurl']}/secode_show.php?sid=" onclick="document.getElementById('secode_img').src='{$_K['siteurl']}/secode_show.php?sid='+Math.random(); return false;" style="width:100px;">
+					<a class="font14" href="javascript:void(0);" onclick="document.getElementById('secode_img').src='{$_K['siteurl']}/secode_show.php?sid='+Math.random(); return false;">换一组</a>
+					<a id="show_secode" href='{$_K['siteurl']}/index.php?do=ajax&view=menu&ajax=show_secode'></a>
+				</td>
+				<td><span class="" id="secode_msg"></span></td>
+		 	</tr>
+		 </table>
+      </div>
+      <input name="location_id" type="hidden" value="{$location_id}" />
+	<input name="sbt_action" type="hidden" value="1" />  
+   </form>
+  <!--from表单 end-->
+  </div>
+  <div class="messages m_warn lineh_20">
+				<div> 接受同行业或相关行业链接，百度收录20万以上，快照24小时内，</div>
+				<div>Alexa10万左右，联系QQ：1834617568</div>
+      	</div>	
+	<div class="rowElem clearfix form_button">
+         <button type="button" class="submit mr_5" value="提交申请" onclick="link_add_submit();">提交申请</button>
+		 <button type="button" class="button bwhite" value="{$_lang['cancel']}" onclick="hideWindow('linkbox')">{$_lang['cancel']}</button>			
+      </div>
+
+ </div>
+</div>
+<script src="{$_K['siteurl']}/resource/js/jquery.bgiframe.pack.js"></script>
+<script type="text/javascript">
+	In('form');
+		
+	 //ajax 获取
+	function link_add_submit(){	
+		i = checkForm(document.getElementById('frm_link'));
+		if(i){
+			var data = $("#frm_link").serialize();
+			var url = "{$_K['siteurl']}/index.php?do=ajax&view=link&opp=ajax_add&"+data;
+		    $.getJSON(url, function(json){ 
+				hideWindow('linkbox');
+				
+		        if (json.status == '1') {			
+					showDialog(json.msg,'right',"操作提示");//,-1
+					return true;
+		        }
+		        else {
+					showDialog(json.msg,'alert',"操作提示");
+				    return false;
+		        }
+		    });
+		}
+	}
+
+	$(function(){
+		$('div.fwinmask').bgiframe();
+	})
+</script>
+<!--{template footer}-->

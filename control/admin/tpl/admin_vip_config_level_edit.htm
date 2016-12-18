@@ -1,0 +1,114 @@
+<!--{template control/admin/tpl/admin_header}--> 
+<div class="page_title">
+    	<h1>{if $level_id}添加{else}编辑{/if}vip等级</h1>
+        <div class="tool">
+       		<a href="index.php?do=$do&view=$view" class="here">等级配置</a>
+        	<a href="index.php?do=$do&view=$view&type=special" >特权配置</a>
+		</div>
+</div>
+<div class="box post">
+    <div class="tabcon">
+        	<div class="title"><h2>{if $level_id}编辑vip等级{else}添加vip等级{/if}</h2></div>       	
+            <div class="detail">
+                <form method="post" action="index.php?do={$do}&view={$view}&type=$type&op=$op&level_id=$level_id" id="frm_level_edit" enctype="multipart/form-data">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <th scope="row" width="130">等级名称：</th>
+                        <td> 
+							<input name="txt_level_name" id="txt_level_name" class="txt" style=" width:260px;"
+                         			 limit = "required:true" 
+                                     msg = "名称必填" 
+                                     title="vip等级名称"
+                                     msgArea="msg_level_name"
+									 value="$level_info[level_name]">
+	                        
+	                    	</select>
+							 <span id="msg_level_name" style="color:red;"></span> 
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">是否允许购买：</th>
+                        <td>
+                        	<label><input type="radio" name="rdo_allow_buy" {if $level_info[allow_buy]}checked=checked{/if} value="1" >允许</label>
+							<label><input type="radio" name="rdo_allow_buy" {if !$level_info[allow_buy]}checked=checked{/if} value="0" >禁止</label>
+							&nbsp;&nbsp;&nbsp;被禁止vip购买的仍然可以通过用户管理设置他的vip等级
+                       </td>
+                      </tr>
+					  <tr>
+                        <th scope="row">排序：</th>
+                        <td>
+                        	<input type="text"  class="txt" id="txt_listorder" name="txt_listorder"
+						   		value="{if $level_info[listorder]}$level_info[listorder]{else}0{/if}"
+						    	maxlength="5" 
+								limit = "required:false;type:int" 
+                                onkeyup="clearstr(this)"
+                                msg = "必须为数字"
+                                title="显示排序" 
+                                msgArea="slt_txt_listorder"/><span id="slt_txt_listorder"></span>   
+                        </td>
+                      </tr>
+					   <tr>
+                        <th scope="row" valign="top">价格配置：</th>
+                        <td>
+                        	<ul id="price_list_ul">
+                        	{loop $price_config $pri_k $price}
+								<li id="price_list_li_$pri_k">购买
+								<input type="text" name="price_arr[$pri_k][month]" size="4" onkeyup="clearstr()" value="$price[month]">
+								个月，需要
+								<input type="text" name="price_arr[$pri_k][price]" size="4" onkeyup="clearstr()" value="$price[price]">
+								元
+								<a href="javascript:;" onclick="$('#price_list_li_$pri_k').remove()">删除</a>
+								</li>
+							{/loop}
+							</ul>
+							<script>
+								var price_value = <!--{eval echo $pri_k+0}-->;
+								function add_price(){
+									price_value = price_value+1;
+									var mod = '<li id="price_list_li_'+price_value+'">购买';
+									mod+='<input type="text" name="price_arr['+price_value+'][month]" size="4" onkeyup="clearstr()" value="">';
+									mod+='个月，需要';
+									mod+='<input type="text" name="price_arr['+price_value+'][price]" size="4" onkeyup="clearstr()" value="">';
+									mod+='元';
+									mod+='<a href="javascript:;" onclick="$(\'#price_list_li_'+price_value+'\').remove()">删除</a>';
+									mod+='</li>';
+									$('#price_list_ul').append(mod);
+								}
+							</script>
+							<button class="pill button" type="button" onclick="add_price()" value="添加规则"><span class="uparrow icon"></span>添加规则</button>
+                        </td>
+                      </tr>
+					   <tr>
+                        <th scope="row">权限设置：</th>
+                        <td>
+                        	<ul>
+                        		{loop $special_list $sp}
+                        		<li> <label> <input type="checkbox" name="rule_list[{$sp[sp_key]}]" value="$sp[sp_key]" {if $rule_config[$sp[sp_key]]}checked=checked{/if}>$sp[sp_name] </label> </li>
+								{/loop}
+                        	</ul>   
+                        </td>
+                      </tr>
+					  	<tr>
+                        <th scope="row">所属品牌馆：</th>
+                        <td>
+                        	<input type="radio" value='cn' name="brand" {if $level_info['brand']=='cn'||$level_info['brand']==''}checked=checked{/if}>大陆</input> 
+                        	<input type="radio" name="brand"  value='tw' {if $level_info['brand']=='tw'}checked=checked{/if}>台湾馆</input>
+                            <input type="radio" name="brand" value='hk' {if $level_info['brand']=='hk'}checked=checked{/if}>香港馆</input>   
+                        </td>
+                      </tr>
+					  
+					<tr>
+						<th scope="row">&nbsp;</th>
+						<td>
+						<button name="sbt_edit" value="1" onclick="return checkForm(document.getElementById('frm_level_edit'),false)" class="positive primary pill button" type="submit">
+						<span class="check icon"></span>提交</button>
+						 <button class="pill button" type="button" onclick="history.go(-1);" value={$_lang['return']}><span class="uparrow icon"></span>返回</button>
+						</td>
+						</tr>
+                    </table>
+                </form>
+              </div>
+       </div>           
+</div>
+<!--主体结束-->
+<!--{template control/admin/tpl/admin_footer}-->

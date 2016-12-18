@@ -1,0 +1,135 @@
+<!--{template control/admin/tpl/admin_header}--> 
+	<div class="page_title">	
+    	<h1>稿件管理</h1>
+         <div class="tool">
+         	<a href="javscript:void(0);">稿件管理</a>
+			{if $task_id}
+				<a href="index.php?do=model&model_id={$work_arr[0][model_id]}&view=edit&task_id=$task_id">编辑任务</a>
+			{/if}
+		 </div>
+	</div>
+	<!--提示结束-->
+     
+        <div class="box search p_relative">
+    	<div class="title"><h2>{$_lang['search']}</h2></div>
+        <div class="detail" id="detail">
+           
+		    <form action="index.php?do=work" method="post">
+				 <input type="hidden" value="{$page}" name="page">
+				<table cellspacing="0" cellpadding="0">
+					<tbody>
+                        <tr>
+                            <th>{$_lang['task_id']}</th>
+                            <td><input type="text" value="$task_id" name="task_id" class="txt"/></td>
+                            <th>{$_lang['task_title']}</th>
+                            <td><input type="text" value="$task_title" name="task_title" class="txt"/> {$_lang['search_by_like']}</td>
+                       		<th>交稿人</th>
+                            <td><input type="text" value="{$uname}" name="uname" class="txt"/>{$_lang['search_by_like']}</td>
+						 </tr>
+                        <tr>
+							<th>{$_lang['result_order']}</th>
+							<td>
+								<select name="ord[]">
+                                <option value="work_id" {if $ord['0']=='work_id' or !isset($ord['0'])} selected="selected"{/if}>稿件编号</option>
+                                <option value="work_time" {if $ord['0']=='work_time' } selected="selected"{/if}>交稿时间</option>
+                                </select>
+                                <select name="ord[]">
+                                <option {if $ord['1']=='desc' or !isset($ord['1'])}selected="selected" {/if} value="desc">{$_lang['desc']}</option>
+                                <option {if $ord['1']=='asc'}selected="selected" {/if} value="asc">{$_lang['asc']}</option>
+                                </select>
+							</td>
+                            <th>{$_lang['list_result']}</th>
+                            <td><select name="page_size">
+									<option value="10" {if $page_size=='10'}selected="selected"{/if}>{$_lang['page_size']}10</option>
+									<option value="20" {if $page_size=='20'}selected="selected"{/if}>{$_lang['page_size']}20</option>
+									<option value="30" {if $page_size=='30'}selected="selected"{/if}>{$_lang['page_size']}30</option>
+								</select>
+                              	<button class="pill" type="submit" value="{$_lang['search']}" name="sbt_search">
+                            		<span class="magnifier icon">&nbsp;</span>{$_lang['search']}
+								</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+			
+        </div>
+    </div>
+    <!--搜索结束-->
+    <!--页头结束-->
+	<div class="box list">
+    	<div class="title"><h2>{if $task_id}任务 <span style="color:#660000;">{$work_arr[0][task_title]}的稿件</span>  {else}稿件列表{/if}</h2></div>
+        <div class="detail">
+        	<form action="" id='frm_list' method="post">
+        	<input type="hidden" value="{$page}" name="page">
+			<input type="hidden" name="page_size'" value="{$page_size}">
+               <div id="ajax_dom">
+               <table cellpadding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="8%">ID</th>
+					<th width="8%">任务ID</th>
+					<th>用户名</th>
+                    <th>任务标题</th>
+                    <th>稿件描述</th>
+                    <th>交稿时间</th>
+                    <th width="200">{$_lang['operate']}</th>
+                  </tr>
+                    {loop $work_arr $k $v}
+                  <tr class="item">
+                 	<td class="td25">
+                 		<input type="checkbox" name="ckb[]" class="checkbox" value="{$v['work_id']}" class="checkbox">{$v['work_id']}</td>
+                    <td>
+                    	$v['task_id']
+					</td>
+                    <td>
+                    	$v['username']
+                    </td>
+                    <td>$v['work_title']</td>
+                    <td><!--{eval echo(kekezu::cutstr(strip_tags($v[work_desc]),20));}--></td>
+					 <td><!--{date('Y-m-d H:i:s',$v[work_time])}--></td>
+                    <td>
+                    	<a href="{$_K['siteurl']}/index.php?do=task&task_id={$v[task_id]}&view=work&work_id={$v[work_id]}" target="_blank" class="button"><span class="check icon"></span>查看</a>
+                    	{if $v['work_status']==16}
+							<a href="index.php?do=bid&ac=valid&work_id=$v['work_id']&page={$page}&page_size={$page_size}" class="button"><span class="cross icon"></span>有效</a>
+                      	{else}
+						    <a href="index.php?do=bid&ac=novalid&work_id=$v['work_id']&page={$page}&page_size={$page_size}" class="button"><span class="cross icon"></span>无效</a>
+						{/if}
+							<a href="index.php?do=work&work_id=$v['work_id']&ac=del&page={$page}" class="button"  onclick="return cdel(this);"><span class="trash icon"></span>{$_lang['delete']}</a>
+						{if ($v['model_id']==1||$v['model_id']==2)&&$v['task_status']<8}
+							<!--{eval $bts = re_button($v['model_id'],$v['work_status']);}-->
+							{if $bts['ac']=='cancel'}
+								<a href="index.php?do=work&work_id=$v['work_id']&ac=cancel&page={$page}" class="button" onclick="return cdel(this,'确定{$bts[arr][desc]}?');">
+									<span class="downarrow icon"></span>{$bts['arr']['desc']}
+								</a>
+							{else}
+								{loop $bts['arr'] $ks $vs}
+								<a href="index.php?do=work&work_id=$v['work_id']&ac=choose&st={$ks}&page={$page}" class="button" onclick="return cdel(this,'确定设为{$vs}?');">
+									<span class="uparrow icon"></span>设为{$vs}
+								</a>
+								{/loop}
+							{/if}
+						{/if}
+					</td>
+                  </tr>
+                  {/loop}
+                  
+                  <tr>
+                    <td colspan="7">
+	                    <div class="page fl_right">{$pages['page']}</div>
+	                    
+	                    <div class="clearfix">
+	                  		<input type="checkbox" onclick="checkall();" id="checkbox" name="checkbox"/>
+	                        <label for="checkbox">{$_lang['select_all']}</label>
+	                        <input type="hidden" name="sbt_action" class="sbt_action"/>
+	                        <button type="submit" value="{$_lang['mulit_delete']}" onclick="return batch_act(this,'frm_list');" class="pill negative" ><span class="icon trash"></span>{$_lang['mulit_delete']}</button>
+
+	                    </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table></div>
+        	</form>
+        </div>       
+    </div>
+	<!--主体结束-->
+<!--{template control/admin/tpl/admin_footer}-->

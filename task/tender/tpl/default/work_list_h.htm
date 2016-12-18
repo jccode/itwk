@@ -1,0 +1,21 @@
+<div class="nav_lists_box clearfix">
+		  	<div  id="gj_summery">
+				<ul class="small_list mt_10 clearfix">
+					{loop $work_info $k $v}
+					<li>
+						<a href="{$_K['siteurl']}/index.php?do=task&task_id=$task_id&view=work&work_id=$v[work_id]&order=$order#gj_summery" >
+							{if in_array($v[work_status],array(1,2,3,4,5,11,12,13,15))}<span class="work_{$v[work_status]}_small"></span>{/if}
+							{if $v[work_pic]}
+								<img width=217 height=150 src="<!--{eval echo kekezu::format_url($v[work_pic])}-->">
+							{else}
+								<img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/worknopic.jpg">
+							{/if}
+						</a>
+						<div><a href="{$_K['siteurl']}/index.php?do=shop&u_id=$v[uid]">$v[username]</a><span><!--{date('Y-m-d H:i:s',$v[work_time])}--></span></div>
+						<!--<div class="vip"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/vip.gif"></div>-->
+					</li>
+					{/loop}
+				</ul>
+				<div class="page clearfix">$pages[page]</div>&nbsp;&nbsp;
+				</div>
+			</div>

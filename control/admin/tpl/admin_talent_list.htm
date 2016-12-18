@@ -1,0 +1,126 @@
+<!--{template control/admin/tpl/admin_header}-->
+<!--{template control/admin/tpl/admin_talent_nav}-->
+
+<!--页头结束-->
+<div class="box search p_relative">
+  <div class="title">
+    <h2>{$_lang['search']}</h2>
+  </div>
+  <div class="detail" id="detail">
+    <form action="#" method="post">
+      <input type="hidden" name="do" value="$do">
+      <input type="hidden" name="view" value="$view">
+      <input type="hidden" name="type" value="$type">
+      <input type="hidden" name="page" value="$page">
+      <table cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr>
+            <th>检索条件：</th>
+            <td><select name="condit" style="width:80px;">
+                <option value="" {if !$condit}selected="selected"{/if}>--所有--</option>
+                <option value="uid" {if $condit == 'uid'}selected="selected"{/if}>用户编号</option>
+                <option value="username" {if $condit == 'username'}selected="selected"{/if}>用户名</option>
+                <option value="shopname" {if $condit == 'shopname'}selected="selected"{/if}>店铺名</option>
+              </select>
+              关键字：<input type="text" class="txt" name="keyword" value="{$keyword}">
+            </td>
+            <th>所属栏目：</th>
+            <td>
+              <select id="catid" name="catid" style="width:80px;">
+                <option value="--">--所有--</option>
+                <option value="0" {if $catid<1&&$catid!='--'}selected="selected"{/if}>{$_lang['top']}</option>
+                {loop $indus_option_arr $v}{$v}{/loop}
+              </select>
+            </td>
+            <th>&nbsp;</th>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <th>{$_lang['show_number']}</th>
+            <td><select name="ps" class="ps vm">
+                <option value="10" {if $ps=='10'}selected="selected"{/if}>{$_lang['page_size']}10</option>
+                <option value="20" {if $ps=='20'}selected="selected"{/if}>{$_lang['page_size']}20</option>
+                <option value="30" {if $ps=='30'}selected="selected"{/if}>{$_lang['page_size']}30</option>
+              </select>
+            </td>
+            <th>{$_lang['result_order']}</th>
+            <td>
+              <select name="order[]">
+                <option value="a.tid" {if $order['0']=='a.tid' or !isset($order['0'])} selected="selected"{/if}>{$_lang['default_order']}</option>
+              </select>
+              <select name="order[]">
+                <option {if $order['1']=='DESC' or !isset($order['1'])}selected="selected" {/if} value="DESC">{$_lang['desc']}</option>
+                <option {if $order['1']=='ASC'}selected="selected" {/if} value="ASC">{$_lang['asc']}</option>
+              </select>
+            </td>
+            <th>&nbsp;</th>
+            <td>
+              <button type="submit" name="sbt_search" value="$_lang['search']" class="pill" />
+                <span class=icon magnifier>&nbsp;</span>{$_lang['search']}
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+</div>
+<div class="box list">
+  <div class="title">
+    <h2>&nbsp;</h2>
+  </div>
+  <div class="detail">
+    <form method="post" action="" id="frm_talent_list" onsubmit="return false;">
+      <div id="ajax_dom">
+        <input type="hidden" name="page" value="{$page}" />
+        <table cellpadding="0" cellspacing="0">
+          <thead>
+            <tr>
+              <th width="15"></th>
+              <th width="20">编号</th>
+              <th width="20">用户名</th>
+              <th width="100">店铺名</th>
+              <th width="100">推荐栏目</th>
+              <th width="50">排序</th>
+              <th width="50">创建时间</th>
+              <th width="50">修改时间</th>
+              <th width="100">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+          {loop $list $k $v}
+          <tr class="item">
+            <td class="td25"><input type="checkbox" name="ckb[]" value="{$v['tid']}" class="checkbox"></td>
+            <td class="td25">{$v['tid']}</td>
+            <td class="td25">{$v['username']}</td>
+            <td class="td25"><a href="/index.php?do=shop&sid={$v['shop_id']}" target="_blank">{$v['shop_name']}</a></td>
+            <td class="td25">{if $v['catid']}{$cat[$v['catid']]['indus_name']}{else}{$_lang['top']}{/if}</td>
+            <td class="td25">{$v['level']}</td>
+            <td class="td25">{$v['create_date']}</td>
+            <td class="td25">{$v['modify_date']}</td>
+            <td class="td25">
+			  <a class="button dbl_target" href="index.php?do={$do}&view=edit&ac=edit&tid={$v['tid']}"><span class="pen icon"></span>编辑</a>
+			  <a class="button" onclick="return cdel(this);" href="index.php?do={$do}&view=edit&ac=delete&tid={$v['tid']}"><span class="cross icon"></span>删除</a>
+			</td>
+          </tr>
+          {/loop}
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="14">
+			    <div class="clearfix">
+                  <input type="checkbox" id="checkbox" onClick="checkall()">
+                  <label for="checkbox">{$_lang['select_all']}</label>
+                  <input type="hidden" name="sbt_action" class="sbt_action" />
+			      <button type="submit" name="sbt_action" class="pill negative" value="批量取消推荐" onclick="return batch_act(this,'frm_talent_list');"><span class="icon move"></span>批量取消推荐</button>
+			    </div>
+				</td>
+            </tr>
+          </tfoot>
+        </table>
+        <div class="page">{$pages['page']}</div>
+      </div>
+    </form>
+  </div>
+</div>
+<!--{template control/admin/tpl/admin_footer}-->

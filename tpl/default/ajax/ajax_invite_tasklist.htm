@@ -1,0 +1,80 @@
+<!--{template header}-->
+<div class="clearfix basic_style winbody">
+  	
+	<div class="pl_10 pr_10 pb_10">
+               <div id="ajax_dom">
+                  <div class="clearfix yq_user_box">				
+					  <div temp="item" class="item">
+				     <div id="ajax_dom">
+					  	<table width="100%" >
+					  		<tr>
+					  			<th width="20%">
+									<strong>编号</strong>
+								</th>
+								<th width="60%">
+									<strong>任务标题</strong>
+								</th>
+								<th width="20%">
+									<strong>操作</strong>	
+								</th>
+					  		</tr>						
+					  	   {loop $task_arr $k $v}			
+					  		<tr>
+					  			<td width="20%">
+									{$v['task_id']}
+								</td>
+								<td width="70%">
+									{$v['task_title']}
+								</td>
+								<td width="10%">									
+								 <!--{eval $v[i_list] = check_user_already_i($v['task_id'],$i_uid);}-->
+								 {if $v[i_list]}
+								    <a href="javascript:void(0);" style="color:#009900;"><span class="font14b">+</span>已邀请</a>									
+								 {else}
+								 	<a href="javascript:void(0);" onclick="task_invite_single(this,{$v['task_id']},'{$page}');"><span class="font14b">+</span>邀请</a>
+								 {/if}
+								</td>
+					  		</tr>
+						   {/loop}
+					  	</table>
+						 <table width="100%" >
+						  <tr>
+						   	<td width="90%">&nbsp;</td>
+							<td width="10%"><a href="javascript:void(0);" onclick="invite_more('<!--{eval echo $page+1;}-->')">换一批</a></td>
+						   </tr>
+					    </table>
+						</div>
+	                  </div>                 
+              	 </div>	             
+			  </div>
+		</div>
+</div>
+
+<script type="text/javascript">	
+	var start_page = 1;
+	function invite_more(){	
+		start_page += 1;
+		var loadurl = "/index.php?do=ajax&view=invite&opp=task_list&i_uid={$i_uid}&page="+start_page;
+			BROWSER.ie?loadurl+='&inajax=1':'';
+		$("#ajax_dom").load(loadurl+' #ajax_dom').show();	
+		$("#ajax_dom").siblings().hide();
+	}
+	
+	function task_invite_single(o,task_id, page){ 
+		var url = "/index.php?do=ajax&view=invite&opp=task_list&i_uid={$i_uid}&ac=ajax_invite&task_id="+task_id;		
+		$.post(url,'',function(json){
+			if(json.status==1){
+				//showDialog(json.msg,'right','操作提示',hideWindow('task_invite'));
+				$(o).css('color','#009900').html('<span class="font14b">+</span>已邀请');
+				/*var loadurl = "/index.php?do=ajax&view=invite&opp=task_list&i_uid={$i_uid}&page="+page; 
+				$("#ajax_dom").load(loadurl+'&inajax=1 #ajax_dom').show();	
+				$("#ajax_dom").siblings().hide();
+				showDialog(json.msg,'right','操作提示');*/
+				return false;
+			}else{
+				showDialog(json.msg,'alert','操作提示');return false;
+			}
+		},'json');
+	}
+</script>
+<!--{template footer}-->

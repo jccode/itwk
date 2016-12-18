@@ -1,0 +1,249 @@
+<!--{template header_top}-->
+<!--{template header_shop}-->
+
+<div class="wrapper clearfix po_re">
+	<div class="container_24 clearfix">
+		<div class="grid_24 clearfix">
+			<div class="nav_lists_shop clearfix mt_20">
+			<!--头部导航-->
+			<!--{template shop/section_nav}-->
+			<!--end 头部导航-->
+			</div>
+			
+			{if $shop_info[shop_level]>1}
+				<!--{template shop/section_slide}-->
+			{/if}
+			<div class="shop_content clearfix mt_10">
+				
+				<!--左内容-->
+				<div class="shop_left clearfix grid_5 alpha">
+					<div  class="box default clearfix shop_info_boxs mb_10">
+						<!--用户头像-->
+						<!--{template shop/section_user}-->
+						<!--end 用户头像-->
+					</div>
+					<div class="box clearfix default mb_10">
+						<div class="inner">
+							<header>
+								<h2 class="box_title c333 border_n">案例展示分类</h2>
+							</header>
+							{if $shop_cate}
+							<article class="shop_kinds">
+								
+								{loop $shop_cate $k $v}
+								<a href="{$ac_url}&view=case_list&cate_id={$v['cate_id']}">{$v['cate_name']}</a>
+								{/loop}
+														
+							</article>
+							{else}
+								<div class="no_detail">暂无分类</div>
+								{/if}
+						</div>
+					</div>
+					{if $shop_info['shop_level']==3}
+					<div class="box clearfix default mb_10 po_re">
+						<div class="inner">
+							<header>
+								<h2 class="box_title c333">推荐链接</h2>
+							</header>
+							{if $shop_link_arr}
+							<article class="clearfix pad10 recm_link">
+								
+								<ul>
+									
+									{loop $shop_link_arr $v}
+									 <li class="clearfix ws_hide">
+										<span class="fl_l icon_link"></span>
+										<a href="{$v['link_url']}" target="_blank">{$v['link_name']}</a>
+									 </li>
+									{/loop}	
+										
+								</ul>
+								
+
+							</article>
+							{else}
+									  <div class="no_detail">暂无链接</div>
+							{/if}
+						</div>
+					</div>
+					{/if}
+					<div class="box default clearfix mb_10">
+						<div class="inner">
+							<header>
+								<h2 class="box_title">最近来访</h2>
+							</header>
+							{if $visit_arr}
+							<article class="pad10 shop_visitors">
+							 
+							  {loop $visit_arr $v}
+								<div class="clearfix mb_10">
+									<div class="fl_l">					
+										<a href="{$_K['siteurl']}/index.php?do=shop&u_id={$v['uid']}&view=index" style="padding:0px;"><!--{userpic($v['uid'], 'small')}--></a>								
+									</div>
+									<div class="fl_l shop_visitors_info">
+										<a href="{$_K['siteurl']}/index.php?do=shop&u_id={$v['uid']}&view=index">{$v['username']}</a><!--{eval echo kekezu::feed_time($v['on_time']);}-->
+									</div>
+								</div>
+							  {/loop}
+							  						
+							 </article>
+							 {else}
+							  <div class="no_detail">暂无来访</div>
+							  {/if}	
+						</div>
+					</div>
+					
+					
+					
+					
+				</div>
+				<!--左内容 end-->
+				
+				<!--右内容-->
+				<div class="shop_right clearfix grid_19 omega fl_r ">
+					<div class="box default clearfix firm_box">
+							<!--{template shop/section_info}-->
+					</div>
+		
+					<!--加载自定义广告图-->
+					{if $shop_info['shop_level']==3}
+						<!--{template shop/section_ad}-->
+					{/if}
+					<!--end 加载自定义广告图-->
+					
+					
+					
+					{if $shop_type==2}
+					<div class="box default clearfix mt_10 po_re cer_list">
+						<div class="inner clearfix">
+							<div class="clearfix   cer_box">
+								<div class="po_ab cer_title">
+									<h2>团队成员</h2>
+								</div>	
+								<div class="fl_l">
+									<h1><!--{eval echo(count($cert_ext_arr));}--></h1>
+								</div>
+								<div class="fl_l clearfix" style="width:640px">
+									<ul class="clearfix">
+									  {loop $shop_member_arr $v}
+										<li>
+											<a href="javascript:;">
+												<div class="cer_img">
+													<img src="{$_K['siteurl']}/{$v['member_pic']}" alt="{$v[v1]}">
+												</div>
+												{$v[v1]}
+											</a>
+										</li>
+									   {/loop}									
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					{elseif $shop_info['shop_type']==3}
+						<div class="box default clearfix mt_10  po_re cer_list">
+						<div class="inner clearfix">
+							<div class="clearfix   cer_box">
+								<div class="po_ab cer_title">
+									<h2>资质证书</h2>
+								</div>	
+								<div class="fl_l">
+									<h1><!--{eval echo(count($cert_ext_arr));}--></h1>
+								</div>
+								<div class="fl_l clearfix" style="width:640px">
+									<ul class="clearfix">
+									  {loop $cert_ext_arr $v} 
+										<li>
+											<a href="javascript:;" onclick="bigimg('{$_K['siteurl']}/{$v[v2]}','{$v[v1]}')">
+												<div class="cer_img">
+													<img src="{$_K['siteurl']}/{$v[v2]}" alt="{$v[v1]}">
+												</div>
+												{$v[v1]}
+											</a>
+										</li>
+									   {/loop}									
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					{/if}
+					<div class="box default clearfix mt_20">
+						<div class="inner clearfix">
+							<header class="box_title border_n clearfix">
+								<h2 class="fl_l">出售服务</h2>
+								<a href="{$ac_url}&view=service_list" class="fl_r">更多 <span class="font_simsun">></span></a>
+							</header>
+						</div>
+					</div>
+					{if $service_istop_arr}
+					<div class="sale_ser clearfix po_re mt_10">
+
+						<div id="jcarousel" class="jcarousel" >
+							<ul>
+								{loop $service_istop_arr $v}
+								<li>
+									<a href="{$_K['siteurl']}/index.php?do=shop&sid={$v['shop_id']}&view=service_info&service_id={$v['service_id']}&service_type={$v['service_type']}">
+										<img src="{$_K['siteurl']}/{$v['pic']}" alt="{$v['title']}">
+										<p class="ws_hide">【{if $v['service_type']==1}劳务{else}创意{/if}】{$v['title']}</p>
+										<p><b><span>￥{$v['price']}</span> 元 /$price_unit[$v['unite_price']]</b></p>
+									</a>
+								</li>
+								{/loop}		
+							 </ul>
+						</div>	
+						<a href="#" class="left_arrow arrow" onclick="$('#jcarousel').jcarousel('scroll', '-=1'); return false;"><span>Prev (1)</span></a>
+						<a href="#" class="right_arrow arrow"  onclick="$('#jcarousel').jcarousel('scroll', '+=1'); return false;"><span>Next (1)</span></a>
+
+					</div>
+					{else}
+					 <div class="box default clearfix no_detail ">暂无出售服务</div>
+					 {/if}
+
+					<div class="box default clearfix mt_20">
+						<div class="inner clearfix">
+							<header class="box_title border_n clearfix">
+								<h2 class="fl_l">商品案例展示</h2>
+								<a href="{$ac_url}&view=case_list" class="fl_r">更多 <span class="font_simsun">></span></a>
+							</header>
+						</div>
+					</div>
+					<div class=" case_show pb_20 hidden">
+					{if $case_arr}
+					<div id="container" class="clearfix">
+					 
+						{loop $case_arr $v}
+						  <div class="item clearfix">
+						  	<div class="item_box clearfix">
+						  		<a href="{$_K['siteurl']}/index.php?do=shop&sid={$shop_info['shop_id']}&view=case_info&case_id={$v['case_id']}" class="block">
+						  			<img src="{$_K['siteurl']}/{$v['case_pic']}" alt="{$v['case_name']}">
+									<p class="ws_hide mt_5">{$v['case_name']}</p>
+								</a>	
+								<div  class="case_type">
+									类别：
+									<a href="javascript:void(0);">{if $shop_cate[$v[cate_id]][cate_name]}{$shop_cate[$v[cate_id]][cate_name]}{else}暂无类别{/if}</a>
+								</div>
+							</div>
+						  </div>
+						{/loop}
+					  
+					</div>
+					{else}
+					  	<div class="box default clearfix no_detail">暂时没有案例信息。</div>
+					  {/if}
+					</div>	
+				</div>
+				<!--右内容 end-->
+				
+				<div class="clear"></div>
+			</div>
+			<!--内容主体 end-->
+		</div>
+	</div>
+</div>
+<link href="{$_K['siteurl']}/resource/js/artdialog/skins/default.css" rel="stylesheet">
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/artdialog/jquery.artDialog.js"></script>
+<script>function bigimg(src,title){art.dialog({padding: 0,title: title,content: '<img src="'+src+'" />',lock: true});}</script>
+<!--{template shop/section_footer}-->
+<!--{template footer}-->

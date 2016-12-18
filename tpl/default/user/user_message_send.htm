@@ -1,0 +1,153 @@
+<!--{template header}-->
+<!--contain start-->
+<style type="text/css">.valid_error span{ display: inline-block; width: 180px;}</style>
+<div class="wrapper">
+    <div class="container_24">
+        <!--{template user/user_nav}-->
+		<!--main start-->
+        <section class="clearfix section">
+            <!--{template user/user_side}-->
+            <div class="show_panel ">
+		        <div class="">
+		            <div class="">
+		                <!--main content-->
+		                <div class=" clearfix box default">
+                            <!--header内容头部 start-->
+                            <header class="clearfix box_header">
+                                <h2 class="box_title">{$_lang['send_message']}</h2>
+								 <nav class="box_nav">
+	                                        <ul>
+                                          <li {if $msg_type =='system'}  class="selectedLava" {/if}>
+                                                <a href="{$_K['siteurl']}/index.php?do=$do&view=$view&msg_type=system" original-title="{$_lang['system_msg']}">{$_lang['system_msg']}</a>
+                                            </li>
+                                            <li {if $msg_type=='accept'}  class="selectedLava" {/if}>
+                                                <a href="{$_K['siteurl']}/index.php?do=$do&view=$view&msg_type=accept" original-title="{$_lang['private_message']}">{$_lang['private_message']}</a>
+                                            </li>
+                                            <li {if $msg_type=='output'}  class="selectedLava" {/if}>
+                                                <a href="{$_K['siteurl']}/index.php?do=$do&view=$view&msg_type=output" original-title="{$_lang['private_message']}">{$_lang['sms_has_been_sent']}</a>
+                                            </li>
+                                            <li {if $msg_type=='write'}  class="selectedLava" {/if}>
+                                                <a href="{$_K['siteurl']}/index.php?do=$do&view=$view&msg_type=write" original-title="{$_lang['private_message']}">{$_lang['write_message']}</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                <div class="clear">
+                                </div>
+                            </header>
+                            <!--header内容头部 end-->
+                            <div class="prefix_1 suffix_1">
+                                <!--from表单 start-->
+                                <div class="clearfix box font14">
+                                    <form action="{$_K['siteurl']}/index.php?do=$do&view=$view&msg_type=$msg_type" method="post" id="frm_msg">
+                                        <input type="hidden" name="hdn_pid" value="$msg_id">
+										 <div class="rowElem clearfix">
+                                            <label class="grid_2 t_r">
+                                              	 发 信 人:
+                                            </label>
+                                           $username
+                                        
+                                        </div>
+                                        <div class="rowElem clearfix">
+                                            <label class="grid_2 t_r">
+                                                {$_lang['addressee']}:
+                                            </label>
+                                            <input type="text" name="txt_to_username" value="" tips="（{$_lang['please_input_the_recipients_user_name']}）" msg="请输入用户名" onblur="check_user();" tmp="1" limit="required:true;len:0-40" id="txt_to_username" msgarea="msg_txt_to_username" size="39"/>
+                                       
+                                                <span id="msg_txt_to_username">
+                                                </span>
+                                        
+                                        </div>
+                                        <div class="rowElem clearfix">
+                                            <label class="grid_2 t_r">
+                                                {$_lang['message_title']}:
+                                            </label>
+                                            <input type="text" name="txt_msg_title" id="txt_msg_title" value="" size="39" limit="type:string;required:true;len:1-50" msg="{$_lang['txt_msg_title']}" tips="{$_lang['txt_msg_title']}" msgArea="msg_title" />
+									 
+                                                <span id="msg_title">
+                                                </span> 
+                                        </div>
+                                        <div class="rowElem clearfix ">
+                                            <label class="grid_2 t_r">
+                                                {$_lang['message_content']}:
+                                            </label>
+											<div class="fl_l">
+                                            <textarea  rows="12" name="txt_msg_content" id="tar_content" msgArea="msg_content" class="" style="width:390px;" onblur="contentCheck('tar_content','{$_lang['message_content']}',1,500)" ></textarea>
+                                            </div>
+											<div class="fl_l ml_5">
+                                                <div id="msg_content">
+                                                	
+                                                </div>
+                                            </div>
+											
+                                        </div>
+										<div class="rowElem clearfix ">
+											<label class="grid_2 t_r">
+												验证码：
+                                            </label>
+											<div class="fl_l po_re" style="width:230px;">
+												<input style="width:65px;" class="fl_l txt_input" name="txt_code" type="text" size="8" id="txt_code" limit="required:true;len:4" msg="验证码输入有误"msgArea="secode_msg"ajax="{$_K['siteurl']}/index.php?do=ajax&view=code&txt_code=" >
+									 			<div id="show_secode_menu_content" class="secode_box">
+									 				<img id="secode_img" src="secode_show.php?sid=" onclick="document.getElementById('secode_img').src='secode_show.php?sid='+Math.random(); return false;">
+									 				<a class="font14" href="#" onclick="document.getElementById('secode_img').src='secode_show.php?sid='+Math.random(); return false;">换一组</a>
+												</div>
+											</div>
+											<span class="" id="secode_msg"></span>
+										</div>
+                                        <input type="hidden" name="is_sbt" value="1">
+                                        <div class="rowElem clearfix form_button">
+                                            <button class="submit"  onclick="check_send('frm_msg')" type="button"><span class="check icon"></span>{$_lang['send']}</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!--from表单 end-->
+                            </div>
+                        </div>
+                        <!--main content end -->
+                        <div class="clear">
+                        </div>
+                    </div>
+                </div>
+                </section>
+                <!--main end-->
+            </div>
+            </div>
+            <!--contain end-->
+            <script type="text/javascript">
+            	In('form');
+                function check_send(id){
+					var name = $("#txt_to_username").attr("tmp");
+					
+					if(parseInt(name)==2){
+						if (checkForm(document.getElementById(id), false)) {
+							if(contentCheck('tar_content',"{$_lang['message_content']}",1,500)){
+								//$("#"+id).submit();
+								siteSub(id,2,true)
+							}else{return false;}                        
+	                    }else{
+							return false;
+						}
+					}else{
+						$("#msg_txt_to_username").addClass("valid_error").html("<span>{$_lang['username_no_exit']}</span>");return false;
+					}
+                    
+                }
+				function check_user(){
+					var username= $("#txt_to_username").val();	
+					if(username) { 
+						username = encodeURIComponent(username);	
+					}else{
+						return false;
+					}
+
+					$.post("{$_K['siteurl']}/index.php?do=user&view=message&check_username="+username,function(data){						
+						if(data!=1){							
+							$("#txt_to_username").attr("tmp",1);
+							$("#msg_txt_to_username").addClass("valid_error").html("<span>{$_lang['username_no_exit']}</span>");														
+						}else{
+							$("#txt_to_username").attr("tmp",2);							
+						}
+					},'text')
+				}
+            </script>
+            <!--{template user/user_footer}-->
+<!--{template footer}-->

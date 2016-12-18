@@ -1,0 +1,247 @@
+<!--{template header_coper}-->
+<div class="wrapper">
+	<!--start 页面标题-->
+	<div class="location">
+		<div class="container_24">
+			<span>你的位置：</span> <a href="/index.php"
+				class="c333">IT帮手网首页</a> <span class="font_simsun">&gt;</span> <a
+				class="c333">合作用户信息在线提交</a>
+		</div>
+	</div>
+	<!--end 页面标题-->
+	<!--主内容-->
+	<div class="wid_1000 clearfix pt_10">
+		<!--左边部分 start-->
+		<div class="main">
+			<div class="imgs-box">
+				<img alt="" src="{$_K['siteurl']}/tpl/default/img/coper/hezpci.jpg"
+					original-title="">
+			</div>
+			<div class="wk_form border-df">
+				<div class="aboutwk">
+					<h2>{$_lang['aboutus']}</h2>
+					<p>{$_lang['aboutus_detail']}</p>
+				</div>
+				<div class="grid_17">
+					<div class="form_box clearfix mt_10 border_n">
+						<form id="co_frm" name="co_frm" action="" method="post">
+							<input type="hidden" name="formhash" id="formhash"
+								value="{FORMHASH}">
+							<div class='rowElem clearfix po_re'>
+								<label class='grid_3'>{$_lang['name']}</label>
+								<div class="grid_6">
+									<input type="text" style="width: 200px;" msgarea="ep_n_msg"
+										msg="{$_lang['name_msg']}"
+										limit="required:true;leng:4-16;type:signName;general:true"
+										id="txt_ep_n" autocomplete="off" name="ep_n"
+										class="txt txt_input" original-title="{$_lang['name_ogn']}" />
+									<input type="radio" name="ep_g" class="ra_1" value="先生"
+										checked />先生<input type="radio" name="ep_g" class="ra_1"
+										value="女士" />女士
+								</div>
+								<span id="ep_n_msg" class=""></span>
+							</div>
+							<div class='rowElem clearfix po_re'>
+								<label class='grid_3'>{$_lang['email']}</label>
+								<div class="grid_6">
+									<input type="text" class="tx_1 txt_input"
+										original-title="{$_lang['email_ogn']}" msgarea="ep_e_msg"
+										msg="{$_lang['email_msg']}"
+										limit="type:email;required:true;len:6-50" id='txt_ep_e'
+										name="ep_e">
+								</div>
+								<span id="ep_e_msg" class=""></span>
+							</div>
+							<div class='rowElem clearfix po_re'>
+								<label class='grid_3'>{$_lang['mobile']}</label>
+								<div class="grid_6">
+									<input type="text" name='ep_m' id="txt_ep_m"
+										class="tx_1 txt_input" original-title="{$_lang['mobile_ogn']}"
+										msgarea="ep_m_msg" msg="{$_lang['mobile_msg']}"
+										limit="type:mobileCn;required:false;leng:11;general:true">
+								</div>
+								<span id="ep_m_msg" class=""></span>
+							</div>
+							<div class='rowElem clearfix po_re'>
+								<label class='grid_3'>{$_lang['telephone']}</label>
+								<div class="grid_6">
+									<input type="text" name='ep_t' id="txt_ep_t"
+										class="tx_1 txt_input"
+										original-title="{$_lang['telephone_ogn']}"
+										msgarea="ep_t_msg" msg="{$_lang['telephone_msg']}"
+										limit="type:tel;required:false;leng:4-16;general:true">
+								</div>
+								<span id="ep_t_msg" class=""></span>
+							</div>
+							<div class='rowElem clearfix po_re'>
+								<label class='grid_3'>{$_lang['qq']}</label>
+								<div class="grid_6">
+									<input type="text" id='txt_ep_q' name="ep_q" class="tx_1 txt_input"
+										original-title="{$_lang['qq_ogn']}" msgarea="ep_q_msg"
+										msg="{$_lang['qq_msg']}"
+										limit="required:true;leng:4-16;general:true">
+								</div>
+								<span id="ep_q_msg" class=""></span>
+							</div>
+							<div class='rowElem clearfix po_re'>
+								<label class='grid_3'>{$_lang['region']}</label>
+								<div class="grid_6">
+									<span class="sle_1">
+									 <select name="province" limit="required:true" msg="{$_lang['region_msg']}" msgarea="province_msg"
+										id="txt_province" name="province"></select> 
+										<select id="txt_city" name="city"></select> 
+										<select id="txt_area"  name="area"></select></span>
+								</div>
+								<span id="province_msg" class=""></span>
+							</div>
+							<div class='rowElem clearfix po_re'>
+								<label class='grid_3'>{$_lang['address']}</label>
+								<div class="grid_6">
+									<input type="text" id='txt_ep_a' name="ep_a"
+										class="tx_2 txt_input" size="50"
+										original-title="{$_lang['address_ogn']}" msgarea="ep_a_msg"
+										msg="{$_lang['address_msg']}"
+										limit="required:true;leng:10-40;general:true">
+								</div>
+								<span id="ep_a_msg" class=""></span>
+							</div>
+							<div class='rowElem clearfix po_re'>
+								<label class='grid_3'>{$_lang['type']}</label>
+								<div class="grid_6">
+									<select name="ep_tp" id="txt_ep_tp" limit="required:true"  msgarea="ep_tp_msg"  msg="{$_lang['type_msg']}">
+									<option value="">{$_lang['type_choice']}</option>
+										{loop $_lang['type_list'] $v}
+										<option value='{$v[0]}'>{$v[0]}</option>
+                                        {/loop}
+									</select>
+								</div>
+								<span id="ep_tp_msg" class=""></span>
+							</div>
+							<div class='rowElem clearfix po_re'>
+								<label class='grid_3'>{$_lang['description']}</label>
+								<div class="grid_6">
+									<textarea id='txt_ep_d' name="ep_d"
+										original-title="{$_lang['description_ogn']}"
+										msgarea="ep_d_msg" msg="{$_lang['description_msg']}"
+										limit="required:true;leng:20-800;general:true"></textarea>
+										<br/><span id="ep_d_msg" class=""></span>
+								</div>
+								
+							</div>
+							<div class='rowElem clearfix po_re '>
+								<label class='grid_3'>{$_lang['auth_code']}</label>
+								<div class="grid_6 po_re code_grid_6">
+									<!--验证码-->
+											<input style="width: 65px;" class="fl_l txt_input"
+												name="txt_code" type="text" size="8" id="txt_code"
+												limit="required:true;len:4"
+												msg="{$_lang['auth_code_error']}" msgArea="secode_msg"
+												ajax="{$_K['siteurl']}/index.php?do=ajax&view=code&txt_code=">
+											<div id="show_secode_menu_content" class="secode_box">
+												<img id="secode_img" src="secode_show.php?sid="
+													onclick="document.getElementById('secode_img').src='secode_show.php?sid='+Math.random(); return false;">
+												<a class="font14" href="#"
+													onclick="document.getElementById('secode_img').src='secode_show.php?sid='+Math.random(); return false;">换一组</a>
+											</div>
+											<a id="show_secode" href="{$_K['siteurl']}/index.php?do=ajax&view=menu&ajax=show_secode"></a>
+										</div>
+										<span class="" id="secode_msg"></span>
+								<!--end 验证码-->
+							</div>
+							<div class='mt_20 prefix_3'>
+								<button onclick="add_coper()" class="button submit ipt_out"
+									type="button" id="js_sbmt">{$_lang['submit']}</button>
+							</div>
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--左边部分 end-->
+		<!--右边部分 start-->
+		<div class="aside">
+			<div class="rightbox">
+				<div class="hz_fs1">
+					<h2>{$_lang['type_title']}</h2>
+					<div>{$_lang['type_title_2']}</div>
+				</div>
+				{loop $_lang['type_list'] $k $v}
+				<div class="littibox">
+					<em>{$v[0]}</em>
+					<p>$v[1]</p>
+				</div>
+				{/loop}
+			</div>
+		</div>
+		<!--右边部分 end-->
+
+		<script type="text/javascript">
+		    In('form');
+			function add_coper() {
+				if($("#txt_ep_t").val()==''&&$("#txt_ep_m").val()==''){
+					showDialog('手机与座机必须填写一项');
+					return false;
+				}
+				var i = checkForm(document.getElementById("co_frm"));
+				if (i) {
+					var url = "{$_K['siteurl']}/index.php?do=coper";
+					$.post(url, {
+						ep_n : $("#txt_ep_n").val(),
+						ep_a : $("#txt_ep_a").val(),
+						ep_d : $("#txt_ep_d").val(),
+						ep_e : $("#txt_ep_e").val(),
+						ep_m : $("#txt_ep_m").val(),
+						ep_q : $("#txt_ep_q").val(),
+						ep_r : $("#txt_province").val() + "-"
+								+ $("#txt_city").val() + "-"
+								+ $("#txt_area").val(),
+						ep_t : $("#txt_ep_t").val(),
+						ep_tp : $("#txt_ep_tp").val(),
+						formhash : $("#formhash").val()
+					}, function(json) {
+						if (json.status == '1') {
+							showDialog("感谢您对IT帮手的支持，我们的相关工作人员会审核您的信息并与您取得联系，您耐心等待。",
+									"right", "温馨提示");
+							setTimeout(function(){window.location.href="{$_K['siteurl']}"},1500);
+							return true;
+						} else {
+							showDialog("出现错误，请重新提交信息", "notice", "温馨提示");
+							return false;
+						}
+					}, 'json');
+				} else {
+					return false;
+				}
+			}
+			$(document).ready(function() {
+				$(".ipt_out").hover(function() {
+					$(this).addClass("ipt_hover");
+				}, function() {
+					$(this).removeClass("ipt_hover");
+				});
+				$(".littibox:last").css("border", "none");
+			});
+			In('form', 'custom', 'xheditor', 'pcas', function() {
+				new PCAS("province", "city", "area", "{$loca['0']}",
+						"{$loca['1']}", "{$loca['2']}");
+			});
+			$('input').focus(
+					function() {
+						$(this).parent('div').next('span').removeClass()
+								.children('span').html('');
+					});
+
+			//阻止点击隐藏方法
+			$("#txt_code,#show_secode_menu_content").click(function(e) {
+				e.stopPropagation();
+			});
+
+			var hidecode = function() {
+				if (!$("#show_secode_menu_content").is(".hidden")) {
+					$("#show_secode_menu_content").addClass("hidden");
+				}
+			}
+		</script>
+		<div class="clear"></div>
+	</div>
+	<!--{template footer}-->

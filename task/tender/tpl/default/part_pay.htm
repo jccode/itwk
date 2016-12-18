@@ -1,0 +1,58 @@
+<!--{template header}--> 
+ <style type="text/css">
+ 	.valid_error span{ display: inline-block; width: 180px;}
+ </style>
+<div class="winbody pt_10">
+	<!--messages消息 start-->
+  <div class="messages m_warn">
+    <strong>温馨提示：</strong>
+     注：分期付款会将您托管的任务佣金直接支付给威客，请谨慎对待。
+   </div>
+  <!--messages消息 end-->
+  <form method="post" id="frm_tender" name="frm_tender" action="index.php?do=task&task_id=$task_id&op=part_pay">
+ <div class="clearfix  pad10">
+ 
+
+    <!--from表单 start-->
+    <input type='hidden' name='work_id' value='{$work_id}'>
+		 
+		<div class="rowElem clearfix">
+		<label class="fl_l">&nbsp;</label>
+		 
+		<div class="fl_l">
+			任务共计{$task_cash}元，{if $task_info[part_cash]}您已经支付{$task_info[part_cash]}元，{/if}分期付款不得低于10% 您至少需要支付{$min_pay}元，最大可支付{$max_pay}元.
+		</div>
+		</div>
+		
+	  	 <div class="rowElem clearfix">
+      		<label class="fl_l">付款金额:</label>
+			 <div class="fl_l">
+			 	<input name="sbt_edit" value="1" type="hidden">
+			 	<input type="text" name="pay_cash" class="txt_input" title="分期付款的金额"
+			 	  value="$min_pay" id="pay_cash" onkeyup="clearstr(this)" limit="required:true;type:float;between:{$min_pay}-{$max_pay}" msg="支付金额错误"  msgArea="span_pay_cash">
+                <span id="span_pay_cash"></span>
+			 </div>
+     	 </div>
+	  
+  <!--from表单 end-->
+
+ </div>
+ <div class="rowElem clearfix form_button">
+ 			
+       	 	 <button type="submit" class="submit" onclick="hideWindow('{$op}')" value="保存">保存</button>
+		 	 <button type="button" class="button bwhite" value="取消" onclick="hideWindow('{$op}')">取消</button>
+      </div>
+</div>
+</form>
+
+<script src="{$_K['siteurl']}/resource/js/jquery.bgiframe.pack.js"></script>
+<script>
+	$(function(){
+		$('div.fwinmask').bgiframe();
+	})
+</script>
+<script type="text/javascript">
+	
+</script>
+
+<!--{template footer}-->

@@ -1,0 +1,52 @@
+<!--{template header_top}-->
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/service.css" rel="stylesheet">
+<!--头部 start-->
+<header class="header">
+    <div class="container_24 clearfix">
+        
+		<!--logo start-->
+        <hgroup class="logo">
+            <a href="{$_K['siteurl']}/" class="fl_l"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/style/logo_sy.gif"></a>
+            <div class="fl_l line">
+            </div>
+            <a class="little_logo fl_l" href="{$_K['siteurl']}/index.php?do=service">
+        		<h2>服务悬赏</h2>
+			</a>
+			{if $do=='service'&&($view=='n_list'||$view=='s_list')}
+			<div class="fl_l site">
+				{$city}
+			</div>
+			<a href="javascript:void(0)" onclick="show_city(); return false;" class="fl_l switch_city">
+				切换城市
+			</a>
+			{/if}
+        </hgroup>
+		<!--logo end-->
+		
+        <div class="search_bigbox pt_10 mt_5">
+            <div class="clearfix">
+                <!--主搜索 start-->
+                <div class="search clearfix po_re">
+                    <!--搜索框和选项 start-->
+                    <form action="{$_K['siteurl']}/index.php" method="post" id="frm_topsearch" class="clearfix fl_l">
+                        <input type="hidden" name="topsearch_type" id="topsearch_type" value="task_list">
+                        <div class="search_box">
+                            <span class="icon magnifier"></span>
+                            <input type="text" name="keyword" id="search_key" class="fl_l search_input txt_input togg c999" value="输入关键词搜索" title="输入关键词搜索" onfocus="if(this.value=='输入关键词搜索'){this.value=''};" x-webkit-speech x-webkit-grammar="bUIltin:search" lang="zh-CN">
+                        </div>
+                    </form><!--搜索框和选项 end--><!--搜索提交 start-->
+                    <div class="fl_l">
+                        <button class="search_btn" id="topsearch_btn" type="button">
+                            <span class="icon magnifier"></span>搜索
+                        </button>
+                    </div>
+                    <!--搜索提交 end-->
+                </div>
+            </div>
+            <!--主搜索 end-->
+        </div>		
+        <div class="clear"></div>
+    </div>
+</header>
+<!--头部 end-->
+

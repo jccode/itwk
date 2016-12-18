@@ -1,0 +1,371 @@
+<!--{template header}-->
+
+
+<link rel="stylesheet" href="{$_K['siteurl']}/resource/css/public.css">
+<script src="{$_K['siteurl']}/resource/js/system/select_indus.js" type="text/javascript"></script>
+ <style type="text/css">
+ 	.valid_error span{ display:inline-block; padding-right:20px;}
+	#upload-queue.uploadify-queue{ margin-bottom:0;}
+ </style>
+ 
+<script language="javascript">
+
+    jQuery(function() {
+
+        var data = <!--{eval echo json_encode($indus_map);}-->;
+        var is = new SelectIndus(data);
+        is.init();
+
+    });
+	
+	
+</script>
+
+<div class="wrapper ">
+    <!--详细内容区-->
+    <section class="content box">  
+	<!--布局框-->
+        <div class="container_24">
+        	<div class="reslease_step all_4 clearfix">
+              <div class="step frist_step">
+                	<div class="selected">
+                	<strong>
+						1.描述雇佣信息
+					</strong> 
+					</div>                 
+                </div>
+				<div class="step">
+					<div >
+					<strong>
+					2.等待威客同意
+					</strong> 
+					</div>                
+                </div>
+				<div class="step">
+					<div >
+					<strong>
+					2.等待威客同意
+					</strong> 
+					</div>                
+                </div>
+				<div class="step last_step">
+					<div class="">
+					<strong>
+					4.雇佣成功
+					</strong>
+					</div>                  
+                </div>
+            </div>
+			
+			<!--步骤下所有内容-->
+           
+			
+			
+		
+		 <div class="mt_10 clearfix">
+                <div class="tip_arrow  po_re">
+                    <div class="tip_arrow_img">
+                        <img src="{$_K['siteurl']}/resource/img/style/tip.gif" alt="">
+                    </div>
+                </div>
+                <div class="clearfix post_box">
+                    <!--左边部分-->
+                    <div class="grid_18 omega alpha ">
+                        <div class="pad10 border_r_c">
+                            <!--from表单 start-->
+                            <div class="form_box clearfix box border_n">
+                                <form action="{$_K['siteurl']}/index.php?do=hiretask&tuid=$tuid&service_id=$service_id" method="post" name="frm_step2" id="frm_step2">
+									<input type="hidden" name="formhash" value="{FORMHASH}">
+                                        
+                                    <div class="rowElem prefix_1 clearfix">
+                                    	<div class="fl_l border_r_c pr_10">
+	                                        <label>
+	                                            <strong>您愿意支付给TA多少赏金：</strong>
+	                                        </label>
+	                                        <div class=" ">
+	                                            <input name="txt_task_cash" id="txt_task_cash" type="text" value="<!--{eval echo intval($service_info['price'])}-->" title="" onkeyup="clearstr(this)" size="5" maxlength="9" msgArea="span_task_cash" limit="required:true;type:int" msg="金额填写错误" /> 元
+												<span class="c999" id="span_task_cash"></span>
+	                                        </div>
+										</div>
+										<div class="fl_l border_r_c pl_10 pr_10">
+											 <label>
+	                                            <strong>给TA多少时间来完成任务：</strong>
+	                                        </label>
+	                                        <div>
+	                                            <input name="txt_task_day" id="txt_task_day" type="text" value="" title="" onkeyup="clearstr(this)" size="5" maxlength="9" msgArea="span_task_day" limit="required:true;type:int;between:1-" msg="时间填写错误" /> 天
+												<div><span id="span_task_day"></span></div>
+	                                        </div>
+										</div>
+										
+										<div class="fl_l pl_10">
+											<label>
+                                            	<strong>选择需求所在的类目：</strong>
+	                                        </label>
+	                                        <div>
+	                                        	
+					<select name="indus_ids[]" id="selectp"  >
+						<option value="">请选择分类</option>
+                      </select>
+					
+                        <select name="indus_ids[]" id="indus_pid" title="请选择分类"  caseon="submit" limit = "required:true;between:5-10" msg = '行业分类未选择' 1msgArea="span_indus">
+                        	<option value="">请选择分类</option>
+						 </select>
+						 
+                         
+                    <span id="reload_indus">
+                        <select name="indus_ids[]" id="indus_id" caseon="submit" title='请选择子分类' 1msgArea="span_indus"><span id="span_indus"></span>
+                        	<option value="">请选择分类</option>
+                        </select>
+                     </span>
+
+	                                           
+	                                            <div><span id="span_indus">
+	                                            </span></div>
+	                                        </div>
+										</div>
+                                    </div>
+									
+									<div class="rowElem prefix_1 clearfix">
+                                        
+                                    </div>
+									<div class="rowElem prefix_1 clearfix">
+                                        <label class="">
+                                            <strong>用一句话来描述您的需求：</strong>
+                                        </label>
+                                        <div class=" ">
+                                            <input name="txt_task_title" id="txt_task_title" type="text" value="{$service_info['title']}" title="" size="34" msgArea="span_task_title" limit="required:true" msg="描述必填"/> <span class="c999"></span>
+                                            <span class="c999" id="span_task_title"></span>
+                                        </div>
+                                    </div>
+									
+                                    <div class="rowElem prefix_1 clearfix">
+                                        <label class="">
+                                            <strong>请把要求说得更具体一些：</strong>
+                                        </label>
+                                        <div class=" ">
+                                            <textarea cols="105" rows="12" style="width:570px" name="tar_content" title="" id="tar_content" msgArea="msg_content" 
+											 class="xheditor {tools:'Bold,FontSize,Fontface,FontColor,Italic,Underline,Strikethrough,Align,List,Outdent,Indent,Table',skin:'nostyle',innerCheck:true,wordLimit:1500}"><!--{eval echo kekezu::escape($service_info['content'])}--></textarea>
+                                            <div class="clear">
+                                            </div>
+                                            <div class="c999" id="length_show"></div>
+                                            <span id="msg_content">
+                                            </span>
+                                        </div>
+                                    </div>
+									<div class="rowElem clearfix prefix_1 ">
+                  
+                    <!--上传内容-->
+                   <div class="grid_9 alpha">
+                        
+                        	
+                           
+                                <div class="clearfix">
+                                	<div class="fl_r pt_5">
+                                		每个大小不超过2MB
+                                		 <a href="javascript:;" class="file_type" title="<p>1. 上传附件支持常见的办公软件文档格式(office文档格式)，常见的压缩文件格式(rar,zip,7z)，常见的图片格式(jpg,png,gif)等，其他不常见的格式建议压缩成RAR文档再上传。</p><p>2. 最多可上传附件5个附件，每个文件大小不得超过2M。</p>
+<p>3. 图形文件不支持CMYK模式(将无法正常显示)。</p><p>4. 文件名称须符合正常规范(勿在文件名中包含其他符号，如点号等)</p>">无法正常上传？</a>
+									</div>
+			 						<input type="hidden" name="file_ids" id="file_ids">
+                                	<input type="file" class="file" name="upload" id="upload">
+                                </div>
+								
+             
+                        
+                    </div>
+					<script type="text/javascript">
+							$(function(){
+								uploadify({
+										auto:true,
+										size:"{$basic_config['max_size']}MB",
+										exts:'{$ext_types}',
+										limit:5}
+									);
+							})
+					</script>
+                    <!--end 上传内容-->
+                </div>
+								
+									
+									
+                                    <div class="rowElem prefix_1 clearfix">
+                                        <label class=" mt_10">
+                                            <strong>留下您的联系方式：</strong> <span class="font12 c999">留下联系方式，有助于IT帮手客服及时与您沟通，为您服务</span>
+                                        </label>
+										<div class="clear"></div>
+                                        <div class="grid_10 alpha">
+                                            <div class="lit_form">
+                                                <div class="info t_l clearfix">
+                                                    
+                                                    <label>
+                                                    	<input class="border_n" type="checkbox" name="contact[mobile]" id="mobile" checked>
+                                                        {$_lang['mobile']}
+                                                    </label>
+                                                    
+													<label>
+                                                    	<input class="border_n" type="checkbox" name="contact[qq]" id="qq" {if $task_info['cont']['qq']}checked{/if}>
+                                                        Q Q
+                                                    </label>
+													
+                                                    <label>
+                                                    	<input class="border_n" type="checkbox" name="contact[email]" id="email" {if $task_info['cont']['email']}checked{/if}>
+                                                        {$_lang['email']}
+                                                    </label>                                                                                      
+                                                    
+                                                    <label>
+                                                    	<input class="border_n" type="checkbox" name="contact[msn]" id="msn" {if $task_info['cont']['msn']}checked{/if}>
+                                                        MSN
+                                                    </label>
+                                                </div>
+                                                <div class="clearfix pad10" id="ct_mobile">
+                                                    <label class="grid_2">
+                                                        {$_lang['mobile']}{$_lang['zh_mh']}
+                                                    </label>
+                                                    <div class="fl_l">
+                                                        <input type="text" name="cont[mobile]" id="contact_mobile" size="23" title="{$_lang['mobile_title']}" value="{$task_info['cont']['mobile']}" limit="required:true;type:mobileCn" msg="请填写正确的手机号码" msgArea="span_mobile" ext="{$task_info['cont']['mobile']}"/>
+                                                        <div>
+                                                            <span id="span_mobile"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+												<div class="clearfix pad10" {if !$task_info['cont']['qq']}style="display:none"{/if}  id="ct_qq">
+                                                    <label class="grid_2">
+                                                        QQ{$_lang['zh_mh']}
+                                                    </label>
+                                                    <div class="fl_l">
+                                                        <input type="text" name="cont[qq]" size="23" title="{$_lang['QQ_title']}" id="contact_qq" msgArea="span_qq" ext="{$task_info['cont']['qq']}" limit="required:false;type:int;len:6-13" msg="请填写正确的QQ号码" value="{$task_info['cont']['qq']}"/>
+                                                        <div>
+                                                            <span id="span_qq"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix pad10" {if !$task_info['cont']['email']}style="display:none"{/if}  id="ct_email">
+                                                    <label class="grid_2">
+                                                        {$_lang['email']}{$_lang['zh_mh']}
+                                                    </label>
+                                                    <div class="fl_l">
+                                                        <input type="text" name="cont[email]" id="contact_email" size="23" title="{$_lang['email_title']}" value="{$task_info['cont']['email']}" limit="required:false;type:email" msg="请填写正确的邮件地址" msgArea="span_email" ext="{$task_info['cont']['email']}"/>
+                                                        <div>
+                                                            <span id="span_email"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="clearfix pad10" {if !$task_info['cont']['msn']}style="display:none"{/if}  id="ct_msn">
+                                                    <label class="grid_2">
+                                                        MSN{$_lang['zh_mh']}
+                                                    </label>
+                                                    <div class="fl_l">
+                                                        <input type="text" name="cont[msn]" size="23" title="{$_lang['msn_title']}" msgArea="span_msn" id="contact_msn" ext="{$task_info['cont']['msn']}" limit="required:false;type:email" msg="请填写正确的MSN账号" value="{$task_info['cont']['msn']}"/>
+                                                        <div>
+                                                            <span id="span_msn"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!--from表单 end-->
+                            <div class="step_button">
+                        	    <span class="block"><input type="checkbox" name="agreement" id="agreement" checked="checked">
+                                    <label>
+                            		我已阅读并同意《<a target="_blank" href="{$_K['siteurl']}/index.php?do=about&view=release">IT帮手网服务发布协议</a>》
+                                    </label>
+                                </span>
+                                <button type="submit" name="is_submit" onclick="stepCheck();" class="big button">
+                               	立即提交
+                                </button>
+                            
+                            </div>
+                        </div>
+                    </div>
+                    <!--end 左边部分-->
+					
+					<!--右边部分-->
+                    <div class=" box default release_needs clearfix" style="margin-left:35px;">
+                    <div class="inner">
+                    	
+					<div class="s_lcon_header clearfix">
+						<div class="clearfix">
+								TA将为您提供服务
+						</div>
+					</div>
+					<div class="s_user_body clearfix pad10">
+						<div class="fl_l s_user_img">
+							<!--{userpic($tuserinfo['uid'],'small')}-->
+						</div>
+						<div class="fl_l ml_10 s_user_con">
+							<p><a href="{$_K['siteurl']}/index.php?do=shop&u_id={$tuserinfo['uid']}">{$tuserinfo['username']}</a></p>
+							<p class="pb_5">{$tuserinfo['residency']}</p>
+							<p><!--{eval echo keke_glob_class::get_w_level_ico($tuserinfo['w_level'])}--></p>
+						</div>
+					</div>	
+					<div class="s_lcon_footer clearfix">
+						<div class="clearfix">
+							<div class="fl_l">
+								认证状况：
+							</div> 
+							<div class="fl_l s_footer_img"> 
+								<!--{eval echo(keke_glob_class::get_auth_ico($tuserinfo['auth_realname'],$tuserinfo['auth_mobile'],$tuserinfo['auth_email'],$tuserinfo['auth_bank']));}-->
+							</div>
+						 </div>
+					  </div>
+					  <div class="s_lcon_hidden clearfix">
+					  	 <div class="clearfix s_hidden_top">
+							 <p class="c333">能力评价</p>
+							 <p class="clearfix">
+								<span>好评率：
+								<b>{if $tuserinfo['seller_total_num']}<!--{eval echo number_format($tuserinfo['seller_good_num']/$tuserinfo['seller_total_num'],2)*100}-->{else}0{/if}%</b></span>
+							 </p>
+							 <div class="text_tra">
+								 <p>交易总收入：<em><!--{eval echo floatval($income['cash']+$income['credit'])}--></em> 元</p>
+								 <p>交易总次数：<em>{$tuserinfo['take_num']}</em> 次</p>
+							 </div>
+						 </div>
+						 
+			 			<div class="s_selected_oper clearfix">
+						 	<div class="he_sr_con clearfix">
+						 		 <a href="{$_K['siteurl']}/index.php?do=hiretask&tuid={$tuid}" class="button n_rb">直接雇佣</a>
+								<a href="javascript:;" class="button" onclick="talent_invite($tuid);">邀请投标</a>
+						 	</div>
+							<div class="s_select_bottom clearfix">
+								<a href="{$_K['siteurl']}/index.php?do=shop&u_id={$tuid}" class="button n_rb">进入商铺</a>
+								<a href="javascript:void(0);" class="button" onclick="sendMessage('{$tuid}','{$tuserinfo[username]}')">{$_lang['send_msg']}</a>
+							</div>
+						 </div>
+					  </div>	
+					  
+					  	
+						</div>
+                    </div>
+                    <!--end 右边部分-->
+                </div>
+                <!--end 步骤下所有内容-->
+            </div>
+            <!--end 布局框-->
+            <!--end 详细内容区-->
+
+		
+		</div>
+	</section>
+</div>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/xheditor/xheditor.js"></script>							
+<script type="text/javascript">
+	var uid = '{$uid}';
+    In.add('shelves', {
+        path: "{$_K['siteurl']}/resource/js/system/shelves.js",
+        type: 'js',
+        rely: ['form']
+    });
+    In('shelves');
+	var editor = '';
+$(function(){
+	editor = $("#tar_content").xheditor({});
+	editor.checkInner();
+})
+
+</script>
+<script src="{$_K['siteurl']}/resource/js/uploadify/jquery.uploadify-3.1.min.js" type="text/javascript"></script>
+<link href="{$_K['siteurl']}/resource/js/uploadify/uploadify.css" rel="stylesheet">
+<!--{template footer}-->

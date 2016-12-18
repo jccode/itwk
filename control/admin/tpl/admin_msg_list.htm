@@ -1,0 +1,130 @@
+<!--{template control/admin/tpl/admin_header}-->
+<div class="page_title">
+    	<h1>{$_lang['msg_manage']}</h1>
+        <div class="tool">         
+			
+            <a href="index.php?do={$do}&view=list" {if $type == ''}class="here"{/if}>{$_lang['msg_list']}</a>
+		  <a href="index.php?do=$do&view=edit" {if $view=='edit'}class="here"{/if} {if $view=='edit'}class="here" {/if}>{$_lang['add_material']}</a>
+        </div>
+</div> 
+
+<div class="box search p_relative">
+    <div class="title">
+        <h2>{$_lang['search']}</h2>
+    </div>
+    <div class="detail" id="detail">
+        <form method="post" action="index.php?do={$do}&view={$view}" id="frm_art_search">
+        <input type="hidden" name="page" value="{$page}">
+        <table cellspacing="0" cellpadding="0">
+         <tbody>
+           <tr>
+             <th>
+          		{$_lang['msg_id']}
+             </th>
+              <td>
+                <input type="text" size='10' class="txt" name="w[msg_id]" value="{$w['msg_id']}" onkeyup="clearstr(this);">
+              </td>
+               <th>
+                        {$_lang['msg_title']}*
+              </th>
+                <td>
+                  <input type="text" size="20" class="txt" name='w[title]' value="{$w['title']}">
+                </td>
+				<th>
+                   {$_lang['username']} 
+              </th>
+                <td>
+                  <input type="text" size="20" class="txt" name='w[username]' value="{$w['username']}">
+                </td>
+            </tr>
+             <tr>
+             	<th>
+                  {$_lang['to_username']} 
+              </th>
+                <td>
+                  <input type="text" size="20" class="txt" name='w[to_username]' value="{$w['to_username']}">
+                </td>
+             	<th>
+                     {$_lang['result_order']}
+                 </th>
+                  <td>
+                     <select name="w[ord]">
+                       <option {if $w['ord']=='msg_id desc' or !isset($w['ord'])}selected="selected" {/if}  value="msg_id desc">{$_lang['order_id_desc']}</option>
+                       <option {if $w['ord']=='msg_id asc'}selected="selected" {/if}  value="msg_id asc">{$_lang['order_id_asc']}</option>
+                       <option {if $w['ord']=='on_time desc'}selected="selected" {/if}  value="on_time desc">{$_lang['pub_time_desc']}</option>
+                        <option {if $w['ord']=='on_time asc'}selected="selected" {/if}  value="on_time asc">{$_lang['pub_time_asc']}</option>
+                      </select>
+                   </td>
+              <th>
+                         {$_lang['list_result']}
+               </th>
+                   <td>
+                     <select name="w[page_size]">
+                          <option value="10" {if $w['page_size']=='10'}selected="selected"{/if}>{$_lang['page_size']}10</option>
+                          <option value="20" {if $w['page_size']=='20'}selected="selected"{/if}>{$_lang['page_size']}20</option>
+                          <option value="30" {if $w['page_size']=='30'}selected="selected"{/if}>{$_lang['page_size']}30</option>
+                     </select>
+                    <button class="pill" type="submit" value="{$_lang['search']}" name="sbt_search"><span class="icon magnifier">&nbsp;</span>{$_lang['search']}</button>
+                 </td>
+                 
+             </tr>
+          </tbody>
+        </table>　
+     </form>
+   </div>
+</div>
+<div class="box post" id="div_cont_1" style="display:{if $op=='reg'||!$op}block{else}none{/if}">
+<div class="title"><h2>{$_lang['msg_tag_list']}</h2></div>
+<div class="detail">
+	<form method="post" action="" id="">
+        <input type="hidden" name="page" value="{$page}">
+		<input type="hidden" name="w[page_size]" value="{$page_size}">
+		  	<table cellpadding="0" cellspacing="0">
+               <tbody>
+                <tr>
+                    <th class="td25">ID</th>
+					<th class="td28">{$_lang['username']}</th>
+                    <th>{$_lang['to_username']}</th>
+					<th>{$_lang['title']}</th>
+					<th>{$_lang['on_time']}</th>
+                    <th>{$_lang['operate']}</th>
+                </tr>
+                {loop $msg_arr $key $v}
+                <tr class="item">
+                    <td class="td25">
+                    	<input type="checkbox"  class="checkbox" name="ckb[]" id="ckb" value="{$v['msg_id']}">
+						{$v['msg_id']}
+					</td>
+					<td class="td28">
+                  	 {$v['username']}
+                    </td>
+                    <td>{$v['to_username']}</td>
+					
+                    <td><!--{eval echo kekezu::cutstr($v['title'],50)}-->&nbsp;</td>
+					<td><!--{date('Y-m-d H:i:s',$v['on_time'])}--></td>
+                    <td>
+                       <a  href='index.php?do={$do}&view=edit&msg_id={$v['msg_id']}&op={$op}'><span class="trash icon"></span>{$_lang['edit']}</a>
+                       <a  onclick="return cdel(this);" href="index.php?do={$do}&view=list&ac=del&msg_id={$v['msg_id']}"><span class="trash icon"></span>{$_lang['delete']}</a>
+                    </td>
+                </tr>
+                {/loop}
+                <tr>
+                	<td colspan="6">
+                	<div class="page fl_right">{$pages['page']}</div>
+                    <div class="clearfix">
+                            <input type="checkbox" id="checkbox" onclick="checkall();" class="checkbox" >
+							<label for="checkbox">{$_lang['select_all']}</label>　
+							<input type="hidden" name="sbt_action" value="{$_lang['mulit_delete']}" />
+							<button type="submit" name="sbt_action" value="{$_lang['mulit_delete']}" class="pill negative" onclick="return pdel('reg_prom')"/><span class="cross icon"></span>{$_lang['mulit_delete']}</button>&nbsp;&nbsp;&nbsp;
+							<button type="button" name="sbt_add" value="{$_lang['add_material']}" class="primary pill positive"  onclick="location.href='index.php?do={$do}&view=edit&op={$op}'" /><span class="icon plus"></span>{$_lang['add_material']}</button>
+				   </div>
+				   </td>
+               </tr>
+              <tbody>	  
+			</table>
+			</form>
+		  </div>
+	 </div>			
+</div>
+</form>
+ <!--{template control/admin/tpl/admin_footer}-->

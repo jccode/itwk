@@ -1,0 +1,146 @@
+<!--{template header}-->
+<style type="text/css">
+	.valid_error span{ display:inline-block; width:210px;}
+	.form_button{ margin-top:0;}
+	.grid_2{ width:70px;}
+</style>
+<div class="winbody">
+	<div class="messages m_warn">
+		<strong>友情提醒</strong> 申请开票前请仔细阅读 <a href="{$_K['siteurl']}/index.php?do=about&view=invoice">《IT帮手网发票开具规则》</a>。
+	</div>
+<div class="pad10">
+	<div id="div_invoice" >
+		<form name="frm" id="frm" method="post" action="">
+			<div class="rowElem clearfix">
+				<label class="grid_2 t_r"><strong>抬头{$_lang[zh_mh]}</strong></label>
+				<div class="grid_10">
+					<div>
+						<input type="hidden" name="taskid" id="taskid" value="{$taskid}">
+						<input type="hidden" name="iv_id" id="iv_id" value="{$ivid}">
+						<input type="text" id="iv_client" name="iv_client" size="40" value="{$invoice_info['iv_client']}" class="txt_input" limit="required:true;len:1-180" msg="请填写抬头信息，长度为1-90字符" msgArea="span_client">
+					</div>
+					<span id="span_client"></span>
+				</div>
+			</div>
+			<div class="rowElem clearfix">
+				<label class="grid_2 t_r"><strong>开票内容{$_lang[zh_mh]}</strong></label>
+				<div class="grid_10">
+					设计费
+				</div>
+			</div>
+			<div class="rowElem clearfix">
+				<label class="grid_2 t_r"><strong>邮寄方式{$_lang[zh_mh]}</strong></label>
+				<div class="grid_10">
+					<label><input type="radio" name="transport_type" value="1" {if $invoice_info['transport_type']==1 || !isset($invoice_info['transport_type'])}checked{/if}> 平邮</label>
+					<label><input type="radio" name="transport_type" value="2" {if $invoice_info['transport_type']==2}checked{/if}> 快递</label>
+				</div>
+			</div>
+			<div class="rowElem clearfix">
+				<label class="grid_2 t_r"><strong>联系人{$_lang[zh_mh]}</strong></label>
+				<div class="grid_10">
+					<input type="text" id="iv_contact" name="iv_contact" size="20" value="{$invoice_info['iv_contact']}" class="txt_input" limit="required:true;len:1-40" msg="请填写联系人信息，长度为1-20字符" msgArea="span_contact">
+					<span id="span_contact"></span>
+				</div>
+			</div>
+			<div class="rowElem clearfix">
+	      		<label class="grid_2 t_r"><strong>选择区域{$_lang[zh_mh]}</strong></label>
+	      		<div class="grid_11">
+	      			<div>
+	      				<select name="province" id="province" limit="required:true" msg="请选择您所在的区域" msgArea="span_city"></select>
+						<select name="city" id="city"></select>
+						<select name="area" id="area"></select>
+	      			</div>
+	      			<div id="span_city"></div>
+				</div>
+			</div>
+			<div class="rowElem clearfix">
+	      		<label class="grid_2 t_r"><strong>具体地址{$_lang[zh_mh]}</strong></label>
+				<div class="grid_11">
+					<div>
+						<input type="text" id="iv_add" name="iv_add" size="40" value="{$invoice_info['iv_add']}" class="txt_input" limit="required:true;len:1-200" msg="请填写您的具体地址，长度为1-100字符" msgArea="span_add">
+					</div>
+					<span id="span_add"></span>
+				</div>
+			</div>
+			<div class="rowElem clearfix">
+	      		<label class="grid_2 t_r"><strong>邮编{$_lang[zh_mh]}</strong></label>
+				<div class="grid_11">
+					<input type="text" id="iv_zipcode" name="iv_zipcode" size="20" value="{$invoice_info['iv_zipcode']}" class="txt_input" limit="type:postcodeCn;len:1-40" msg="请填写有效的邮编" msgArea="span_zipcode">
+					<span id="span_zipcode"></span>
+				</div>
+			</div>
+			<div class="rowElem clearfix">
+	      		<label class="grid_2 t_r"><strong>联系电话{$_lang[zh_mh]}</strong></label>
+				<div class="grid_11">
+					<input type="text" id="iv_phone" name="iv_phone" size="20" value="{$invoice_info['in_phone']}" class="txt_input" limit="len:1-40" msg="联系电话长度不正确" msgArea="span_phone">
+					<span id="span_phone"></span>
+				</div>
+			</div>
+			<div class="rowElem clearfix">
+				<label class="grid_2 t_r"><strong>手续费{$_lang[zh_mh]}</strong></label>
+				<div class="grid_10">
+					0.00 元
+				</div>
+			</div>
+			
+		</form>
+	</div>
+</div>
+<div class=" clearfix form_button">
+				<button class="submit" onclick="subInvoice();" value="保存" type="button">
+					保存
+				</button>
+				
+				<button class="button" onclick="hideWindow('invoice');" value="取消" type="button">
+					取消
+				</button>
+</div>
+
+</div>
+
+<script src="{$_K['siteurl']}/resource/js/jquery.bgiframe.pack.js"></script>
+<script type="text/javascript">	
+In('form');
+In('pcas',function(){new PCAS("province","city","area","{$local['0']}","{$local['1']}","{$local['2']}");});
+
+function subInvoice(){
+	var taskid = $("#taskid").val();
+	var iv_client = $("#iv_client").val();
+	var transport_type = $("input[@name='transport_type']:checked").val();
+	var iv_contact = $("#iv_contact").val();
+	var province = $("#province").val();
+	var city = $("#city").val();
+	var area = $("#area").val();
+	var iv_add = $("#iv_add").val();
+	var iv_zipcode = $("#iv_zipcode").val();
+	var iv_phone = $("#iv_phone").val();
+    if (checkForm(document.getElementById("frm"), false)) {
+        $.post("{$_K['siteurl']}/index.php?do=ajax&view=invoice&op=add", {
+            taskid: taskid,
+            iv_client: iv_client,
+            transport_type: transport_type,
+            iv_contact: iv_contact,
+            province: province,
+			city: city,
+			area: area,
+			iv_add: iv_add,
+			iv_zipcode: iv_zipcode,
+			iv_phone: iv_phone
+        }, function(json){
+            if (json.status == 1) {
+                showDialog(json.msg,"right","操作提示",function(){window.location.href="{$_K['siteurl']}/index.php?do=user&view=employer&op=invoice"},0);
+				
+            }
+            else {
+                showDialog(json.msg,"alert","操作提示",function(){hideWindow('invoice')},0);
+            }
+			$('#fwin_dialog').bgiframe();
+        }, 'json')
+    }
+}
+
+	$(function(){
+		$('div.fwinmask').bgiframe();
+	})
+</script>
+<!--{template footer}-->					

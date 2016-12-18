@@ -1,0 +1,104 @@
+@CHARSET "UTF-8";
+.simple_style .prom_nav{background:#804000;}
+.nav_right a{color:#fff;}
+.simple_style .prom_nav li a{background:#963; }
+#ie6 .simple_style .task_list_detail {WIDTH: auto;}
+ /* 推广工具箱、banner部分 */
+.main{width:710px;}
+	.main .promot_box{height:280px; _height:279px;}
+		.main .mbox{width:158px; border:1px solid #FFCCAA; background:#FFEED5; height:280px; _height:279px;}
+			.mbox .title{font-family:"宋体"; line-height:20px;}
+				.mbox b{font-size:14px; color:#630; line-height:20px;}
+				.mbox p{color:#666; font-size:12px; line-height:20px;}
+				.mbox li{height:40px; line-height:40px; border:1px solid #FFDDBF; background:#FFF7EA; margin-bottom:5px;}
+					.mbox li a{background:url(../img/prom/icons17.png) 0 0 no-repeat; color:#630; margin-left:15px; padding-left:30px;}
+						.mbox li.selected{background-color:#fff;}
+		.main .adszone{width:540px; margin-left:10px; height:280px; _height:279px; overflow:hidden; position:relative; z-index:1;}
+		.main .adszone .jcarousel{ top:0; left:0;width:540px; height:280px;}
+		.main .adszone .jcarousel-pagination{ right:10px; bottom:10px;}
+		.main .adszone .jcarousel-pagination a{background-image:none; color:#666; text-indent:0; width:20px; height:20px; text-align:center; line-height:20px; background:#fff;}
+		.main .adszone .jcarousel-pagination a.jcarousel-pagination-item-active{ background:#FF7105; color:#fff; font-weight:bolder; font-size:14px;}
+		.choose_box	.mbox{width:160px; float:left; border:1px solid #fca; background:#ffeed5; height:280px;}
+		.choose_box	.link_way{width:826px; border:1px solid #dfdfdf;}
+		
+ /* 佣金提成方式部分 */
+	.main .commission{width:708px; border:1px solid #DFDFDF;}
+		.commission dt{background:#f4f4f4; border-bottom:1px solid #dfdfdf;}
+			.commission .tl_boac {font-size:14px; color:#333; line-height:30px; display:block;}
+			.commission span{display:inline-block; float:right; line-height:30px;}
+				.commission span a{color:#333;}
+		.commission dd{background:#fff;}
+			.commission .nav_lists_nav{border-bottom:1px solid #fca;}
+				.commission .nav_lists_nav ul li{background:#fff; margin-left:10px; marging-right:0; height:40px; line-height:40px;}
+					.commission .nav_lists_nav ul li a{font-size:12px; font-family:"宋体"; border-color: #DFDFDF}
+						.commission .nav_lists_nav ul li a.selected, .commission .nav_lists ul li a.selected:hover{background:#FFEED5; color:#333; font-weight:normal;border-color: #fca}
+							.commission .nav_lists_nav ul li a:hover{background:#FFEED5; color:#333;}
+				.commission .reward{width:80px; float:left;}
+				.commission .reward_detail{width:575px; float:left;}
+					.commission .reward_detail p{line-height:25px;}
+						.commission .reward_detail p span{color:#ea5e00; float:none;}
+						
+ /* 推荐热图推广部分 */
+	.commission .hot_pic{padding-left:7px;}
+		.commission .hot_pic li{float:left; width:160px; padding-right:10px; _padding-right:8px; text-align:center;}
+			.commission .hot_pic li .big_pic{padding:5px; border:1px solid #dfdfdf; background:#fff; width:150px; height:150px;}
+ /* 登录前 */
+.auto_login input{ margin:0;}
+.tips_box{ padding-left:65px;}
+label.txt{font-size:12px; display:inline-block;  margin-left:5px;margin-right:5px; line-height:30px;}
+.tips_on .auto_login{border:1px solid #c7c7c7; padding:3px 0 2px 3px; margin:-4px -1px -3px -4px; border-bottom:none; background:#fff;}
+.tips_word{ position:absolute; z-index:1; white-space:nowrap; color:#FF5A00; padding:0 5px; line-height:20px; top:21px; left:30px; background:#fff; border:1px solid #c7c7c7;}
+.button_box{padding-left:65px;}	
+ /* 我是推广员部分 */
+.aside{width:280px; margin-left:10px; _margin-left:9px; display:inline-block;}
+	.aside .promot_people{border:1px solid #dfdfdf; background:#f4f4f4; height:258px;}
+		.aside .promot_people b { display:block;font-size:22px; color:#333; font-family:"微软雅黑"; font-weight:normal; border-bottom:1px solid #dfdfdf; padding-bottom:5px;}
+		.aside .promot_people .income{border-top:1px solid #fff;}
+			.aside .promot_people .income .income_pic{float:left; width:50px; /*border:1px solid #e9e9e9;*/}
+				.aside .promot_people .income .income_pic .small_pic{padding:5px; background:#fff;}
+			.aside .promot_people .income .income_detail{float:left; width:170px;}
+				.aside .link .line{display:inline-block; height:10px; line-height:10px; border-right:1px solid #dfdfdf; width:1px;}
+				.aside .look_link{_padding-top:15px;}
+				.aside .promot_people .income .income_detail p{line-height:22px;}
+				.aside .promot_people .income .income_detail span{color:#ea5e00; font-weight:bold;}	
+			.aside .promot_people .link span{color:#960;}
+			.aside .promot_people .link input{width:245px;}
+
+ /* 频道公告部分 */
+.box_detail	a{background:url(../img/prom/dot.png) no-repeat; height:20px; line-height:20px; display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; width:200px; padding-left:20px;}
+.box_detail	a:hover{width:auto; position:relative; z-index:3; overflow:visible;}
+
+		
+ /* 最新推广动态部分 */
+.inner .head{background:#f4f4f4; height:30px; line-height:30px; border-bottom:1px solid #dfdfdf;}
+	.inner .head a{color:#333;}
+	.aside .notice{height:160px;}
+		.aside .notice li{line-height:23px;}
+
+
+ /* 所有创意分类部分 */
+.task_bigtitle .contents{background:#fff;}	
+.task_bigtitle .tl_boac {font-size:14px; color:#333; display:block; line-height:36px;}
+.task_pro{margin-bottom:0 !important;}
+
+
+ /* 链接推广方式部分 */
+.material label{width:100px; float:left; line-height:35px;}
+.material .material_details{width:700px;}
+	.material .material_details input{width:500px; padding-top:10px; padding-bottom:10px; box-shadow:2px 2px 5px rgba(0,0,0,0.1) inset;}
+		.material .material_details a.button{padding:10px;}
+
+ /* 图片推广列表部分 */
+.promot_lists_box{width:828px; margin-left:10px;}		
+	.hot_pic .big_pic190{background:#f4f4f4; border:1px solid #dfdfdf; height:190px; width:190px; padding:5px;}
+		.commission .promot_list{padding-left:0;}
+			.commission .promot_list li{width:202px; height:242px; overflow:hidden; padding-right:9px; padding-bottom:10px;  float:left; margin-left:-1px; margin-right:-1px;}
+				.commission .promot_list li a{line-height:40px;}
+				
+ /* 图片推广详细部分 */
+.material label{display:inline; float:left; line-height:26px; *line-height:20px; width:138px; *width:145px; _width:140px;}
+.material label a{padding-left:5px;}
+.fill_in span{float:none; display:inline-block;}
+.fill_in textarea{box-shadow:2px 2px 5px rgba(0,0,0,0.1) inset; height:100px; width:500px; vertical-align:bottom;}
+.fill_in a{padding:10px; vertical-align:bottom;}
+.design{background:#fff; border:1px solid #dfdfdf; padding:5px;}

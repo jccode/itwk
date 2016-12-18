@@ -1,0 +1,13 @@
+<!--{template header}-->
+<div class="{$_K['theme']}_style pad10">
+<div class="form_box">
+	<div class="t_c">
+		<img src="payment/{$payment_list[$pay_mode]['pay_dir']}/{$payment_list[$pay_mode]['img']}" alt=''  align="absmiddle" title="{ $payment_list[$pay_mode]['pay_name']}" width="110">
+	</div>
+	<div class="form_button">
+	$from
+	<button type="button"  value="{$_lang['cancel']}" onclick="hideWindow('pay');">{$_lang['cancel']}</button>
+	</div>
+</div> 
+</div>
+<!--{template footer}-->

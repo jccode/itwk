@@ -1,0 +1,119 @@
+<!--{template control/admin/tpl/admin_header}--> 
+<div class="page_title">
+    	<h1>开票处理</h1>
+        <div class="tool">
+       <a href="index.php?do={$do}&view=all">{$_lang['flow_record']}</a>
+	    <a href="index.php?do={$do}&view=report">{$_lang['graphic_report']}</a>
+	    <a href="index.php?do={$do}&view=recharge">{$_lang['recharge_audit']}</a>
+	   <a href="index.php?do={$do}&view=withdraw" >{$_lang['withdraw_audit']}</a>
+	   <a href="index.php?do={$do}&view=invoice" class="here">开票管理</a>
+    	</div>
+    </div>
+ <div class="box post">
+    <div class="tabcon">
+    	<div class="title"><h2>开票处理</h2></div>
+        <div class="detail">
+            <form action="index.php?do={$do}&view={$view}" method="post">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <th scope="row" width="130">{$_lang['username']}{$_lang['zh_mh']}</th>
+                    <td>{$invoice_info['username']}</td>
+                </tr>
+				<tr>
+					<th>{$_lang['task_title']}{$_lang['zh_mh']}</th>
+					<td>{$invoice_info['task_title']}</td>
+				</tr>
+				<tr>
+					<th>{$_lang['iv_client']}{$_lang['zh_mh']}</th>
+					<td>{$invoice_info['iv_client']}</td>
+				</tr>
+				<tr>
+					<th>{$_lang['iv_reason']}{$_lang['zh_mh']}</th>
+					<td>{$invoice_info['iv_reason']}</td>
+				</tr>
+				<tr>
+					<th>{$_lang['iv_contact']}{$_lang['zh_mh']}</th>
+					<td>{$invoice_info['iv_contact']}</td>
+				</tr>
+				<tr>
+					<th>{$_lang['address']}{$_lang['zh_mh']}</th>
+					<td>{$invoice_info['iv_city']}{$invoice_info['iv_add']}</td>
+				</tr>
+				<tr>
+					<th>{$_lang['iv_zipcode']}{$_lang['zh_mh']}</th>
+					<td>{$invoice_info['iv_zipcode']}</td>
+				</tr>
+				<tr>
+					<th>{$_lang['iv_phone']}{$_lang['zh_mh']}</th>
+					<td>{$invoice_info['iv_phone']}</td>
+				</tr>
+				<tr>
+					<th>{$_lang['iv_price']}{$_lang['zh_mh']}</th>
+					<td>{$invoice_info['iv_price']}</td>
+				</tr>
+				<tr>
+					<th>{$_lang['iv_taxes']}{$_lang['zh_mh']}</th>
+					<td>{$invoice_info['iv_taxes']}</td>
+				</tr>
+				<tr>
+					<th>{$_lang['iv_taxes_status']}{$_lang['zh_mh']}</th>
+					<td>{$iv_taxes_status[$invoice_info['iv_taxes_status']]}
+					{if $invoice_info['iv_taxes_status']==0 && $invoice_info['iv_tm_status']==2}
+						<a href="index.php?do={$do}&view=invoice_info&iv_id={$invoice_info['iv_id']}&ac=gettaxes" class="button dbl_target">收取税金</a>
+					{/if}
+					</td>
+				</tr>
+				<tr>
+					<th>{$_lang['iv_status']}{$_lang['zh_mh']}</th>
+					<td>{$iv_status[$invoice_info['iv_status']]}</td>
+				</tr>
+				<tr>
+					<th>{$_lang['iv_datetime']}{$_lang['zh_mh']}</th>
+					<td><!--{date('Y-m-d H:i:s',$invoice_info['iv_datetime'])}--></td>
+				</tr>
+				<tr>
+					<th>{$_lang['iv_tm_status']}{$_lang['zh_mh']}</th>
+					<td>{$iv_tm_status[$invoice_info['iv_tm_status']]}</td>
+				</tr>
+				<tr>
+					<th>{$_lang['iv_checktime']}{$_lang['zh_mh']}</th>
+					<td><!--{date('Y-m-d H:i:s',$invoice_info['iv_checktime'])}--></td>
+				</tr>
+				<tr>
+					<th>{$_lang['iv_checkusername']}{$_lang['zh_mh']}</th>
+					<td>{$invoice_info['iv_checkusername']}</td>
+				</tr>
+				<tr>
+					<th>{$_lang['transport_type']}{$_lang['zh_mh']}</th>
+					<td>{$transport_type[$invoice_info['transport_type']]}</td>
+				</tr>
+				<tr>
+					<th>{$_lang['transport_orderid']}{$_lang['zh_mh']}</th>
+					<td><input type="text" name="transport_orderid" id="transport_orderid" class="txt" value="{$invoice_info['transport_orderid']}" ><a href="javascript:void(0);" onclick="saveId();" class="button dbl_target">保存订单号</a></td>
+				</tr>
+                <tr>
+                    <th scope="row">&nbsp;</th>
+                    <td>
+                    	{if $invoice_info['iv_status']==0}
+							<a href="index.php?do={$do}&view=invoice_info&iv_id={$invoice_info['iv_id']}&ac=pass" class="button dbl_target"><span class="book icon"></span>受理申请</a>
+							<a href="index.php?do={$do}&view=invoice_info&iv_id={$invoice_info['iv_id']}&ac=nopass" class="button dbl_target"><span class="book icon"></span>拒绝受理</a>
+						{/if}
+					<a href="javascript:void(0);" onclick="javascript:history.go(-1);" class="button dbl_target"><span class="icon uparrow"></span>返回上一步</a>
+                    </td>
+                </tr>
+            </table>
+            </form>
+        </div>
+    </div>
+</div>
+<!--{template control/admin/tpl/admin_footer}-->
+<script type="text/javascript">
+	function saveId(){
+		var trid = document.getElementById("transport_orderid").value;
+		if(trid){
+			location.href="index.php?do={$do}&view=invoice_info&iv_id={$invoice_info['iv_id']}&ac=saveid&transport_orderid=" + trid;
+		}else{
+			art.dialog('请输入邮寄订单号。', function () {document.getElementById('transport_orderid').focus();});
+		}
+	}
+</script>

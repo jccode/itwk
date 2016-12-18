@@ -1,0 +1,108 @@
+<!--头部 start-->
+<header class="header">
+    <div class="container_24 clearfix">
+        <!--logo start-->
+        <hgroup class="logo">
+            <a href="{$_K['siteurl']}/" class="fl_l"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/style/logo_sy.gif"></a>
+            <div class="fl_l line">
+            </div>
+            {if $do=='' or $do=='index'}
+            <a class="little_logo fl_l" href="{$_K['siteurl']}/index.php?do=help&view=wanzhuanyipin" rel="nofollow">
+            {else}
+            <a class="little_logo fl_l" href="{$_K['siteurl']}/index.php?do={$do}">
+            {/if}
+            
+            	{if $do=='user'}
+				<h2>用户中心</h2> 
+				{elseif $do=='help'}
+				<h2>帮助中心</h2> 
+				{elseif $do=='article'}
+				<h2>新闻中心</h2> 
+				{elseif $do=='about'}
+				<h2>关于我们</h2> 
+				{elseif $do=='release'}
+				<h2>发布任务</h2>
+				{elseif $do=='demand'}
+				<h2>发布需求</h2>
+				{elseif $do=='task_list'}
+				<h2>创意任务</h2>
+				{elseif $do=='talent'}
+				<h2>人才宝库</h2>
+				{elseif $do=='prom'}
+				<h2>推广频道</h2>
+				{elseif $do=='special'}
+				<h2>特色专栏</h2>
+				{elseif $do=='vip'}
+				<h2>VIP专区</h2>
+				{elseif $do=='task_map'}
+				<h2>任务地图</h2>
+				{elseif $do=='hire'||$do=='hire_list'}
+				<h2>直接雇佣</h2>
+				{elseif $do=='review'}
+				<h2>一句话点评</h2>
+				 {else}
+				 <span id="wz_begin"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/style/little_logo.gif"></span>
+				 {/if}
+			</a>
+        </hgroup><!--logo end-->
+		
+		{if $do=='release'||$do=='vip'||$do=='demand'}
+		<!--联系方式-->
+        <div class="touch fl_l clearfix">
+            <div class="touch_con fl_r">
+                <p>
+                    如果您有任何问题，请致电我们的服务热线：
+                </p>
+                <p>
+                    <span class="fl_l">4006-999-467</span>
+                    <em>（全国免费长途热线）</em>
+                </p>
+            </div>
+        </div>
+        <!--联系方式 end-->
+		{else}
+        <div class="search_bigbox ov_hide">
+            <div class="clearfix">
+                <ul class="tab fl_l" id="topsearch_select">
+                    <li>
+                        <a href="javascript:void(0);" id="topsearch_task" class="selected">搜任务</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" id="topsearch_talent">搜人才</a>
+                    </li>
+                </ul>
+                <div class="fl_r">
+                    <p>
+                        客服热线：<span>4006-999-467</span>
+                    </p>
+                </div>
+            </div>
+            <div class="clearfix">
+                <!--主搜索 start-->
+                <div class="search clearfix po_re">
+                    <!--搜索框和选项 start-->
+					
+                   <form action="{$_K['siteurl']}/index.php" method="post" id="frm_topsearch" class="clearfix fl_l">
+                        <input type="hidden" name="topsearch_type" id="topsearch_type" value="task_list">
+                        <div class="search_box">
+                            <span class="icon magnifier"></span>
+                            <input type="text" name="k" id="search_key" class="fl_l search_input txt_input c999" value="输入关键词搜索" onblur="if(this.value==''){this.value='输入关键词搜索'};" onfocus="if(this.value=='输入关键词搜索'){this.value=''};" x-webkit-speech x-webkit-grammar="bUIltin:search" lang="zh-CN">
+                        </div>
+                    </form><!--搜索框和选项 end--><!--搜索提交 start-->
+                    <div class="fl_l mr_5">
+                        <button class="search_btn" id="topsearch_btn" type="button">
+                            <span class="icon magnifier"></span>搜索
+                        </button>
+                    </div>
+                    <!--搜索提交 end-->
+                </div>
+            </div>
+            <!--主搜索 end-->
+        </div>
+		
+        {/if} 
+		
+        <div class="clear"></div>
+    </div>
+</header>
+<!--头部 end-->

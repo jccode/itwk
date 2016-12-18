@@ -1,0 +1,178 @@
+<!--{template header_login}-->
+<div class="wrapper mt_20">
+	<div class="container_24">
+    	<section class="clearfix">
+    		<!--step步骤 start-->	 
+			 <div class="reslease_step all_3 clearfix">
+                <div class="step frist_step">
+                	<div class="selected">
+                	<strong>
+						1.绑定已有账号
+					</strong> 
+					</div>                 
+                </div>
+				<div class="step last_step">
+					<div class="">
+					<strong>
+						2.绑定成功
+					</strong>
+					</div>                  
+                </div>
+            </div>
+
+            <!--step步骤 end-->
+        	<div class="box model m_gray pad20 pt_10 mt_20">
+        		<div class="inner">
+            		<header class="box_header clearfix ">
+            			<div class="grid_5 alpha omega hidden">
+            				<h1 class="box_title">{$_lang['register']} Register</h1>
+						</div>
+                         <div class="clearfix pl_10">
+							<b class="c333 font14b mr_20">IT帮手温馨提示</b>
+							切换至
+							<a href="{$_K['siteurl']}/index.php?do=oauth_register&type={$type}" class="ml_5 mr_5">完善个人资料</a>
+						</div>
+					</header>
+        			<div class="box_detail clearfix po_re box pt_20 pl_5">
+            			<div class="grid_17">
+                		<!--from表单 start-->
+                			<div class="form_box clearfix mt_10 border_n">
+                    			<form action="index.php?do=oauth_login" method="post" id="bing_frm" name="bing_frm">
+                        			<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+                        			<input type="hidden" name="hdn_refer" id="hdn_refer" value="{$_K['refer']}">
+									<input type="hidden" name="handlekey" value="bing_frm1"><!--账号-->
+									<input type="hidden" name="type" value="{$type}"><!--账号-->
+                        			<div class="rowElem clearfix po_re">
+                            			<label class="grid_3">
+                                			使用的账号：
+                            			</label>
+                            			<div class="grid_6 be4">
+                            				<p class="pl_10">$oauth_type_arr[$type]['name']{$_lang['zh_mh']}
+											<img src="{$_K['siteurl']}/resource/img/ico/{$type}_t.gif" style="width:17px; height:17px; vertical-align:middle; margin-right:5px" alt=''>
+											<span class="font14">$oauth_user_info['name']</span></p>
+                                		</div>
+                        			</div>
+									<div class="rowElem clearfix po_re">
+                            			<label class="grid_3">
+                                			用&nbsp;户 &nbsp;名：
+                            			</label>
+                            			<div class="grid_6">
+                                			<input type="text" class="txt txt_input" autocomplete="off" name="txt_account"
+											 limit="required:true;len:4-16;type:signName;general:true" msg="请填写您的账号"
+											  title="请填写您的IT帮手网账号" id="txt_account"
+											   ajax="{$_K['siteurl']}/index.php?do=oauth_login&type={$type}&check_username="
+											    msgArea="login_account_msg" style="width:200px;" />
+                            			</div>
+										<span class="login_msg" id="login_account_msg"></span>
+                        			</div>
+                        			<div class="prefix_4 ml_5">
+                        			</div>
+                        		<!--end 账号--><!--密码-->
+                        			<div class="rowElem clearfix po_re">
+                            			<label class="grid_3">
+                                			登录密码：
+                            			</label>
+                            			<div class="grid_6">
+                                			<input class="txt_input" style="width:200px;" type="password" name="pwd_password" id="pwd_password"
+											 maxlength="20" limit="required:true;len:6-20" msg="密码输入错误" title="请填写您的账号密码"
+											  msgArea="password_msg"/>
+                            			</div>
+										<span class="" id="password_msg"></span>
+                        			</div>
+                        			<div class="rowElem clearfix po_re">
+                            			<label class="grid_3">
+                                			确认密码：
+                            			</label>
+                            			<div class="grid_6">
+                                			<input class="txt_input" style="width:200px;" type="password" name="pwd_password2"
+											 id="pwd_password2" maxlength="20" limit="required:true;equals:pwd_password"
+											  msg="请再次确认密码" title="请确认您的账号密码" msgArea="password2_msg"/>
+                            			</div>
+										<span class="" id="password2_msg"></span>
+                        			</div> 
+                        		<!--end 密码-->				
+							
+							<!--验证码-->
+                        			<div class="rowElem clearfix po_re">
+                            			<label class="grid_3">
+                                			验 &nbsp;证 &nbsp;码：
+                            			</label>
+                            			<div class="grid_6 po_re">
+                                			<input style="width:75px;" class="fl_l txt_input" name="txt_code" type="text" size="9" id="txt_code" limit="required:true;len:4" msg="验证码输入错误" msgArea="secode_msg" ajax="{$_K['siteurl']}/index.php?do=ajax&view=code&txt_code=" >
+								 			<div id="show_secode_menu_content" class="secode_box">
+								 				<img id="secode_img" src="secode_show.php?sid=" onclick="document.getElementById('secode_img').src='secode_show.php?sid='+Math.random(); return false;">
+								 				<a class="font14" href="#" onclick="document.getElementById('secode_img').src='secode_show.php?sid='+Math.random(); return false;">换一张</a>
+											</div>
+								 		<a id="show_secode" href='{$_K['siteurl']}/index.php?do=ajax&view=menu&ajax=show_secode'></a>
+                            			</div>
+                            			<span class="" id="secode_msg"></span>
+                        			</div>						
+                        	<!--end 验证码-->
+							<p class="mt_20 prefix_3">
+                            <input  name="inputtext" type="checkbox" checked="checked" id="inputtext" limit="required:true"
+							msg="{$_lang['you_should_agree_agreement']}" msgArea="login_msg"/> &nbsp;已完全阅读并同意<a  href="{$_K['siteurl']}/index.php?do=about&view=service" target="_blank">《IT帮手网用户服务协议》</a>
+                        	<span id="login_msg"></span>
+						</p>
+                        <div class="mt_20 prefix_3">
+                            <button type="submit" class="button font14 primary submit " onclick="return user_register();">
+                               下一步
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="fl_l border_l_c">
+                     <div class="prefix_2 pt_10">
+                     	<h2 class="c333">没有IT帮手网账号？</h2>
+						<div class="mt_10 mb_20 sign_now">
+						<a href="{$_K['siteurl']}/index.php?do=oauth_register&type={$type}" class="button font14 primary bwhite">马上完善资料</a>
+						</div>
+						<div>您也可以通过合作网站账号登录</div>
+                        <span class="c333">{$_lang['from_cooperation_website_login']}</span>
+							{loop $api_open $k $v}
+								{if $weibo_list[$k.'_app_id']}
+								 <div class="mt_10">
+									<a href="{$_K['siteurl']}/index.php?do=oauth_login&type={$k}" alt="{$api_name[$k]['name']}" title="{$api_name[$k]['name']}">
+										<img src="{$_K['siteurl']}/resource/img/ico/{$k}_t.gif" alt="{$api_name[$k]['name']}" title="{$api_name[$k]['name']}">
+									</a>
+									<a href="{$_K['siteurl']}/index.php?do=oauth_login&type={$k}" class="ml_5">{$api_name[$k]['name']}{$_lang['login']}</a>
+									</div>
+			                   {/if}			
+							{/loop}
+                    </div>
+            </div>
+        				</div>
+		</div>
+			</div>
+        </section>
+        <div id="login_msg">
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+</div>
+{/if}
+<!--网站注册 end-->
+
+<script type="text/javascript">
+	
+   In('form');
+    //注册
+    function user_register(){
+		var i = checkForm(document.getElementById("bing_frm"),false);
+        if (i) {
+			 document.getElementById('bing_frm').submit;
+         }else{
+      		return false;
+		 }
+    }
+	$('#txt_account').ajaxSuccess(function(){
+		if($(this).attr('valid')==2){
+			$('#login_account_msg').removeClass('valid_error').addClass('valid_success').html('<span>该用户名可以使用</span>');
+		}
+	})
+    $('input').focus(function(){
+        $(this).parent('div').next('span').removeClass().children('span').html('');
+    });
+</script>
+<!--{template footer}-->

@@ -1,0 +1,86 @@
+<!--{template control/admin/tpl/admin_header}--> 
+<div class="page_title">
+    <h1>{$_lang['ads_manage']}</h1>
+    <div class="tool">
+        <a href="index.php?do={$do}&view=ad" >{$_lang['advertising']}</a>
+        <a class="here" href="" >{$_lang['ads_list']}</a>
+    </div>
+</div>
+    <!--页头结束-->
+    
+    <div class="box list">
+    	<div class="title"><h2>{$_lang['ads_list']}</h2></div>
+        <div class="detail">
+        	<form action="" id='frm_list' method="post">
+        	<div id="ajax_dom"> 
+              <table cellpadding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                  	<th><input type="checkbox" onclick="checkall();" id="checkbox" name="checkbox"/></th>
+                    <th width="8%">ID</th>
+                    <th width="7%">{$_lang['order']}</th>
+                    <th width="20%">{$_lang['ads_title']}</th>
+                    <th width="20%">{$_lang['station_call']}</th>
+                    <th width="10%">{$_lang['is_available']}</th>
+                    <th width="17%">{$_lang['put_range']}
+					</th>
+                    <th>{$_lang['operate']}</th>
+                  </tr>
+                  
+                  {loop $ad_arr $key $value}
+                  <tr class="item">
+                  	<td class="td25"><input type="checkbox" name="ckb[]" value="{$value['ad_id']}" class="checkbox"></td>
+                 	<td class="td25">{$value['ad_id']}</td>
+                 	<td><input type="text" name="listorder" value="{$value['listorder']}" onblur="update_order({$value['ad_id']},this.value)" class="txt" size="3" /></td>
+                    <td class="td28">{$value['ad_name']}</td>
+                    <td><input type="text" class="txt" id="code_{$value['ad_id']}" value="<!--{eval echo '<!--{showad('.$value['ad_id'].')}-';}-->->" onfocus="this.select();"></td>
+                    <td>{if $value['is_allow']==1}{$_lang['available']}{else}{$_lang['not_available']}{/if}</td><!-- 是否可用 -->
+                    <td>{$targets_arr[$value['target_id']]['name']}</td><!-- 投放范围 -->
+                    <td>
+						<!-- <a href="../../index.php?do=article&view=article_info&art_id=" target="_blank">{$_lang['view']}</a> -->
+						<a href="index.php?do={$do}&view=ad_add&ac=edit&ad_id={$value['ad_id']}&target_id={$value['target_id']}&page={$page}&ord={$ord}" class="button dbl_target"><span class="pen icon"></span>{$_lang['edit']}</a>
+						<a href="index.php?do={$do}&view=ad_list&ac=del&ad_id=$value['ad_id']&target_id={$value['target_id']}&page={$page}&ord={$ord}"  onclick="return cdel(this);" class="button"><span class="trash icon"></span>{$_lang['delete']}</a>
+						<!-- <a href="#" onclick="javascript:setCopy(document.getElementById('code_{$value['ad_id']}').value, {$_lang['copy_code']});" class="button"><span class="book icon"></span>{$_lang['copy']}</a>  -->
+					</td>
+                  </tr>
+                  {/loop}
+                  <tr>
+                    <td colspan="10">
+	                    <div class="clearfix">
+	                        <label for="checkbox">{$_lang['select_all']}</label><!-- 全选 -->
+	                        <input type="hidden" name="sbt_action" class="sbt_action"/>
+							<button name="sbt_action" type="submit" value="{$_lang['mulit_delete']}" onclick="return batch_act(this,'frm_list');" class="pill negative" ><span class="icon trash"></span>{$_lang['mulit_delete']}</button>
+	                    </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+			  <div class="page">{$pages['page']}</div>
+              </div>
+        	</form>
+        </div>       
+    </div>
+    <script type="text/javascript">
+    	function setlinks(){
+    		var target_id=document.getElementById("ad_target_id");
+    		var alink=document.getElementById("add_ad");
+    		if(target_id.value!=""){
+    			alink.href="index.php?do={$do}&view=ad_add&target_id="+target_id.value;
+    			return true;
+    		}
+    		return false;
+    	}
+    	function sync_select(){
+    		var cat=document.getElementById("catid");
+    		var target=document.getElementById("ad_target_id");
+    		if(cat.value!=""){
+    			var i=cat.selectedIndex;
+    			target.options['i'].selected=true;
+    		}
+    	}
+    	function update_order(n_id,n_value){
+    		$.get("index.php?do=tpl&view=ad_list&action=u_order",{u_id:n_id,u_value:n_value});
+    	}
+    </script>
+ 	<!--主体结束-->
+<!--{template control/admin/tpl/admin_footer}-->

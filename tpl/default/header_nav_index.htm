@@ -1,0 +1,23 @@
+<nav class="nav">
+        <div class="container_24">
+        	<div class="menu  clearfix">
+                <ul class="clearfix">
+                	{loop $nav_arr $k $v}
+                   		<li>
+                   			{if isset($static)&&$v['nav_style']=='article'}
+								<a href="/html/article/index/1.htm" {if isset($nav_active_index) && $v['nav_style']==$nav_active_index}class="selected"{/if} {if $v['newwindow']}target="_blank"{/if}>
+                   			{else}
+                   			<a href="{if strpos($v['nav_url'],'http')===false}{$_K['siteurl']}/{/if}{$v['nav_url']}" {if isset($nav_active_index) && $v['nav_style']==$nav_active_index}class="selected"{/if} {if $v['newwindow']}target="_blank"{/if}>
+                   			{/if}<span>{$v['nav_title']}</span></a>
+						</li>
+						<li class="line"></li>
+					{/loop}
+					<li>
+						<a href="{$_K['siteurl']}/index.php?do=special" target="_blank" class="special">特色专栏</a>
+					</li>
+                </ul>
+
+			</div>
+                <div class="clear"></div>
+        </div>
+    </nav>

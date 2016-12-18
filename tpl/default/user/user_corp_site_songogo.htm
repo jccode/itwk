@@ -1,0 +1,74 @@
+<!--{template header}-->
+<!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+        <!--{template user/user_nav}-->
+		<!--main start-->
+        <section class="clearfix section">
+            <!--{template user/user_side}-->
+            <div class="show_panel ">
+		        <div class="">
+		            <div class="">
+		                <!--main content-->
+		                <div class=" clearfix box default">
+                            <!--header内容头部 start-->
+                            <header class="clearfix box_header">
+                                <h2 class="box_title">{$_lang['bank_account']}</h2>
+                                <nav class="box_nav">
+                                    <ul>
+                                     <li class="selectedLava">
+                                    	<a href="{$origin_url}&op={$op}&opp=songogo#userCenter">爽购网账号</a>
+                                	</li>
+                                    </ul>
+                                </nav>
+                                <div class="clear">
+                                </div>
+                            </header>
+                            <!--detail内容 start-->
+                            <article class="box_detail">
+								{if $step=='step1'}
+                                    <div class="clear">
+                                    </div>
+                                    <div class="form_box pt_20">
+                                        <!--from表单 start-->
+                                        <form action="{$ac_url}&step={$step}" id="frm" name="frm" method="post">
+                                            <input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+                                            <input type="hidden" name="ep_cp_site" value="songogo">
+                                            <div class="rowElem clearfix">
+                                                <label class="grid_6 t_r">
+                                                 	帐号{$_lang['zh_mh']}
+                                                </label> 
+                                                <input name="conf[ep_username]" value="{$corp_site[0]['corp_site_username']}" limit="required:true;type:email" id="bank_sub_name" msgarea="msg_ep_username" type="text" size="35" style="color:#999" original-title="请填写您的爽购网帐号" msg="请正确填写帐户" class="txt_input">
+                                                <span id="msg_ep_username"></span>
+                                            </div>
+                                            <div class="rowElem clearfix form_button">
+                                                <button value="{$_lang['confirm']}" id="account_add" name="account_add" type="button" class="submit step3_bu" onclick="siteSub('frm',2,true)">帐户认证</button>
+                                            </div>
+                                        </form>
+                                        <!--from表单结束 -->
+                                    </div>
+									
+<script type="text/javascript">
+In('form','pcas',function(){ 
+			 new PCAS("province","city","area")
+});
+</script>
+                                    <div class="clear"></div>
+                            </article>
+                            <!--detail内容 end-->
+                        </div>
+                        <!--main content end -->
+                        <div class="clear">
+                        </div>
+                    </div>
+                </div>
+                </section>
+                <!--main end-->
+            </div>
+			
+            </div>
+            <!--contain end-->
+
+<!--contain end-->
+<!--{template user/user_footer}-->
+<!--{template footer}-->

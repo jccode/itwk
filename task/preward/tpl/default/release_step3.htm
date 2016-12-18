@@ -1,0 +1,226 @@
+{if $_K['map_api']=='baidu'}
+<script type="text/javascript" src="{$_K['baidu_api']}"></script>
+{else}
+<script type="text/javascript" src="{$_K['google_api']}"></script>
+{/if}
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/system/ajaxfileupload.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jquery.form.js"></script>
+
+<div class="pad20 release_three">
+    <h5 class="font14 mt_10 mb_10 hidden">{$_lang['list']}</h5>
+	
+	<div class="r_suc pb_10">
+		<h2>您的需求信息已提交成功！</h2>
+		<div class="clearfix">
+				<span>悬赏任务</span>
+				<b class="ml_10">￥{$task_info[task_cash]}元</b>
+				<a class="ml_10" target="_blank" href="{$_K['siteurl']}/index.php?do=task&task_id=$task_id">$task_info['task_title']</a>
+		</div>
+	</div>
+	
+	<div class="r_res pb_10">
+	<h2>您可能还需要下面的服务：</h2>
+    <div class="list" >
+         <form action="{$basic_url}" method="post" name="frm_step3" id="frm_step3">
+	  	<input type="hidden" name="formhash" value="{FORMHASH}">
+            <dl>
+                <dd class="tags hidden">
+                    <ul>
+                        <li class="t_l ">{$_lang['task_model']}</li>
+                        <li class="w6 t_l ">{$_lang['task_title']}</li>
+                        <li>{$_lang['task_cash']} </li>
+                    </ul>
+                </dd>
+                <dd class="clearfix hidden">
+                    <ul>
+                        <li class="clearfix">
+                           <span>{$model_info['model_name']}</span>
+                        </li>
+                        <li class="w6 t_l">
+                            <a href="javascript:void(0);" title="{$release_info['txt_title']}">{$release_info['txt_title']}</a>
+                        </li>
+                        <li class="font18 c900">
+                                {$_lang['currency']}<!--{eval echo number_format($release_info['txt_task_cash'],2)}-->
+                        </li>
+                    </ul>
+                </dd>
+		 {if $trust_list==x}
+                <dt class="block hidden">
+                    {$_lang['trust']}
+                </dt>
+			{loop $trust_list $k $v}
+                <dd class="clearfix" class="trust_box">
+                    <ul> 
+					<li class="clearfix pl_10">
+						<label style='float:left;display:inline;cursor:pointer;'>
+							<input type="checkbox" name="trust" value="{$k}" class="trust">
+						</label>
+						<img class="block ml_5" src="payment/{$k}/{$k}db.gif" title="{$v['pay_name']}" alt=''>
+					</li>
+                        <li class="w6 t_l font14">
+                            <a href="javascript:void(0);" title="{$v['descript']}"><!--{eval echo kekezu::cutstr($v['descript'],80)}--></a>
+                        </li>
+                    </ul>
+                </dd>
+			{/loop}
+        {/if}
+		{if $item_list}
+		
+		<script type=text/javascript>
+			function ale()
+		    {
+		    	var c_credit = 0;
+				var c_cash = 0;
+				var strdesc = '';
+				var not_able = false;
+				var choosed_i = 0;
+				{loop $item_list $k $v}
+					
+					if($('#checkbox_{$v[item_code]}').attr('checked')){
+						strdesc += '<b>{$v[item_name]}</b>： ';
+						{if $v['vipfree']&&$user_space_info['isvip']}
+							strdesc += '<span style="color:green">作为vip您可以免费使用</span>';
+						{elseif $v['integral_cost']>0&&$dz_credit>=$v['integral_cost']}
+							strdesc += '<span style="color:green">您有{$dz_credit}个论坛积分，该操作花费您{$v['integral_cost']}个论坛积分</span>';
+							c_credit += parseInt('{$v[integral_cost]}');
+						{elseif $v['item_cash']>0}
+							strdesc += '<span style="color:green">花￥{$v['item_cash']} 购买</span>';
+							c_cash += parseFloat('{$v[item_cash]}');
+						{elseif $v['item_cash']<=0&&!$v['integral_cost']&&!$v['vipfree']}
+							strdesc += '<span style="color:green">免费试用</span>';
+						{else}
+							not_able = true;
+							{if $v['vipfree']}
+								strdesc += '<span style="color:red">您不是vip，无法使用本项</span> <a href="{$_K['siteurl']}/index.php?do=vip" target="_blank">立即购买vip</a>';
+							{else}
+								strdesc += '<span style="color:red">您的积分不足以支付</span> ';
+							{/if}
+						{/if}
+						strdesc +='<br>';
+						choosed_i++;
+					}
+					else{
+						
+					}
+				{/loop}
+				if(choosed_i>0){
+					$('#item_show_box').show();
+				}
+				else{
+					$('#item_show_box').hide();
+				}
+				
+				if(c_cash>0){
+					$('#total').html(parseFloat('{$task_info['task_cash']}')+c_cash);
+					$('#item_total_cash').val(c_cash);
+				}
+				else{
+					$('#total').html($task_info['task_cash']);
+					$('#item_total_cash').val(0);
+				}
+				
+				if(c_credit>0){
+					$('#totle_credit').html(',<span>'+c_credit+'</span>点论坛积分');
+					$('#totle_credit').show();
+					$('#item_total_credit').val(c_credit);
+				}
+				else{
+					$('#totle_credit').hide();
+					$('#item_total_credit').val(0);
+				}
+				
+				$('#item_desc_box').html(strdesc);
+				
+				return not_able;
+			}
+			{if $task_info['pay_item']}
+				$(function(){
+					ale();
+				})
+			{/if}
+		</script>
+		
+                <dt class="block hidden">
+                    {$_lang['may_need']}
+                </dt>
+				{loop $item_list $k $v}
+                <dd class="clearfix">
+                    <ul> 
+					<li class="clearfix pl_10">
+						<label style="float:left;display:inline;cursor:pointer;">
+                            <input type="checkbox" name="item[{$v['item_id']}]" value="{$v['item_code']}" class="item" {if $v['item_code']=='map'}id="item_map"{/if} item_code="{$v['item_code']}"
+							{if in_array($v['item_code'],$item_info)}checked{/if} item_id="{$v['item_id']}" item_cash="{$v['item_cash']}" id="checkbox_$v['item_code']" {if !$v[item_cash]==0} 
+							onclick="ale($v['item_id']);"{/if}>
+                       	</label>
+							<img class="block ml_5" src="{$v['small_pic']}" title="{$v['item_name']}" alt=''>
+						 </li>
+                        <li class="w5 t_l">
+							<span>$v[item_desc]</span>
+                        </li>
+                       
+						
+						<li class="c900 w3">
+								{if $v['item_cash']>0}￥{$v['item_cash']}元,{/if}
+								{if $v['vipfree']}VIP免费,{/if} 
+								{if $v['integral_cost']}{$v['integral_cost']}点论坛积分,{/if} 
+								{if $v['item_cash']<=0&&!$v['vipfree']&&!$v['integral_cost']}免费试用,{/if} 
+                        </li>
+                    </ul>
+                </dd>
+				{/loop}
+          {/if}  
+            </dl>
+			<input type="hidden" name="item_total_cash" id="item_total_cash" value="$item_total_cash">
+			<input type="hidden" name="item_total_credit" id="item_total_credit" value="$item_total_credit">
+        </form>
+    </div>
+	</div>
+	
+	
+	<div class="r_list">
+		<h2>结算清单：</h2>
+		<div class="box default">
+			<div class="inner">
+				<div class="pad10">
+					<b>托管赏金：<b>{$task_info[task_cash]}元</b>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="r_list" id="item_show_box" style="display:none">
+		<h2>附加服务：</h2>
+		<div class="box default">
+			<div class="inner">
+				<div class="pad10" id="item_desc_box">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="pub_sum font14 clearfix mt_20">
+		<div class="fl_r">
+                  {$_lang['pay_cash']}{$_lang['zh_mh']} <span id="total">$task_info['task_cash']</span>{$_lang['yuan']} <a id="totle_credit" style="display:none;color:black">$task_info['att_credit']</a>
+		</div>		  
+    </div>
+				
+				
+	<div class="t_c fl_r mt_20">
+		
+    	<div class="step_button"> 
+			<a href="javascript:;" onclick="stepsave(3,3,'$task_id');" class="big button fl_l">上一步</a>
+			<button type="submit" name="is_submit" onclick="{if $item_list}if(!ale()){stepCheck();}else{showDialog('您有一项无法使用的附加服务!', 'alert', '操作失败提示', '', 0);}{else}stepCheck(){/if}" class="big button">{$_lang['confirm_release']}</button>
+		</div>
+    </div>
+	
+
+
+	
+	
+	
+</div>
+
+ 
+<!--end 列表内容-->

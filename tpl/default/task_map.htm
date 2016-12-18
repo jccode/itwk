@@ -1,0 +1,45 @@
+<!--{template header}--><!--{template new_head_nav}-->
+<link rel="stylesheet" href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/task.css">
+<div class="wrapper">
+    <!--页面头部-->
+    <header class="clearfix page_header">
+        <div class="container_24">
+            <!--页面导航-->
+            <div class=" clearfix">
+                <span class="">您的位置：</span>
+                <a href="{$_K['siteurl']}/index.php">IT帮手网首页</a>
+                > <a href="{$_K['siteurl']}/index.php?do=task_map">任务地图</a>
+            </div>
+        </div>
+    </header>
+    <!--end 页面标题-->
+    <!--主内容-->
+    <section class="clearfix content">
+        <div class="container_24">
+            <div class="clear">
+            </div>
+            <div id="container" style="height:500px;width:1000px;" setfull="0"></div>
+            <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+            {$map_script}
+        </div>
+    </section>
+</div>
+<script type="text/javascript">
+    In.config('serial', true);
+	
+    $(window).keydown(function(event){
+        switch (event.which) {
+            case (122): 
+				$(function(){
+					if($('#container').attr('setfull')==0){
+						$('#container').attr('setfull','1').css({position: "absolute", left: 0, top:0, width:"100%",height:"100%",zIndex:999});
+					}else{
+						$('#container').attr('setfull','0').css({height:500,width:1000,position: "relative",left: "auto", top:"auto"});
+					}
+				});
+                break;
+        }
+    });
+	
+</script>
+<!--{template footer}-->

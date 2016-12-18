@@ -1,0 +1,102 @@
+<!--{template header}--><!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+        <!--{template user/user_nav}-->
+		<!--main start-->
+        <section class="clearfix section">
+        <!--{template user/user_side}-->
+            <div class="show_panel ">
+		        <div>
+		            <div>
+		                <!--main content-->
+
+
+
+		            <div class=" clearfix box default">
+                    <!--header内容头部 start-->
+                    <header class="clearfix box_header">
+                        <h2 class="box_title">{$_lang['setting_head_pic']}</h2>
+
+                        <div class="prefix_1 suffix_1 pt_20">
+                            
+                                <ul class="clearfix pl_10">
+                                    <li class="fl_l mr_10">
+                                        <!--{userpic($uid,larger)}-->
+                                        <p>150x150{$_lang['px']}</p>
+                                    </li>
+                                    <li class="fl_l mr_10">
+                                        <!--{userpic($uid,middle)}-->
+                                        <p>100x100{$_lang['px']}</p>
+                                    </li>
+                                    <li class="fl_l mr_10">
+                                        <!--{userpic($uid,small)}-->
+                                        <p>50x50{$_lang['px']}</p>
+                                    </li>
+                                    <li class="clear"></li>
+                                </ul>
+                        </div>
+
+
+                        <div>
+                            <nav class="box_nav">
+                                <ul>
+                                    {loop $third_nav $k $v}
+                                    <li {if $k==$show}  class="selectedLava"{/if}>
+                                        <a href="{$_K['siteurl']}/index.php?do={$do}&view={$view}&op={$op}&show=$k" title="{$v}">{$v}</a>
+                                    </li>
+                                    {/loop}
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="clear"></div>
+                    </header>
+                    <!--header内容头部 end--><!--detail内容 start-->
+                    <article class="box_detail">
+                    	  
+                        {if $show=='upload'}<!--头像上传start-->
+  
+                        	<div class="upload pb_20">												
+                            	<div class="pad10 bf7">
+                            	
+	                                <div class="img_cut mb_10">
+	                                    <div style="width:520px; margin:auto;">$user_swf</div>
+	                                </div>
+									<div class="clear"></div>
+	                                <div>
+										<a href="javascript:window.location.reload();" class="button block t_c" title="{$_lang['update_pic']}"><span class="icon loop"></span>{$_lang['update_pic']}</a>
+	                                </div>
+
+									<div class="clear"></div>
+								</div>
+                             </div>
+							
+ 
+                        <!--头像上传end-->{elseif $show=='choose'}<!--头像选择start-->
+                        <div class="pb_10" style="border-bottom:1px solid #dfdfdf;">
+                        	<!--<h3 class="mb_10 border_b_c">{$_lang['system_head_pic']}</h3>-->
+                            <ul class="choose_tx clearfix mt_10 mb_20">
+                                {loop $sys_pic $k $v}
+                                <li style="cursor:pointer;" title="{$_lang['we_chose_this']}" onclick="siteSub('{$_K[siteurl]}/index.php?do=$do&view=$view&op=$op&show=$show&ac=set_pic&pic_id=$v',1,false);">
+                                    <img src="data/avatar/system/{$v}_small.jpg" class="pic_small" />
+                                </li>{/loop}
+                            </ul>
+                            <div class="clear">
+                            </div>
+                        </div>
+                        <!--头像选择end-->
+                        {/if} 
+                    </article>
+                    <!--detail内容 end-->
+                </div>
+                <!--main content end -->
+                <div class="clear"></div>
+            	</div>
+        </div>
+		</div>
+        </section>
+        <!--main end-->
+    </div>
+</div>
+<!--contain end-->
+<!--{template user/user_footer}-->
+<!--{template footer}-->

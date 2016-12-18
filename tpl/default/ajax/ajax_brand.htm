@@ -1,0 +1,221 @@
+{if $recomm_list&&in_array($ajax,array('tw','abroad','hk'))}
+	<ul class="clearfix">
+		{loop $recomm_list $v}
+		<li>
+				<a href="{$_K['siteurl']}/index.php?do=shop&sid={$v['shop_id']}">
+					<!--{userpic($v['uid'],'middle')}-->	
+				</a>
+		</li>
+		{/loop}
+	</ul>
+{/if}
+{if $ajax=='apply'}
+<!--{template header}-->
+<style type="text/css">
+	.file_box{ width: 420px;}
+	.form_button{ margin-top:0;}
+	.winbody .uploadify,
+	.winbody .uploadify-queue{ margin-bottom:0;}
+	.winbody .uploadify-queue-item{ padding:0; border:none; background:#fff;}
+	.tipsy{ z-index:9999;}
+	.tipsy-inner{ max-width:450px;}
+	.tipsy p{ margin:5px; text-align:left;}
+	
+</style>
+<div class="winbody pt_10">
+ <div class="clearfix pl_10 pr_10">
+ 	申请用户:{$username}	
+ </div>
+ <!--messages消息 start-->
+ 
+  <div class="messages m_warn" id="notice_id">
+  	<strong>请上传申请材料：</strong>相关资质证明材料(居民身份证或公司营业执照等)
+   </div>
+
+   
+  <!--messages消息 end-->
+ <div class="clearfix pl_10 pr_10">
+
+
+   <div class="clearfix box" id="upload_tip">
+    <!--from表单 start-->
+    <form method="post" id="frm_brand" name="frm_brand" action='#'>
+     <div class="rowElem clearfix">
+     	<label class="fl_l t_r"> &nbsp;品 牌 馆&nbsp;：</label>
+     	<div class="fl_l file_box">	
+		<div class="fl_l pt_5">
+			{loop $brand_type $k $v}
+			<input type="radio" name="brand" value="{$k}" {if $k==$brand}checked="checked"{/if}>{$v}
+			{/loop}
+      </div>
+	  </div>
+     <div class="rowElem clearfix">
+     	<label class="fl_l t_r">上传附件：</label>
+     	<div class="fl_l file_box">	
+		<div class="fl_r pt_5">
+          
+		</div>
+		<input type="hidden" name="file_ids" id="file_ids">
+			<!--{eval $flie_types = kekezu::get_ext_type();}-->
+			 	<div class="file_box"><input type="file" class="file" name="upload" id="upload"></div>
+		  	 	<div class='fl_l'>一次最多上传5个， 单文件不能超过1M，总文件大小不超过{$basic_config['max_size']}M <a href="javascript:;" class="file_type" title="<p>1. 上传附件支持常见的办公软件文档格式(office文档格式)，常见的压缩文件格式(rar,zip,7z)，常见的图片格式(jpg,png,gif)等，其他不常见的格式建议压缩成RAR文档再上传。</p><p>2. 最多可上传附件5个附件，单文件不能超过1M，总文件大小不得超过2M。</p>
+<p>3. 图形文件不支持CMYK模式(将无法正常显示)。</p><p>4. 文件名称须符合正常规范(勿在文件名中包含其他符号，如点号等)</p>">无法正常上传？</a></div>
+			 </div>
+
+      </div>
+       <div class="rowElem clearfix" id="desc">
+
+      		 <label class="fl_l t_r">品牌自述{$_lang['zh_mh']} </label>
+			 <div class="fl_l">
+	      		 <textarea cols="68" rows="8" name="tar_content" id="tar_content" onkeydown="checkInner(this,100,'event')" onkeyup="checkInner(this,100,'event')" style="width:415px;height:120px"></textarea>
+	               <div class="clear"></div>
+	             <div class="c999" id="length_show">已输入长度:0,还可输入:100</div>
+				 
+			 </div>
+      </div>
+   </form>
+  <!--from表单 end-->
+  </div>
+
+
+ </div>
+ <div class="rowElem clearfix form_button">
+       	 	 <button type="button" class="submit" value={$_lang['save']} onclick="subBrand();">{$_lang['save']}</button>
+		 	 <button type="button" class="button bwhite" value={$_lang['cancel']} onclick="hideWindow('brand');">{$_lang['cancel']}</button>
+      </div>
+</div>
+
+<script type="text/javascript">
+	/**
+	 * 需要提交textarea提交的操作用此方法.补充需求，
+	 */
+		$(function(){
+			if($('#SWFUpload_0').length==0){
+				construct();
+			}
+		})
+		function construct(){
+			uploadify({
+					auto:true,
+					size:"{$basic_config['max_size']}MB",
+					exts:'{$flie_types}',
+					limit:5},
+					{
+						objType:'brand'
+					}
+				);
+		}
+</script>
+<script src="{$_K['siteurl']}/resource/js/jquery.bgiframe.pack.js"></script>
+<script>
+	$(function(){
+		$('div.fwinmask').bgiframe();;
+	})
+</script>
+<script type="text/javascript">
+	In('form','tipsy');
+	
+	function subBrand(){
+		var i = checkForm(document.getElementById('frm_brand'));		
+		if(i){
+		var shtml 	 = contentCheck('tar_content','{$title}',5,100,1,'upload_tip');
+			if(shtml){
+				var data= $("#frm_brand").serialize();
+				var url = "{$_K['siteurl']}/index.php?do=brand&ajax=apply&is_sbt=1";
+				hideWindow('brand');
+				$.post(url+'&'+data,function(json){
+					if(json.status){
+						showDialog('申请提交成功,请您等待客服审核','right','操作提示',function(){
+							location.reload();
+						});
+					}else{
+						showDialog('申请提交失败','alert','操作提示');
+					}return false;
+				},'json');
+			}
+		}
+	}
+
+	/**
+	 * 上传完成后的后续操作
+	 * @param data 响应的json对象
+	 */
+	function uploadResponse(json){
+		if($("#"+json.fid).length<1){
+				var file_ids = $("#file_ids").val();
+				 if(file_ids){
+					$("#file_ids").val(file_ids+','+json.fid)
+				}else{	
+					$("#file_ids").val(json.fid);
+					$("#upload").val('');
+				}
+		}
+	}
+	$(function(){
+		$('a.file_type').tipsy({gravity:$.fn.tipsy.autoNS,html: true});
+	})
+</script>
+	
+<!--{template footer}-->
+{/if}
+{if $ajax=='service'}
+	{if $ser_info}
+		<div class="bl_info_img">
+			<img src="{if $ser_info['pic']}$_K[siteurl]/$ser_info['pic']{else}$_K[siteurl]/resource/img/system/nopic300.jpg{/if}" alt="" width='300' height='300'>
+			</div>
+			<h2>
+			<a href="{$_K['siteurl']}/index.php?do=shop&sid={$ser_info['shop_id']}&view=service_info&service_id=$ser_info['service_id']">
+				{if $ser_info['service_type']==1}【劳务】{else}【创意】{/if}<!--{eval echo kekezu::cutstr($ser_info['title'],20)}--></a>
+			</h2>
+			<p>服务分类：
+				{if $ser_info['service_type']==1}
+							{$service_indus_p_arr[$ser_info[indus_pid]][indus_name]}<span class="font_simsun ml_5 mr_5">>{$service_indus_c_arr[$ser_info[indus_id]][indus_name]}</span>
+							{else}
+							{$indus_p_arr[$ser_info[indus_pid]][indus_name]}<span class="font_simsun ml_5 mr_5">>{$indus_c_arr[$ser_info[indus_id]][indus_name]}</span>
+				{/if}
+			</p>
+			<p>服务报价：<span class="bl_info_money"><b>￥{$ser_info['price']}</b>元/{$unit_price[$ser_info['unite_price']]}</span></p>
+		</div>
+	{else}
+		<div class="bl_info_img">
+			<img src="{if $ser_info['pic']}$_K[siteurl]/$ser_info['pic']{else}$_K[siteurl]/resource/img/system/nopic300.jpg{/if}" alt="">
+			</div>
+			<h2>
+			<a>暂无服务</a>
+			</h2>
+			<p>服务分类：<span class="font_simsun ml_5 mr_5">暂无</span></p>
+			<p>服务报价：<span class="bl_info_money">暂无</span></p>
+		</div>
+	{/if}
+{/if}
+{if $ajax=='brand_tw_service'}
+	{if $ser_info}
+		<div class="bl_info_img">
+			<img src="{if $ser_info['pic']}$_K[siteurl]/$ser_info['pic']{else}$_K[siteurl]/resource/img/system/nopic300.jpg{/if}" alt="" width='300' height='300'>
+			</div>
+			<span class="tllt">
+			<a href="{$_K['siteurl']}/index.php?do=shop&sid={$ser_info['shop_id']}&view=service_info&service_id=$ser_info['service_id']" target="_blank">
+				{if $ser_info['service_type']==1}【劳务】{else}【创意】{/if}<!--{eval echo kekezu::cutstr($ser_info['title'],20)}--></a>
+			</span>
+			<span class='ta_info'>服务分类：
+				{if $ser_info['service_type']==1}
+							{$service_indus_p_arr[$ser_info[indus_pid]][indus_name]}&nbsp;>&nbsp;{$service_indus_c_arr[$ser_info[indus_id]][indus_name]}</span>
+							{else}
+							{$indus_p_arr[$ser_info[indus_pid]][indus_name]}&nbsp;>&nbsp;{$indus_c_arr[$ser_info[indus_id]][indus_name]}</span>
+				{/if}
+			</span>
+			<span class='ta_info'>服务报价：<span><em>￥{$ser_info['price']}</em>元/{$unit_price[$ser_info['unite_price']]}</span></span>
+		</div>
+	{else}
+		<div class="bl_info_img">
+			<img src="{if $ser_info['pic']}$_K[siteurl]/$ser_info['pic']{else}$_K[siteurl]/resource/img/system/nopic300.jpg{/if}" alt="">
+			</div>
+			<h2>
+			<a>暂无服务</a>
+			</h2>
+			<p>服务分类：<span class="font_simsun ml_5 mr_5">暂无</span></p>
+			<p>服务报价：<span class="bl_info_money">暂无</span></p>
+		</div>
+	{/if}
+{/if}
+

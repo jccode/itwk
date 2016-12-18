@@ -1,0 +1,22 @@
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/hire.css" rel="stylesheet"/> 
+<nav class="nav hire_nav">
+	<div class="container_24 clearfix">
+		<div class="nav_right clearfix fl_r">		
+			<a href="{$_K['siteurl']}/index.php?do=article">新闻中心</a>
+			<span class="line"></span>
+			<a href="{$_K['siteurl']}/index.php?do=special&view=special_list">精彩专题</a>
+			<span class="line"></span>
+			<a href="{$_K['siteurl']}/index.php?do=help&view=service">客服中心</a>
+			<span class="line"></span>
+			<a href="http://e.weibo.com/epweikecom" rel="nofollow" target="_blank"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/index/btn_sina.png">官方微博</a>	
+		</div>
+		<div class="nav_left clearfix fl_l">
+				<ul>
+					<li  {if $do=='hire'||!$do} class="selected"{/if}><a href="{$_K['siteurl']}/index.php?do=hire" >首页</a></li>
+					<li {if $do=='hire_list'} class="selected"{/if}><a href="{$_K['siteurl']}/index.php?do=hire_list" >雇佣大厅</a></li>
+					<li><a  href="{$_K['siteurl']}/index.php?do=vip">VIP专区</a></li>
+				</ul>
+		</div>
+		
+	</div>
+</nav>

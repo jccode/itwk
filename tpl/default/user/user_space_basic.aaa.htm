@@ -1,0 +1,285 @@
+<!--{template header}--><!--contain start-->
+<script type="text/javascript" src="resource/js/jqplugins/tipsy/jquery.tipsy.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('a.file_type').tipsy({gravity:$.fn.tipsy.autoNS,html: true});
+}) 
+</script>
+<div class="wrapper">
+ <div class="container_24">
+   <!--{template user/user_nav}--><!--main start-->
+
+   <section class="clearfix section">
+  <!--{template user/user_side}-->
+            <div class="show_panel ">
+		        <div class="">
+		            <div class="">
+		                <!--main content-->
+		                <div class=" clearfix box default">
+           <!--header内容头部 start-->
+            <header class="clearfix box_header">
+            <h2 class="box_title">商铺基本设置</h2>
+         </header>
+       <!--header内容头部 end-->
+		
+
+         	<div id="tips"></div>
+           
+            	<form action="{$ac_url}" method="post" id="frm" name="frm" enctype="multipart/form-data"> 
+				  <!-- <input type="hidden" name="shop_type" value="{if $shop_info['shop_type']}$shop_info['shop_type']{else}{/if}"> -->
+				    <input type="hidden" name="formhash" value="{FORMHASH}">    				  
+					  <div class="prefix_1 pt_10">
+					  	<ul class="select_shop_type" id="shop_type_ul">
+					  	 {if !in_array($shop_info[shop_type],array(2,3))}
+					  		<li onclick="swapshop_type(1,1)" id="tab_plac_1" {if $shop_info['shop_type']==1||!$shop_info['shop_type']} class="selected" {/if}>
+						  		<label for="shop_type_1">
+						  			<p>商铺性质</p>
+						  			<p class="t_c">
+						  			  {if $shop_info[shop_type] == 1}
+									    <strong>您目前是个人商铺</strong>	
+										<input style="display:none;" type="radio" id="shop_type_1" value="1" name="shop_type" checked="checked" >					  			   
+									  {else}
+									  	 <input type="radio" id="shop_type_1" value="1" name="shop_type" {if $shop_info['shop_type']==1||!$shop_info['shop_type']}checked="checked"{/if}>
+										 <strong>个人商铺</strong>
+									  {/if}
+									</p>
+						  		</label>
+							</li>
+						  {/if}
+						  {if !in_array($shop_info[shop_type],array(3))}
+							<li onclick="swapshop_type(2,1)" id="tab_plac_2" {if $shop_info['shop_type']==2} class="selected" {/if}>
+								<label for="shop_type_2" >
+									<p>商铺性质</p>
+						  			<p class="t_c">
+						  			  {if $shop_info[shop_type] == 1}
+									    <input type="radio" id="shop_type_2" value="2" name="shop_type" {if $shop_info['shop_type']==2}checked="checked"{/if}>
+										<strong>升级为工作室商铺</strong>
+						  			  {elseif $shop_info[shop_type] == 2}
+									    <input style="display:none;" type="radio" id="shop_type_2" value="2" name="shop_type" checked="checked" >
+									    <strong>您目前是工作室商铺</strong>																  			   
+									  {else}
+									  	<input type="radio" id="shop_type_2" value="2" name="shop_type" {if $shop_info['shop_type']==2}checked="checked"{/if}>
+										<strong>工作室商铺</strong>
+									  {/if}						  				
+									</p>
+								</label>
+							</li>	
+							 			
+							<li onclick="swapshop_type(3,2)" id="tab_plac_3" {if $shop_info['shop_type']==3} class="selected" {/if}>
+								<label for="shop_type_3" >
+								  {if $shop_info[shop_type] != ''}
+								    <p>商铺性质</p>
+						  			<p class="t_c"><input type="radio" id="shop_type_3" name="shop_type" value="3" {if $shop_info['shop_type']==3}checked="checked"{/if}> 
+									<strong>升级成为公司商铺</strong>
+									</p>
+								  {else}
+								  	<p>商铺性质</p>
+						  			<p class="t_c"><input type="radio" id="shop_type_3" name="shop_type" value="3" {if $shop_info['shop_type']==3}checked="checked"{/if}> 
+									<strong>公司商铺</strong>
+									</p>
+								  {/if}										
+								</label>
+							</li>
+						{/if}		
+						</ul>
+					  </div>
+					
+					<div class="clear"></div>
+					<div class=" prefix_1 suffix_1 pb_20">
+					<div class="form_box clearfix ">
+					 <!--基本资料start-->					 			  
+					  <div id="div_plac_1" class="bf7  pad10 clearfix {if $shop_info['shop_type'] == 1}hidden{/if}">		
+					  	{if !in_array($shop_info['shop_type'], array(2,3))}
+						   <div class="messages m_warn">
+							  		个人认证，请上传身份证正反面图片
+								</div>					  	
+							   <div class="rowElem clearfix">
+		                           <label class="grid_3 t_r">所在地区{$_lang['zh_mh']}</label>
+		                            <div class="grid_13">		                                  
+										 <select id="zone" name="fds[zone]" style="width:250px;">
+										   {loop $realname_zone_arr $k $v}
+										     <option value="{$v['value']}">{$v['cn_name']}（{$v['en_name']}）</option>
+										   {/loop}
+										 </select>
+										 <span id="span_zone"></span>
+		                            </div>
+		                        </div>
+							  	<div class="rowElem clearfix">
+		                           <label class="grid_3 t_r">真实姓名{$_lang['zh_mh']}</label>
+		                            <div class="grid_13">
+		                                  <input type="text" name="fds[realname]" id="realname" size="35" value=""
+							   limit="len:2-10"  title="{$_lang['title_about_realname']}" msg="{$_lang['msg_about_realname']}" msgArea="span_realname"/>
+										 <select name="sex">
+										 		<option {if $shop_info['shop_info']['sex']=="先生"}selected="selected"{/if}>先生</option>
+												<option {if $shop_info['shop_info']['sex']=="女士"}selected="selected"{/if}>女士</option>
+												<option {if $shop_info['shop_info']['sex']=="保密"}selected="selected"{/if}>保密</option>
+										 </select>
+										  <span id="span_realname"></span>
+		                            </div>
+		                        </div>
+								<div class="rowElem clearfix">
+		                           <label class="grid_3 t_r">身份证号{$_lang['zh_mh']}</label>
+		                            <div class="grid_13">
+		                               <input type="text" name="fds[id_card]" id="id_card" size="35" msgArea="msg_id_card" ajax="index.php?do=user&view=space&auth_code=id_card&check_id_card="
+							  	  limit="required:true;len:10-30" msg="请填写正确的身份证号!" title="填写身份证号码15-18位(大陆以外地区不限制位数)!" value=""/> <!-- limit="type:idCard" -->
+							  	<span class="red" id="msg_id_card"></span>
+		                            </div>
+		                        </div>
+								<div class="rowElem clearfix">
+		                           <label class="grid_3 t_r">身份证正面{$_lang['zh_mh']}</label>
+		                            <div class="grid_13">
+		                                <input type="file" name="id_pic" ext='.gif,.jpg,.jpeg,.png' onchange="isExtName(this);" id="id_pic" />										
+		                            </div>
+		                        </div>
+								<div class="rowElem clearfix">
+		                           <label class="grid_3 t_r">身份证反面{$_lang['zh_mh']}</label>
+		                            <div class="grid_13">
+		                                <input type="file" name="id_pic_back" ext='.gif,.jpg,.jpeg,.png' onchange="isExtName(this);" id="id_pic_back"/>	
+										 <a href="javascript:;" class="file_type" title="<p>1. 上传附件支持常见的图片格式(jpg,png,gif)等。</p><p>2. 每个文件大小不得超过2M。</p>
+<p>3. 图形文件不支持CMYK模式(将无法正常显示)。</p><p>4. 文件名称须符合正常规范(勿在文件名中包含其他符号，如点号等)</p>">无法正常上传？</a>	
+	
+		                            </div>
+		                        </div>
+						     {/if}
+					     </div>
+				      	
+				
+				  <div id="div_plac_3"  class="bf7 pad10 clearfix hidden">
+					{if $shop_info['shop_type'] != 3}
+				  	  <div class="messages m_warn">
+				  		企业认证，请上传营业执照等相关证明
+					  </div>
+						  	<div class="rowElem clearfix">
+	                           <label class="grid_3 t_r">公司名称{$_lang['zh_mh']}</label>
+	                            <div class="grid_13">
+	                                  <input type="text" name="company[name]" id="company_name" size="35" value="{if $shop_info['shop_info']['name']}{$shop_info['shop_info']['name']}{/if}"
+						   limit="len:2-25" msg="请填写公司名称2-25字" msgArea="span_company_name"/>
+									  <span id="span_company_name"></span>
+	                            </div>
+	                        </div>
+							<div class="rowElem clearfix">
+	                           <label class="grid_3 t_r">营业执照编号{$_lang['zh_mh']}</label>
+	                            <div class="grid_13">
+	                               <input type="text" name="company[card_id]" id="company_card_id" size="35" msgArea="msg_company_card_id"
+						  	 limit="len:2-50" msg="请填写营业执照编号" value="{if $shop_info['shop_info']['card_id']}{$shop_info['shop_info']['card_id']}{/if}"/>
+						  	<span class="red" id="msg_company_card_id"></span>
+	                            </div>
+	                        </div>
+							<div class="rowElem clearfix">
+	                           <label class="grid_3 t_r">营业执照图片{$_lang['zh_mh']}</label>
+	                            <div class="grid_13">
+	                                <input type="file" name="company_card_pic" ext='.gif,.jpg,.png' onchange="isExtName(this);" id="company_card_pic"/>
+	                           <a href="javascript:;" class="file_type" title="<p>1. 上传附件支持常见的图片格式(jpg,png,gif)等。</p><p>2. 每个文件大小不得超过2M。</p>
+<p>3. 图形文件不支持CMYK模式(将无法正常显示)。</p><p>4. 文件名称须符合正常规范(勿在文件名中包含其他符号，如点号等)</p>">无法正常上传？</a>	
+								</div>
+	                        </div>
+					   {/if}
+				  </div>
+					
+					
+			    <div  class="bf7 clearfix pad10 ">
+				   <div class="rowElem clearfix">
+				   	{if $shop_info['shop_type'] == 3}
+				   	 <div class="messages m_warn">				   
+				   	{if $upgrade_log['up_status'] == 1}
+					 <img src="{$_K['siteurl']}/tpl/default/theme/simple/img/shop/shop_auth_success.png">						
+					{elseif $upgrade_log['up_status'] == 2}
+					 <img src="{$_K['siteurl']}/tpl/default/theme/simple/img/shop/shop_auth_fail.png">						
+					{elseif $upgrade_log['up_status'] == '0'}
+					 <img src="{$_K['siteurl']}/tpl/default/theme/simple/img/shop/shop_auth_wait.png">						
+					{/if}
+						转换为公司商铺需要上传您公司营业执照扫描件，通过IT帮手认证审核。
+					 </div>
+					 {/if}
+					 </div>										
+					<div class="rowElem clearfix">
+                           <label class="grid_3 t_r">商铺名称{$_lang['zh_mh']}</label>
+                            <div class="grid_13">
+                                <input class="txt_input" name="shop_name" size="45" type="text" value="{$shop_info['shop_name']}" title="{$_lang['tips_about_shop_name']}" 
+								id="shop_name" limit="required:true;len:2-100" msg="{$_lang['input_shop_name_correct_format']}" msgArea="span_shop_name" 
+								ajax="index.php?do=user&view=space&check_shop_name="/>
+								<span id="span_shop_name"></span>
+                           		{if $user_info['shop_id']}<a href="{$_K['siteurl']}/index.php?do=shop&sid=$user_info['shop_id']" class="ml_5">查看店铺</a>{/if}
+						    </div>
+                        </div>
+
+					<div class="rowElem clearfix" id="desc">
+                            <label class="grid_3 t_r">商铺简介{$_lang['zh_mh']}</label>
+							<div class="grid_13">
+	                           <textarea cols="71" rows="16" name="shop_desc" id="shop_desc"
+							     class="xheditor {tools:'Bold,Fontface,FontColor,Italic,Underline,Strikethrough,Align,List,Outdent,Indent,Table',skin:'nostyle',innerCheck:true,wordLimit:1500}"><!--{eval echo kekezu::escape($shop_info['shop_desc'])}--></textarea>
+                                <div class="c999 grid_6" id="length_show"></div>
+								<div class="clear"></div>
+								</div>
+                        </div>	
+										
+                            <div class="rowElem clearfix form_button">
+                                 <button type="button" class="submit" value="{$_lang['save']}" onclick="check_edit('frm')">
+                                    <span class="check icon"></span>{if $shop_info['shop_id']}{$_lang['save']}{else}立即开通{/if}
+                                 </button>
+								 {if $shop_info && $shop_info['shop_level'] == 1}
+								 	 &nbsp;&nbsp;<a href="{$_K['siteurl']}/index.php?do=vip&view=open" class="red">升级成为VIP</a>							
+								 {/if}
+                            </div>
+						</div>
+						</div>
+					</div>	   
+						   </form>
+                         <!--from表单 end-->
+						
+                  
+
+                  <!--detail内容 end-->
+               </div>	
+              <!--main content end -->
+	
+           <div class="clear"></div>
+         </div>
+        </div>
+      </section>
+     <!--main end-->
+     </div>
+    </div>
+    <!--contain end-->
+
+<script type="text/javascript" src="resource/js/xheditor/xheditor.js"></script>
+<script type="text/javascript">
+In('form'); 
+ var editor = '';
+	$(function(){
+		editor = $("#shop_desc").xheditor({});
+		editor.checkInner();
+	})
+/**
+* 表单提交 编辑空间
+* @param  obj
+*/
+function check_edit(obj){ 
+	if(contentCheck('shop_desc',"商铺描述",20,1500,1,'desc',editor)){  //alert('aaa');
+        siteSub('frm',2,true);
+    }
+}
+
+/**
+ * 商铺类型切换
+ */
+function swapshop_type(id, d_id){
+	var shop_type = '{$shop_info[shop_type]}';	 
+	$('#shop_type_ul > li').removeClass('selected');
+	$('#tab_plac_'+id).addClass('selected');
+	if(d_id == 1){ 	
+		if(shop_type == '1' && id == 1){
+			$('#div_plac_1').addClass('hidden');
+		}else{
+			$('#div_plac_1').removeClass('hidden');
+		}
+		$('#div_plac_3').addClass('hidden');
+	}else{
+		$('#div_plac_3').removeClass('hidden');
+		$('#div_plac_1').addClass('hidden');
+	}
+}
+
+</script>
+  <!--{template user/user_footer}-->
+<!--{template footer}-->

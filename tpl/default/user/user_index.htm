@@ -1,0 +1,110 @@
+<!--{template header}-->
+	<!--main start-->
+<div class="wrapper">
+	<div class="container_24">
+		<!--{template user/user_nav}-->
+		<section class="clearfix section ">
+		<!--{template user/user_side}-->
+            <div class="show_panel">
+		        <div class="">
+		            <div class="">
+		                <!--main content-->
+		                <div class=" clearfix box default">
+		                	<div class="inner">
+                	 			<header class="box_header clearfix">
+                					<h2 class="box_title">账号信息</h2>
+								</header>
+								<div class="box_detail clearfix">
+									<div class="user pb_20 clearfix c333">
+										<label class="fl_l font14b"><strong>账号登录信息：</strong></label>
+										<div class="user_detail fl_l pl_20">
+											<ul>
+												<li>用户名：{$user_info['username']} </li>
+												<li>邮箱登录帐号：{if $user_info['auth_email']}{$user_info['email']}{else}<a class="pl_5" href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=email">认证后可直接登录</a>{/if}</li>
+												<li>手机登录帐号：{if $user_info['auth_mobile']}{$user_info['mobile']}{else}<a class="pl_5" href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=mobile">认证后可直接登录</a>{/if}</li>
+												<li>上次登录时间：<!--{date('Y年m月d日 H:i:s',$user_info['last_login_time'])}--></li>
+											</ul>
+										</div>
+									</div>
+									<div class="security_strength pt_30 pb_30 clearfix c333">
+										<label class="fl_l font14b"><strong>密码安全强度：</strong></label>
+										<div class="fl_l pl_20">
+											<p>您可以通过以下方式提高资金安全强度</p>
+											<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=safe&opp=change_password">修改密码</a>
+											<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=safe&opp=sec_code">修改安全密码</a>
+											<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=realname">完善账号安全认证</a>
+										</div>
+									</div>
+									<div class="all_authent pt_10">
+										<h1 class="font14b c333">安全认证信息：</h1>
+										<ul class="clearfix">
+											<li {if $user_info['auth_realname']!=1}class="no_authent"{/if}>
+												<div class="clearfix">
+													{if $user_info['auth_realname']==1}
+													<span class="fl_l">
+													<img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/cation_one.gif">
+													<strong class="pl_5 c333">实名认证</strong></span>
+													<span class="pl_5 c090 fl_r already_authent">已认证</span>
+													{else}
+													<span class="fl_l">
+													<img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/ele_one.gif">
+													<strong class="pl_5 c333">实名认证</strong></span>
+													<span class="pl_5 f30 fl_r not_authent"><a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=realname">未认证</a></span>
+													{/if}
+												</div>
+												<div class="pt_10"><p>用于提升账号的安全性和提高信任度，认证后不可更改。</p></div>
+											</li>
+											<li {if !$user_info['auth_email']}class="no_authent"{/if}>
+												<div class="clearfix">
+													{if !$user_info['auth_email']}
+													<span class="fl_l"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/ele_three.gif"><strong class="c333 pl_5">邮箱认证</strong></span>
+													<span class="pl_5 f30 fl_r not_authent"><a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=email">未认证</a></span>
+													{else}
+													<span class="fl_l"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/mailbox_authent.gif"><strong class="c333 pl_5">邮箱认证</strong></span>
+													<span class="pl_5 c090 fl_r already_authent">已认证</span>
+													{/if}
+												</div>
+												<div class="pt_10"><p>邮箱认证后，可使用邮箱直接登录，邮箱找回密码，收到网站最新任务，最新信息等。</p></div>
+											</li>
+											<li {if !$user_info['auth_mobile']}class="no_authent"{/if}>
+												<div class="clearfix">
+													{if !$user_info['auth_mobile']}
+													<span class="fl_l"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/ele_two.gif"><strong class="c333 pl_5">手机认证</strong></span>
+													<span class="pl_5 f30 fl_r not_authent"><a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=mobile">未认证</a></span>
+													{else}
+													<span class="fl_l"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/phone_authent.gif"><strong class="c333 pl_5">手机认证</strong></span>
+													<span class="pl_5 c090 fl_r already_authent">已认证</span>
+													{/if}
+
+												</div>
+												<div class="pt_10"><p>手机认证后，可使用手机登录、手机找回密码、接收定制IT帮手网各类重要提醒。</p></div>
+											</li>
+											<li {if !$user_info['auth_bank']}class="no_authent"{/if}>
+												<div class="clearfix">
+													{if !$user_info['auth_bank']}
+													<span class="fl_l"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/bank_authent.gif"><strong class="c333 pl_5">银行卡认证</strong></span>
+													<span class="pl_5 f30 fl_r not_authent"><a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=bank">未认证</a></span>
+													{else}
+													<span class="fl_l"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/bank_cer.gif"><strong class="c333 pl_5">银行卡认证</strong></span>
+													<span class="pl_5 c090 fl_r already_authent">已认证</span>
+													{/if}
+												</div>
+												<div class="pt_10"><p>通过银行认证后可将账户中的钱提现到银行卡上。</p></div>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+				
+                		</div>				
+	 					<!--main content end -->
+						<div class="clear"></div>
+  					</div>
+ 				</div>
+			</div>
+ 		</section>
+	</div>
+</div>
+ <!--main end-->
+ <!--{template user/user_footer}-->
+<!--{template footer}-->

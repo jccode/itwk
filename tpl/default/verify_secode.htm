@@ -1,0 +1,36 @@
+<!--安全码验证 start-->
+<style type="text/css">.valid_error span{ display: inline-block; width:200px; }</style>
+<article class="box_detail">
+    <div class="messages m_warn clearfix">
+        <div class="">
+        	<strong>安全提示：</strong>
+			尊敬的用户，为了确保您的账户安全，请输入安全码验证身份
+		</div>
+    </div>
+    <div class=" ">
+        <div class="box waring form_box">
+        	<div class="inner">
+			{if $user_info['sec_code']}
+            <form action="index.php?do=ajax&view=ajax&ac=safe_secode" method="post" id="frm_secode" name="frm_secode" onload="document.form.autocomplete.setAttribute('autocomplete', 'off');">
+                <div class="pad20 clearfix">
+                    <label>
+                        {$_lang['save_code']}
+                    </label>
+						<input class="txt_input" type="password" size="40" title="{$_lang['code_notice_title']}" name="sec_code" id="sec_code" limit="required:true;len:2-20" msg="{$_lang['code_notice_msg']}" msgArea="span_secode"/><span id="span_secode"></span>
+					
+                </div>
+                <div class="rowElem clearfix form_button">
+                        <button type="submit" value="{$_lang['confirm']}" onclick="return checkForm(document.getElementById('frm_secode'))">
+                            {$_lang['confirm']}
+                        </button>
+                    
+                </div>
+            </form>
+			{else}
+				<div class="t_c pad10"><span class="red">您还未设置安全码,设置后才可提现<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=safe&opp=sec_code">>>.	前往设置</a></span></div>
+			{/if}
+			</div>
+        </div>
+    </div>
+</article>
+<!--安全码验证 end-->

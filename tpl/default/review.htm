@@ -1,0 +1,203 @@
+{if $opp=='remote'}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="/resource/js/jquery.js" type="text/javascript"></script>
+<style>
+body,div,ul,li,p,span{
+    margin:0;
+    padding:0;
+}
+a {text-decoration:none;cursor:pointer}
+/*滚动*/
+a {text-decoration:none;cursor:pointer}
+/*滚动*/
+#picscroll {width:230px; height:265px;  position:relative; overflow:hidden; margin:10px; margin-top:2px; font-size:12px; color:#333; }
+#picscroll ul{display:block; position:absolute; zoom:1; width:100%;}
+#picscroll ul li { line-height:22px;}
+#picscroll ul li a{display:block; background:url(picbg.gif) no-repeat; width:98px; height:150px}
+#picscroll ul li img{margin-left:10px; margin-top:10px; width:80px; height:99px}
+#picscroll ul li span{margin-top:0px; display:block}
+#picscroll a {color:#333333; line-height:18px;}
+.yj_plto { height:24px; line-height:24px; font-family:"宋体"; color:#333; font-size:14px;}
+.yj_plto strong { float:left; color:#333; font-weight:bold;}
+.yj_plto span { float:right; color:#999; font-size:12px;}
+/*
+ .thumb{margin-top:5px;width:100%;}
+ .desc{border:1px solid #FF9A02; background-image:url(images/item_bg.png);margin-top:5px;padding:5px;color:#CC3300;width:95% !important;*width:95%;}
+ .desc strong{color:#000000;font-size:12px;}
+*/
+</style>
+</head>
+<body>
+
+<script type="text/javascript" src="/tpl/default/js/fxMarquee.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $("#picscroll").fxMarquee({
+            speed: 45,
+            autoStop: true,
+            direction: 'up'
+        });
+    });
+</script>
+<div id='picscroll'>
+
+		<ul>
+			{loop $comment_arr $v}
+				<li>
+				<div class='yj_plto'><strong>{$v[username]}</strong>
+					<span> <!--{date('Y-m-d',$v['on_time'])}--></span>
+				</div>
+				<div class='yj_plu'>
+					{$v[content]}
+				</div>
+				<!--{eval $v['reply'] = get_comment_ask_reply($v['comment_id']);}-->
+				{if $v['reply']}
+				{loop $v['reply'] $r}
+					<div class='desc'>
+						<strong style='color:#008000'>IT帮手回复：</strong>
+						{$r['content']}
+					</div>
+				{/loop}
+				{/if}
+				</li>
+		  {/loop}
+		</ul>
+	
+	</div>
+</body>
+</html>
+{else}
+<!--{template header}-->
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/review.css" rel="stylesheet">
+<!--{template new_head_review}-->
+<div class="wrapper clearfix">
+	<!--页面头部-->
+		 <header class="clearfix page_header">
+			  <div class="container_24 clearfix"> 
+			   <!--页面导航-->
+			    <div class="breadcrumbs clearfix po_re">
+			    	你的位置：
+			    	   <a href="{$_K['siteurl']}/index.php">IT帮手网首页</a><span class="font_simsun"> > </span>
+					   <a href="{$_K['siteurl']}/index.php?do=review" rel="nofollow">一句话点评</a>
+				</div>
+			   <!--end 页面导航-->  
+			 </div>
+		</header> 
+	 <!--end 页面标题-->
+	 <section class="clearfix content">
+	     <div class="container_24 clearfix">
+
+	     	<div class="left_side clearfix">
+	     		<div class="box default">
+	     			<div class="inner">
+		     			<div class="box_header">
+		     				<h2 class="title">期待您的关注和支持</h2>
+		     			</div>
+		     			<div class="box_detail">
+	     				
+	     					<div class="pad10 c333">
+	     					<p>IT帮手网，一路走来，真心期待您的关注和支持。</p>
+							<p>因为我们深知：没有雇主和威客两头带动，网站的前行，将会是一句空话。 </p>
+							<p>我们开辟这个简单的页面，聆听来自各方的意见和建议。对各位关注作出第一时间的反馈。 </p>
+							<p>相信不远的将来，IT帮手网，一定不会让各位失望；相信IT帮手网团队，会用实实在在的行动，见证中国威客行业灿烂的、值得期待的无限前景。 </p>
+							<p>您给我们一句话的点评，对我们就是个很大的鼓舞。不管是正面的、负面的；鼓励的、批评的……我们都细心聆听，心存感激。 谢谢各位朋友关注我们！</p>
+							</div>
+		     			</div>
+		     		</div>
+	     		</div>
+	     	</div>
+
+
+	     	<div class="right_side">
+	     		<div class="box default">
+	     			<div class="inner">
+	     				<div class="box_detail">
+	     					<div class="pad10">
+		     					<p class="phone"><span>免长途客服服务热线</span><strong>4006-999-467</strong></p>
+		     					<ul>
+		     						<li>在线客服QQ：<span class="num">626883877</span> <span class="num">415642680</span></li>
+		     						<li>技术支持QQ：<span class="num">1934135487</span> <span class="num">2159858</span></li>
+		     						<li>创始人QQ：<span class="num">415642680 (黄国华)</span></li>
+		     						<li>
+		     							关注我们：
+		     							<p class="mt_10">
+		     								<a href="http://e.weibo.com/epweikecom" rel="nofollow" class="mr_10" target="_blank"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/style/office_sina.gif" alt="官方新浪微博"></a>
+		     								<a href="http://t.qq.com/epweike123" target="_blank"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/style/office_tx.gif" alt="官方腾讯微博"></a>
+		     							</p>
+		     						</li>
+		     					</ul>
+		     				</div>
+	     				</div>
+	     			</div>
+	     		</div>
+	     	</div>
+
+	     	<div class="clear"></div>
+
+	     	<div class="box line5">
+	     		<div class="inner">
+	     			<div class="box_header clearfix">
+	     				<h2 class="title fl_l">共 <strong>{$count}</strong> 条点评</h2>
+	     				<a href="javascript:;" class="post_button fl_r" onClick="showWindow('reviewbox', '{$_K['siteurl']}/index.php?do=ajax&view=review')">我要评论</a>
+	     			</div>
+	     			<div class="box_detail">
+
+	     				<div class="post_list clearfix">
+
+	     					<ul>
+	     					  {loop $comment_arr $v}
+	     						<li>
+	     							<dl class="clearfix">
+	     								<dt>
+	     									{if $v['uid']}
+											  <a href="{$_K['siteurl']}/index.php?do=user&view=index"><!--{userpic($v['uid'],'small')}--></a>
+											{else}
+											  <img class="pic_small" src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/review/avatar_comment.gif" alt="昵称">
+											{/if}	     									
+	     								</dt>
+	     								<dd>
+	     									<div class="post_name"><em>{$v[username]}</em> 点评于 <!--{date('Y-m-d H:i:s',$v['on_time'])}--></div>
+	     									<div class="detail font14 ws_break">
+	     										<p>{$v[content]}</p>
+	     									</div>
+	     								</dd>
+	     							</dl>
+									<!--{eval $v['reply'] = get_comment_ask_reply($v['comment_id']);}-->
+									{if $v['reply']}
+									{loop $v['reply'] $r}
+	     							<dl class="clearfix feedback">
+	     								<dt>
+	     									<img class="pic_small" src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/review/avatar_feedback.gif" alt="IT帮手网">
+	     								</dt>
+	     								<dd>
+	     									<i class="arrow"></i>
+	     									<div class="detail ws_break">
+	     										<p>{$r['content']}</p>
+	     										<div class="feed_back_name"><em>IT帮手网客服中心</em> 回复于 <!--{date('Y-m-d H:i:s',$r['on_time'])}--></div>
+	     									</div>
+	     								</dd>
+	     							</dl>
+									{/loop}
+									{/if}
+	     						</li>
+							  {/loop}
+	     					</ul>
+							
+							<a href="javascript:;" class="post_button fl_l" onClick="showWindow('reviewbox', '{$_K[siteurl]}/index.php?do=ajax&view=review')">我要评论</a>
+	     					<div class="page">
+	     						{$pages['page']}	     						
+	     					</div>
+	     				</div>
+
+	     			</div>
+	     		</div>
+	     	</div>
+
+	     </div>
+	 </section>
+</div>
+<!--{template footer}-->
+{/if}

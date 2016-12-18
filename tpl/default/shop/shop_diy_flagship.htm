@@ -1,0 +1,193 @@
+<!--{template header_top}-->
+<!--{template header_shop_flagship}-->
+<div class="container_24 clearfix">
+	<section class="fla_content clearfix">
+		<!--{template shop/section_nav_flagship}-->
+	<div class="banner clearfix  po_re mt_5 mb_10">
+		<div id="trend">
+			<div id="trendNum" class="clearfix">
+				{if $slide_arr}  
+			      {loop $slide_arr $k $v}
+				<span aid="<!--{eval echo $k+1;}-->"><!--{eval echo $k+1;}--></span>
+				  {/loop}
+		        {else}
+				<span aid="1">1</span>
+				<span aid="2">2</span>
+				{/if}
+			</div>	
+			<div id="trendimg" move="1000">
+				<ul class="trendli">
+					{if $slide_arr}
+			        {loop $slide_arr $v}	 
+				  <li><a href="{$v['s_url']}" target="_blank" ><img src="{$_K[siteurl]}/{$v['s_pic']}" style="width:1000px;height:350px;"></a></li>
+				    {/loop}	
+		          {else}
+			       <li><img src="{$_K[siteurl]}/{$style_path}/theme/simple/img/style/shop_diy_default_slide_1.jpg" style="width:1000px;height:350px;"></li>		  
+				   <li><img src="{$_K[siteurl]}/{$style_path}/theme/simple/img/style/shop_diy_default_slide_2.jpg" style="width:1000px;height:350px;"></li>
+			      {/if}
+				 
+				</ul>
+				
+			</div>
+		    {if $view=='diy'}
+	        <div class="blue_editor" id="slide_diy">
+		    <a href="javascript:;" onclick="shop_slide()">编辑</a>
+	       </div>
+	       {/if}
+		</div>
+	
+	</div>
+	<script type="text/javascript">
+ //友情链接
+    var uid = parseInt('{$uid}')+0;
+    function shop_slide(){
+	if(check_user_login()){
+		showWindow('shopslide', '/index.php?do=ajax&view=shop_diy&ac=slide','get',0);
+	}
+  }
+   </script> 
+	<!--内容主体-->
+	<!--{template shop/section_slide_flagship}-->
+	
+	<div class="fla_right_con clearfix fl_r">
+		<div class="box default clearfix">
+			<div class="inner clearfix">
+				<header class="box_title">
+					<h2>公司介绍</h2>
+				</header>
+				<article class="clearfix fla_intr_box">
+					<div class="fla_intr clearfix">
+						<div class="fl_l"><!--{userpic($shop_info['uid'],larger)}--></div>
+						{if $shop_info['shop_desc']}
+						<p><!--{eval echo kekezu::cutstr(strip_tags($shop_info['shop_desc']),200)."..."}-->【<a href="{$ac_url}&view=about&art=1">更多</a>】</p>
+					    {else}
+						暂无简介
+						{/if}
+					</div>
+					<div class="fla_label mt_20  clearfix">
+						<b class="c333 fl_l">能力标签：</b>
+						{if $shop_info['skill_ids']}
+						<div class="fla_label_list clearfix">
+							<!--{eval $skills=explode(',',$shop_info['skill_ids']);}-->
+							{loop $skills $v}
+							<span>$indus_c_arr[$v]['indus_name']</span>
+							{/loop}
+						</div>
+						{else}
+						<div class="no_detail fl_l">暂无</div>
+						{/if}
+					</div>
+				</article>
+			</div>
+		</div>
+		<div class="box default clearfix mt_10">
+			<div class="inner clearfix">
+				<header class="box_title clearfix">
+					<h2 class="fl_l">推荐服务</h2>
+					<a class="fl_r" href="{$ac_url}&view=service_list">
+						更多 <span class="font_simsun">></span>
+					</a>
+				</header>
+				{if $service_istop_arr}
+				<article class="clearfix fla_recser_box">
+					<ul class="clearfix">
+						{loop $service_istop_arr $k $v}
+						{if $k<6}
+						<li>
+							<a href="{$_K['siteurl']}/index.php?do=shop&sid={$v['shop_id']}&view=service_info&service_id={$v['service_id']}&service_type={$v['service_type']}">
+								<div class="recser_img">
+									<img src="$v[pic]" alt="{$v['title']}">
+								</div>
+								{$v[title]}<span>￥$v[price]元</span>
+							</a>
+						</li>
+						{/if}
+					{/loop}
+					
+					</ul>
+				</article>
+			  {else}
+			   <article class="clearfix fla_recser_box">暂无推荐服务</article>
+			  {/if}
+			</div>
+		</div>
+		<div class="clearfix mt_10">
+			<div class="box clearfix default fla_newcons fl_l">
+				<div class="inner clearfix">
+					<header class="box_title clearfix">
+						<h2 class="fl_l">公司新闻</h2>
+						<a class="fl_r" href="{$ac_url}&view=news_list&art_type=1">
+							更多 <span class="font_simsun">></span>
+						</a>
+					</header>
+					{if $news_list}
+					<article class="clearfix pad10">
+						<ul class="clearfix">
+							{loop $news_list $k $v}
+							<li class="clearfix">
+								<a href="{$ac_url}&view=news_info&art_id=$v[art_id]">
+									<em></em>
+									$v['art_title']
+								</a>
+								<span><!--{eval echo date('Y.m.d',$v[pub_time]);}--></span>
+							</li>
+							{/loop}
+					
+						</ul>
+					</article>
+					{else}
+					<article class="clearfix pad10">暂无公司新闻</article>
+					{/if}
+				</div>
+			</div>
+			<div class="box clearfix default fla_newcons fl_r">
+				<div class="inner clearfix">
+					<header class="box_title clearfix">
+						<h2 class="fl_l">行业资讯</h2>
+						<a class="fl_r" href="{$ac_url}&view=news_list&art_type=2">
+							更多 <span class="font_simsun">></span>
+						</a>
+					</header>
+					{if $zixun_list}
+					<article class="clearfix pad10">
+						<ul class="clearfix">
+							{loop $zixun_list $k $v}
+							<li class="clearfix">
+								<a href="{$ac_url}&view=news_info&art_id=$v[art_id]">
+									<em></em>
+									$v['art_title']
+								</a>
+								<span><!--{eval echo date('Y.m.d',$v[pub_time]);}--></span>
+							</li>
+						{/loop}
+						</ul>
+					</article>
+					{else}
+					<article class="clearfix pad10">暂无行业资讯</article>
+					{/if}
+					
+				</div>
+			</div>
+		</div>
+	
+	
+	</div>
+	
+	<div class="clear"></div>	
+	<div class="box clearfix default mt_20 teamwork">
+		<div class="inner">
+			<header class="box_title clearfix">
+				<h2 class="c333 fl_l">友情链接</h2>
+			</header>
+			<article class="pad10 clearfix font12">
+				<ul>
+					{loop $link_arr $k $v}
+					<li><a href="{$v['link_url']}" target="_blank">$v['link_name']</a></li>
+					{/loop}
+				</ul>
+			</article>
+		</div>
+    </div>	
+	<!--{template shop/section_footer_flagship}-->
+	</section>
+</div>

@@ -1,0 +1,155 @@
+<!--{template header}--><!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+        <!--{template user/user_nav}--><!--main start-->
+        <section class="clearfix section">
+            <!--{template user/user_side}-->
+            <div class="show_panel ">
+		        <div class="">
+		            <div class="">
+		                <!--main content-->
+		                <div class=" clearfix box default">
+                            <!--header内容头部 start-->
+                            <header class="clearfix box_header">
+                                <h2 class="box_title">推荐链接</h2>
+                                <div class="" style="display:none;">
+                                    <nav class="box_nav">
+                                        <ul>
+                                        	<li></li>
+                                            {loop $third_nav $k $v}
+                                            {if $k!='view'}
+                                            <li {if $k==$opp}class="selectedLava"{/if}>
+                                                <a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=space&opp={$k}#userCenter" title="{$v['1']}">{$v['0']}</a>
+                                            </li>
+                                            {else} 
+                                            <li>
+                                                <a href="{$_K['siteurl']}/index.php?do=shop&u_id={$uid}" title="{$v['1']}" target="_blank">{$v['0']}</a>
+                                            </li>
+                                            {/if}
+                                            {/loop}
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <div class="clear">
+                                </div>
+                            </header>
+                            <!--header内容头部 end-->
+                           
+                            <div class="prefix_1 suffix_1">
+                            	<div id="messages">
+                                        <!--messages消息 start-->
+                                 </div>
+                                <div class="clearfix form_box border_n">
+                                    <!--from表单 start--><!--date_table数据表格 start-->
+										<form action="{$ac_url}" name="frm" id="frm" method="post">
+											<input type="hidden" name="ac" value="add">
+											<input type="hidden" name="link_id" value="">
+														
+                                                <div class="rowElem clearfix">
+                                                    <label class="grid_3 t_r">
+                                                        {$_lang['link_name']}{$_lang['zh_mh']}
+                                                    </label>
+                                                    <div class="grid_14">                                                        
+														<input name="link[link_name]" size="40" type="text" title="{$_lang['tips_about_link_name']}" id="link_name" limit="required:true;len:2-20" msg="{$_lang['please_input_correct_link_name']}" msgArea="span_link_name"/>
+														<span id="span_link_name"></span>
+                                                    </div>
+												</div>
+												<div class="rowElem clearfix">
+                                                    <label class="grid_3 t_r">
+                                                        {$_lang['link_url']}{$_lang['zh_mh']}
+                                                    </label>
+                                                    <div class="grid_14">
+                                                        <input name="link[link_url]" size="40" type="text" title="{$_lang['tips_about_link_url']}" id="link_url" limit="required:true;type:url" msg="{$_lang['please_input_correct_link_url']}" msgArea="span_link_url"/>
+														<span id="span_link_url"></span>
+                                                    </div>
+												 </div>
+												 <div class="rowElem clearfix form_button">
+                                                    <button type="submit" id="edit" class="button" value="{$_lang['add']}" onclick="return add()" > <!-- onclick="add()" -->
+                                                        <span class="check icon"></span>{$_lang['add']}
+                                                    </button> 
+                                                 </div>
+                                         </form>
+							
+									
+                                    <div class="data_list mt_10">
+                                        <table cellpadding="0" cellspacing="0" class="data_table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" style="width:150px;">
+                                                        {$_lang['link_name']}
+                                                    </th>
+                                                    <th scope="col">
+                                                        {$_lang['link_url']}
+                                                    </th>
+                                                    <th scope="col" style="width:80px;">
+                                                       	 操作
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {loop $shop_link $v}
+                                                <tr id="{$v['link_id']}">
+                                                    <td>{$v['link_name']}</td>
+                                                    <td>
+                                                        <a href="{$v['link_url']}" target="_blank">{$v['link_url']}</a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="javascript:;" onclick="edit('$v['link_id']')">{$_lang['edit']}</a>&nbsp;&nbsp;|&nbsp;
+                                                    	<a href="{$ac_url}&ac=del&link_id={$v['link_id']}" >{$_lang['delete']}</a>
+													</td>
+                                                </tr>
+                                                {/loop}
+                                            </tbody>
+                                        </table>
+                                        
+                                        
+                                    </div>
+                                    <!--data_table数据表格 end-->
+									
+									<div class="page">
+                                            <p>
+                                                {$pages['page']}
+                                            </p>
+                                        </div>
+                                </div>
+                            </div>
+                            <!--detail内容 end-->
+                        </div>
+                        <!--main content end -->
+                        <div class="clear">
+                        </div>
+                    </div>
+                </div>
+                </section>
+                <!--main end-->
+            </div>
+            </div>
+            <!--contain end-->
+<script type="text/javascript" >
+	
+In('form','xheditor'); 
+    
+/**
+ * 编辑链接
+ * @param {Object} link_id 链接编号
+ */
+function edit(link_id){ 
+    $("#frm input[name='ac']").val('edit');
+    $("#frm input[name='link_id']").val(link_id);
+    $("#frm #link_name").val($("#" + link_id + " td:eq(0)").html());
+    $("#frm #link_url").val($("#" + link_id + " a:eq(0)").attr("href"));
+    $("#frm #edit").val("{$_lang['edit']}").html("<span class='edit icon'></span>{$_lang['edit']}");
+}
+
+/**
+ * 链接添加
+ */
+function add(){
+    var i = checkForm(document.getElementById('frm'));
+    if (!i) {
+      return false;
+	}
+}
+</script>
+            <!--{template user/user_footer}-->
+<!--{template footer}-->

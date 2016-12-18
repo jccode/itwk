@@ -1,0 +1,342 @@
+<!--{template header}-->
+<!--{template new_head_nav}-->
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/vip.css" rel="stylesheet"/>
+<div class="position"><span>您的位置：</span><a href="{$_K['siteurl']}/index.php">帮手网</a> > 帮手商城</div>
+
+<div class="vip_top clearfix">
+<div class="left clearfix">
+<div class="left_detail clearfix">
+					  {if $shop_info || $user_info} 
+						<div class="vip_user pad10 clearfix">
+							<div class="vip_user_pic fl_l">						
+								{if $shop_info}
+								   <a href="{$_K['siteurl']}/index.php?do=shop&sid={$shop_info['shop_id']}"><!--{userpic($user_info['uid'],'middle')}--></a>  
+								 {else}
+								   <a href="{$_K['siteurl']}/index.php?do=user&view=index"><!--{userpic($user_info['uid'],'middle')}--></a>  
+								 {/if}
+							</div>
+							<div class="vip_user_detail fl_l pl_20 c333">
+								<ul>
+									<li>您好，
+									{if $shop_info}
+										<a href="{$_K['siteurl']}/index.php?do=shop&sid={$shop_info['shop_id']}">{$shop_info['shop_name']}</a>
+									{else}
+									 	<a href="{$_K['siteurl']}/index.php?do=user&view=index">{$username}</a>
+									{/if}
+									</li>
+									<li>商铺性质：
+									{if $shop_info['shop_type'] == 1}
+										个人
+									{elseif $shop_info['shop_type'] == 2}
+										工作室
+									{elseif $shop_info['shop_type'] == 3}
+										公司
+									{else}
+										<font color="red">未开通<font/>
+									{/if}
+									</li>
+									<li>商铺版本：
+									{if $shop_info['shop_level'] == 1}
+										<img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/shop_ordinary_icon.png">
+									{elseif $shop_info['shop_level'] == 2}
+										<img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/shop_expand_icon.png">
+									{elseif $shop_info['shop_level'] == 3}
+										<img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/shop_flagship_icon.png">
+									{else}
+										<font color="red">未开通<font/>
+									{/if}
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="shop_info t_c clearfix">
+							<ul>
+								<li><a href="{$_K['siteurl']}/index.php?do=user&view=space">商铺设置</a></li>
+								<li>
+									{if $user_info['isvip']}
+										<a href="{$_K['siteurl']}/index.php?do=shop&u_id={$uid}&view=diy">
+									{else}
+										<a href="{$_K['siteurl']}/index.php?do=shop&u_id={$uid}">
+									{/if}商铺装修</a>
+								</li>
+								<li class="preview"><a href="{$_K['siteurl']}/index.php?do=shop&u_id={$uid}">预览我的商铺</a></li>
+							</ul>
+						</div>
+						<div class="renewal_vip t_c c333 pt_20 pb_10">
+							<ul>
+							  {if $shop_info['shop_level'] == '2' || $shop_info['shop_level'] == '3'} 
+								<!-- 续费 -->
+								<li class="lineh_30">VIP到期时间：{if $user_info['vip_end_time']}<!--{eval echo date('Y-m-d',$user_info['vip_end_time'])}-->{/if}</li>
+								<li><a href="{$_K['siteurl']}/index.php?do=vip&view=open&opp=flagship"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/renewal_vip.gif"></a></li>
+								<!-- <li><a href="{$_K['siteurl']}/index.php?do=vip&view=open&opp=flagship" class="lineh_30">升级为更高版本</a></li> -->
+						      {else}
+								<li>
+									<a href="{$_K['siteurl']}/index.php?do=vip&view=open">
+										<img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/opend_vip.gif"></a></li>
+						      {/if}
+							</ul>
+						</div>
+					  {else}
+					  	<div class="vip_user pad10 clearfix">
+							<div class="vip_user_logout">
+								<div class="pad20"><a href="{$_K['siteurl']}/index.php?do=login" rel="nofollow" class=" big button ">会员登录</a></li></div>
+									<div class="pl_10 pr_10 lineh_20">
+									<p>VIP商铺基础版服务和VIP拓展版服务、VIP旗舰版服务享受更多特权，赢得更多订单！</p>
+									<a href="{$_K['siteurl']}/index.php?do=vip&view=desc">查看特权介绍</a>
+									<!-- shop_ordinary_icon.png  shop_expand_icon.png shop_flagship_icon.png  -->
+									</div>
+							</div>
+						</div>
+						<div class="renewal_vip t_c c333 pt_20 pb_10">
+							<ul>
+								<li><a href="{$_K['siteurl']}/index.php?do=vip&view=open"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/opend_vip.gif"></a></li>
+							</ul>
+						</div>
+					  {/if}
+					</div>
+</div>
+
+
+
+<div class="banner2">
+   <div class="center">
+					<div class="banner clearfix">
+						<div id="slides">
+							<div class="slides_container">
+								<!--{ad_show(VIP_TOP_SLIDE,1)}-->
+							</div>
+						
+						</div>
+					</div>
+				</div>
+</div>
+
+
+
+<!--热买推荐-->
+<div class="clear"></div>
+<div class="tuijian">
+        <h2>vip热卖推荐</h2>
+        <div>
+			<a href="{$_K['siteurl']}/index.php?do=vip&view=open&level_id=2"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/shop_expand.png" width="62" height="62"></a>
+            <span><a href="{$_K['siteurl']}/index.php?do=vip&view=open&level_id=2">VIP拓展版</a><br /><span>2000/年</span><br />强势出击</span>
+
+          </div>
+          <div>
+			<a href="{$_K['siteurl']}/index.php?do=vip&view=open&level_id=3"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/shop_flagship.png" width="62" height="62"></a>
+            <span><a href="{$_K['siteurl']}/index.php?do=vip&view=open&level_id=3">VIP旗舰版</a><br /><span>6800/年</span><br />特权盛宴</span>
+
+          </div>
+          
+          <div class="tuijian_list">
+<p><a href="{$_K['siteurl']}/index.php?do=vip&view=desc">特权介绍</a>VIP怎么与众不同</p><br />
+<p><a href="{$_K['siteurl']}/index.php?do=vip&view=story">赚钱故事</a>有谁开通赚到钱了</p>
+          </div>
+
+
+</div>
+<div class="vip_fuwu2">
+<img class="vip_bao" src="tpl/default/images/vipbaozhang.gif" width="643" height="45" />
+<ul>
+	<li>
+    <img src="tpl/default/images/identity.gif" /><p><span>vip身份标志</span><br />
+  VIP公司商铺，可信度更高，增加能力表示度，更易获得客户青睐。
+    </p></li>
+    <li>
+    <img src="tpl/default/images/gold.png" /><p><span>黄金广告位</span><br />
+    首页黄金推荐位独享，栏目推荐位独享，让更多订单找上门。
+    </p></li>
+    <li>
+    <img src="tpl/default/images/advertising.gif" /><p><span>vip身份标志</span><br />
+    身份标志身份标志身份标志身份标志身份标志
+    </p></li>
+    <li>
+    <img src="tpl/default/images/show.gif" /><p><span>旺铺装修特权</span><br />
+    自定义商铺，主题、风格、导航都可个性化装修设置，凸显能力标签。
+    </p></li>
+    <li>
+    <img src="tpl/default/images/personality.gif" /><p><span>vip身份标志</span><br />
+    身份标志身份标志身份标志身份标志身份标志
+    </p></li>
+    <li>
+    <img src="tpl/default/images/domain.gif" /><p><span>个性域名独享</span><br />
+个性域名，VIP独享特权，让您的商铺更具个性！
+    </p></li>
+    
+</ul>
+
+
+</div>
+
+
+<div class="kaitong">
+
+<h3 class="kaitong2">他们开通了——</h3>
+<div class="content_proaa">
+			
+    
+    		<script type="text/javascript">
+
+ $(document).ready(function(){ 
+ 
+ 
+ id =window.setInterval(scrollAuto,2000);
+ 
+ function scrollAuto(){
+	 
+	 
+	  if((length-6)>i){
+		  
+		  if(!flag){ 
+	  i++;}else{
+		  flag=false;
+		  }
+	  
+	   showleg= leg*i; 
+	 
+	   $(".productaakuan").animate({left: -showleg+'px'}, "slow");
+
+	 }else
+	 {
+		 i=0;
+		 
+		  $(".productaakuan").animate({left: '0px'}, "slow");
+		 
+		 }
+	 
+	 
+	 }	
+ 
+	 var i=0;
+	 
+	 var flag=false;
+	 
+	 var leg=$('.guenaa dl').innerWidth();
+	 
+	 var showleg=$('.guenaa dl').innerWidth();
+	 
+	 var length=$('.guenaa dl').length;
+	 
+	 $(".next").click(function(){	
+	 
+	   if((length-6)>i){
+		  
+		  if(!flag){ 
+	  i++;}else{
+		  flag=false;
+		  }
+	  
+	   showleg= leg*i; 
+	 
+	   $(".productaakuan").animate({left: -showleg+'px'}, "slow");
+
+	 }
+	 
+	 });
+	 $(".prevaa").click(function(){	
+
+if(i!=0){
+
+       if(i==1){
+	   
+	 showleg =0; 
+	   }else
+	   { i--;
+		    showleg= leg*i*-1;
+			flag=true;
+		   }
+	 
+	 
+	   $(".productaakuan").animate({left: showleg+'px'}, "slow");
+}
+
+	 
+	 });
+	 		$(".next,.prevaa,.guenaa").hover(
+		function(){
+			   clearInterval(id)	 
+				   }, 
+		function(){
+			   id =window.setInterval(scrollAuto,2000)	 
+				   });
+	 
+	 });
+
+</script>
+    <div class="prevaa"><img src="tpl/default/images/left.gif" width="17" height="34" /></div>
+      <div class="next"><img src="tpl/default/images/right.gif" width="17" height="34" /></div>
+    	<div class="productaa">
+      
+      <div class="productaakuan guenaa">
+	   {loop $istop_shop_arr $v}
+         <dl>
+             <dt><a href="{$_K['siteurl']}/index.php?do=shop&sid={$v['shop_id']}"><!--{userpic($v['uid'],'middle')}--></a>   </dt>
+         </dl>
+       {/loop}	  
+		 
+      </div>
+ </div>
+    
+    
+    </div>
+
+</div>
+
+</div>
+
+
+<!--{template footer}-->
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.autoscroll.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.pagination.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/slides.min.jquery.js"></script>
+
+<script type="text/javascript" >
+/*In.add('easySlider',{path:"{$_K['siteurl']}/resource/js/jqplugins/easySlider1.5.js",type:'js'});
+	In.add('index',{path:"$style_path/js/index.js",type:'js',rely:['easySlider']});
+	
+ 	In.add('lazy',{path:"{$_K['siteurl']}/resource/js/system/lazy.js",type:'js'});
+ 
+	In('easySlider','index','lazy',function(){
+		loadPics();
+	});*/
+
+$('#carousel,#jcarousel,#jcarousel2').jcarousel({
+    wrap: 'circular',
+	 animation: 200
+}).jcarouselAutoscroll({
+   interval:  3000
+});
+$('.jcarousel-pagination').jcarouselPagination({
+   perpage: 1
+});	
+//幻灯
+	$('#slides').slides({
+		  preload: true,
+		  preloadImage: SITEURL+'/resource/img/system/loading.gif',
+		  play: 5000,
+		  pause: 2500,
+		  hoverPause: true,
+		  animationStart: function(){
+				$('.caption').fadeOut();
+			},
+			animationComplete: function(current){
+				$('.caption').fadeIn();
+				if (window.console && console.log) {
+					// example return of current slide number
+					console.log(current);
+				};
+			}
+	});
+</script>

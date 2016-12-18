@@ -1,0 +1,100 @@
+<!--{template header}-->
+<!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+        <!--{template user/user_nav}-->
+		<!--main start-->
+        <section class="clearfix section">
+        <!--{template user/user_side}-->
+        <div class="show_panel ">
+        <div class="">
+            <div class="">
+                <!--main content-->
+                <div class=" clearfix box default">
+                    <!--header内容头部 start-->
+                    <header class="clearfix box_header">
+                        <h2 class="box_title ">{$_lang['account_bind']}</h2>
+                        
+                        <div class="clear">
+                        </div>
+                    </header>
+                    <!--header内容头部 end--><!--detail内容 start-->
+                    <article class="box_detail clearfix">
+                        <!--messages消息 start-->
+                    <div class="messages m_warn clearfix">
+                      <div class=""><strong>友情提示：</strong>开通账户绑定，除了正常登录账户以外，你还可以绑定手机，邮箱或者第三方账户登录IT帮手网</div>
+              		 </div>
+                        <!--messages消息 end-->
+						
+                        <div class="">
+                        	<h2>您当前使用的登录账号</h2>
+							<div class="pad10 border_b_c mb_10">
+								<div class="rowElem clearfix">
+									 <label class="grid_3 t_r">
+                                          	登录 账户名：
+                                        </label>
+                                        <div class="grid_11">
+                                            {$username}
+                                        </div>
+								</div>
+								<div class="rowElem clearfix">
+									 <label class="grid_3 t_r">
+                                          手机登录： 
+                                        </label>
+                                        <div class="grid_11">
+											{if $user_info['auth_email']}{$user_info['email']}{else}<a class="pl_5" href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=email">认证后可直接登录</a>{/if}
+                                        </div>
+								</div>
+								<div class="rowElem clearfix">
+									 <label class="grid_3 t_r">
+                                          邮箱登录： 
+                                        </label>
+                                        <div class="grid_11">
+                                           {if $user_info['auth_mobile']}{$user_info['mobile']}{else}<a class="pl_5" href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=mobile">认证后可直接登录</a>{/if}
+                                        </div>
+								</div>
+							</div>
+							
+							<h2>您账号绑定情况：</h2>
+                            <div class="bind_list">
+                                <ul>{if $t}
+                                    {loop $t $k $v}
+									{if $weibo_list[$k.'_app_id']}
+                                    <li {if $v['uid']} class="binded"  onclick="location.href='{$_K[siteurl]}/index.php?do=$do&view=$view&op=$op&ac=unbind&type=$k&id=$v['id']'" value={$_lang['unbind']}  
+									{else} onclick="location.href='{$_K[siteurl]}/index.php?do=$do&view=$view&op=$op&ac=bind&type=$k'" value={$_lang['to_bind']} {/if}>
+                                        <span class="t_l"><img class="" width="16" src="resource/img/ico/{$k}_t.gif"><span class=" mt_5 ml_5">{$api_name[$k]['name']}</span></span>
+                                        <span class="">
+                                        	{if $v['uid']}<span class="c690 fontb">{$_lang['been_link']}($v['account'])</span>
+											{else}<span class="c999">{$_lang['no_link']}</span> 
+											{/if}
+										</span>
+                                        <div>
+										{if $v['uid']}
+                                            {$_lang['unbind']}
+                                        {else}
+                                            {$_lang['to_bind']}
+                                        {/if}
+										</div>
+                                    </li>
+									{/if}{/loop}
+									{else}
+										<li class="t_c">  $_lang['not_open']</li>
+									{/if}
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+                    <!--detail内容 end-->
+                </div>
+                <!--main content end -->
+                <div class="clear">
+                </div>
+            </div>
+        </div>
+        </section>
+        <!--main end-->
+    </div>
+</div>
+<!--contain end-->
+<!--{template user/user_footer}-->
+<!--{template footer}-->

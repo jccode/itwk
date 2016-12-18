@@ -1,0 +1,25 @@
+<!--{template control/admin/tpl/admin_header}-->
+	<div class="box quick_link">
+	  <form id="form_reply" name="form_reply" action="index.php?do=model&model_id=$model_id&view=edit&task_id=$task_id&sbt_act=freeze" method="post">
+	    <div class="box link">        	
+			<div class="title"><strong>任务冻结：</strong></div>
+	    	
+			<div class="title"><strong>您需要输入冻结该任务的原因：</strong></div>
+	    	<div class="detail pad10">
+	    		<textarea name="reason_content" style="width:350px;height:100px;"></textarea> 		
+			</div>
+			
+	    	<div class="detail pad10">
+	    	{if in_array($task_info['task_status'],array(2,3,4,5))}
+	    	  该任务当前的状态为 :{$status_arr[$task_info['task_status']]}<br>
+			  对于<span style="color:#684211">进行/选稿/公示</span>中的任务，解冻后会自动延长冻结期耗费掉的时间<br>
+			{/if}
+			任务冻结之后您才能进行<span style="color:#684211">退款 摇奖 关闭</span>操作
+			</div>
+			<button class="positive pill primary button" type="submit" name="is_submit" value="{$_lang['submit']}"><span class="check icon"></span>{$_lang['submit']}</button>
+		</div>
+	  </form>
+	</div>
+	
+
+<!--{template control/admin/tpl/admin_footer}-->

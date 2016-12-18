@@ -1,0 +1,58 @@
+
+/*-------------------------------------------------
+--------------------------------------------------- 
+    注释 DEFINITIONS	: mg
+	作者 AUTHOR 		: mg
+	版本 VERSION		: 2012-02-24
+	
+	内容CONTENTS:
+		1.全局样式
+			1.1 首页高度定义
+		2.首页分类
+		3.banner切换广告
+		4.site_stats首页统计
+		5.guide首页向导
+		6.moving首页动态
+		7.notice公告
+		8.activity活动
+		9.task任务
+		10.shop商城
+		11.news资讯
+		12.case案例展示
+		13.talent人才
+			 	
+	
+/**9.task任务**/
+		* html  .box.model .task .box_detail .tops .item .task_mode{color:#6d6d6d;}
+
+ .banner{ background:#F4F4F4;}
+.c_style{ background-color:#F8EEE2; border:1px solid #DCCCB8}
+	.c_style .inner{ border:1px solid #FCF7F1}
+
+.post .inner{background:url(../img/index/post_bg.gif) repeat-x top;}
+
+.site_link a{color:#EA5E00; }
+.site_link .line{ border-left:1px solid #F1C0A3; border-right:1px solid #FFFBF4}
+
+.icon_hot{ background:url(../img/index/hot.gif) no-repeat; width:21px; height:12px;}
+/* 滚动banner */
+.heavily{width:698px;}
+	.heavily .recd_talent{padding:26px 10px;}
+	.heavily img{position:absolute; top:0; left:0;}
+		.heavily .jcarousel{height:100px; width:620px; left:30px; top:0;}
+			.heavily li{ margin-right:10px;}
+				.heavily li a{border:1px solid #FBDAC4;  background:#FFF3D5; display:block; width:168px; font-family:"微软雅黑"; height:68px; padding:15px; font-size:14px; line-height:18px; color:#333;}
+					.heavily li a b {font-size:28px; color:#c30; line-height:28px; }
+						.heavily li a span{height:36px; overflow:hidden;}
+						.recd_talent a.arrow{top:55px;}
+/* 案例赏析 */
+.case_watch{width:288px; float:right;}						
+	.case_watch .box_header{font-weight:normal;}
+	.case_watch .jcarousel{width:269px; height:97px; top:0; left:0; overflow:hidden;}
+	.case_watch .jcarousel li{border:1px solid #E9E9E9; margin-right:5px; width: 130px; height: 95px;}
+		.case_watch .jcarousel li img{width:130px; height:95px;}
+		.case_watch .arrow_box{top:10px; right:10px;  position:absolute; width:31px;}
+		.case_watch  a.arrow{width:16px; height:16px; overflow:hidden; display:block; float:left; text-indent:-9999px; }
+			.case_watch a.left_arrow{background:url(../img/style/in_left.gif) no-repeat;}
+			.case_watch a.right_arrow{background:url(../img/style/in_right.gif) no-repeat; margin-left:-1px;}
+	

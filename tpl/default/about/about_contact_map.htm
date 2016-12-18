@@ -1,0 +1,60 @@
+<!--{template header}-->
+<!--{template header_nav_about}-->
+<div class="wrapper">
+	<div class="page_header">
+		<div class="container_24">
+		<div class="breadcrumbs clearfix">
+					你的位置：
+			<a href="{$_K['siteurl']}/index.php" style="color:#333;">IT帮手首页</a> &gt; 
+			<a href="{$_K['siteurl']}/index.php?do=about&view=index" style="color:#333;"> 关于我们</a> &gt; 
+			联系我们
+		</div> 
+		</div>
+		<div class="cls"></div>
+	</div>
+<div class="container_24 pt_20 clearfix">
+ 	
+<div class="aside clearfix">
+    <div class="aboutCatalog" id="aboutCatalog">
+         <ul>
+            <li class="title" style="color:#333; font-size:22px;"><strong>联系我们</strong></li>
+			
+				{loop $nav_list $k $v}
+					<li><img src="{$_K['siteurl']}/{SKIN_PATH}/img/about/iconArrow4.png">
+								<a {if $op==$k} class="current"{/if} href="{$_K['siteurl']}/index.php?do=about&view=$view&op=$k" {$menu_style['index']}> 
+										$v
+								</a></li>
+				
+				
+				{/loop}  </ul>           
+    </div>
+</div>
+<div class="main bor2">
+	<div class="aboutZone commission clearfix">
+		
+		<dl>
+			<dt><div class="aboutZoneHD">联系方式</div></dt>
+		<dd>
+			<div class="t_c pt_20 pb_20"><img src="{$_K['siteurl']}/{SKIN_PATH}/img/about/map.gif"></div>
+			<ul class="pl_20 pr_20 pb_20 c333 clearfix">
+				<li style="border-right:1px solid #dfdfdf;width:360px; float:left;">
+					<p><strong>公司名称：</strong>厦门IT帮手网络科技有限公司</p>
+					<p><strong>公司地址：</strong>中国厦门软件园二期望海路10号2栋3层</p>
+					<p><strong>邮政编码：</strong>361008</p>
+					<p><strong>客服热线：</strong>4006-999-467  0592-6301975</p>
+					<p><strong>传真号码：</strong>0592-6301978</p>
+				</li>
+				<li style="width:360px; float:left; padding-left:30px;">
+					<p><strong>公交路线：</strong></p>
+					<p>454路 / 607路 / 798路 / 82路 / 977路</p>
+					<p>软件园站下车 往北步行XXXX米至望海路10号楼</p>
+					<p>电梯至三楼</p>
+				</li>
+			</ul>
+		</dd>
+		</dl>
+	</div>
+</div>
+</div>
+<!--{template footer}-->
+</div>

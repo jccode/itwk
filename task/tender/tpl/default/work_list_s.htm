@@ -1,0 +1,320 @@
+<!-- 所有报价 -->
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/autoimg/jQuery.autoIMG.min.js" ></script>
+
+	   
+     	
+	   <!--摘要-->
+       <div class="gj_summery clearfix">
+       	<div  id="gj_summery">
+       {if $work_info}
+      {loop $work_info $v} 
+      	<div class="items mb_20 clearfix box">
+      	<!--稿件标题栏 start-->
+         <div id="work_{$v['work_id']}" class="sum_title po_re clearfix ">
+           	 <strong class="po_ab gj_bg">竞标编号：{$v['work_id']}</strong>
+             
+			 <div class="operate po_ab">
+            	{if $user_info['group_id']=='7'}
+                	<a href="javascript:void(0);" title="{$_lang['del_work']}" onclick="workDel('{$v['work_id']}')">{$_lang['del_work']}</a>|
+                {/if}
+				{if $process_can['work_report']&&$uid!=$v['uid']}
+                	<a href="javascript:void(0);" title="{$_lang['report']}" onclick="report('work','1','{$v[work_id]}','{$v[uid]}','{$v[username]}');">{$_lang['report']}</a>|
+                {/if}
+				{if $process_can['work_complaint']&&$uid!=$v['uid']}
+                	<a href="javascript:void(0);" title="{$_lang['complaint']}" onclick="report('user','2','{$v[uid]}','{$v[uid]}','{$v[username]}');">{$_lang['complaint']}</a>
+                {/if}
+			</div>
+			 
+             <div class="sum_left">
+             	<span>
+             		  <span class="fl_l">报价时间{$_lang['zh_mh']}<!--{date('Y-m-d H:i:s',$v['work_time'])}--></span>
+					  <!-- <span class="mr_10">{if $v['view_status']==1}<font color="red">雇主已看稿</font>{else}<font color="green">雇主未看稿</font>{/if}</span> -->
+					 <span class="fl_r fontb pr_5" style='color:#EA5E00'><!--{eval mark_echo($v['mark_status']);}--></span>
+					<a id="work_a_{$v['work_id']}" href="javascript:;" onclick="if($(this).html()=='↑收起方案'){$(this).html('↓展开方案');$('#work_box_{$v['work_id']}').hide()}else{$(this).html('↑收起方案');$('#work_box_{$v['work_id']}').show()}" class="button fl_r">↑收起方案</a>
+				</span> 
+             </div>
+             
+          </div>
+          <!--稿件标题栏 end-->
+          <!--稿件内容栏 start-->
+          <div id="work_box_{$v['work_id']}" class="sum_content clearfix work_{$v['work_id']}">
+          <!--用户信息栏 start-->
+           <div class="sc_left">
+             <div class="user_info po_re pt_10 clearfix" uid="{$v['uid']}" wid="{$v['work_id']}">
+             	
+             <div class="fl_l pl_10 pb_10">
+              <a href="{$_K['siteurl']}/index.php?do=shop&u_id={$v['uid']}" target="_blank"><!--{userpic($v['uid'],'small')}--></a>
+			  </div>
+				<!--用户信息-->             	 	 
+               	 <ul class="intor">
+                     <li><a href="{$_K['siteurl']}/index.php?do=shop&u_id={$v['uid']}" target="_blank"><strong>{$v['username']}</strong></a></li><!--用户名-->
+                     {if $v['residency']}
+                         <li>
+                            $v['residency']
+                         </li>
+						 {/if} <!--所在地区-->		 			
+					 <li><span class=""><!--{eval echo keke_glob_class::get_w_level_ico($v['w_level'])}--></span></li><!--用户组-->
+                 </ul>
+				<div class="clear"></div>
+					
+				<div class="other">   
+					认证状况：<!--{eval echo(keke_glob_class::get_auth_ico($v['auth_realname'],$v['auth_mobile'],$v['auth_email'],$v['auth_bank']));}-->
+				</div>
+				
+				
+                 <!--浮出层-->
+                 <div class="po_ab user_detail hidden"></div>
+                <!--end 浮出层-->
+                 
+             	
+				
+				
+				<!--end 用户信息-->
+             </div>
+             
+			
+           </div>
+             <!--用户信息栏 end-->
+             
+             <div class="sc_right  po_re clearfix" id="{$v['work_id']}">
+             <!--稿件详细 start-->
+             <div class="work_status_big work_{$v['work_status']}_big qualified_big1 po_ab" alt="{$work_status[$v['work_status']]}" title="{$work_status[$v['work_status']]}"></div>
+       		 <div class="pad20 work_detail ">
+       		 	<!--稿件操作-->
+					<!--{eval $p=$process_can;}-->
+       		 	 {if ($uid==$task_info['uid']||$uid==$v['uid']||$user_info['group_id'])&&($p['download']||$p['work_choose']||$p['confirm_pay']||$p['work_complate']||$p['upload_source']||$p['work_cancer']||$p['work_comment']||$p['work_mark']||$p['task_mark']||$p['part_pay'])}
+       		 		<div class="work_button_box">
+       		 			{if $process_can['work_choose']}
+			              <span id="work_11_{$v['work_id']}">
+			              	<a href="javascript:void(0);" class="button" onclick="workBid('{$v['work_id']}','11')">选他中标</a>
+			              </span>
+						{/if}
+						{if $process_can['work_cancer']&&$uid==$v[uid]}
+			            	<a href="javascript:void(0);" class="button" onclick="work_cancer('$task_id','$v['work_id']','11')">撤销投标</a>
+						{/if}
+						
+						{if $v['work_status']==11&&$uid==$v['uid']&&$process_can['upload_source']}
+			              	<a href="javascript:void(0);" class="button" onclick="upload_bidsource($task_id,$v[work_id]);">上传源文件</a>
+			            {/if}
+						
+						{if ($process_can['download']||$uid==$v['uid']||$user_info['group_id'])&&$bid_work_source[$v['work_id']]}
+			              <span>
+			              	<a href="javascript:void(0);" class="button" onclick="loadsourceFile('{$v[work_id]}')">查看源文件</a>
+			              </span>
+			            {/if}
+						
+						
+						{if $v['work_status']==11&&$uid==$v['uid']&&$process_can['work_complate']}
+								<a href="javascript:void(0);" class="button" onclick="complate_task($task_id)">完成任务</a>
+			            {/if}
+						
+						{if $v['work_status']==11&&$process_can['confirm_pay']}
+			              <span id="confirm_pay">
+			              	<a href="javascript:void(0);" class="button" onclick="confirm_pay('$task_id')">确认付款</a>
+			              </span>
+			            {/if}
+						
+						{if $v['work_status']==11&&$process_can['part_pay']}
+			              <span id="part_pay">
+			              	<a href="javascript:void(0);" class="button" onclick="part_pay('$task_id')">分期付款</a>
+			              </span>
+			            {/if}
+						
+						{if $process_can['work_comment']&&($uid==$task_info['uid']||$uid==$v['uid'])}
+							<span id="confirm_pay">
+			              		<a href="javascript:void(0);" class="button" onclick="$('#work_comment_box_{$v[work_id]}').show();goComm('{$v[work_id]}');">稿件点评</a>
+			            	</span>
+						{/if}
+						
+						{if $mark[$v['work_id']]}
+							{if $process_can['work_mark']&&$v['work_status']=='11'&&$uid==$task_info['uid']}
+				            	<span>
+				                	<a href="javascript:void(0);" class="button" onclick="mark('{$basic_url}&op=mark&role_type=2&obj_id={$v['work_id']}');">{$_lang['mark_to_work']}</a>
+				                </span>
+				            {/if}
+							{if $process_can['task_mark']&&$v['work_status']=='11'&&$uid==$v['uid']}
+				            	<span>
+				                	<a href="javascript:void(0);" class="button" onclick="mark('{$basic_url}&op=mark&role_type=1&obj_id={$v['work_id']}');">{$_lang['mark_to_g']}</a>
+				               </span>
+				            {/if}
+			            {/if}						
+       		 	</div>
+				{/if}
+				<!--稿件操作 end-->
+				
+				<!-- 报价 -->
+				<div class="quote">
+				<table>
+			 	 		<tr>
+			 	 			<td><p>报价</p> <strong class="ea5e00">￥{$v['quote']}</strong></td>
+							<td><p>完成周期</p> <strong>{$v['cycle']} 天</strong></td>
+							<td><p>所在地区</p> <strong>{$v['area']}</strong></td>
+							{if $uid==$v['uid']&&$v['isvip']}
+								<td>
+									<p>雇主联系方式</p> 
+									<strong>
+										QQ:{if $contact['qq']}{$contact['qq']}{elseif $g_info['qq']}{$g_info['qq']}{else}暂无{/if}</br>
+										手机:{if $contact['mobile']}{$contact['mobile']}{elseif $g_info['mobile']}{$g_info['mobile']}{else}暂无{/if}</br>
+										邮箱:{if $contact['email']}{$contact['email']}{elseif $g_info['email']}{$g_info['email']}{else}暂无{/if}
+									</strong>
+								</td>
+							{/if}
+			 	 		</tr>
+			 	</table>
+				</div>
+				<!-- 报价end -->
+				
+				<!--稿件详细内容-->
+			 	 <div class="ws_prewrap ws_break">
+					<!--{eval echo  kekezu::escape($v['work_desc'])}-->
+				</div>
+                 <!--稿件详细内容 end-->
+
+				 <!--稿件图片-->
+				 {if $v['work_pic']}
+				 <div class="work_img_box">
+				 	<!--{eval $zoom = str_replace('_s.','.',$v[work_pic]);}-->
+				 	<img src="<!--{eval echo kekezu::format_url($v[work_pic])}-->" onclick="zoom(this,'<!--{eval echo kekezu::format_url($zoom)}-->');">
+				 </div>
+				 {/if}
+				 <!--稿件图片 end -->
+               	
+			   	{if $v['work_file']}
+			   		<details open  class="mb_20" id="file">
+			    		<!--{eval $file_count = sizeof(explode(",",$v['work_file']))}-->
+			     	<summary class="pl_20 pt_10 pb_10 font14b border_b_c block" onclick="loadFile('{$v[work_id]}')">{$_lang['see_attachment']}($file_count)</summary>
+			      	<div class="affix mt_10" id="work_{$v['work_id']}_file">
+			      		<!--{eval $file_ids = db_factory::get_count(sprintf(" select work_file from %switkey_task_work where work_id='%d'",TABLEPRE,$v['work_id']));}-->
+						<!--{eval $file_list = keke_task_class::get_work_file($file_ids);}-->
+						{if $file_list}
+						<ul>
+						{loop $file_list $v2}
+							<li>
+								<a class="file_down" href="<!--{eval echo kekezu::format_url($v2[save_name])}-->" target="_blank" temp="<!--{eval echo kekezu::format_url($v2[save_name])}-->">{$v2['file_name']}<span class="c999">（{if is_file($v2['save_name'])}<!--{eval echo kekezu::get_format_size(filesize($v2['save_name']))}-->{else}未知大小{/if}）</span><span class="icon16 download"></span></a>
+							</li>
+						{/loop}
+						</ul>
+						{else}
+						<ul>
+							<li>暂无附件</li>
+						</ul>
+						{/if}
+			      	</div>
+			  		</details>
+			  	{/if}
+				
+				{if $v['work_status']==11&&$bid_work_source}
+				<details open  class="mb_20" id="file" style="display:none">
+					<summary class="pl_20 pt_10 pb_10 font14b border_b_c block">威客已上传的源文件</summary>
+				 	<div class="affix mt_10" id="work_source{$v['work_id']}_file">
+					<ul>
+						{loop $bid_work_source[$v[work_id]] $source}
+						<li>
+							<a class="file_down" temp="<!--{eval echo kekezu::format_url($source[save_name])}-->" target="_blank" href="<!--{eval echo kekezu::format_url($source[save_name])}-->">
+							$source[file_name]
+							<span class="c999">（$source[file_size]）</span>
+							<span class="icon16 download"></span>
+							</a>
+						</li>
+						{/loop}
+					</ul>
+					
+				 </details>
+				 
+				 {/if}
+				<!-- end 稿件好评 -->
+				
+				{if $v['comment_num']&&($uid==$task_info['uid']||$uid==$v['uid'])}
+					<summary class="pt_10 font14b">
+					<a href="javascript:void(0);" onclick="loadComment(this,'{$v['work_id']}','{$v['uid']}');">
+						({$v['comment_num']})条回复
+					</a>
+					</summary>
+				 {/if}
+				 
+				 <!-- 稿件留言 -->
+				 <div id="work_{$v['work_id']}_comment"  class="comment_list" style="display:none">
+				 	<!--<h3 class="pl_20 pt_10 pb_10 font14b">稿件点评</h3>-->
+				 	
+				 </div>
+				 <!-- 稿件留言 end -->
+                 <!-- 发布稿件留言 -->   
+			{if $process_can['work_comment']&&($uid==$task_info['uid']||$uid==$v['uid'])}
+				 <div class="work_answer pt_10 pb_10 clearfix" id="work_comment_box_$v[work_id]" style="display:none">
+					<div class="answer-form ">
+                    	<div class="grid_10">
+						<textarea class="tar_comment txt_input" onkeydown="checkCommentInner(this,event)" cols="70">{$_lang['i_say_little']}</textarea>
+                       
+                            <div class="answer-textarea  answer-zone pt_10" style="display:none;">
+                                <button type="button" class="button answer-zone" value="{$_lang['confirm']}" onclick="work_comment(this,'{$v['work_id']}')"><span class="check icon"></span>{$_lang['public']}</button>
+                                <span class="answer_word">{$_lang['you_can_input']}</span>
+                            </div>
+                        </div>
+					</div>
+				</div>
+			{/if}
+			<!-- 发布稿件留言  end-->   
+				 
+				 
+                </div>
+				
+              </div>
+			  
+			  
+            </div>
+			
+            <!--稿件标题栏 end-->
+            </div>
+		 {/loop}
+		 {else}
+		 	<div class="no_detail pt_30">
+		 		<img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/system/no_manuscript.png" alt="{$_lang['now_no_record']}"/>
+			</div>
+		 {/if}
+         
+	 <!--page 翻页 start-->
+         <div class="page">
+             <p class="clearfix"><span class="stats">{$_lang['total']}{$task_info['work_num']}{$_lang['tiao']} </span>{$pages['page']} </p>
+             <div class="clear">
+           </div>
+         </div>
+         <!--page 翻页 end-->
+       </div>
+
+     </div>
+	 
+ <script type="text/javascript" >
+ 	 //方案收起
+ 	function tender_list_box(work_id){
+		var obj_div = $('#work_box_'+work_id);
+		if(obj_div.is(":hidden")) {
+			$('#work_a_'+work_id).html('收起方案');
+			$('#work_box_'+work_id).show('show');
+		}else{
+			$('#work_a_'+work_id).html('展示方案');
+			$('#work_box_'+work_id).hide('show');
+		}
+	}
+	
+	function get_user_info(){
+		$.post("{$_K['siteurl']}/index.php?do=$do&view=$view&ac=ser",
+			{u:txt_u,type:u_type},function(json){
+			if(json.status==1){ 
+				$("#txt_tel").val(json.data.mobile);
+				$("#txt_email").val(json.data.email);
+			}else if(json.status==2){
+				art.dialog.alert(json.msg);return false; 
+			}else if(json.status==3){
+				art.dialog.alert(json.msg);return false; 
+			}
+		},'json')
+	}
+	
+ 	///In('xheditor');
+	$(function(){
+		var detail =  $('.work_img_box'); 
+	    if(detail.length>0){
+	 	   detail.autoIMG();
+	    }
+	})
+ </script>

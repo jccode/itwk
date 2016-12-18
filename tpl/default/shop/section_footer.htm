@@ -1,0 +1,57 @@
+</div>
+<div class="container_24 t_c mt_20">
+	本店所使用商铺版本：
+	{if $shop_info['shop_level']==1}
+	<a href="{$_K['siteurl']}/index.php?do=vip" target="_blank">基础版</a>
+	{elseif $shop_info['shop_level']==2}
+	<a href="{$_K['siteurl']}/index.php?do=vip" target="_blank">VIP拓展版</a>
+	{elseif $shop_info['shop_level']==3}
+	<a href="{$_K['siteurl']}/index.php?do=vip"  target="_blank">VIP旗舰版</a>
+	{/if}
+</div>		
+
+
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jquery.masonry.min.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.autoscroll.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.pagination.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/adshow.js"></script>
+<script type="text/javascript">
+
+$('document').ready(function(){
+		$('#jcarousel').jcarousel({
+		    wrap: 'circular',
+			 animation: 200
+		}).jcarouselAutoscroll({
+		   interval:  3000
+		});
+		
+		$('#ajaxwaitid').show();
+	
+	    window.onload=function(){
+			$('#ajaxwaitid').hide();
+			$('.case_show').removeClass('hidden');
+	
+	        $('#container').masonry({
+			  itemSelector: '.item'
+			});
+			
+			
+	    }
+		
+		/*$('.shop_info_boxs').hover(
+			function(){$('.shop_info_two').removeClass('hidden')},
+			function(){$('.shop_info_two').addClass('hidden')
+		});*/
+
+if($('.shop_adv1 img,.shop_adv2 img').length){
+	var adv1_h=$('.shop_adv1').height();
+	var adv1_w=$('.shop_adv1').width();
+	$('#ie6 .shop_adv1').css({'height':adv1_h,'width':adv1_w});
+	
+	var adv2_h=$('.shop_adv2').height();
+	var adv2_w=$('.shop_adv2').width();
+	$('#ie6 .shop_adv2').css({'height':adv2_h,'width':adv2_w});
+	}
+})
+</script>

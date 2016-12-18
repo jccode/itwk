@@ -1,0 +1,123 @@
+<!--{template header}--> 
+ <style type="text/css">
+ 	.valid_error span{ display: inline-block; width: 180px;}
+ </style>
+<div class="winbody pt_10">
+	<!--messages消息 start-->
+  <div class="messages m_warn">
+    <strong>温馨提示：</strong>
+     {$_lang['please_fill_in_content']}.
+   </div>
+  <!--messages消息 end-->
+ <div class="clearfix  pad10">
+ 
+
+    <!--from表单 start-->
+    <form method="post" id="frm_tender" name="frm_tender" action="">
+    	<input type='hidden' name='work_id' value='{$work_id}'>
+		 {if $task_info['task_cash_coverage']}
+		 <div class="rowElem clearfix">
+      		<label class="fl_l">{$_lang['job_offer']}{$_lang['zh_mh']}</label>
+			 <div class="fl_l"> 
+				<input type="text" name="work_frm[txt_cash]" id="txt_cash" class="txt_input" limit="required:true;type:float"
+					value="{$quote}" title={$_lang['input_amount_offer']} msgarea="msg_cash" msg={$_lang['you_input_offer_right_amount']}> {$_lang['yuan']}
+				<span id="msg_cash"></span> 
+				<span id="xxx"></span>
+			 </div>
+     	 </div>
+		 {else}
+			 <input type="hidden" name="work_frm[txt_cash]" value="$task_info['task_cash']">
+		 {/if}
+		 
+
+	  	 <div class="rowElem clearfix">
+      		<label class="fl_l">{$_lang['work_cycle']}{$_lang['zh_mh']}</label>
+			 <div class="fl_l">
+			 	<input type="text" name="work_frm[task_over_time]" class="txt_input" title={$_lang['enter_work_cycle']}
+			 	  value="{$cycle}" id="task_over_time" onkeyup="clearstr(this)" limit="required:true;type:int" msg={$_lang['enter_expected_complete_task_cycle']} tilte={$_lang['enter_expected_complete_task_cycle']} msgArea="span_qq"> {$_lang['day']}
+                <span id="span_qq"></span>
+			 </div>
+     	 </div>
+	  
+	  	  	  
+     <div class="rowElem clearfix">
+
+      		<label class="fl_l">{$_lang['area']}{$_lang['zh_mh']}</label>
+			 <div class="fl_l">
+			 		<select name="province" id="province"></select><select name="city" id="city"></select><select name="area"></select>
+			 </div>
+
+      </div>
+       <div class="rowElem clearfix" id="desc">
+
+      		 <label class="fl_l">{$_lang['manuscript_description']}{$_lang['zh_mh']}</label>
+             <div class="fl_l">
+      		 	<textarea cols="68" rows="8" name="work_frm[tar_content]" id="tar_content" msgArea="msg_content" style="width:350px;height:100px"
+				  class="tar_content xheditor {tools:'Bold,FontSize,Fontface,FontColor,Italic,Underline,Strikethrough,Align,List,Outdent,Indent,Table',skin:'nostyle',innerCheck:true,wordLimit:1500}"><!--{eval echo kekezu::escape($desc)}--></textarea>
+      		 <div class="clear"></div>
+             <div class="c999" id="length_show"></div>  
+			<div id="msg_content"></div> 
+               </div>
+
+      </div>
+      
+   </form>
+  <!--from表单 end-->
+
+ </div>
+ <div class="rowElem clearfix form_button">
+       	 	 <button type="button" class="submit" value={$_lang['save']} onclick="subWork()">{$_lang['save']}</button>
+		 	 <button type="button" class="button bwhite" value={$_lang['cancel']} onclick="hideWindow('{$op}')">{$_lang['cancel']}</button>
+      </div>
+</div>
+
+<script src="{$_K['siteurl']}/resource/js/jquery.bgiframe.pack.js"></script>
+<script>
+	$(function(){
+		$('div.fwinmask').bgiframe();;
+	})
+</script>
+<script type="text/javascript">
+	In.add('pop_window',{path:"{$_K['siteurl']}/resource/js/system/pop_window.js",type:'js'});
+	In('form','pop_window','pcas',function(){
+	    new PCAS("province","city","area","{$loca['0']}","{$loca['1']}","{$loca['2']}");
+	});
+	function subWork(){ 
+		var i = checkForm(document.getElementById('frm_tender'));
+		if(i){
+		var shtml 	 = contentCheck('tar_content','{$title}',5,1500,0,'',editor); 
+			if(shtml){
+				var data= $("#frm_tender").serialize();  
+				var url = "{$_K['siteurl']}/index.php?do=task&task_id={$task_id}&op={$op}&"+data+'&sbt_edit=1'; 
+				hideWindow('{$op}');	
+				$.post(url,
+				function(json){
+					if(json.status=='1'){
+						showDialog(json.data,'right',json.msg,"location.href='{$_K['siteurl']}/index.php?do=task&task_id={$task_id}'"); //&view=work
+						return false;
+						}
+					else{ 
+						showDialog(json.data,'alert',json.msg);
+						return false;
+					}
+						
+			},'json');
+			}
+		}
+	} 
+
+ 
+	function slt_task_cash(){
+	var cash = $("#slt_cash").val();
+	 if(cash){
+	 	
+		$("#xxx").html(' ');	
+	 }else{ 
+		$("#xxx").html("{$_lang['select_task_quotation_interval']}"); 
+	 }
+	} 
+	
+
+</script>
+
+<!--{template footer}-->

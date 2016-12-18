@@ -1,0 +1,30 @@
+<!--{template header_top}-->
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/brand.css" rel="stylesheet">
+<!--头部 start-->
+<header class="header">
+    <div class="container_24 clearfix">   
+		<!--logo start-->
+        <hgroup class="logo">
+            <a href="{$_K['siteurl']}/" class="fl_l"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/brand/logo_pic.gif"></a>
+            <a class="little_logo fl_l" href="{$_K['siteurl']}/index.php?do=brand"></a>
+			
+        </hgroup>
+		<!--logo end-->
+		
+		<!--导航栏 start-->
+		<div class="nav_menu fl_l clearfix">
+			<ul class="clearfix">
+				<li class="sy"><a href="{$_K['siteurl']}/index.php?do=brand&view=index" {if $view=='index'||!$view}class="selected"{/if}>首页</a></li>
+				<li class="xg"><a href="{$_K['siteurl']}/index.php?do=brand&view=hongkong" {if $view=='hongkong'}class="selected"{/if}>香港馆</a></li>
+				<li class="tw"><a href="{$_K['siteurl']}/index.php?do=brand&view=taiwan" {if $view=='taiwan'}class="selected"{/if}>台湾馆</a></li>
+				<!--<li class="hw"><a href="{$_K['siteurl']}/index.php?do=brand&view=oversea" {if $view=='index'}class="selected"{/if}>海外馆</a></li>-->
+			</ul>
+		</div>
+		<!--导航栏 end-->
+		<div class="contact_number fl_r clearfix"></div>	
+    </div>
+</header>
+<!--头部 end-->
+
+
+

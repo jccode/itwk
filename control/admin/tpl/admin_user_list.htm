@@ -1,0 +1,214 @@
+<!--{template control/admin/tpl/admin_header}--> 
+
+<div class="page_title">
+	<h1>{$_lang['member_manage']}</h1>
+     <div class="tool"> 
+        <a href="index.php?do=$do&view=list" class="here">{$_lang['member_manage']}</a>
+        <a href="index.php?do=$do&view=add">{$_lang['add_member']}</a>
+    	<a href="index.php?do=user&view=charge">{$_lang['charge']}</a>
+	</div>
+</div>
+<!--页头结束--> 
+
+      <div class="box search p_relative">
+    	<div class="title"><h2>{$_lang['search']}</h2></div>
+        <div class="detail" id="detail">
+			<form action="#" method="post">
+        	<input type="hidden" name="do"   value="$do">
+			<input type="hidden" name="view" value="$view">
+			<input type="hidden" name="type" value="$type">
+			<input type="hidden" name="page" value="$page">
+			<table cellspacing="0" cellpadding="0">
+			 <tbody>
+			 	<tr>
+			 		<th>检索条件：</th>
+					<td>
+						<select name="condit" style="width:80px;">
+							<option value="all" {if !$condit||$condit=='all'}selected="selected"{/if}>--所有--</option>
+							<option value="username" {if $condit=='username'}selected="selected"{/if}>用户名</option>
+							<option value="truename" {if $condit=='truename'}selected="selected"{/if}>真实姓名</option>
+							<option value="uid" {if $condit=='uid'}selected="selected"{/if}>用户编号</option>
+							<option value="qq" {if $condit=='qq'}selected="selected"{/if}>QQ号码</option>
+							<option value="mobile" {if $condit=='mobile'}selected="selected"{/if}>手机号码</option>
+							<option value="email" {if $condit=='email'}selected="selected"{/if}>常用邮箱</option>
+						</select>
+						关键字：
+						<input type="text" class="txt" name="txt_val" value="{$txt_val}">
+					</td>
+			 		<th>用户状态</th>
+					<td>
+						<select name="slt_status" style="width:70px;">
+			      		<option value="0" {if !$slt_status}selected="selected"{/if}> {$_lang['all']} </option>
+						<option value="1" {if $slt_status=='1'}selected="selected"{/if}> {$_lang['normal']} </option>
+						<option value="2" {if $slt_status=='2'}selected="selected"{/if}> {$_lang['disable']} </option>
+						</select>
+					</td>
+			 	</tr>
+				
+				<tr>
+					<th>{$_lang['show_number']}</th>
+					<td>
+						<select name="slt_page_size" class="ps vm">
+						<option value="10" {if $slt_page_size=='10'}selected="selected"{/if}>{$_lang['page_size']}10</option>
+						<option value="20" {if $slt_page_size=='20'}selected="selected"{/if}>{$_lang['page_size']}20</option>
+						<option value="30" {if $slt_page_size=='30'}selected="selected"{/if}>{$_lang['page_size']}30</option>
+						</select>
+					</td>
+					<th>{$_lang['result_order']}</th>
+					<td>
+						
+						<select name="ord[]">
+                        <option value="uid" {if $ord['0']=='uid' or !isset($ord['0'])} selected="selected"{/if}>{$_lang['default_order']}</option>
+                        <option value="reg_time" {if $ord['0']=='reg_time' } selected="selected"{/if}>{$_lang['register_time']}</option>
+						<option value="uid" {if $ord['0']=='uid' } selected="selected"{/if} > {$_lang['user_uid']} </option>
+                        </select>
+                        <select name="ord[]">
+                        <option {if $ord['1']=='desc' or !isset($ord['1'])}selected="selected" {/if} value="desc">{$_lang['desc']}</option>
+                        <option {if $ord['1']=='asc'}selected="selected" {/if} value="asc">{$_lang['asc']}</option>
+                        </select>
+						
+					</td>
+					<th></th>
+					<td><button type="submit" name="sbt_search" value="$_lang['search']" class="pill" />
+							<span class=icon magnifier>&nbsp;</span>{$_lang['search']}</button></td>
+				</tr>
+				
+			 </tbody>
+			</table>
+			</form>
+        </div>
+	 </div>
+
+    <div class="box list">
+    	<div class="title"><h2>{$_lang['user_list']}</h2></div>
+        <div class="detail">
+			<form method="post" action="#" id="frm_user_search">
+				<div id="ajax_dom">
+					<input type="hidden" name="page" value="{$page}" />
+			  		<table cellpadding="0" cellspacing="0">
+			  		<thead>
+			          <tr>
+			          	<th width="15"></th>
+			            <th width="20" >编号</th>
+			            <th width="20">用户名</th>
+						<th width="60"  class="wraphide" >头像</th>
+						<th width="45"  class="wraphide">{$_lang['user_group']}</th>
+						<th width="45">QQ</th>
+						<th width="80">身份认证</th>
+						<th width="80">银行认证</th>
+						<th width="80">手机认证</th>
+						<th width="80">邮箱认证</th>
+						<th>资金明细</th>
+						<th>积分明细</th>
+						<th width="138">注册时间</th>
+						<th width="45">查看详情</th>
+						 
+			         </tr>
+					 </thead>
+					 <tbody> 
+					{loop $userlist_arr $key $v}
+			        <tr class="item">
+			             <td class="td25"><input type="checkbox" name="ckb[]" class="checkbox" value="{$v['uid']}"></td>
+			            <td class="td25">{$v['uid']}</td>
+			            <td class="td25 wraphide">
+			            	<a href="index.php?do=task&view=unpublished_user&send_uid={$v['uid']}">{$v['username']}</a>
+							[{if $v['status']==1}启用{elseif $v['status']==2}禁用{elseif $v['status']==3}待手机/邮箱验证{/if}]							 
+						<td class="wraphide"><!--{userpic($v['uid'],'small')}--></td>
+						<td class="wraphide">{if $grouplist_arr[$v['group_id']]['groupname']} $grouplist_arr[$v['group_id']]['groupname'] {else}{$_lang['normal']}{/if}</td>
+						<td width="45">
+							{if $v['qq']}
+							<a target="_blank" style="text-decoration:none;" href="http://wpa.qq.com/msgrd?v=3&uin={$v['qq']}&site=qq&menu=yes">
+								<img border="0" src="http://wpa.qq.com/pa?p=2:{$v['qq']}:5">
+								{$v['qq']}
+							</a>
+							{/if}
+						</td>
+						<td>
+							<!--{eval echo keke_glob_class::get_single_ico(1,$v['auth_realname'])}-->
+							<a href="javascript:void(0);" onclick="showDetail('auth_realname','{$v[uid]}');">{if $v['auth_realname']==1}已通过{else}未通过{/if}</a>
+						</td>
+						<td>
+							<!--{eval echo keke_glob_class::get_single_ico(4,$v['auth_bank'])}-->
+							<a href="javascript:void(0);" onclick="showDetail('auth_bank','{$v[uid]}');">{if $v['auth_bank']==1}已通过{else}未通过{/if}</a>
+						</td>
+						<td>
+							<!--{eval echo keke_glob_class::get_single_ico(2,$v['auth_mobile'])}-->
+							<a href="javascript:void(0);" onclick="showDetail('auth_mobile','{$v[uid]}');">{if $v['auth_mobile']==1}已通过{else}未通过{/if}</a>
+						</td>
+						<td>
+							<!--{eval echo keke_glob_class::get_single_ico(3,$v['auth_email'])}-->
+							<a href="javascript:void(0);" onclick="showDetail('auth_email','{$v[uid]}');">{if $v['auth_email']==1}已通过{else}未通过{/if}</a>
+						</td>
+						<td><a href="javascript:void(0);" onclick="showDetail('finance','{$v[uid]}');">点击查看</a></td>
+						<td><a href="javascript:void(0);" onclick="showDetail('credit','{$v[uid]}');">点击查看</a></td>
+						<td><!--{date('Y-m-d H:i:s',$v['reg_time'])}--></td>
+						<script type="text/javascript">
+							/**
+							 * @param  code 展示项
+							 * @param  uid 用户ID
+							 */
+							function showDetail(code,uid){
+								var url = "index.php?do={$do}&view=detail&u_id="+uid+'&code='+code;
+								art.dialog.open(url,
+								{
+									title:'用户详情展示',
+									width:700
+								}
+								);
+							}
+						</script>
+						<td>
+							{if $v['status']==1}
+								<a class="button" href="index.php?do=user&view=list&op=disable&edituid={$v['uid']}&page={$page}"><span class="lock icon"></span>{$_lang['disable']}</a>
+							{else} 
+								<a class="button" href="index.php?do=user&view=list&op=able&edituid={$v['uid']}&page={$page}"><span class="unlock icon"></span>{$_lang['use']}</a>
+							{/if}
+							<a class="button" href="javascript:void(0);" onclick="logus('{$v[uid]}');"><span class="pen icon"></span>登陆</a>
+ 							<a class="button" href="index.php?do=user&view=add&edituid={$v['uid']}&page={$page}"><span class="pen icon"></span>{$_lang['edit']}</a>
+ 							<!--a class="button" href="index.php?do=user&view=list&op=del&edituid={$v['uid']}" onclick="return {if $basic_config['user_intergration']>1} cdel(this,'{$_lang['open_user_integration_confirm_notice']}'); {else}cdel(this);{/if}"><span class="trash icon"></span>{$_lang['delete']}</a-->
+						</td>
+						<script type="text/javascript">
+							function logus(uid)
+							{
+								art.dialog({
+									title:'操作提示',
+									content:'您确认登陆此账号?',
+									icon: 'succeed',
+									yesFn: function(){
+										window.open("index.php?do=user&view=list&op=login&page={$page}&loguid="+uid);
+									},
+									noFn: function(){
+										this.close();return false;
+									}
+								});
+							}
+						</script>
+ 			        </tr>
+					{/loop}
+					 </tbody>
+					 <tfoot>
+			          <tr>
+			           <td colspan="14">
+						<div class="clearfix">
+			          	<input type="checkbox" id="checkbox" onclick="checkall()">
+						<label for="checkbox">{$_lang['select_all']}</label>　
+						<input type="hidden" name="sbt_action" class="sbt_action" />
+						<button type="submit" name="sbt_action" value="{$_lang['mulit_disable']}" class="pill negative" onclick="return batch_act(this,'frm_user_search');" ><span class="lock icon"></span>{$_lang['mulit_disable']}</button>
+						<button type="submit" name="sbt_action" value="{$_lang['mulit_use']}" class="pill positive" onclick="return batch_act(this,'frm_user_search');" ><span class="unlock icon"></span>{$_lang['mulit_use']}</button>
+						<!--button type="submit" name="sbt_action" value="{$_lang['mulit_delete']}" class="pill negative" onclick="return batch_act(this,'frm_user_search');" ><span class="icon trash"></span>{$_lang['mulit_delete']}</button-->
+ 
+						<button type="button" name="sbt_add"    value="{$_lang['add_new_user']}" class="positive primary pill button" onclick="document.location.href='index.php?do=user&view=add'"><span class="check icon"></span>{$_lang['add_new_user']}</button>
+ 
+					    </div>
+						
+					   </td>
+					 </tr>
+					 </tfoot>
+			        </table>
+					<div class="page">{$pages['page']}</div>
+					</div>
+			</form>
+        </div>
+	</div>
+				
+<!--{template control/admin/tpl/admin_footer}-->

@@ -1,0 +1,120 @@
+<!--{template control/admin/tpl/admin_header}-->
+<div class="page_title">
+    	<h1>文章关键字</h1>
+        <div class="tool">         
+            <a href="index.php?do={$do}&view=keyword" {if $view != 'keyword_edit'}class="here"{/if}>文章关键字管理</a>
+			<a href="index.php?do={$do}&view=keyword_edit" {if $view == 'keyword_edit'}class="here"{/if}>文章关键字添加</a>
+        </div>
+</div> 
+
+<div class="box post">
+    <div class="tabcon"></div>
+	<div class="title">
+		<h2>文章关键字{if $keyword_id}{$_lang['edit']}{else}{$_lang['add']}{/if}</h2>
+	</div>	
+	<div class="detail">
+<form method="post" action="#" id="frm_keyword_edit" enctype="multipart/form-data">
+  <input type="hidden" name="keyword_id" value="{$keyword_info['keyword_id']}">
+        <table height="200" border="0" cellspacing="0" cellpadding="0"  >
+		    <tr>
+                <th width="150" scope="row">
+                   	关键字{$_lang['zh_mh']}
+                </th>
+                <td>
+                    <input type="text" class="txt" name="word" value="{$keyword_info['word']}" maxlength="50" limit="required:true;len:1-50" msg="关键字应为1-50字节" msgArea="word_msg" class="input_t"/><b style="color:red">*</b>
+                    <span id="word_msg"></span>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                   	链接{$_lang['zh_mh']}
+                </th>
+                <td>
+                    <input type="text" class="txt" name="url" value="{$keyword_info['url']}" maxlength="100" size="50" limit="required:true;type:url;len:3-100" msg="链接长度应为3-100字节" msgArea="url_msg" class="input_t"/><b style="color:red">*</b>
+                    <span id="url_msg"></span>
+                </td>
+            </tr>	
+			 <tr>
+                <th scope="row">
+                   	 关键字状态{$_lang['zh_mh']}
+                </th>
+                <td>
+                	<input type="radio" name="keyword_status" value="1" {if !$keyword_info['keyword_status']==0 || empty($keyword_info['keyword_status'])}checked{/if}>启用
+                	<input type="radio" name="keyword_status" value="0" {if !empty($keyword_info['keyword_status']) && $keyword_info['keyword_status']==0}checked{/if}>禁用
+			    </td>
+            </tr>		
+            <tr>
+                <th scope="row">
+                    
+                </th>
+                <td>
+                	<button type="submit" name="sbt_edit" class="positive primary pill button" value="1" onclick="return checkForm(document.getElementById('frm_keyword_edit'),false)" value={$_lang['submit']}/>
+					<span class="check icon"></span>{$_lang['submit']}
+					</button>
+                    <button type="button" name="rst_edit" class="pill button" value={$_lang['return']} onclick="to_back();">
+					<span class="uparrow icon"></span>{$_lang['return']}
+					</button>
+                </td>
+            </tr>
+        </table>
+</form>
+ </div>
+ </div>
+ <script type="text/javascript"> 
+ 	function location_other_show(value,check){  //alert(check);
+		switch(value){
+			case 7: //成功案例
+			case 8: //精彩专题
+			case 11: //创意大赛
+				if(check){
+					$('#div_'+value).show(); 
+				}else{
+					$('#div_'+value).hide(); 
+				}
+			break;
+			default: 
+				//$('#div_indus').hide();
+			break;
+		}
+	}
+	
+ 	/*function location_other_show(value){
+		switch(value){
+			case 'indus': 
+				$('#div_indus').show();
+			break;
+			default: 
+				$('#div_indus').hide();
+			break;
+		}
+	}*/
+	
+ 	$(function(){
+		
+		
+		$("#showMode1").click(function(){
+			$("#mode1").show();
+			$("#mode2").hide();
+		})
+		$("#showMode2").click(function(){
+			$("#mode2").show();
+			$("#mode1").hide();
+		})
+		
+		/*
+		$("#obj_type").change(function(){
+			var val = $("#obj_type").val();
+			var lable = $('#obj_type_lable');
+			switch(val){
+				case 'shop': 
+					lable.html('商铺编号');
+				break;
+				case 'task': 
+					lable.html('任务分配编号');
+				break;
+			}
+		})
+		*/
+	})
+</script>
+<!--{template control/admin/tpl/admin_footer}-->

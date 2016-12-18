@@ -1,0 +1,47 @@
+<anychart>
+	<settings>
+		<animation enabled="True"/>
+	</settings>
+  <charts>
+    <chart plot_type="CategorizedVertical">
+    	<chart_settings>
+    		<title>
+    			<text>财务收入报表</text>
+    			<font render_as_html="true" />
+    		</title>
+    		<legend enabled="true">
+<title enabled="false" />
+<icon>
+<marker enabled="true" type="%MarkerType" size="8" />
+</icon>
+        </legend>
+    		<axes>
+    			<x_axis tickmarks_placement="Center">
+    				<title><text>月份</text></title>
+    			</x_axis>
+    			<y_axis>
+    				<title><text>金额</text></title>
+    			</y_axis>
+    		</axes>
+    		<footer enabled="true" text_align="Center">
+    			<text><![CDATA[(注:点击右键可打印、生成图片、pdf文档等)]]></text>
+    			<background enabled="False"/>
+    			<font render_as_html="True" size="10"/>
+    		</footer>
+    	</chart_settings>
+    	<data_plot_settings default_series_type="Line">
+    		<line_series>
+    			<tooltip_settings enabled="true">
+<format>
+{%SeriesName}{numDecimals:0}{%Name}{numDecimals:0}月份
+收入:{%YValue}RMB
+</format>
+    			</tooltip_settings>
+    		</line_series>
+    	</data_plot_settings>
+	    <data><series name="2011"><point name="1" y="348382.93"/><point name="2" y="78443.212"/><point name="3" y="100393.368"/><point name="4" y="79751.498"/><point name="5" y="77916.561"/><point name="6" y="72054.299"/><point name="7" y="97055.851"/><point name="8" y="183045.21"/><point name="9" y="134909.049"/><point name="10" y="178212.884"/><point name="11" y="326117.523"/><point name="12" y="583012.64"/></series></data>
+    </chart>
+  </charts>
+</anychart>
+			
+			

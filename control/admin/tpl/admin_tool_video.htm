@@ -1,0 +1,144 @@
+<!--{template control/admin/tpl/admin_header}-->
+<div class="page_title">
+    <h1>视频管理</h1>
+    <div class="tool">
+    	 <a class="here" href="index.php?do=$do&view=video">视频列表</a>
+        <a href="index.php?do={$do}&view=video_edit">视频添加</a>
+    </div>
+</div>
+    <div class="box search p_relative">
+		<div class="title"><h2>{$_lang['search']}</h2></div>
+        <div class="detail" id="detail">
+			 <form action="index.php?do={$do}&view={$view}" method="post">
+				<input type="hidden" name="page" value="$page">
+				<table cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<th>{$_lang['id']}</th>
+							<td><input type="text" value="$w[v_id]" name="w[v_id]" class="txt"/></td>
+							<th>{$_lang['title']}</th>
+							<td><input type="text" value="$w[v_title]" name="w[v_title]" class="txt"/>*{$_lang['search_by_like']}</td>
+							
+							<th>视频分类</th>
+							<td>
+								<select name="w['v_cat']" class="ps vm">
+									<option value=''>{$_lang['all']}</option>
+									{loop $video_cat $k $v}
+										<option {if $w['v_cat']==$k}selected=selected{/if}>$v</option>
+									{/loop}
+ 								
+         						 </select>
+							</td>
+						</tr>
+						<tr>
+						 
+							<th>{$_lang['result_order']}</th>
+                 			 <td>
+                    	<select name="w[ord][]">
+                           <option value="v_id" {if $w['ord']['0']=='v_id' or !isset($w['ord']['0'])} selected="selected"{/if}>{$_lang['default']}{$_lang['order']}</option>
+                           <option value="on_time" {if $w['ord']['0']=='on_time' } selected="selected"{/if}>{$_lang['up_time']}</option>
+                      </select>
+                      <select name="w[ord][]">
+                            <option {if $w['ord']['1']=='desc' or !isset($w['ord']['1'])}selected="selected" {/if} value="desc">{$_lang['desc']}</option>
+                            <option {if $w['ord']['1']=='asc'}selected="selected" {/if} value="asc">{$_lang['asc']}</option>
+                      </select>
+                 			  </td>
+            			  <th>{$_lang['list_result']}</th>
+                  		 <td colspan="3">
+                 			  <select name="w[page_size]">
+                         		  <option value="10" {if $w['page_size']=='10'}selected="selected"{/if}>{$_lang['page_size']}10</option>
+                          		  <option value="20" {if $w['page_size']=='20'}selected="selected"{/if}>{$_lang['page_size']}20</option>
+                         		  <option value="30" {if $w['page_size']=='30'}selected="selected"{/if}>{$_lang['page_size']}30</option>
+                    			  </select>
+								<button class="pill" type="submit" value={$_lang['search']} name="sbt_search">
+                            		<span class="icon magnifier">&nbsp;</span>{$_lang['search']}
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>	
+				</form>
+		</div>
+    </div>
+	
+<div class="box list">
+    	<div class="title"><h2>视频列表</h2></div>
+        <div class="detail">
+  		<form action="index.php?do={$do}&view={$view}" id='frm_list' method="post">
+  			<input type="hidden" name="page" value="{$page}">
+			<input type="hidden" name="w[page_size]" value="{$w['page_size']}">
+			<div id="ajax_dom">
+  			<table  cellpadding="0" cellspacing="0">
+  				<thead>
+  					 <tr>
+  					 <th width="15"><input type="checkbox" onclick="checkall();" id="checkbox" name="checkbox"/></th>
+                    <th width="20">
+                        ID
+                    </th>
+                    <th width="10%">
+                        视频分类
+                    </th>
+                    <th width="25%">
+                      视频标题
+                    </th>
+					<th width="30%">
+                      视频地址
+                    </th>
+                    <th width="10%">
+                      推荐
+                    </th>
+                    <th width="10%">
+                       状态
+                    </th>
+                    <th width="15%">
+                      {$_lang['operate']}
+                    </th>
+                </tr>
+				</thead>
+				<tbody>
+                {loop $video_arr $k $v}
+                <tr class="item">
+                	<td>
+                		<input type="checkbox" name="ckb[]" class="checkbox" value="{$v['v_id']}">
+                	</td>
+                    <td>
+                        {$v['v_id']}
+                    </td>
+                    <td>
+                     	{$video_cat[$v['v_cat']]}
+                    </td>
+                    <td>
+                    <a href="index.php?do={$do}&view=video_edit&v_id={$v['v_id']}" >{$v['v_title']}</a>
+                    </td>
+					 <td>
+                       {$v['v_path']}
+                    </td>
+                    <td>
+                      	{if $v['is_recommend']}<span style="color:red;">是</span>{else}否{/if}
+                    </td>
+                    <td>
+                        {if $v['v_status']}<span style="color:red;">使用中</span>{else}未使用{/if}
+                    </td>
+                    <td>
+                        <a href="index.php?do={$do}&view=video_edit&v_id={$v['v_id']}" class="button dbl_target"><span class="pen icon"></span>{$_lang['edit']}</a>
+                       <a href="index.php?do={$do}&view={$view}&ac=del&v_id={$v['v_id']}&page=$page&w['page_size']={$w['page_size']}" onclick="return cdel(this);" class="button"><span class="trash icon"></span>{$_lang['delete']}</a>
+                    </td>
+                </tr>
+				{/loop}
+				</tabody>
+				<tfoot>
+				 <tr>
+                    <td colspan="6">
+	                        <label for="checkbox">{$_lang['select_all']}</label>
+	                        <input type="hidden" name="sbt_action" class="sbt_action"/>
+	                        <!--button name="sbt_action" type="submit" value={$_lang['mulit_delete']} onclick="return batch_act(this,'frm_list');" class="pill negative" ><span class="icon trash"></span>{$_lang['mulit_delete']}</button-->
+					</td>	
+				</tr>		
+				</tfoot>
+  			</table>
+			<div class="page">{$pages['page']}</div>
+			</div>
+		</form>
+      </div>
+</div>	 
+<!--{template control/admin/tpl/admin_footer}-->

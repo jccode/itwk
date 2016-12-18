@@ -1,0 +1,35 @@
+
+
+/*__header_menu
+---------------------------------------*/
+.header_menu { background:#CC0000; height:35px; overflow:hidden; height:40px;}	
+	.header_menu .left {width:2px; font-size:1px; float:left; }
+	.header_menu .right {width:2px; font-size:1px; float:right; background-image:url(C_headermenu_end.png);}
+	.header_menu .center {margin-left:25px;width:1000px; line-height:35px; overflow:hidden;font-size:14px;font-weight:bold;margin:0 auto;}
+		.header_menu li{float:left; height:40px;}
+		.header_menu li a{ background:#DB4D4D; overflow:hidden;text-align:center;padding:0px 25px; margin-top:5px; margin-right:5px; color:#fff; display:inline-block;}
+		.header_menu li a:hover{background:#fff; color:#333; cursor:pointer; text-decoration:none;}
+			.header_menu li.current{}
+			.header_menu li.current a {color:#000; background:#fff; padding:0px 25px; margin-top:5px; text-decoration:none;}
+	.header_menu a { color:#FFF;}
+	.little_title a{font-size:12px; font-weight:normal; display:inline-block; float:left; line-height:40px; _line-height:42px; padding-right:5px;}
+	.little_title .line{border-right:1px solid #fff; height:13px; float:left; display:inline-block; line-height:15px; margin-top:14px; margin-bottom:14px; margin-right:10px; width:1px; }
+	.header_menu li.end {margin-left:10px; float:right;}
+	.header_menu a.end {margin-top:5px; display:block; padding-right:0px; text-indent:20px; background:none; }
+        
+/*__header_statistics
+--------------------------------------*/
+.header_statistics { background:#F5F5F5; height:45px; line-height:45px;border:1px solid #DFDFDF;border-top:none;}
+	.header_statistics li { float:left; background:none; margin:0px; text-indent:16px;}
+	.header_statistics li a{ color:#666666;font-size:14px;}
+	.header_statistics li a .current{color:#ff0000;font-weight:bold;}
+
+.bannerzone { width:960px; margin:0px auto;}
+    .bannerzone .item { margin:5px 0px;}
+
+/*_location__
+-----------------------------------------------------------------------------------------------------------------------------*/
+.location{height:45px;line-height:45px;color:#333333;}
+	.location .left{float:left;}
+	.location .right{float:right;padding-top:7px;}
+    

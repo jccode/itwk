@@ -1,0 +1,104 @@
+<!--{template control/admin/tpl/admin_header}-->
+<div class="page_title">
+    <h1>{if $s_id}{$_lang['edit_material']}{else}{$_lang['add_material']}{/if}</h1>
+    <div class="tool">
+        <a href="index.php?do={$do}&view=list">{$_lang['msg_list']}</a>
+        <a href="index.php?do={$do}&view={$view}&$msg_id={$msg_id}" class="here">{if $$msg_id}{$_lang['edit_material']}{else}{$_lang['add_material']}{/if}</a>
+    </div>
+</div>
+<div class="box post">
+    <div class="title">
+        <h2>{if $msg_id}{$_lang['edit_material']}{else}{$_lang['add_material']}{/if}</h2>
+    </div>
+    <div class="detail">
+        <form method="post" action="index.php?do={$do}&view={$view}&op={$op}&msg_id={$msg_id}" id="frm_art_edit" enctype="multipart/form-data">
+              <input type="hidden" name="pk[msg_id]" value="{$s_id}">
+		    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <th scope="row" width="130">
+                        {$_lang['username']}
+                    </th>
+                    <td>
+                        <input type="text" class="txt" style=" width:260px;" id="username" name="msg[username]" value="$msg_info['username']"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row" width="130">
+                        {$_lang['to_username']}
+                    </th>
+                    <td>
+                        <input type="text" class="txt" style=" width:260px;" id="to_username" name="msg[to_username]" value="$msg_info['to_username']"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row" width="130">
+                        {$_lang['msg_status']}
+                    </th>
+                    <td>
+                        <label>
+                            发布： <input type="radio" value="0" id="msg_status" name="msg[msg_status]" {if $msg_info['msg_status']==0}  checked="checked"{/if}  />
+		未发布:<input type="radio" value="1" id="msg_status" name="msg[msg_status]" {if $msg_info['msg_status']==1}  checked="checked"{/if} />
+                       </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row" width="130">
+                        {$_lang['view_status']}
+                    </th>
+                    <td>
+                        <label>
+                            已查看： <input type="radio" value="0" id="view_status" name="msg[view_status]" {if $msg_info['view_status']==0}  checked="checked"{/if} />
+		未查看: <input type="radio" value="1" id="view_status" name="msg[view_status]" {if $msg_info['view_status']==1}  checked="checked"{/if} />
+                        </label>
+                    </td>
+                </tr>
+				   <tr>
+                        <th scope="row"><span class="bg1 t_r">{$_lang['title']}</span></th>
+                        <td>
+                        <input type="text" class="txt" size='55' msgarea='msg_item_name' msg='{$_lang['prom_name_can_not_null']}' title='{$_lang['prom_name_length_limit']}' limit=
+                        "required:true;len:2-50" name="msg[title]" id="title" value="$msg_info['title']">
+                         <span id="msg_item_name"></span>
+                        </td>
+                      </tr>
+					  
+                <tr>
+                    <th scope="row">
+                       {$_lang['content']}
+                    </th>
+                    <td>
+                        <textarea rows="30" name="msg[content]" style="width:75%;" id="msg_content" class="xheditor {urlBase:'$_K['siteurl']/',tools:'simple',admin:'../../',html5Upload:false,emotMark:false,upImgUrl:'../../index.php?do=ajax&view=upload&file_type=att'}" cols="70">
+                            {$msg_info['content']}
+                        </textarea>
+                    </td>
+                </tr>
+                {if $msg_info['on_time']}
+                <tr>
+                    <th scope="row">
+                        {$_lang['on_time']}
+                    </th>
+                    <td>
+                        <!--{date('Y-m-d H:i:s',$msg_info['on_time'])}-->
+                    </td>
+                </tr>
+                {/if} 
+                <tr>
+                    <th scope="row">
+                        &nbsp;
+                    </th>
+                    <td>
+                    	
+                        <button name="sbt_edit" value="1" onclick="return checkForm(document.getElementById('sbt_edit'),false)" class="positive primary pill button" type="submit">
+                            <span class="check icon"></span>{$_lang['submit']}
+                        </button>
+                        <button class="pill button" type="button" onclick="history.go(-1);" value="{$_lang['return']}">
+                            <span class="uparrow icon"></span>{$_lang['return']}
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+</div>
+<!--主体结束-->
+<!--{template control/admin/tpl/admin_footer}-->

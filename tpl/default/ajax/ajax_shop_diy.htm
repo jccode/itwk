@@ -1,0 +1,477 @@
+<!--{template header}--> 
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/system/form_and_validation.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/system/ajaxfileupload.js"></script>
+<style type="text/css">
+	#shop_diy_slide_table td{ padding-top:5px; padding-bottom: 5px; vertical-align: middle;}
+</style>
+ <div class=" clearfix {$_K['theme']}_style">
+ <!--main content-->
+
+     {if $ac == 'logo'}
+	  <div class="clearfix winbody"> 
+	  
+	   <form action="" method="post" id="shop_diy_logo_frm" name="shop_diy_logo_frm" enctype="multipart/form-data">
+	   	<div class="pad20"> 
+	   	<div class=" pb_10"> 
+			<input type="file" class="file" id="shop_diy_logo_file" name="shop_diy_logo_file" size="30" ext=".jpg,.png,.gif,.jpeg,.bmp" >
+			<button type="button" class="button ml_5" style="padding:2px 10px" id="btn_updata" onclick="pic_logo_upload('shop_diy_logo_file');">{$_lang['upload']}</button>
+			<input type="hidden" id="fid" value="<!--{eval echo get_fid($shop_info[logo])}-->"/>
+			<input type="hidden" name="logo_pic"  value="{$shop_info[logo]}" id="logo_pic">
+		</div>
+		
+			<p>上传LOGO的文件格式是：JPG PNG GIF JPEG BMP</p>
+			<p>图片大小为：350x80PX 50K以内</p>
+			<span id="file_span"> 
+				{if $shop_info['logo']}
+				<img src="{$shop_info['logo']}" width="350" height="80" /> 
+				<a href="javascript:void(0);" class="button" title="{$_lang['delete']}" onclick="del_logo_file('{$shop_info[logo]}');">
+				{$_lang['delete']}×
+				</a>{/if}
+			</span>
+		</div>
+		 <div class="rowElem clearfix form_button">
+	         <button type="button" class="submit mr_5" value="确认提交" onclick="shop_diy_logo_submit()">
+	         	确认提交</button>
+			 <button type="button" class="button bwhite" value="{$_lang['cancel']}" onclick="hideWindow('shopdiylogo')">
+			 	{$_lang['cancel']}</button>
+				<input name="sbt_action" type="hidden" value="1" />
+	      </div>
+
+	  </form>	  
+<script type="text/javascript">
+ //提交保存
+function shop_diy_logo_submit(){
+ 	var timestamp = (new Date()).valueOf(); 
+	var data = $("#shop_diy_logo_frm").serialize();	
+	var url = "/index.php?do=ajax&view=shop_diy&ac=logo&opp=save&timestamp="+timestamp+'&' + data;
+    $.getJSON(url, function(json){
+        if (json.status == '1') {
+			showDialog("添加成功",'right',"操作提示","window.top.location.reload()"); 
+			return true;
+        }
+        else {
+		   showDialog("更改成功","right","操作提示","window.top.location.reload()"); 
+		   return false;
+        }
+    })
+}
+
+ //图片上传	  	
+function pic_logo_upload(id){
+	var o  = document.getElementById(id); 
+	if(!isExtName(o)){
+		showDialog('文件上传格式错误','right','操作提示');
+		return false;
+	}else{ 
+	var art_id = '';
+    $.ajaxFileUpload({
+        url: "/index.php?do=ajax&view=upload&file_name="+id+'&file_type=att&obj_id='+art_id,
+        fileElementId: id,
+        dataType: 'json',
+        success: function(json){ 
+            if (json.err) {
+				showDialog('文件过大上传失败','notice','操作提示');            
+            }else {
+               var hf = $("#hdn_"+id);
+               $("#logo_pic").val(json.msg.up_file+"?fid="+json.fid);
+               $("#fid").val(json.fid);
+			   $("#file_span").html("<span id=\"file_"+json.fid+"\" ><img src='"+json.msg.up_file+"' width=\"350\" height=\"80\" /> <a title=\"{$_lang['delete']}\" href=\"javascript:void(0);\" class=\"button\" onclick=\"del_logo_file('"+json.msg.up_file+"');\">{$_lang['delete']}×</a></span>");
+            }
+        },
+        error: function(json, status, e){
+            if(e){
+				showDialog(e,'notice','操作提示');
+			}
+        }
+    });
+	}
+}
+					
+//图片删除 
+function del_logo_file(file_path){
+	var value = file_path.split("?")['0'];
+	var fid = $("#fid").val();
+	 //删除附件
+	var url  = "/index.php?do=ajax&view=file&ajax=del&filepath="+value+"&fid="+fid;
+	$.post(url,function(json){
+		if(json.status==1){ 
+			 $("#file_span").children().remove();
+			 $("#logo_pic").val("");
+		}
+		
+	},'json');
+	
+	 //删除logo记录
+	var timestamp = (new Date()).valueOf(); 
+	var del_img_url = "/index.php?do=ajax&view=shop_diy&ac=logo&opp=del&timestamp="+timestamp;
+	$.getJSON(del_img_url, function(del_json){ 
+		return true;
+    })
+}	
+ </script>	
+  </div>
+  {elseif $ac == 'banner'}
+	  <div class="clearfix winbody"> 
+	  
+	   <form action="" method="post" id="shop_diy_banner_frm" name="shop_diy_banner_frm" enctype="multipart/form-data">
+	   	<div class="pad20"> 
+	   	<div class=" pb_10"> 
+			<input type="file" class="file" id="shop_diy_banner_file" name="shop_diy_banner_file" size="30" ext=".jpg,.png,.gif,.jpeg,.bmp" >
+			<button type="button" class="button ml_5" style="padding:2px 10px" id="btn_updata" onclick="pic_banner_upload('shop_diy_banner_file');">{$_lang['upload']}</button>
+			<input type="hidden" id="fid" value="<!--{eval echo get_fid($banner_img)}-->"/>
+			<input type="hidden" name="banner_pic"  value="{$banner_img}" id="banner_pic">
+		</div>
+		
+			<p>上传BANNER的文件格式是：JPG PNG GIF JPEG BMP</p>
+			<p>图片大小为：1000x200PX 50K以内</p>
+			<span id="file_span"> 
+				{if $banner_img}
+				<img src="{$banner_info['ban_1']}" width="350" height="80" /> 
+				<a href="javascript:void(0);" class="button" title="{$_lang['delete']}" onclick="del_banner_file('{$banner_img}');">
+				{$_lang['delete']}×
+				</a>{/if}
+			</span>
+		</div>
+		 <div class="rowElem clearfix form_button">
+	         <button type="button" class="submit mr_5" value="确认提交" onclick="shop_diy_banner_submit()">
+	         	确认提交</button>
+			 <button type="button" class="button bwhite" value="{$_lang['cancel']}" onclick="hideWindow('shopdiybanner')">
+			 	{$_lang['cancel']}</button>
+				<input name="sbt_action" type="hidden" value="1" />
+	      </div>
+
+	  </form>	  
+<script type="text/javascript">
+ //提交保存
+function shop_diy_banner_submit(){
+ 	var timestamp = (new Date()).valueOf(); 
+	var data = $("#shop_diy_banner_frm").serialize();	
+	var url = "/index.php?do=ajax&view=shop_diy&ac=banner&type={$type}&opp=save&timestamp="+timestamp+'&' + data;
+    $.getJSON(url, function(json){
+        if (json.status == '1') {
+			showDialog("添加成功",'right',"操作提示","window.top.location.reload()"); 
+			return true;
+        }
+        else {
+		   showDialog("添加失败","alert","操作提示"); 
+		   return false;
+        }
+    })
+}
+
+ //图片上传	  	
+function pic_banner_upload(id){
+	var o  = document.getElementById(id); 
+	if(!isExtName(o)){
+		showDialog('文件上传格式错误','right','操作提示');
+		return false;
+	}else{ 
+	var art_id = '';
+    $.ajaxFileUpload({
+        url: "/index.php?do=ajax&view=upload&file_name="+id+'&file_type=att&obj_id='+art_id,
+        fileElementId: id,
+        dataType: 'json',
+        success: function(json){ 
+            if (json.err) {
+				showDialog('文件过大上传失败','notice','操作提示');            
+            }else {
+               var hf = $("#hdn_"+id);
+               $("#banner_pic").val(json.msg.up_file+"?fid="+json.fid);
+               $("#fid").val(json.fid);
+			   $("#file_span").html("<span id=\"file_"+json.fid+"\" ><img src='"+json.msg.up_file+"' width=\"350\" height=\"80\" /> <a title=\"{$_lang['delete']}\" href=\"javascript:void(0);\" class=\"button\" onclick=\"del_banner_file('"+json.msg.up_file+"');\">{$_lang['delete']}×</a></span>");
+            }
+        },
+        error: function(json, status, e){
+            if(e){
+				showDialog(e,'notice','操作提示');
+			}
+        }
+    });
+	}
+}
+					
+//图片删除 
+function del_banner_file(file_path){
+	var value = file_path.split("?")['0'];
+	var fid = $("#fid").val();
+	 //删除附件
+	var url  = "/index.php?do=ajax&view=file&ajax=del&filepath="+value+"&fid="+fid;
+	$.post(url,function(json){
+		if(json.status==1){ 
+			 $("#file_span").children().remove();
+			 $("#banner_pic").val("");
+		}
+		
+	},'json');
+	
+	 //删除logo记录
+	var timestamp = (new Date()).valueOf(); 
+	var del_img_url = "/index.php?do=ajax&view=shop_diy&ac=banner&opp=del&type={$type}&timestamp="+timestamp;
+	$.getJSON(del_img_url, function(del_json){ 
+		return true;
+    })
+}	
+ </script>	
+  </div>
+	{elseif $ac == 'slide'}
+	<div class="clearfix winbody"> 
+	   <form action="" method="post" id="shop_diy_slide_frm" name="shop_diy_slide_frm" enctype="multipart/form-data">	  	
+	    	<div class="pad20 clearfix" id="upload_tip">
+	    	<strong>图片管理</strong>提示：最多可以添加<span class="ea5e00">5</span>张
+			 <table width="100%">
+			 <tbody id="shop_diy_slide_table">
+			 	<tr>
+			 		<td>排序</td>
+			 		<td>显示图片</td>
+					<td>链接地址</td>					
+					<td>操作</td>
+			 	</tr>	
+				<!--{eval $k = 1;}--> 
+				{if $slide_arr}	
+				{loop $slide_arr $v}						
+				<tr id="tr_{$k}" >
+					<td><input name="slide[{$k}][listorder]" type="text" size="3" style="padding:2px 5px" value="{$v[listorder]}"></td>
+					<td class="p_relative"> 
+					   <span id="up_input_span_{$k}" {if $v['s_pic']}style="display:none;"{/if}>	
+					    <input type="file" id="art_pic_{$k}" class="file" size="10" name="art_pic_{$k}" ext=".jpg,.png,.gif,.jpeg,.bmp" >		
+						<input type="button" onclick="pic_upload('art_pic_{$k}','{$k}');" class="button ml_5" style="padding:2px 10px" value="{$_lang['upload']}">
+						<input type="hidden" id="fid_{$k}" value="<!--{eval echo get_fid($v['s_pic'])}-->"/>
+	                	<input type="hidden" id="hdn_art_pic_{$k}" name="slide[{$k}][s_pic]" value="{$v['s_pic']}" >
+						<input type="hidden" id="s_id_{$k}" name="slide[{$k}][s_id]" value="{$v['s_id']}" >
+					   </span>
+						<span id="file_span_{$k}"> 
+						  {if $v['s_pic']}<img src="{$v[s_pic]}" height="50"/>{/if}
+						</span>
+	                </td>
+					<td><input name="slide[{$k}][s_url]" type="text" size="10" style="padding:2px 5px" value="{$v[s_url]}"></td>					
+					<td><button type="button" class="button ml_5" style="padding:2px 10px" onclick="del_file('{$k}',{$v['s_id']})" >删除</button></td>
+			 	 </tr> 
+				<!--{eval $k++;}--> 
+			     {/loop}				   
+				 {else}
+				 <tr id="tr_{$k}" >
+					<td><input name="slide[{$k}][listorder]" type="text" size="3" style="padding:2px 5px" value=""></td>
+					<td class="p_relative"> 
+					   <span id="up_input_span_{$k}" {if $v['s_pic']}style="display:none;"{/if}>					
+					    <input type="file" id="art_pic_{$k}" class="file" size="10" name="art_pic_{$k}" ext=".jpg,.png,.gif,.jpeg,.bmp" >
+						<button class="button ml_5" type="button" style="padding:2px 10px" onclick="pic_upload('art_pic_{$k}','{$k}');">{$_lang['upload']}</button>								
+						<input type="hidden" id="fid_{$k}" value=""/>
+	                	<input type="hidden" id="hdn_art_pic_{$k}" name="slide[{$k}][s_pic]" value="" >
+						<input type="hidden" id="s_id_{$k}" name="slide[{$k}][s_id]" value="" >
+					   </span>
+						<span id="file_span_{$k}"></span>
+	                </td>
+					<td><input name="slide[{$k}][s_url]" type="text" size="10" style="padding:2px 5px" value="http://"></td>					
+					<td><button type="button" class="button mr_5" style="padding:2px 10px" onclick="del_file('{$k}')" >删除</button></td>
+			 	 </tr> 
+				 {/if}
+				 				 		  
+			 </tbody>
+			 </table>
+			 <div class="pt_10 pb_10">
+			 <button type="button" class="button mr_5" style="padding:2px 10px" onclick="add_tr()" value="添加">添加</button>
+			</div>
+	      </div>
+	      <div class="rowElem clearfix form_button">
+	         <button type="button" class="submit mr_5" value="确认提交" onclick="shop_diy_slide_submit()">
+	         	确认提交</button>
+			 <button type="button" class="button bwhite" value="{$_lang['cancel']}" onclick="hideWindow('shopslide')">
+			 	{$_lang['cancel']}</button>
+				<input name="sbt_action" type="hidden" value="1" />
+	      </div>
+	   </form>
+<script type="text/javascript">
+In('form');
+var start_id = parseInt('{$k}');
+
+  //提交保存
+ function shop_diy_slide_submit(){
+ 	var timestamp = (new Date()).valueOf(); 
+	var data = $("#shop_diy_slide_frm").serialize();	
+	var url = "/index.php?do=ajax&view=shop_diy&ac=slide&opp=save&timestamp="+timestamp+'&' + data;
+    $.getJSON(url, function(json){
+        if (json.status == '1') {
+			showDialog("设置成功",'right',"操作提示","window.top.location.reload()"); 
+			return true;
+        }
+        else {
+		   showDialog("设置失败","alert","操作提示"); 
+		   return false;
+        }
+    })
+ }
+
+ //增加图
+function add_tr(){
+	 //判断是否超过5
+	var tab = document.getElementById("shop_diy_slide_table");
+	var rows = tab.rows.length; 
+	if(rows > 5) return false;
+	
+	start_id = start_id + 1;
+	var html='';
+	html += '<tr id="tr_'+start_id+'">';
+	html += '<td><input name="slide['+start_id+'][listorder]" style="padding:2px 5px" type="text" size="3" value=""></td>';
+	html += '<td class="p_relative">';
+	html += '<span id="up_input_span_'+start_id+'">';
+	html += '<input type="file" id="art_pic_'+start_id+'" name="art_pic_'+start_id+'" class="file" size="10" ext=".jpg,.png,.gif,.jpeg,.bmp" >';
+	html += '<button class="button ml_5" type="button" style="padding:2px 10px" onclick="pic_upload(\'art_pic_'+start_id+'\','+start_id+');" >{$_lang[upload]}</button>';
+	html += '<input type="hidden" id="fid_'+start_id+'" value=""/>';
+	html += '<input type="hidden" id="hdn_art_pic_'+start_id+'" name="slide['+start_id+'][s_pic]" value="" >';
+	html += '</span>';
+	html += '<span id="file_span_'+start_id+'"></span>';
+	html += '</td>';
+	html += '<td><input name="slide['+start_id+'][s_url]" style="padding:2px 5px" type="text" size="10" value="http://"></td>';
+	
+	html += '<td><button type="button" class="button mr_5" style="padding:2px 10px"  onclick="del_file('+start_id+')" >删除</button></td>';
+	html += '</tr>';
+	
+	$('#shop_diy_slide_table').append(html);
+}
+
+ //图片上传	  	
+function pic_upload(pic, id){ 
+	var o = document.getElementById(pic);
+	if(!isExtName(o)){  
+		showDialog('文件上传格式错误','right','操作提示');
+		return false;
+	}else{
+		var art_id = ' ';
+	    $.ajaxFileUpload({
+	        url: "/index.php?do=ajax&view=upload&file_name="+pic+'&file_type=att&obj_id='+art_id,
+	        fileElementId: pic,
+	        dataType: 'json',
+	        success: function(json){ 
+	            if (json.err) {
+					showDialog('文件过大上传失败','notice','操作提示');
+	            }else {
+	               var hf = $("#hdn_"+pic);
+	               $("#hdn_art_pic_"+id).val(json.msg.up_file+"?fid="+json.fid);
+				   $("#up_input_span_"+id).hide(); //隐藏
+	               $("#fid_"+id).val(json.fid);
+				   $("#file_span_"+id).html("<span id=\"file_"+json.fid+"\" ><img src='"+json.msg.up_file+"' height=\"50\" /></span>"); 
+	            }
+	        },
+	        error: function(json, status, e){
+	            if(e){
+					showDialog(e,'notice','操作提示');
+				}
+	        }
+	    });
+	}
+}
+						
+ //图片删除 
+function del_file(id, s_id){
+	var file_path = $("#hdn_art_pic_"+id).val();
+	var value = file_path.split("?")['0'];
+	var fid = $("#fid_"+id).val();
+	var url  = "/index.php?do=ajax&view=file&ajax=del&filepath="+value+"&fid="+fid;
+	$.post(url,function(json){ 	  
+		//if(json.status==1){
+			var timestamp = (new Date()).valueOf(); 
+			var del_img_url = "/index.php?do=ajax&view=shop_diy&ac=slide&opp=del&timestamp="+timestamp+'&s_id='+s_id;
+			 $.getJSON(del_img_url, function(del_json){ 
+				//$("#tr_" + id).children().remove();
+		    })
+		//}		
+	},'json');
+	
+	$("#tr_" + id).remove();	
+	return true;
+}
+</script>
+ </div>
+	{elseif $ac == 'self_diy'}	  
+	<div class="clearfix winbody" style="width:750px;"> 	
+	  <form action="" method="post" id="shop_diy_self_frm" name="shop_diy_self_frm">
+	   <textarea name="shop_active" id="shop_active" style="width:750px;height:300px;" class="xheditor {tools:'Cut,Copy,Paste,Pastetext,Blocktag,Fontface,FontSize,Bold,Italic,Underline,Strikethrough,FontColor,BackColor,SelectAll,Removeformat,Align,List,Outdent,Indent,Link,Unlink,Img,Flash,Hr,Table',skin:'default'}">{$shop_info['shop_active']}</textarea>
+	      <div class="rowElem clearfix form_button">
+	         <button type="button" class="button mr_5" value="确认提交" onclick="self_diy_submit()">
+	         	<span class="check icon"></span>确认提交</button>
+			 <button type="button" class="button" value="取消关闭" onclick="hideWindow('shopselfdiy')">
+			 	<span class="reload icon"></span>取消关闭</button>
+				<input name="sbt_action" type="hidden" value="1" />
+	      </div>
+	   </form>
+	 </div>
+	   <script type="text/javascript">
+	   		In('form','xheditor');
+			
+			 //ajax 获取
+			function self_diy_submit(){	
+				var data = $("#shop_diy_self_frm").serialize();	
+				var url = "/index.php?do=ajax&view=shop_diy&ac=self_diy&is_btn=1&"+data;
+
+				 $.post(url,{data:data},function(status){
+    				 if (status == '1') {			
+						showDialog('编辑成功','right',"操作提示","window.top.location.reload()");
+						return true;
+			         }
+			         else {
+						showDialog('编辑失败','alert',"操作提示");
+					    return false;
+			         }
+  				 });
+			}
+		</script>
+	{elseif $ac == 'qq'}
+	 <div class="clearfix winbody" style="width:350px;height:250px;"> 
+	   <form action="" method="post" id="shop_diy_qq_frm" name="shop_diy_qq_frm">	  	
+	    <div class="pad20 clearfix" id="upload_tip">
+	    	<strong>添加客服在线QQ</strong>提示：最多可以添加<span class="ea5e00">3</span>个
+			 <table>
+			 <tbody>
+			 	<tr>
+			 		<td width="80">编号</td>
+					<td width="90">名称</td>
+					<td>号码</td>
+			 	</tr>
+			 	<tr>
+			 		<td>QQ客服一：</td>
+					<td><input name="qq[1][name]" type="text" size="6" style="padding:2px 5px" value="{$qq[1]['name']}"></td>
+					<td><input name="qq[1][id]" type="text" size="10" style="padding:2px 5px" value="{$qq[1]['id']}"></td>
+			 	</tr>	
+				<tr>
+			 		<td>QQ客服二：</td>
+					<td><input name="qq[2][name]" type="text" size="6" style="padding:2px 5px" value="{$qq[2]['name']}"></td>
+					<td><input name="qq[2][id]" type="text" size="10" style="padding:2px 5px" value="{$qq[2]['id']}"></td>
+			 	</tr>
+				<tr>
+			 		<td>QQ客服三：</td>
+					<td><input name="qq[3][name]" type="text" size="6" style="padding:2px 5px" value="{$qq[3]['name']}"></td>
+					<td><input name="qq[3][id]" type="text" size="10" style="padding:2px 5px" value="{$qq[3]['id']}"></td>
+			 	</tr>		 				 		  
+			 </tbody>
+			 </table>
+	      </div>
+	      <div class="rowElem clearfix form_button">
+	         <button type="button" class="submit mr_5" value="确认提交" onclick="qq_diy_submit()">
+	         	确认提交</button>
+			 <button type="button" class="button bwhite" value="{$_lang['cancel']}" onclick="hideWindow('shopqq')">
+			 	{$_lang['cancel']}</button>
+	      </div>
+	   </form>
+ 	 </div>
+ <script type="text/javascript">		
+	 //ajax 获取
+	function qq_diy_submit(){	
+		var data = $("#shop_diy_qq_frm").serialize();	
+		var url = "/index.php?do=ajax&view=shop_diy&ac=qq&is_btn=1&"+data;
+		
+		 $.getJSON(url, function(json){
+	        if (json.status == '1') {
+				showDialog("设置成功",'right',"操作提示","window.top.location.reload()"); 
+				return true;
+	        }
+	        else {
+			   showDialog("设置失败","alert","操作提示"); 
+			   return false;
+	        }
+	    })
+	}
+</script>
+{/if}											
+ 
+ </div>
+<!--{template footer}-->

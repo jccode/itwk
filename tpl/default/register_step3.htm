@@ -1,0 +1,245 @@
+<!--{template header_login}-->
+<!--网站注册-->
+{if $type=='reg'}
+<div class="wrapper">
+	<div class="container_24">
+    	<section class="clearfix">
+	    		<!--step步骤 start-->	 
+				 <div class="reslease_step all_3 clearfix">
+	                <div class="step frist_step">
+	                	<div class="">
+	                	<strong>
+							1.填写用户名和密码
+						</strong> 
+						</div>                 
+	                </div>
+					<div class="step last_step">
+						<div class="selected">
+						<strong>
+							2.注册成功
+						</strong>
+						</div>                  
+	                </div>
+	            </div>
+	            <!--step步骤 end-->
+				<div class="box default mt_20">
+						<div class="inner">
+								<div class="pad20 ml_10 mr_10 register_suc">
+										<header class="box_header clearfix">
+												<div class="suc_icon fl_l">
+													<img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/style/resuc_icon.gif" alt="">
+												</div>
+												<div class="fl_l">
+													<h1 class="c333">恭喜您，会员注册成功！</h1>
+													<span class="font14 c333">您在IT帮手网的登录账号是<a href="{$_K[siteurl]}/index.php?do=user" class="ml_5 cf60"><b>{$uinfo['username']}</b></a>,请妥善保管您的账号资料，现在您可以— —</span>
+												</div>
+										</header>
+										<article class="mt_30">
+											<div class="clearfix sucafter_select">
+												<ul>
+													<li>
+														<h2>现在就发布一个任务</h2>
+														<p>IT帮手网有百万人才，您只需通过发布一个任务，就能让他们为您解决问题！</p>
+														<a href="{$_K['siteurl']}/index.php?do=help&view=list" class="block a_unline">查看雇主发布任务流程</a>
+														<div class="t_c  mt_10">
+															<button type="submit" onclick="location.href='{$_K[siteurl]}/index.php?do=release'" class="button">发布任务</button>
+														</div>
+													</li>
+													<li class="ml_30">
+														<h2>完善个人资料，开启赚钱之旅</h2>
+														<p>只要您有专业的技能，充足的时间，都可以到IT帮手网上换取真金白银！</p>
+														<span>参加任务需认证！</span>（<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=email" class="mr_5 a_unline">邮箱认证</a>
+														<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=mobile" class="a_unline">手机认证</a>）
+														<div class="t_c  mt_10">
+															<button type="submit" onclick="location.href='{$_K[siteurl]}/index.php?do=user&view=setting&op=basic'" class="button">马上完善资料</button>
+														</div>
+													</li>
+													<li class="ml_30">
+														<h2>第一次来，随便逛逛</h2>
+														<a href="{$_K['siteurl']}/index.php?do=user" class="block">前往会员中心</a>
+														<a href="portal.php" target="_blank" class="block">去IT帮手社区逛逛</a>
+														<a href="{$_K['siteurl']}/index.php?do=vip&view=desc" class="block">了解IT帮手VIP会员权限</a>
+														<div class="t_c  mt_10">
+															<button type="submit" onclick="location.href='{$_K[siteurl]}/index.php'" class="button">回到首页</button>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</article>
+								</div>
+						</div>
+				</div>
+        </section>
+        <div class="clear"></div>
+    </div>
+</div>
+{/if}
+<!--网站注册 end-->
+
+<!--邮箱注册-->
+{if $type=='email'}
+<div class="wrapper mt_20">
+	<div class="container_24">
+    	<section class="clearfix">
+	    		<!--step步骤 start-->	 
+				 <div class="reslease_step all_3 clearfix">
+	                <div class="step frist_step">
+	                	<div class="">
+	                	<strong>
+							1.填写邮箱地址和资料
+						</strong> 
+						</div>                 
+	                </div>
+					<div class="step">
+	                	<div class="">
+	                	<strong>
+							2.验证邮箱
+						</strong> 
+						</div>                 
+	                </div>
+					<div class="step last_step">
+						<div class="selected">
+						<strong>
+							3.注册成功
+						</strong>
+						</div>                  
+	                </div>
+	            </div>
+	            <!--step步骤 end-->
+				<div class="box default mt_20">
+						<div class="inner">
+								<div class="pad20 ml_10 mr_10 register_suc">
+										<header class="box_header clearfix">
+												<div class="suc_icon fl_l">
+													<img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/style/resuc_icon.gif" alt="">
+												</div>
+												<div class="fl_l">
+													<h1 class="c333">恭喜您，会员注册成功！</h1>
+													<span class="font14 c333">您在IT帮手网的登录账号是<a href="javascript:void(0);" class="ml_5 cf60"><b>{$uinfo['username']}</b></a>或者<a href="javascript:void(0);" class="ml_5 cf60"><b>{$uinfo['email']}</b></a>,请妥善保管您的账号资料，现在您可以— —</span>
+												</div>
+										</header>
+										<article class="mt_30">
+											<div class="clearfix sucafter_select">
+												<ul>
+													<li>
+														<h2>现在就发布一个任务</h2>
+														<p>IT帮手网有百万人才，您只需通过发布一个任务，就能让他们为您解决问题！</p>
+														<a href="{$_K['siteurl']}/index.php?do=help&view=list" class="block a_unline">查看雇主发布任务流程</a>
+														<div class="t_c  mt_10">
+															<button type="submit" class="button">发布任务</button>
+														</div>
+													</li>
+													<li class="ml_30">
+														<h2>完善个人资料，开启赚钱之旅</h2>
+														<p>只要您有专业的技能，充足的时间，都可以到IT帮手网上换取真金白银！</p>
+														<span>参加任务需认证！</span>（<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=mobile" class="a_unline">手机认证</a>）
+														<div class="t_c  mt_10">
+															<button type="submit" onclick="location.href='{$_K[siteurl]}/index.php?do=user&view=setting&op=basic'" class="button">马上完善资料</button>
+														</div>
+													</li>
+													<li class="ml_30">
+														<h2>第一次来，随便逛逛</h2>
+														<a href="{$_K['siteurl']}/index.php?do=user" class="block">前往会员中心</a>
+														<a href="portal.php" class="block">去IT帮手社区逛逛</a>
+														<a href="{$_K['siteurl']}/index.php?do=vip&view=desc" class="block">了解IT帮手VIP会员权限</a>
+														<div class="t_c  mt_10">
+															<button type="submit" onclick="location.href='{$_K[siteurl]}/index.php'" class="button">回到首页</button>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</article>
+								</div>
+						</div>
+				</div>
+        </section>
+        <div class="clear"></div>
+    </div>
+</div>
+{/if}
+<!--邮箱注册 end-->
+
+<!--手机注册-->
+{if $type=='mobile'}
+<div class="wrapper mt_20">
+	<div class="container_24">
+    	<section class="clearfix">
+	    		<!--step步骤 start-->	 
+				 <div class="reslease_step all_3 clearfix">
+	                <div class="step frist_step">
+	                	<div class="">
+	                	<strong>
+							1.填写手机号和资料
+						</strong> 
+						</div>                 
+	                </div>
+					<div class="step">
+						<div class="">
+						<strong>
+							2.接收并填写验证码
+						</strong>
+						</div>                  
+	                </div>
+					<div class="step last_step">
+						<div class="selected">
+						<strong>
+							3.注册成功
+						</strong>
+						</div>                  
+	                </div>
+	            </div>
+	            <!--step步骤 end-->
+				<div class="box default mt_20">
+						<div class="inner">
+								<div class="pad20 ml_10 mr_10 register_suc">
+										<header class="box_header clearfix">
+												<div class="suc_icon fl_l">
+													<img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/style/resuc_icon.gif" alt="">
+												</div>
+												<div class="fl_l">
+													<h1 class="c333">恭喜您，会员注册成功！</h1>
+													<span class="font14 c333">您在IT帮手网的登录账号是<a href="javascript:void(0);" class="ml_5 cf60"><b>{$uinfo['username']}</b></a>或者<a href="javascript:void(0);" class="ml_5 cf60"><b>{$uinfo['mobile']}</b></a>,请妥善保管您的账号资料，现在您可以— —</span>
+												</div>
+										</header>
+										<article class="mt_30">
+											<div class="clearfix sucafter_select">
+												<ul>
+													<li>
+														<h2>现在就发布一个任务</h2>
+														<p>IT帮手网有百万人才，您只需通过发布一个任务，就能让他们为您解决问题！</p>
+														<a href="{$_K['siteurl']}/index.php?do=help&view=list" class="block a_unline">查看雇主发布任务流程</a>
+														<div class="t_c  mt_10">
+															<button type="submit" class="button">发布任务</button>
+														</div>
+													</li>
+													<li class="ml_30">
+														<h2>完善个人资料，开启赚钱之旅</h2>
+														<p>只要您有专业的技能，充足的时间，都可以到IT帮手网上换取真金白银！</p>
+														<span>参加任务需认证！</span>（<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=email" class="mr_5 a_unline">邮箱认证</a>）
+														<div class="t_c  mt_10">
+															<button type="submit" onclick="location.href='{$_K[siteurl]}/index.php?do=user&view=setting&op=basic'" class="button">马上完善资料</button>
+														</div>
+													</li>
+													<li class="ml_30">
+														<h2>第一次来，随便逛逛</h2>
+														<a href="{$_K['siteurl']}/index.php?do=user" class="block">前往会员中心</a>
+														<a href="portal.php" class="block">去IT帮手社区逛逛</a>
+														<a href="{$_K['siteurl']}/index.php?do=vip&view=desc" class="block">了解IT帮手VIP会员权限</a>
+														<div class="t_c  mt_10">
+															<button type="submit" onclick="location.href='{$_K[siteurl]}/index.php'" class="button">回到首页</button>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</article>
+								</div>
+						</div>
+				</div>
+        </section>
+        <div class="clear"></div>
+    </div>
+</div>
+{/if}
+<!--手机注册-->
+
+<!--{template footer}-->

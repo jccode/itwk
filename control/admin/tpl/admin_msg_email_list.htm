@@ -1,0 +1,143 @@
+<!--{template control/admin/tpl/admin_header}-->
+<div class="page_title">
+    	<h1>邮件发送记录</h1>
+        <!-- <div class="tool">         
+            <a href="index.php?do={$do}&view=list" {if $type == ''}class="here"{/if}>{$_lang['msg_list']}</a>
+		  <a href="index.php?do=$do&view=edit" {if $view=='edit'}class="here"{/if} {if $view=='edit'}class="here" {/if}>{$_lang['add_material']}</a>
+        </div> -->
+</div> 
+
+<div class="box search p_relative">
+    <div class="title">
+        <h2>{$_lang['search']}</h2>
+    </div>
+    <div class="detail" id="detail">
+        <form method="post" action="index.php?do={$do}&view={$view}" id="frm_art_search">
+        <input type="hidden" name="page" value="{$page}">
+        <table cellspacing="0" cellpadding="0">
+         <tbody>
+           <tr>
+             <th>
+          	{$_lang['id']}
+             </th>
+              <td>
+                <input type="text" size='10' class="txt" name="w[messageid]" value="{$w['messageid']}" onkeyup="clearstr(this);">
+              </td>
+               <th>
+                 {$_lang['title']}
+              </th>
+                <td>
+                  <input type="text" size="20" class="txt" name='w[title]' value="{$w['title']}">
+                </td>
+				 <th>
+               		 邮箱号码
+              </th>
+                <td>
+                  <input type="text" size="20" class="txt" name='w[targetno]' value="{$w['targetno']}">
+                </td>
+            </tr>
+             <tr>
+             	<th>
+                       	   记录时间
+                 </th>
+                  <td>
+                      <input type="text" name="w[start_intime]" class="txt" value="{$w[start_intime]}" size="12" onclick="showcalendar(event, this, 0)"> - <input type="text" name="w[end_intime]" value="{$w[end_intime]}" class="txt" size="12" onclick="showcalendar(event, this, 0)">
+                   </td>
+				   <th>
+                     	     发送时间
+                 </th>
+                  <td>
+                  	<input type="text" name="w[start_outtime]" class="txt" value="{$w[start_outtime]}" size="12" onclick="showcalendar(event, this, 0)"> - <input type="text" name="w[end_outtime]" value="{$w[end_outtime]}" class="txt" size="12" onclick="showcalendar(event, this, 0)">
+                   </td>
+             	<th>
+                     	状态
+                 </th>
+                  <td>
+                     <select name="w[sendflag]">
+                     <option {if $w['sendflag']}selected="selected"{/if} value="">全部</option>       
+                       <option {if $w['sendflag']==1}selected="selected"{/if} value="1">已发送</option>
+                       <option {if $w['sendflag']==0}selected="selected"{/if} value="0">未发送</option>                    
+                      </select>
+                   </td>
+				</tr>
+				<tr>
+             	<th>
+                     {$_lang['result_order']}
+                 </th>
+                  <td>
+                     <select name="w[ord][]">
+                        <option value="messageid" {if $w[ord][0] == 'messageid'}selected="selected"{/if}>{$_lang['id']}</option>
+                        <option value="intime" {if $w[ord][0] == 'intime'}selected="selected"{/if}>{$_lang['time']}</option>
+                        </select>
+                        <select name="w[ord][]">
+                        <option selected="selected" value="desc" {if $w[ord][1] == 'desc'}selected="selected"{/if}>{$_lang['desc']}</option>
+                        <option value="asc" {if $w[ord][1] == 'asc'}selected="selected"{/if}>{$_lang['asc']}</option>
+                        </select>
+                   </td>
+              <th>
+                {$_lang['list_result']}
+               </th>
+                   <td>
+                     <select name="w[page_size]">
+                          <option value="10" {if $w['page_size']=='10'}selected="selected"{/if}>{$_lang['page_size']}10</option>
+                          <option value="20" {if $w['page_size']=='20'}selected="selected"{/if}>{$_lang['page_size']}20</option>
+                          <option value="30" {if $w['page_size']=='30'}selected="selected"{/if}>{$_lang['page_size']}30</option>
+                     </select>
+                    <button class="pill" type="submit" value="{$_lang['search']}" name="sbt_search"><span class="icon magnifier">&nbsp;</span>{$_lang['search']}</button>
+                 </td>
+                 
+             </tr>
+          </tbody>
+        </table>　
+     </form>
+   </div>
+</div>
+<div class="box post" id="div_cont_1" style="display:{if $op=='reg'||!$op}block{else}none{/if}">
+<div class="title"><h2>{$_lang['msg_tag_list']}</h2></div>
+<div class="detail">
+	<form method="post" action="" id="">
+        <input type="hidden" name="page" value="{$page}">
+		<input type="hidden" name="w[page_size]" value="{$page_size}">
+		  	<table cellpadding="0" cellspacing="0">
+               <tbody>
+                <tr>
+                    <th width="80">ID</th>
+                    <th style="width:120px;">邮箱号码</th>
+					<th>标题</th>
+					 <th>内容</th> 
+					<th width="100">状态</th>
+					<th width="50">次数</th>
+					<th width="150">时间</th>
+                    <!-- <th>{$_lang['operate']}</th> -->
+                </tr>
+                {loop $messqueue_arr $v}
+                <tr class="item">
+                    <td>
+                    	<input type="checkbox"  class="checkbox" name="ckb[]" id="ckb" value="{$v['msg_id']}">{$v['messageid']}
+					</td>
+					<td class="td28">{$v['targetno']}</td>
+                    <td>{$v['title']}</td>
+					<!--{eval $v['contents'] = strip_tags($v['contents']); }-->					
+					<td title="{$v['contents']}"><!--{eval echo kekezu::cutstr($v['contents'],50)}-->...</td>	
+					<td>{if $v['sendflag']}已发送{else}未发送{/if}</td>
+					<td>{if $v['sendcount']}{$v['sendcount']}{else}0{/if}</td>                 
+					<td><!--{date('Y-m-d H:i:s',$v['intime'])}--></td>
+                </tr>
+                {/loop}
+              <tbody>	  
+			</table>
+			<div class="page fl_right">{$pages['page']}</div>
+                    <div class="clearfix">
+                         <!--   <input type="checkbox" id="checkbox" onclick="checkall();" class="checkbox" >
+							<label for="checkbox">{$_lang['select_all']}</label>　
+							<input type="hidden" name="sbt_action" value="{$_lang['mulit_delete']}" />
+							<button type="submit" name="sbt_action" value="{$_lang['mulit_delete']}" class="pill negative" onclick="return pdel('reg_prom')"/><span class="cross icon"></span>{$_lang['mulit_delete']}</button>&nbsp;&nbsp;&nbsp;
+							<button type="button" name="sbt_add" value="{$_lang['add_material']}" class="primary pill positive"  onclick="location.href='index.php?do={$do}&view=edit&op={$op}'" /><span class="icon plus"></span>{$_lang['add_material']}</button>
+						-->
+				   </div>
+			</form>
+		  </div>
+	 </div>			
+</div>
+</form>
+ <!--{template control/admin/tpl/admin_footer}-->

@@ -1,0 +1,169 @@
+<!--{template header}-->
+<!--{template header_nav_lottery}-->
+<link href="{$_K['siteurl']}/resource/js/jqplugins/countdown/jquery.countdown.css" rel="stylesheet"/>
+<header class="clearfix page_header">
+    <div class="container_24">
+        <!--页面导航-->
+        <div class="breadcrumbs clearfix">
+            你的位置：<a href="{$_K['siteurl']}/index.php">IT帮手网首页</a>
+            <span class="font_simsun">&gt;</span>
+            <a href="{$_K['siteurl']}/index.php?do=help">公开摇奖</a>
+            <span class="font_simsun">&gt;</span>
+            <a href="{$_K['siteurl']}/index.php?do=task&task_id=$task_id">第{$task_id} 号项目</a>
+        </div>
+        <!--end 页面导航-->
+    </div>
+</header>
+
+<section class="clearfix content">
+    <div class="container_24">
+    
+		
+    	<div class="lottery_detail">
+	    	<div class="box_header">
+	    		<div class="num">$task_id</div>
+				<h1 class="title"><strong>￥{$lottery_config[real_cash]}元</strong> $task_info[task_title] </h1>
+				<div id="time" class="time"></div>
+				<div class="status">摇奖原因：<em>{$lottery_config[lottery_reason]}</em>，摇奖结束后将产生  <em>$lottery_config[main_count]</em> 名中奖者</div>
+				<div class="start">
+				<a href="javascript:;" onclick="join_lottery()">开始摇奖</a>
+				</div>
+	    	</div>
+			<div class="box_detail">
+				<div class="lottery_info clearfix">
+					<div class="win_list">
+						<h2 class="title">已有 <!--{eval echo count($join_list)}--> 人参与</h2>
+						<div id="ticker" class="w_list">
+							<ul>
+								{loop $join_list $k $v}
+								{if $k&&$k%5==0}
+							</ul>
+							<ul>
+								{/if}
+								<li>$v[username] <span>摇奖号码：</span> $v[l_number] {if $task_info[task_status]!=4&&$k<$lottery_config[main_count]}<span style="color:red">中奖</span>{/if}</li>
+								{/loop}
+							</ul>
+						</div>
+					</div>
+					
+					<div class="rule_info">
+						<dl>
+						{if $my_lottery_info}<dt class="title">您的摇奖号码：<span>$my_lottery_info[l_number]</span></dt>{/if}
+						<dt class="title">摇奖规则：</dt>
+						<dd>
+							<ul>
+								<li><strong>参加资格：</strong>凡是任务项提交有效稿件的威客，都有摇奖资格</li>
+								<li><strong>参与方式：</strong>提交有效稿件的威客可收到通知后参加摇奖（直接进入页面点击摇奖即可）</li>
+								<li><strong>中奖公布：</strong>摇奖结束后，进入摇奖公示期3天</li>
+								<li><strong>奖金发放：</strong>公示期3天后，验收任务，威客即可得到赏金</li>
+								<li><strong>特别提示：</strong>
+									<ol>
+										<li>凡是错过摇奖机会的威客，责任自行承担。</li>
+										<li>最终解释权归IT帮手网</li>
+									</ol>
+								</li>
+							</ul>
+						</dd>
+						<dt class="title">赏金分配规则：<span>（IT帮手网不抽取任何费用）</span></dt>
+						<dd class="big">
+							<ul>
+								<li><span>{$task_config['lottery_main_rate']}%</span>为中奖者平分</li>
+								<li><span>{$task_config['lottery_other_rate']}%</span>为非中奖平分</li>
+								<li><span><!--{eval echo 100-$task_config['lottery_main_rate']-$task_config['lottery_other_rate']}-->%</span>为推广专项资金</li>
+							</ul>
+						</dd>
+						</dl>
+						
+						
+					</div>
+				</div>
+			</div>
+			<div class="box_footer">
+				----- 本摇奖活动最终解释权归IT帮手网所有 -----
+			</div>
+		</div>
+    </div>
+</section>
+
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/countdown/jquery.countdown.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/countdown/jquery.countdown-zh-CN.js"></script>
+<script type="text/javascript">
+	var ts = "{$task_info['task_status']}";
+	$(function() {
+	if (ts==4){
+	  $('#time').countdown({until: new Date(<!--{date('Y',$task_info['exec_time'])}-->,
+	  					    <!--{date('m',$task_info['exec_time'])}--> - 1,
+							 <!--{date('d',$task_info['exec_time'])}-->,
+							  <!--{date('H',$task_info['exec_time'])}-->,
+							  <!--{date('i',$task_info['exec_time'])}-->,
+							  <!--{date('s',$task_info['exec_time'])}-->),
+							  expiryText:'已过期' });
+	}else{
+	  $('#time').html('<span class="countdown_section"><b>&nbsp;&nbsp;&nbsp;摇奖已结束</b></span>');
+	}
+	//cache the ticker
+	var ticker = $("#ticker");
+	 var tl    = ticker.children().filter("li").length;
+	//wrap dt:dd pairs in divs
+	ticker.children().filter("li").each(function() {
+	  
+	  var dt = $(this),
+	    container = $("<ul>");
+	  
+	  dt.prependTo(container);
+	  
+	  container.appendTo(ticker);
+	});
+			
+	//hide the scrollbar
+	ticker.css("overflow", "hidden");
+	
+	//animator function
+	function animator(currentItem) {
+	    
+	  //work out new anim duration
+	  var distance = currentItem.height();
+		duration = (distance + parseInt(currentItem.css("marginTop"))) / 0.015;
+
+	  //animate the first child of the ticker
+	  currentItem.animate({ marginTop: -distance }, duration, "linear", function() {
+	    
+		//move current item to the bottom
+		currentItem.appendTo(currentItem.parent()).css("marginTop", 0);
+
+		//recurse
+		animator(currentItem.parent().children(":first"));
+	  }); 
+	};
+	
+	//start the ticker
+	tl>0?animator(ticker.children(":first")):'';
+	//set mouseenter
+	ticker.mouseenter(function() {
+	  
+	  //stop current animation
+	  ticker.children().stop();
+	  
+	});
+	
+	//set mouseleave
+	ticker.mouseleave(function() {
+	  
+      //resume animation
+	  animator(ticker.children(":first"));
+	  
+	});
+  });
+  
+  function join_lottery(){
+  	$.get("{$_K['siteurl']}/index.php?do=lottery&view=info&task_id=$task_id&op=join",function(json){
+		if(json.status==1){
+			showDialog('您的摇奖号码是'+json.data.l_number, "right", '摇奖成功',"location.href='{$_K[siteurl]}/index.php?do=lottery&view=info&task_id=$task_id'");
+		}
+		else{
+			showDialog(json.msg, 'alert', '操作失败提示', '', 0);
+		}
+	},'json');
+  }
+</script>
+<!--{template footer}-->

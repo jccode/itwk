@@ -1,0 +1,161 @@
+<!--{template header}--><!--{template header_nav_match}-->
+<div class="wrapper clearfix">
+	<div class="container_24">
+        <header class="clearfix page_header">
+            <div class="container_24">
+                <!--页面导航-->
+                <div class="heidtile clearfix">
+                    <span>你的位置：</span>
+                    <span><a href="$_K['siteurl']/index.php">IT帮手网首页</a>&nbsp;&gt;&nbsp;</span>
+                    <span><a href="$_K['siteurl']/index.php?do=match">创意大赛</a>&nbsp;&gt;&nbsp;</span>
+                    <h1><a href="$_K['siteurl']/index.php?do=match&view=case">案例展示</a></h1>
+                </div>
+                <!--end 页面导航-->
+            </div>
+        </header>
+		<!--banner start-->
+		<div class="banner">
+			<div id="slides">
+				<div class="slides_container">
+					<!--{ad_show(MATCH_TOP_BANNER,1)}-->
+				</div>
+			</div>
+		</div>
+		<!--banner end-->
+		<div class="mt_10 clearfix">
+			<div class="match_l_con">
+				<div class="top_title pl_10 pr_10">
+					<div class="pic_title fl_l">宣传海报缩略图</div>
+					<div class="descrip fl_l pl_20">项目名称 / 金额 / 参赛情况</div>
+				</div>
+				<div class="detail mt_10 clearfix">
+					<ul class="clearfix">
+						{loop $art_arr $v}
+						<li class="pad10 clearfix">
+							<div class="pic_title fl_l"><img src="{if $v['art_pic']}{$v['art_pic']}{else}{$_K['siteurl']}/resource/img/system/nopic200.jpg{/if}" width="250" height="130"></div>
+							<div class="descrip fl_l pl_30">
+								<ul class="amount clearfix">
+									<li><a href="{$_K['siteurl']}/index.php?do=task&task_id=$v['task_id']" alt="$v['task_title']"><!--{eval echo kekezu::cutstr($v['task_title'],36)}--></a></li>
+									<li class=""><span class="money">{if $v['task_cash_coverage']} 
+															{$cash_cove_arr[$v['task_cash_coverage']]['cove_desc']} 
+														    {else}
+															￥ {$v['task_cash']} 元
+														     {/if} </span>
+															　 参赛人数：$v[wiki_num]　 参赛作品：$v[work_num]</li>
+								<li class="ws_break" style="width:390px;">
+									<!--{eval echo kekezu::cutstr($v['content'],180)}-->...
+								</li>
+								</ul>
+							</div>
+						</li>
+						{/loop}
+					
+					</ul>
+					<div class="page_count fl_r clearfix mar10">
+							{$pages['page']}
+						</div>
+				</div>
+			</div>
+			<!-- 右边部分start -->
+			<div class="match_r_con clearfix">
+				<div class="contest_rule_more clearfix mb_10">
+						<div class="contest_rule clearfix">
+							<ul class="clearfix">
+								<li class="contest_pic fl_l"><img src="$_K['siteurl']/tpl/default/theme/simple/img/style/contest_rule_pic.gif"></li>
+								<li class="fl_l c069">创意大赛是IT帮手网针对品牌客户、高端任务和重金任务，推出的专属全额悬赏任务服务。</li>
+							</ul>
+						</div>
+						<div class="contacts_ways clearfix">
+							<ul class="clearfix">
+								<li class="pt_10">全国免长途电话</li>
+								<li class="c000 number">4006-999-467</li>
+								<li class="pb_10">咨询QQ:4006-999-467</li>
+							</ul>
+						</div>
+				</div>
+				<div class="box default  release_needs clearfix mt_10">
+					<div class="inner">
+						<div class="top_box t_c pad10 clearfix">
+							<h1>高端、品牌、重金任务</h1>
+							<button class="big positive" type="submit" onclick="window.open('{$_K['siteurl']}/index.php?do=release');">+发布大赛任务</button>
+						</div>
+						<div class="bottom_box clearfix">
+							<a href="$_K['siteurl']/index.php" target="_blank">
+								<div class="t_c">
+									<img src="$_K['siteurl']/tpl/default/theme/simple/img/style/pages_1.gif" width="48" height="48" alt="">
+								</div>
+								<span>广告位置推广</span>
+							</a>
+							<a href="$_K['siteurl']/index.php?do=help&view=service" target="_blank" class="n_rb" style="padding:5px 29px; *padding:5px 29px 4px;">
+								<div class="t_c">
+									<img src="$_K['siteurl']/tpl/default/theme/simple/img/style/pages_2.gif" width="48" height="48" alt="">
+								</div>
+								<span>百万邮件群发</span>
+							</a>
+							<a href="$_K['siteurl']/index.php" target="_blank">
+								<div class="t_c">
+									<img src="$_K['siteurl']/tpl/default/theme/simple/img/style/pages_3.gif" width="48" height="48" alt="">
+								</div>
+								<span>新闻网站宣传</span>
+							</a>
+							<a href="$_K['siteurl']/index.php?do=help&view=service" target="_blank" class="n_rb" style="padding:5px 29px; *padding:5px 29px 5px;">
+								<div class="t_c">
+									<img src="$_K['siteurl']/tpl/default/theme/simple/img/style/pages_4.gif" width="48" height="48" alt="">
+								</div>
+								<span>任务全程跟踪</span>
+							</a>
+							<a href="http://e.weibo.com/epweikecom" rel="nofollow" class="n_mb" target="_blank">
+								<div class="t_c">
+									<img src="$_K['siteurl']/tpl/default/theme/simple/img/style/pages_5.gif" width="48" height="48" alt="">
+								</div>
+								<span>大赛专题制作</span>
+							</a>
+							<a href="http://e.weibo.com/yipinweike" class="n_mb n_rb" style="padding:6px 23px; *padding:5px 20px 4px;" target="_blank">
+								<div class="t_c">
+									<img src="$_K['siteurl']/tpl/default/theme/simple/img/style/pages_6.gif" width="48" height="48" alt="">
+								</div>
+								<span>微博群主传播</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 右边部分end -->
+		</div>
+	</div>
+</div>
+<!--{template footer}-->
+<script type="text/javascript" src="$_K['siteurl']/resource/js/jqplugins/adshow.js"></script>
+<script type="text/javascript" src="$_K['siteurl']/resource/js/jqplugins/jcarousel/jquery.jcarousel.js"></script>
+<script type="text/javascript" src="$_K['siteurl']/resource/js/jqplugins/jcarousel/jquery.jcarousel.autoscroll.js"></script>
+<script type="text/javascript" src="$_K['siteurl']/resource/js/jqplugins/jcarousel/jquery.jcarousel.pagination.js"></script>
+<script type="text/javascript" src="$_K['siteurl']/resource/js/jqplugins/slides.min.jquery.js"></script>
+<script type="text/javascript">
+	$('#jcarousel,#jcarousel2').jcarousel({
+    wrap: 'circular',
+	 animation: 200
+}).jcarouselAutoscroll({
+   interval:  3000
+});
+$('.jcarousel-pagination').jcarouselPagination({
+   perpage: 1
+});	
+	//幻灯
+	$('#slides').slides({
+		  preload: true,
+		  preloadImage: SITEURL+'/resource/img/system/loading.gif',
+		  play: 5000,
+		  pause: 2500,
+		  hoverPause: true,
+		  animationStart: function(){
+				$('.caption').fadeOut();
+			},
+			animationComplete: function(current){
+				$('.caption').fadeIn();
+				if (window.console && console.log) {
+					// example return of current slide number
+					console.log(current);
+				};
+			}
+	});
+</script>

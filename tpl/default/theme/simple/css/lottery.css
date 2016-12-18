@@ -1,0 +1,46 @@
+@CHARSET "UTF-8";
+/* --------首页 -------------*/
+/* 导航 */
+.simple_style .lottery_nav{background:#660000;}
+	.simple_style .lottery_nav li a{background:#944D4D;}
+	
+/* 页面 */
+.simple_style, .simple_style .content{background:#efefef; border:none; }
+.simple_style .content{padding-top:20px;}
+	.drawing_rule{width:610px; float:left; background:url(../img/lottery/rule_shadow_bottom.gif) bottom center no-repeat; height:310px;}
+		.rule_content{background:#930; font-size:14px; color:#ffffcc; height:300px;}
+				.rule_content li{line-height:28px; height:28px;}
+			.rule_content .rule_shadow_right{position:absolute; top:10px; right:-15px;}
+	.task_lottery{width:364px; float:right;}
+	.lottery_content h1{font-size:30px; color:#333; font-weight:bold; font-family:"微软雅黑"; height:30px; line-height:30px;}
+	.lottery_content .content_detail{ width: 1020px;}
+	.lottery_content .content_detail li{background:url(../img/lottery/lottery_task_shadow.gif) bottom center no-repeat; height:238px; width:320px; float:left; margin-right:20px; margin-top:15px;}
+		.lottery_content .content_detail li .lottery_descrip{background:#fff; border:1px solid #dfdfdf; height:210px;}
+			.lottery_content .content_detail li .lottery_descrip a{ font-family:"宋体"; font-weight:bold;}
+
+/* 详细 */			
+	.lottery_detail{ background:#D60F04;}
+	.lottery_detail .box_header{ font-size:14px; position:relative; z-index:1; border:none; background:url(../img/lottery/lottery_info_top.jpg) no-repeat; width:410px; height:316px; padding:130px 530px 0 60px}
+	.lottery_detail .box_header .num{  font:bolder 24px/30px "Hiragino Sans GB", "Microsoft Yahei","微软雅黑", sans-serif; color:#fff; padding-left:160px; text-align:center; width:105px; overflow:hidden; white-space:nowrap;}
+	.lottery_detail .box_header .title{ font-size:14px; color:#fff; padding-top:15px; width:410px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+	.lottery_detail .box_header .title strong{ color:#fc0}
+	.lottery_detail .box_header .status{color:#fff;}
+	.lottery_detail .box_header .status em{ font-style:normal;color:#fc0}
+	.lottery_detail .box_header .time{ padding:55px 0 15px;  width:400px; height:50px; overflow:hidden; white-space:nowrap; font-weight:bolder;}
+	.lottery_detail .box_header .start{ position:absolute; z-index:1; width:180px; height:180px; top:125px; right:153px;}
+	.lottery_detail .box_header .start a{ display:block;width:180px; height:180px; border-radius:90px; overflow: hidden; text-indent:-999em;}
+	.lottery_detail .box_header .start a:hover{ background:rgba(255,255,255,.1);}
+	.lottery_detail .box_detail{ padding:0 25px; margin:0; background:url(../img/lottery/lottery_info_middle.jpg) center bottom repeat-x; }
+	.lottery_detail .lottery_info{ background:#EAEAEA; padding:0 20px; }
+	.lottery_detail .box_footer{ text-align:center; padding:60px 0 0; color:#ccc; background:url(../img/lottery/lottery_info_bottom.jpg) no-repeat; width:1000px; height:51px;}
+	.win_list{ background:#600; width:330px; height:450px; overflow:hidden; display:inline; float:left; margin-right:20px;}
+		.win_list .title{ color:#fff;  background:#300; padding:15px 20px; font:bold 25px/30px Arial, Helvetica, sans-serif}
+		.win_list .w_list{ padding:20px; color:#fff; font: 14px/25px sans-serif}
+		.win_list .w_list span{ color:#f90;}
+		.win_list .w_list li{ white-space:nowrap; width:290px; overflow:hidden; text-overflow:ellipsis;}
+	.rule_info{ display:inline; float:left; width:540px; height:450px; padding-left:20px; background:url(../img/lottery/lottery_line.jpg) left bottom no-repeat;}	
+	.rule_info .title{ font:bolder 24px/30px "Hiragino Sans GB", "Microsoft Yahei","微软雅黑", sans-serif; color:#600}
+		.rule_info .title span{ font-size:20px; color:#333;}
+		.rule_info dd{ padding:20px 0px; font-size:14px; color:#333}
+		.rule_info dd.big{font:bolder 24px/35px "Hiragino Sans GB", "Microsoft Yahei","微软雅黑", sans-serif;}
+			.rule_info dd.big span{ color:#c00}

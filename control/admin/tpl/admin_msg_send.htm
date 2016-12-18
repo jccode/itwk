@@ -1,0 +1,206 @@
+<!--{template control/admin/tpl/admin_header}-->
+<div class="page_title">
+    	<h1>{$_lang['interface_config_manage']}</h1>
+         <div class="tool">       
+		   <a href="index.php?do=$do&view=config&op=config" >{$_lang['change_account']}</a>
+		   <a href="index.php?do=$do&view=send" {if $view=='send'}class="here"{/if}>{$_lang['send_sms']}</a>
+         </div>
+</div>
+
+<div class="box post">
+   <div class="tabcon">
+      <div class="title"><h2>{$_lang['send_sms']}</h2></div>
+         <div class="detail">
+         	<form name="frm" id="frm" action="index.php?do=$do&view=$view&ac=send" method="post">
+           	  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+              	 <th scope="row" width="130">{$_lang['select_user_group']}{$_lang['zh_mh']}</th>
+				<td>
+					<select name="slt_type" id="slt_type" onchange="search(this.value)">
+						<option value="vip">VIP用户</option> 
+						<option value="normal">全站用户</option>  <!-- $_lang['comm_user'] -->
+						<option value="specify">{$_lang['named_user']}</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+              	 <th scope="row" width="130">发送模板{$_lang['zh_mh']}</th>
+				<td>
+					<select id="msg_config" name="msg_config">
+						<option value="">选择发送模板</option>
+					  {loop $msg_config_arr $k $v}
+						<option value="{$v['k']}">{$v['desc']}</option>
+					  {/loop}
+					</select>
+				</td>
+			</tr>
+			<tr>
+              	 <th scope="row" width="130">发送方式{$_lang['zh_mh']}</th>
+				<td>	
+					<input type="checkbox" id="send_box_sms" name="send_type[sms]" value="1" onclick="send_type('sms');" checked/>站内短信						
+					<input type="checkbox" id="send_box_email" name="send_type[email]" value="1" onclick="send_type('email');"/>电子邮件
+					<input type="checkbox" id="send_box_mobile" name="send_type[mobile]" value="1" onclick="send_type('mobile');"/>手机短信
+				</td>
+			</tr>
+			
+			<tbody id="specify" style="display:none">
+				 <tr>
+				 	<th scope="row" width="130">{$_lang['find_user']}{$_lang['zh_mh']}</th>
+						<td>
+							<input type="text" name="txt_u" id="txt_u" class="txt">
+							<select name="u_type" id="u_type">
+								<option value="uid">{$_lang['user']}ID</option>
+								<option value="username">{$_lang['username']}*</option>
+							</select>
+							<button class="positive primary  button" type="button" id='ser_user_phone' value="{$_lang['click_and_find']}"><span class="magnifier icon"></span>{$_lang['click_and_find']}</button>
+                        </td>
+				</tr>
+				<tr id="mobile_number" style="display:none">
+						<th scope="row" width="130">{$_lang['mobile']}{$_lang['zh_mh']}</th>
+                        <td>
+                        	<textarea cols="80" rows="5" name="txt_tel" id="txt_tel"></textarea>
+							 <div class="padt10 direct">
+                            <p>{$_lang['separated_by_commas']}133123456,144123456</p>
+                        </div>
+                       </td>
+                </tr>
+				<tr id="email_number" style="display:none">
+						<th scope="row" width="130">电子邮件{$_lang['zh_mh']}</th>
+                        <td>
+                        	<textarea cols="80" rows="5" name="txt_email" id="txt_email"></textarea>
+							 <div class="padt10 direct">
+                            <p>如需添加邮箱，请用逗号分隔。如：admin@itbangshou.com,122796621@qq.com</p>
+                        </div>
+                       </td>
+                </tr>				
+			</tbody>			
+			<tbody>
+			<tr>
+				<th scope="row" width="130">发送标题{$_lang['zh_mh']}</th>
+              <td>
+                   <input id="send_title" name="send_title" type="text" value="" class="txt" style="width:280px;"/>
+			 	<br><span>  </span>
+			  </td>
+           </tr>
+		   </tbody>
+			<tbody id="sms_send">
+			<tr>
+				<th scope="row" width="130">站内信息{$_lang['zh_mh']}</th>
+              <td>
+                  <textarea cols="80" rows="5" name="sms_content" id="sms_content"></textarea>
+			  </td>
+           </tr>
+		   </tbody>
+			<tbody id="email_send" style="display:none;">
+			<tr>
+				<th scope="row" width="130">邮件内容{$_lang['zh_mh']}</th>
+              <td>
+                  <textarea cols="80" rows="5" name="email_content" id="email_content"></textarea>
+			  </td>
+           </tr>
+		    </tbody>
+			<tbody id="mobile_send" style="display:none;">
+			<tr>
+				<th scope="row" width="130">{$_lang['sms_content']}{$_lang['zh_mh']}</th>
+              <td>
+                  <textarea cols="80" rows="5" name="mobile_content" id="mobile_content"></textarea>
+			 	<br><span>{$_lang['tips_about_send_sms']}</span>
+			  </td>
+           </tr>
+		   </tbody>
+		    <tr>
+				<th scope="row">&nbsp;</th>
+				<td>
+					<div class="clearfix padt10">
+                		 <button class="positive primary pill button" type="submit" id="sbt_edit" name='sbt_edit' value="{$_lang['send_sms']}"><span class="check icon"></span>发送</button>
+                		  <button class="pill button" type="button" onclick="history.go(-1);" value="{$_lang['return']}"><span class="uparrow icon"></span>{$_lang['return']}</button>
+        			</div>
+				</td>
+			</tr>
+		</form>
+				</table>
+			   </div>
+			</div>
+		</div>
+<div id="msg_arr" style="display:none;">
+{loop $msg_tpl_arr $v}
+<textarea id="{$v[tpl_code]}title">{$msg_config_arr[$v[tpl_code]][desc]}</textarea>
+<textarea id="{$v[tpl_code]}{$v[send_type]}">{$v[content]}</textarea>
+{/loop}
+</div>
+<script type="text/javascript">	
+	 //发送方式
+	function send_type(check_box){
+		obj_box = document.getElementById('send_box_'+check_box);
+	
+		if(obj_box.checked == true) {
+			$('#'+check_box+'_number').show();
+			$('#'+check_box+'_send').show();
+		}else{
+			$('#'+check_box+'_number').hide();
+			$('#'+check_box+'_send').hide();
+		}
+	}
+	
+	function search(type){
+		if(type=='specify'){
+			$("#specify").show();
+			$("#ser_user_phone").click(function(){
+				var txt_u=$("#txt_u").val();
+				  var u_type=$("#u_type").val();
+				 if(!txt_u){
+					art.dialog.alert("{$_lang['first_enter_username_or_ids']}");return false;
+				}else{
+					$.post("index.php?do=$do&view=$view&ac=ser",
+						{u:txt_u,type:u_type},function(json){
+						if(json.status==1){ 
+							$("#txt_tel").val(json.data.mobile);
+							$("#txt_email").val(json.data.email);
+						}else if(json.status==2){
+							art.dialog.alert(json.msg);return false; 
+						}else if(json.status==3){
+							art.dialog.alert(json.msg);return false; 
+						}
+					},'json')
+			 	 }
+			})
+		}else{
+			$("#specify").hide();
+		}
+	}
+	$(function(){
+		$("#sbt_edit").click(function(){
+			//var mobile_html=$("#mobile_content").val(); //tar_content
+			//var email_html=$("#email_html").val(); 
+			//var sms_html=$("#sms_html").val(); 
+			/*if(shtml.length<2){
+				art.dialog.alert("{$_lang['at_least_two_words']}");return false;
+			}else{
+				$("#frm").submit();
+			}*/
+			$("#frm").submit();
+		})
+		
+		$("#msg_config").change(function(){ 
+		//	var msg_tpl_arr = new Array();
+		/* loop $msg_tpl_arr $v
+			msg_tpl_arr['{$v[tpl_code]}title'] = '{$msg_config_arr[$v[tpl_code]][desc]}';
+			msg_tpl_arr['{$v[tpl_code]}{$v[send_type]}'] = '{$v[content]}';
+		/loop */
+		
+			var tpl_code = $('#msg_config').val();
+			if(tpl_code){ 
+				$('#send_title').val($('#'+tpl_code+'title').val()); //发送标题
+				$('#sms_content').val($('#'+tpl_code+'1').val());    //站内短信
+				$('#mobile_content').val($('#'+tpl_code+'2').val()); //手机短信		
+				$('#email_content').val($('#'+tpl_code+'3').val());  //电子邮件
+			}else{
+				$('#send_title').val(' ');     //发送标题
+				$('#sms_content').val(' ');    //站内短信
+				$('#mobile_content').val(' '); //手机短信		
+				$('#email_content').val(' ');  //电子邮件
+			}
+		})
+	})
+</script>
+<!--{template control/admin/tpl/admin_footer}-->

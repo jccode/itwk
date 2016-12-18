@@ -1,0 +1,103 @@
+<!--{template control/admin/tpl/admin_header}-->
+<div class="page_title">
+    <h1>个性域名管理</h1>
+    <div class="tool">
+    	<a class="here" href="index.php?do=$do&view=domain">个性域名列表</a>		
+    </div>
+</div>
+	
+<div class="box list">
+    	<div class="title"><h2>域名列表</h2></div>
+        <div class="detail">
+  		<form action="index.php?do={$do}&view={$view}" id='frm_list' method="post">
+  			<input type="hidden" name="page" value="{$page}">
+			<input type="hidden" name="w[page_size]" value="{$w['page_size']}">
+			<div id="ajax_dom">
+  			<table  cellpadding="0" cellspacing="0">
+  				<thead>
+  					 <tr>
+  					 <th width="15">
+  					 	<input type="checkbox" onclick="checkall();" id="checkbox" name="checkbox"/>
+					</th>
+					<th>
+                    	 域名
+                    </th>
+                    <th>
+                  		店铺id
+                    </th>
+					<th>
+                  		用户
+                    </th>
+					<th>
+                     	 审核状态
+                    </th>
+                    <th>
+                      	申请时间
+                    </th>
+                    <th width="150">
+                      	操作
+                    </th>
+                </tr>
+				</thead>
+				<tbody>
+                {loop $domain_arr $k $v}
+                <tr class="item">
+                	<td>
+                		<input type="checkbox" name="ckb[]" class="checkbox" value="{$v['d_id']}">
+                	</td>
+                    <td>
+                        {if $v['d_type']==1}
+							<a href="http://{$v['d_key']}.itbangshou.com/" target="_blank">http://{$v['d_key']}.itbangshou.com/</a>
+						{elseif $v['d_type']==2}
+							<a href="http://{$v['d_key']}/" target="_blank">http://{$v['d_key']}/</a>
+						{else}
+							<a href="/{$v['d_key']}/" target="_blank">/{$v['d_key']}/</a>
+						{/if}
+                    </td>
+                    <td>
+                    <a href="{$_K[siteurl]}/index.php?do=shop&sid={$v['shop_id']}" target="_blank">{$v['shop_id']}</a>
+                    </td>
+					<td>
+                       {$v['username']}
+                    </td>
+					<td>
+						{if $v['d_status']==1}
+							<span style="color:green">通过</span>
+						{elseif $v['d_status']==-1}
+							<span style="color:gray">拒绝审核</span>
+						{else}
+							<span style="color:red">待审核</span>
+						{/if}
+					</td>
+                    <td>
+                      	<!--{date('Y-m-d h:i:s',$v['on_time'])}-->
+                    </td>
+                    <td>	
+					  {if $v['d_status'] == 0}	
+						<a class="button" href="index.php?do={$do}&view={$view}&ac=accept&d_id={$v['d_id']}"><span class="unlock icon"></span>通过</a>
+					    <a class="button" href="index.php?do={$do}&view={$view}&ac=deny&d_id={$v['d_id']}"><span class="lock icon"></span>拒绝审核</a>				
+					  {/if}
+						<a href="index.php?do={$do}&view={$view}&ac=delete&d_id={$v['d_id']}" onclick="return confirm('确定要删除?')" class="button dbl_target"><span class="pen icon"></span>删除</a>
+                      </td>
+                </tr>
+				{/loop}
+				</tbody>
+				<tfoot>
+				 <tr>
+                    <td colspan="6">
+	                       	注:审核通过只是链接生效，只会自动更换店铺链接，所以请确认链接生效之后再点审核。<br>
+							在审核之前，请先生成最新的配置文件  。 <button name="sbt_action" type="button" value="点此生成" onclick="location.href='index.php?do=shop&shop&view=domain&ac=config'" class="pill negative" ><span class="icon trash"></span>点此生成</button--></button><br>
+							然后将web目录下的domain.conf拷贝到规则目录，二级域名需要在域名管理中另外绑定
+					</td>	
+				</tr>		
+				</tfoot>
+  			</table>
+			<div class="page">{$pages['page']}</div>
+			</div>
+		</form>
+      </div>
+</div>
+ 
+	 
+<!--{template control/admin/tpl/admin_footer}-->
+

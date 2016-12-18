@@ -1,0 +1,217 @@
+<!--{template header}--><!--{template new_head_nav}-->
+<link rel="stylesheet" href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/task.css">
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/task.css" rel="stylesheet">
+ <div class="wrapper light_green">
+	 <!--页面头部-->
+	 <header class="clearfix page_header">
+	  <div class="container_24"> 
+	   <!--页面导航-->
+	    <div class="clearfix">
+	    	<span>你的位置：</span>
+	    	<span><a href="{$_K['siteurl']}/index.php">IT帮手网{$_lang['home']}</a>&nbsp;&gt;&nbsp;</span>
+			<h1><a href="{$_K['siteurl']}/index.php?do=task_list">全部任务</a>&nbsp;&gt;&nbsp;
+			<a href="{$_K['siteurl']}/index.php?do=indus">所有分类</a></h1>
+		</div>
+	   <!--end 页面导航-->  
+	 </div>
+	</header> 
+	 <!--end 页面头部-->
+	 <section class="content light_green  clearfix">
+		<div class="container_24 clearfix">
+			<div class="box default all_kinds_title clearfix mt_20">
+				<div class="inner clearfix">
+					<header class="box_header border_n clearfix">
+						<h2>IT帮手网能够为您做些什么？</h2>
+					</header>
+				</div>
+			</div>
+			<div class="clearfix box default kinds_item po_re">
+				<header class="po_ab">
+					<a>设计类</a>
+				</header>
+				<article class="clearfix">
+					<ul class="clearfix category_list">
+						<li class="category_width clearfix">
+							<div class="item clearfix">
+								<h2 class="clearfix"><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=63">维护</a></h2>
+								{loop $indus_c_arr $k $v}
+								{if $v['indus_pid']==63}
+								<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v['indus_id']">{$v['indus_name']}</a>
+								{/if}
+								{/loop}
+							</div>
+						</li>
+						<li class="category_width clearfix">
+							<div class="item clearfix">
+								<h2 class="clearfix"><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=64">开发</a></h2>
+								{loop $indus_c_arr $k $v}
+								{if $v['indus_pid']==64}
+								<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v['indus_id']">{$v['indus_name']}</a>
+								{/if}
+								{/loop}
+							</div>
+						</li>
+						<li class="category_width clearfix">
+							<div class="item clearfix">
+								<h2 class="clearfix"><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=99">照片处理</a></h2>
+									{loop $indus_c_arr $k $v}
+								{if $v['indus_pid']==99}
+								<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v['indus_id']">{$v['indus_name']}</a>
+								{/if}
+								{/loop}
+							</div>
+						</li>
+						<li class="category_width clearfix">
+							<div class="item clearfix">
+								<h2 class="clearfix"><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=69">多媒体设计</a></h2>
+									{loop $indus_c_arr $k $v}
+								{if $v['indus_pid']==69}
+								<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v['indus_id']">{$v['indus_name']}</a>
+								{/if}
+								{/loop}
+							</div>
+						</li>
+						<li class="category_width clearfix">
+							<div class="item clearfix">
+								<h2 class="clearfix"><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=66">推广设计</a></h2>
+										{loop $indus_c_arr $k $v}
+								{if $v['indus_pid']==66}
+								<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v['indus_id']">{$v['indus_name']}</a>
+								{/if}
+								{/loop}
+							</div>
+						</li>
+					</ul>
+				</article>
+			</div>
+			<div class="clearfix box default kinds_item po_re">
+				<header class="po_ab">
+					<a>营销推广类</a>
+				</header>
+				<article class="clearfix">
+					<ul class="clearfix category_list">
+						<li class="category_width clearfix">
+							<div class="item clearfix">
+								<h2  class="clearfix"><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=68">营销推广</a></h2>
+								{loop $indus_c_arr $k $v}
+								{if $v['indus_pid']==68}
+								<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v['indus_id']">{$v['indus_name']}</a>
+								{/if}
+								{/loop}
+							</div>
+						</li>
+						<li class="category_width clearfix">
+							<div class="item clearfix">
+								<h2 class="clearfix"><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=67">网店装修推广</a></h2>
+								{loop $indus_c_arr $k $v}
+								{if $v['indus_pid']==67}
+								<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v['indus_id']">{$v['indus_name']}</a>
+								{/if}
+								{/loop}
+							</div>
+						</li>
+						<li class="category_width clearfix">
+							<div class="item clearfix">
+								<h2 class="clearfix"><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=119">微博营销</a></h2>
+								{loop $indus_c_arr $k $v}
+								{if $v['indus_pid']==119}
+								<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v['indus_id']">{$v['indus_name']}</a>
+								{/if}
+								{/loop}
+							</div>
+						</li>
+					</ul>
+				</article>
+			</div>
+			<div class="clearfix box default kinds_item po_re">
+				<header class="po_ab">
+					<a>开发类</a>
+				</header>
+				<article class="clearfix">
+					<ul class="clearfix category_list">
+						<li class="category_width clearfix">
+							<div class="item clearfix">
+								<h2 class="clearfix"><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=60">测试</a></h2>
+								{loop $indus_c_arr $k $v}
+								{if $v['indus_pid']==60}
+								<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v['indus_id']">{$v['indus_name']}</a>
+								{/if}
+								{/loop}
+							</div>
+						</li>
+						<li class="category_width clearfix">
+							<div class="item clearfix">
+								<h2 class="clearfix"><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=71">租赁</a></h2>
+								{loop $indus_c_arr $k $v}
+								{if $v['indus_pid']==71}
+								<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v['indus_id']">{$v['indus_name']}</a>
+								{/if}
+								{/loop}
+							</div>
+						</li>
+						<li class="category_width clearfix">
+							<div class="item clearfix">
+								<h2 class="clearfix"><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=101">网游服务</a></h2>
+								{loop $indus_c_arr $k $v}
+								{if $v['indus_pid']==101}
+								<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v['indus_id']">{$v['indus_name']}</a>
+								{/if}
+								{/loop}
+							</div>
+						</li>
+					</ul>
+				</article>
+			</div>
+			<div class="clearfix box default kinds_item po_re">
+				<header class="po_ab">
+					<a>文案写作类</a>
+				</header>
+				<article class="clearfix">
+					<ul class="clearfix category_list">
+						<li class="category_width clearfix">
+							<div class="item clearfix">
+								<h2 class="clearfix"><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=61">起名取名</a></h2>
+								{loop $indus_c_arr $k $v}
+								{if $v['indus_pid']==61}
+								<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v['indus_id']">{$v['indus_name']}</a>
+								{/if}
+								{/loop}
+							</div>
+						</li>
+						<li class="category_width clearfix">
+							<div class="item clearfix">
+								<h2 class="clearfix"><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=59">文案写作</a></h2>
+								{loop $indus_c_arr $k $v}
+								{if $v['indus_pid']==59}
+								<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v['indus_id']">{$v['indus_name']}</a>
+								{/if}
+								{/loop}
+							</div>
+						</li>
+						<li class="category_width clearfix">
+							<div class="item clearfix">
+								<h2 class="clearfix"><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=104">创意祝福</a></h2>
+								{loop $indus_c_arr $k $v}
+								{if $v['indus_pid']==104}
+								<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v['indus_id']">{$v['indus_name']}</a>
+								{/if}
+								{/loop}
+							</div>
+						</li>
+						<li class="category_width clearfix">
+							<div class="item clearfix">
+								<h2 class="clearfix"><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=103">智慧风暴</a></h2>
+								{loop $indus_c_arr $k $v}
+								{if $v['indus_pid']==103}
+								<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v['indus_id']">{$v['indus_name']}</a>
+								{/if}
+								{/loop}
+							</div>
+						</li>
+					</ul>
+				</article>
+			</div>
+		</div>
+	</section>
+	<!--{template footer}-->	
+</div>

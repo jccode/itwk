@@ -1,0 +1,129 @@
+<!--{template control/admin/tpl/admin_header}-->
+ 
+<div class="page_title">
+    	<h1>{$_lang['shop_comment']}</h1>
+</div>
+<div class="box search p_relative">
+    	<div class="title"><h2>{$_lang['search']}</h2></div>
+        <div class="detail" id="detail">
+			<form action="#" method="get" id="frm_list">
+        	<input type="hidden" name="do"   value="$do">
+			<input type="hidden" name="view" value="$view">
+			<input type="hidden" name="type" value="$type">
+			<input type="hidden" name="page" value="$page">
+			<table cellspacing="0" cellpadding="0" border="0">
+			 <tbody>
+			 	<tr>
+			 		<th>{$_lang['comment_id']}</th>
+					<td><input type="text" class="txt" name="w[comment_id]" value="$w[comment_id]" onkeyup="clearstr(this);"></td>
+					<th>{$_lang['shop_name']}</th>
+					<td><input type="text" class="txt" name='w[shop_name]' value="{$w[shop_name]}" onkeyup="clearspecial(this);">{$_lang['like_select_query']}</td>
+					<th>{$_lang['limit_result']}</th>
+					<td>
+						<select name="w[page_size]">
+						<option value="10" {if $w[page_size] == '10'}selected="selected"{/if}>{$_lang['page_size_10']}</option>
+						<option value="20" {if $w[page_size] == '20'}selected="selected"{/if}>{$_lang['page_size_20']}</option>
+						<option value="30" {if $w[page_size] == '30'}selected="selected"{/if}>{$_lang['page_size_30']}</option>
+						</select>
+				   </td>
+			 	</tr>
+				<tr>
+					<th>{$_lang['username']}</th>
+					<td><input type="text" class="txt" name='w[username]' value="{$w[username]}" onkeyup="clearspecial(this);"></td>
+					<th>{$_lang['content']}</th>
+					<td><input type="text" class="txt" name='w[content]' value="{$w[content]}" onkeyup="clearspecial(this);">{$_lang['like_select_query']}</td>
+					<th>{$_lang['order']}</th>
+					<td>
+						<select name="w[ord][]">
+                        <option value="comment_id" {if $w[ord][0] == 'comment_id'}selected="selected"{/if}>{$_lang['comment_default_order']}</option>
+                        <option value="on_time" {if $w[ord][0] == 'on_time'}selected="selected"{/if}>{$_lang['time']}</option>
+                        </select>
+                        <select name="w[ord][]">
+                        <option selected="selected" value="desc" {if $w[ord][1] == 'desc'}selected="selected"{/if}>{$_lang['desc']}</option>
+                        <option value="asc" {if $w[ord][1] == 'asc'}selected="selected"{/if}>{$_lang['asc']}</option>
+                        </select>
+						<button type="submit" name="sbt_search" value="{$_lang['search']}" class="pill">
+						<span class="icon magnifier">&nbsp;</span>{$_lang['search']}</button>
+					</td>
+				</tr>				 
+			 </tbody>
+			</table>
+			</form>
+        </div>
+	 </div>
+
+
+ <div class="box list">
+			 
+	  	  	<div class="title"><h2>{$_lang['show_comment_manage']}</h2></div>
+        	<div class="detail">
+        		<form name="frm" id="frm" method="post" action="index.php?do=$do&view=$view">
+        			<div id="ajax_dom">
+        				<input type="hidden" name="page" value="{$page}">
+          		<table width="100%" border="0" cellspacing="0" cellpadding="0" >
+                <tr>
+                	<th width="30">
+                		<input type="checkbox" id="checkbox" onclick="checkall();">
+                	</th>
+                    <th width="100">
+                        {$_lang['comment_id']}
+                    </th>
+                    <th width="150">
+                        {$_lang['shop_name']}
+                    </th>
+                    <th class="motif"> 
+                        {$_lang['content']}
+                    </th>
+                    <th width="200">
+                        {$_lang['username']} 
+                    </th>
+                    <th width="150">
+                      {$_lang['on_time']}
+                    </th>
+					<th width="80">
+                      {$_lang['operation']}
+                    </th>
+                </tr><!--{eval //print_r($comment_arr);}-->
+                {loop $comment_arr $key $value}
+                <tr class="item">
+                	<td >
+                        <input type="checkbox" name="ckb[]" class="checkbox" value="{$value['comment_id']}">
+                    </td>
+                    <td >
+                        {$value['comment_id']}
+                    </td>
+                    <td >
+                        <a href="../../index.php?do=shop&sid={$value['shop_id']}" target="_blank">{$value['shop_name']}</a>
+                    </td>
+                    <td >
+                        {$value['content']}
+                    </td>
+                    <td>
+                    	{$value['username']}
+                    </td>
+                    <td>
+                    	<!--{date('Y-m-d H:i',$value['on_time'])}-->
+                    </td>
+					<td>
+                        <a href="$url&ac=del&comment_id={$value['comment_id']}" onclick="return cdel(this);" class="button dbl_target">
+                         <span class="trash icon"></span>{$_lang['delete']}</a>						 
+                    </td>
+                </tr>
+				{/loop}
+                <tr>
+                    <td colspan="6" >                    	
+                        <label for="checkbox">{$_lang['select_all']}</label>							
+							<input type="hidden" name="sbt_action" class="sbt_action"/>　
+							<button type="submit" name="sbt_del" class="negative pill button" value="{$_lang['mulit_delete']}" onclick="return batch_act(this,'frm')" >
+								<span class="trash icon"></span>{$_lang['mulit_delete']}</button> 
+                            </td>
+                        </tr>
+                        </table>
+						  <div class="page">
+                            {$pages['page']}
+                          </div>
+						</div>
+				</form>
+			</div>
+</div>
+ <!--{template control/admin/tpl/admin_footer}-->

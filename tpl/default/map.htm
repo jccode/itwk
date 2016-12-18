@@ -1,0 +1,274 @@
+<!--{template header_map}-->
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/map.css" rel="stylesheet">
+ <div class="wrapper">
+	 <!--页面头部-->
+	 <header class="clearfix page_header">
+	  <div class="container_24"> 
+	   <!--页面导航-->
+	    <div class="breadcrumbs clearfix">
+	    	你的位置：
+	    	<a href="{$_K['siteurl']}/index.php">IT帮手网{$_lang['home']}</a>
+			<span class="font_simsun">></span>
+			<a href="{$_K['siteurl']}/index.php?do=map">网站地图</a>
+		</div>
+	   <!--end 页面导航-->  
+	 </div>
+	</header> 
+	 <!--end 页面头部-->
+</div>
+<section class="content clearfix">
+	<div class="container_24 clearfix">
+		<div class="map_lcon fl_l clearfix">
+			<div class="box default clearfix">
+				<div class="inner clearfix pad10">
+					<span class="map_licon ep_index "></span>
+					<div class="map_ltitle fl_l">
+						<p><a href="{$_K['siteurl']}/index.php">IT帮手首页</a></p>
+						<p class="c999">创意服务交易平台</p>
+					</div>
+				</div>
+			</div>
+			<div class="box default clearfix mt_10">
+				<div class="inner clearfix pad10">
+					<span class="map_licon task_list "></span>
+					<div class="map_ltitle fl_l">
+						<p><a href="{$_K['siteurl']}/index.php?do=task_list">全部任务</a></p>
+						<p class="c999">有技能 换真金白银</p>
+					</div>
+				</div>
+			</div>
+			<div class="box default clearfix mt_10">
+				<div class="inner clearfix pad10">
+					<span class="map_licon hire "></span>
+					<div class="map_ltitle fl_l">
+						<p><a href="{$_K['siteurl']}/index.php?do=hire">直接雇佣频道</a></p>
+						<p class="c999">一对一服务</p>
+					</div>
+				</div>
+			</div>
+			<div class="box default clearfix mt_10">
+				<div class="inner clearfix pad10">
+					<span class="map_licon service "></span>
+					<div class="map_ltitle fl_l">
+						<p><a href="{$_K['siteurl']}/index.php?do=service">劳务大厅</a></p>
+						<p class="c999">有时间 换真金白银</p>
+					</div>
+				</div>
+			</div>
+			<div class="box default clearfix mt_10">
+				<div class="inner clearfix pad10">
+					<span class="map_licon talent "></span>
+					<div class="map_ltitle fl_l">
+						<p><a href="{$_K['siteurl']}/index.php?do=talent">人才大厅</a></p>
+						<p class="c999">IT帮手百万人才宝库</p>
+					</div>
+				</div>
+			</div>
+			<div class="box default clearfix mt_10">
+				<div class="inner clearfix pad10">
+					<span class="map_licon promotion "></span>
+					<div class="map_ltitle fl_l">
+						<p><a href="{$_K['siteurl']}/index.php?do=prom">推广员频道</a></p>
+						<p class="c999">推广也能赚钱</p>
+					</div>
+				</div>
+			</div>
+			<div class="box default clearfix mt_10 po_re">
+				<img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/style/vip_privilege.gif" class="po_ab">
+				<div class="inner clearfix pad10">
+					<span class="map_licon no_img"></span>
+					<div class="map_ltitle fl_l">
+						<p><a href="{$_K['siteurl']}/index.php?do=vip">VIP专区</a></p>
+						<p class="c999">升级VIP，独享特权</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="map_rcon fl_r clearfix">
+			<div class="box default clearfix pad20 pt_15">
+				<div class="inner">
+					<div class="map_rlist clearfix border_n">
+						<ul>
+							<li class="clearfix">
+								<span class="map_ricon b_mem"></span>
+								<div class="fl_l">
+									<h2>成为会员</h2>
+									<p class="clearfix">
+										<a href="{$_K['siteurl']}/index.php?do=register">快速注册</a>
+										<a href="{$_K['siteurl']}/index.php?do=register&type=email">邮箱注册</a>
+										<a href="{$_K['siteurl']}/index.php?do=register&type=mobile">手机注册</a>
+										<a href="{$_K['siteurl']}/index.php?do=protocol&pro_id=219">注册协议</a>
+									</p>
+								</div>
+							</li>
+							<li class="clearfix r_li">
+								<span class="map_ricon a_man"></span>
+								<div class="fl_l">
+									<h2>账号管理</h2>
+									<p class="clearfix">
+										<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=basic">基本信息</a>
+										<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=safe&opp=sec_code#userCenter">账号安全</a>
+										<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth">账号认证</a>
+										<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=account_bind">账号绑定</a>
+										<a href="{$_K['siteurl']}/index.php?do=user&view=message">消息管理</a>
+									</p>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="map_rlist clearfix">
+						<ul>
+							<li class="clearfix">
+								<span class="map_ricon i_emp"></span>
+								<div class="fl_l">
+									<h2>我是雇主</h2>
+									<p class="clearfix">
+										<a href="{$_K['siteurl']}/index.php?do=release">发布任务</a>
+										<a href="{$_K['siteurl']}/index.php?do=user&view=employer&op=task">任务管理</a>
+										<a href="{$_K['siteurl']}/index.php?do=user&view=employer&op=invoice">发票管理</a>
+										<a href="{$_K['siteurl']}/index.php?do=user&view=employer&op=credit">信用评价</a>
+									</p>
+								</div>
+							</li>
+							<li class="clearfix r_li">
+								<span class="map_ricon i_wit"></span>
+								<div class="fl_l">
+									<h2>我是威客</h2>
+									<p class="clearfix">
+										<a href="{if $user_info['shop_id']}{$_K['siteurl']}/index.php?do=shop&sid={$user_info['shop_id']}{else}javascript:;{/if}">我的商铺</a>
+										<a href="{$_K['siteurl']}/index.php?do=user&view=witkey&op=task">任务管理</a>
+										<a href="{$_K['siteurl']}/index.php?do=user&view=witkey&op=credit">能力评价</a>
+										<a href="{$_K['siteurl']}/index.php?do=user&view=space" rel="nofollow">商铺管理</a>
+										<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=prom">推广赚钱</a>
+									</p>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="map_rlist clearfix">
+						<ul>
+							<li class="clearfix">
+								<span class="map_ricon t_pat"></span>
+								<div class="fl_l">
+									<h2>交易模式</h2>
+									<p class="clearfix">
+										<a href="{$_K['siteurl']}/index.php?do=task_list&m=2&m=1">悬赏任务（单人）</a>
+										<a href="{$_K['siteurl']}/index.php?do=task_list&m=1&m=2">悬赏任务（多人）</a>
+										<a href="{$_K['siteurl']}/index.php?do=task_list&m=3&m=4">招标任务</a>
+										<a href="{$_K['siteurl']}/index.php?do=task_list&m=2&m=3">计件任务</a>
+										<a href="{$_K['siteurl']}/index.php?do=task_list&m=4&m=5">直接雇佣</a>
+									</p>
+								</div>
+							</li>
+							<li class="clearfix r_li">
+								<span class="map_ricon h_cen"></span>
+								<div class="fl_l">
+									<h2>帮助中心</h2>
+									<p class="clearfix">
+										<a href="{$_K['siteurl']}/index.php?do=help&view=list">问题解答</a>
+										<a href="{$_K['siteurl']}/index.php?do=help&view=self">自助服务</a>
+										<a href="forum-54-1.html">IT帮手投诉台</a>
+										<a href="{$_K['siteurl']}/index.php?do=review" rel="nofollow">一句话点评</a>
+										<a href="{$_K['siteurl']}/index.php?do=help&view=service">在线意见/建议</a>
+									</p>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="map_rlist clearfix">
+						<ul>
+							<li class="clearfix">
+								<span class="map_ricon a_ser"></span>
+								<div class="fl_l">
+									<h2>增值服务</h2>
+									<p class="clearfix">
+										<a href="/pu/weibofw/index.asp">微博代运营</a>
+										<a href="/PU/pinpaiguwen/">品牌顾问服务</a>
+									</p>
+								</div>
+							</li>
+							<li class="clearfix r_li">
+								<span class="map_ricon e_city"></span>
+								<div class="fl_l">
+									<h2>IT帮手社区</h2>
+									<p class="clearfix">
+										<a href="forum.php?gid=36">官方盟</a>
+										<a href="forum.php?gid=77">设计盟</a>
+										<a href="forum.php?gid=132">策划盟</a>
+										<a href="forum.php?gid=170">程序盟</a>
+										<a href="forum.php?gid=191">分享盟</a>
+										<a href="forum-68-1.html">活动专区</a>
+										<a href="forum-236-1.html">灌水高手</a>
+									</p>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="map_rlist clearfix">
+						<ul>
+							<li class="clearfix">
+								<span class="map_ricon f_col"></span>
+								<div class="fl_l">
+									<h2>特色专栏</h2>
+									<p class="clearfix">
+										<a href="{$_K['siteurl']}/index.php?do=special&view=case_list">成功案例</a>
+										<a href="{$_K['siteurl']}/index.php?do=special&view=special_list">精彩专题</a>
+										<a href="{$_K['siteurl']}/index.php?do=special&view=employer_list">成功雇主</a>
+										<a href="{$_K['siteurl']}/index.php?do=special&view=witkey_list">优秀威客</a>
+										<a href="{$_K['siteurl']}/index.php?do=special&view=video_list">特色视频</a>
+									</p>
+								</div>
+							</li>
+							<li class="clearfix r_li">
+								<span class="map_ricon n_new"></span>
+								<div class="fl_l">
+									<h2>新闻&资讯</h2>
+									<p class="clearfix">
+										<a href="{$_K['siteurl']}/index.php?do=article">最新动态</a>
+										<a href="{$_K['siteurl']}/index.php?do=article&view=list&op=bulletin">平台公告</a>
+										<a href="{$_K['siteurl']}/index.php?do=article&view=list&op=reports">媒体报道</a>
+										<a href="{$_K['siteurl']}/index.php?do=article&view=list&op=channel">频道热门</a>
+										<a href="{$_K['siteurl']}/index.php?do=article&view=list&op=inter">互联网资讯</a>
+									</p>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="map_rlist clearfix">
+						<ul>
+							<li class="w_auto">
+								<span class="map_ricon c_cat"></span>
+								<div class="fl_l">
+									<h2>创意分类</h2>
+									<p class="clearfix">
+									 {loop $indus_p_arr $k $v}
+                                       <a href="{$_K['siteurl']}/index.php?do=indus&indus_id={$v['indus_id']}">{$v['indus_name']}</a>
+                                     {/loop}										
+									</p>
+								</div>
+							</li>
+						</ul>
+					</div>	
+					<div class="map_rlist clearfix">
+						<ul>
+							<li class="w_auto">
+								<span class="map_ricon l_kin"></span>
+								<div class="fl_l">
+									<h2>劳务服务</h2>
+									<p class="clearfix">
+									  {loop $service_indus_p_arr $v}
+										<a href="{$_K['siteurl']}/index.php?do=indus&indus_id={$v['indus_id']}">{$v['indus_name']}</a>
+									  {/loop}
+									</p>
+								</div>
+							</li>
+						</ul>
+					</div>	
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<!--{template footer_help}-->
+	</div>	
+</section>
+<!--{template footer}-->

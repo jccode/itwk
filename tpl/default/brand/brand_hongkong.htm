@@ -1,0 +1,386 @@
+<!--{template header_brand}-->
+<link href="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/horizontal.css" rel="stylesheet" type="text/css" charset="utf-8">
+<link href="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/vertical.css" rel="stylesheet" type="text/css" charset="utf-8">
+<div class="clearfix wrapper">
+	<header class="clearfix page_header">
+		<div class="container_24 clearfix">
+			<div class="breadcrumbs clearfix">
+				<div class="grid_12 alpha">
+					你的位置：<a href="{$_K['siteurl']}/index.php">IT帮手网首页</a> <span class="font_simsun">></span>
+					 <a href="{$_K['siteurl']}/index.php?do=brand">品牌馆</a> <span class="font_simsun">></span> <a href="{$_K['siteurl']}/index.php?do=brand&view=hongkong">香港馆</a>
+				</div>
+				<div class="fl_r bcs_nav">
+					<a href="{$_K['siteurl']}/index.php?do=article">新闻中心</a><span class="line"></span>
+					<a href="{$_K['siteurl']}/index.php?do=special">精彩专题</a><span class="line"></span>
+					<a href="{$_K['siteurl']}/index.php?do=help&view=service">客服中心</a><span class="line"></span>
+					<a href="http://e.weibo.com/epweikecom" rel="nofollow">官方微博</a>
+				</div>
+			</div>
+		</div>
+	</header>
+	<section class="clearfix content brand_content">
+		<div class="brand_banner_box xg_banner_bg clearfix">
+			<div class="container_24 clearfix">
+				<div class="brand_banner clearfix po_re">
+					<div id="carousel" class="jcarousel">
+						<ul>
+							<!--{ad_show(BRAND_HK_SLIDE,1)}-->	
+						</ul>
+					</div>
+					<div class="jcarousel-pagination"></div>
+				</div>
+			</div>
+		</div>
+		<div class="container_24 clearfix">
+			<div class="brand_lr_con clearfix mt_20">
+				<div class="b_l_con clearfix box default fl_l">
+					<div class="inner clearfix">
+						<div class="bl_info clearfix fl_l" id="{$ser_info['shop_id']}">
+							<div class="bl_info_img">
+								<img src="{if $ser_info['pic']}$ser_info['pic']{else}$_K[siteurl]/resource/img/system/nopic200.jpg{/if}" alt="">
+							</div>
+							
+							{if $ser_info}
+							<h2>
+								<a href="{$_K['siteurl']}/index.php?do=shop&sid={$ser_info['shop_id']}&view=service_info&service_id=$ser_info['service_id']">
+									{if $ser_info['service_type']==1}【劳务】{else}【创意】{/if}<!--{eval echo kekezu::cutstr($ser_info['title'],20)}--></a>
+								</h2>
+							<p>服务分类：
+							{if $ser_info['service_type']==1}
+							{$service_indus_p_arr[$ser_info[indus_pid]][indus_name]}<span class="font_simsun ml_5 mr_5">>{$service_indus_c_arr[$ser_info[indus_id]][indus_name]}</span>
+							{else}
+							{$indus_p_arr[$ser_info[indus_pid]][indus_name]}<span class="font_simsun ml_5 mr_5">>{$indus_c_arr[$ser_info[indus_id]][indus_name]}</span>
+							{/if}
+							
+							</p>
+							
+							
+							<p>服务报价：<span class="bl_info_money"><b>￥{$ser_info['price']}</b>元/{$unit_price[$ser_info['unite_price']]}</span></p>
+							{else}
+							<h2>
+			<a>暂无服务</a>
+			</h2>
+			<p>服务分类：<span class="font_simsun ml_5 mr_5">暂无</span></p>
+			<p>服务报价：<span class="bl_info_money">暂无</span></p>
+							{/if}
+						</div>
+						<div class="br_info">
+							{loop $hk_list $k $v}
+								<a sid="{$v['shop_id']}" href="{$_K['siteurl']}/index.php?do=shop&sid={$v['shop_id']}" {if $k==0}class="selected"{/if}>
+									<!--{userpic($v['uid'],'middle')}-->
+								</a>
+								
+							{/loop}
+						</div>
+					</div>
+				</div>
+				<div class="b_r_con clearfix fl_r ml_10">
+					<div class="clearfix box default br_btn t_c">
+						<div class="inner">
+							<h1>给您品牌展示的舞台</h1>
+							<button class="primary submit mt_10" type="button" onclick="return brand('hk')">申请入馆</button>
+						</div>
+					</div>
+					<div class="box default clearfix mt_10 br_teamwork">
+						<header class="clearfix pl_10 pr_10 pt_5 po_re">
+							<h2 class="c333">香港官方合作伙伴</h2>
+							<div class="br_arrow clearfix">
+								<a href="#" class="left_arrow arrow ml_5" onclick="$('#jcarousel1').jcarousel('scroll', '-=1'); return false;">Prev (1)</a>
+								<a href="#" class="right_arrow arrow mr_5"  onclick="$('#jcarousel1').jcarousel('scroll', '+=1'); return false;">Next (1)</a>
+							</div>
+						</header>
+						<!--{tag 香港馆官方合作伙伴}-->
+					</div>
+				</div>
+			</div>
+			<div class="brand_case_con clearfix mt_20">
+				<div class="case_area clearfix">
+					<div class="case_app clearfix">
+						<header class="head clearfix">
+							<h1 class="fl_l">精彩案例作品赏析</h1>
+							<div class="fl_r"><!--<a class="c666" href="#">更多</a><span class="font_simsun pl_5">&gt;</span>--></div>
+						</header>
+						<div class="case_app_detail">
+							<ul class="clearfix">
+								{if $case_list}
+								{loop $case_list $v}
+									<li>
+										<a href="$_K[siteurl]/index.php?do=shop&sid=$v[shop_id]&view=case_info&case_id=$v[case_id]">
+											<img src="{if $v['case_pic']}$v['case_pic']{else}$_K[siteurl]/resource/img/system/nopic200.jpg{/if}" alt="">
+											<p>{$v['case_name']}</p>
+										</a>
+									</li>
+								{/loop}
+								{else}
+								<li><a>暂无精彩案例作品赏析</a></li>
+								{/if}
+							</ul>
+						</div>
+					</div>
+					<div class="case_app inter_column clearfix pb_10">
+						<header class="head clearfix po_re ml_10 mr_10">
+							<h1>人气榜TOP10</h1>
+							<div class="fl_r pop_num">人气值</div>
+						</header>
+						<div class="case_app_detail">
+							<ul class="clearfix pt_10">
+								{loop $top_10 $k $v}
+									<li class="clearfix">
+										<span class="pop_num_bg {if $k<3}selected{/if}"><!--{eval echo str_pad(++$k,2,0,STR_PAD_LEF);}--></span>
+										<a href="{$_K['siteurl']}/index.php?do=shop&sid={$v[shop_id]}" title="$v['shop_name']">
+											<!--{eval echo kekezu::cutstr($v['shop_name'],20)}-->
+										</a>
+										<span class="fl_r">{$v['views']}</span>
+									</li>
+								{/loop}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="nav_lists_nav clearfix mt_20">
+                        <ul class="clearfix fl_l ">
+                            <li>
+                                <a class="selected" href="{$_K['siteurl']}/index.php?do=task_list">香港馆人才筛选</a>
+                            </li>
+                            <li>
+                                <a  href="{$_K['siteurl']}/index.php?do=talent">进入人才大厅查看所有人才</a>
+                            </li>
+                        </ul>
+						<span class="fl_r mt_10">
+									<img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/style/tip2-130x25.gif" class="mr_10" width="130" height="25" alt="展开更多筛选" />
+						</span>
+                    </div>
+            <!--筛选条件-->
+            <div class="filter box normal po_re mb_10" style="">
+                <div class="inner">
+                    <!--条件列表-->
+                    <div class="condition_list pad10" id="condition_list" >
+                        <!--分类-->
+                        <dl class="condition clearfix">
+                            <dt class="fl_l mr_5">
+                                人才类型：
+                            </dt>
+                            <dd class="">
+                                <a href="{$ac_url}&t=0" {if !$t}class="selected"{/if}>不限</a>
+                                <a href="{$ac_url}&t=1" {if $t=='1'}class="selected"{/if}>个人</a>
+                                <a href="{$ac_url}&t=2" {if $t=='2'}class="selected"{/if}>工作室</a>
+                                <a href="{$ac_url}&t=3" {if $t=='3'}class="selected"{/if}>公司</a>
+                            </dd>
+                        </dl>
+                        <!--end 分类--><!--条件1-->
+                        <dl class="condition clearfix">
+                            <dt class="fl_l mr_5">
+                                能力等级：
+                            </dt>
+                            <dd class="">
+                                <a href="{$ac_url}&a=0" {if !$a}class="selected"{/if}>不限</a>
+                                <a href="{$ac_url}&a=9" {if $a=='9'}class="selected"{/if}>IT帮手</a>
+                                <a href="{$ac_url}&a=8" {if $a=='8'}class="selected"{/if}>二品</a>
+                                <a href="{$ac_url}&a=7" {if $a=='7'}class="selected"{/if}>三品</a>
+                                <a href="{$ac_url}&a=6" {if $a=='6'}class="selected"{/if}>四品</a>
+                                <a href="{$ac_url}&a=5" {if $a=='5'}class="selected"{/if}>五品</a>
+                                <a href="{$ac_url}&a=4" {if $a=='4'}class="selected"{/if}>六品</a>
+                                <a href="{$ac_url}&a=3" {if $a=='3'}class="selected"{/if}>七品</a>
+                                <a href="{$ac_url}&a=2" {if $a=='2'}class="selected"{/if}>八品</a>
+                                <a href="{$ac_url}&a=1" {if $a=='1'}class="selected"{/if}>九品</a>
+                                <a href="#" class="ab_level">什么是能力等级？</a>
+                            </dd>
+                        </dl>
+                        <dl class="condition clearfix border_n">
+                            <dt class="fl_l mr_5">
+                                人才状态：
+                            </dt>
+                            <dd class="">
+                                <a href="{$ac_url}&s=0" {if !$s}class="selected"{/if}>不限</a>
+                                <a href="{$ac_url}&s=1" {if $s=='1'}class="selected"{/if}>实名认证</a>
+                                <a href="{$ac_url}&s=2" {if $s=='2'}class="selected"{/if}>邮箱认证</a>
+                                <a href="{$ac_url}&s=3" {if $s=='3'}class="selected"{/if}>手机认证</a>
+                                <a href="{$ac_url}&s=4" {if $s=='4'}class="selected"{/if}>银行卡认证</a>
+                                <a href="{$ac_url}&s=5" {if $s=='5'}class="selected"{/if}>VIP</a>
+                            </dd>
+                        </dl>
+                    </div>
+                	<!--已选条件-->
+                            <div class="select_condition clearfix pad10">
+                              	<h2 class="fl_l c333">入住香港馆人才列表</h2>
+                                <div class="clearfix">
+                                    <!--当无选择条件时显示span标记-->
+                                    <div class="page_count fl_r mr_20 ml_20">
+                                        <span>每页显示：</span>
+                                        <a href="$ac_url&p_s=15" rel="nofollow" {if $p_s==15||!$p_s}  class="selected" {/if}>15  </a>
+                                        <a href="$ac_url&p_s=30" rel="nofollow" {if $p_s==30}  class="selected" {/if}>30  </a>
+                                        <a href="$ac_url&p_s=50" rel="nofollow" {if $p_s==50}  class="selected" {/if}>50  </a>
+                                    </div>
+									<form action="$ac_url" method="get" id="this_form">
+									<input type="hidden" name="do" value="{$do}">
+									<input type="hidden" name="view" value="{$view}">
+									<select class="fl_r" name="o" onchange="document.getElementById('this_form').submit();">
+										<option value="0">按默认排序</option>
+										<option value="1" {if $o=='1'}selected{/if}>注册时间从前到后</option>
+										<option value="2" {if $o=='2'}selected{/if}>注册时间从后到前</option>
+										<option value="3" {if $o=='3'}selected{/if}>中标次数从高到低</option>
+										<option value="4" {if $o=='4'}selected{/if}>中标次数从低到高</option>
+										<option value="5" {if $o=='5'}selected{/if}>等级高多到低</option>
+										<option value="6" {if $o=='6'}selected{/if}>等级低低到高</option>
+                                	</select>
+									</form>
+                                </div>
+                            </div>
+                            <!--end 已选条件-->
+				</div>
+                <!--工具栏-->
+                <div class="operate po_ab">
+                    <a href="javascript:show_hide()" id="tool_show" title="展开">
+                        <div class="icon16 sq-plus">
+                            展开
+                        </div>
+                    </a>
+                    <a href="javascript:show_hide()" id="tool_hide" style="display:none" title="收起">
+                        <div class="icon16 sq-minus">
+                            收起
+                        </div>
+                    </a>
+                </div>
+                <!--end 工具栏-->
+            </div>
+            <!--end 筛选条件-->
+			<div class="box normal clearfix talent_list_box">
+                        <!--列表主内容-->
+                        <div class="list clearfix">
+                            <dl>
+                                <dt>
+                                    所有人才列表
+                                </dt>
+                                <dd class="tags">
+                                    <ul>
+                                        <li class="t_l mr_5">
+                                            <span class="pl_10">人才头像</span>
+                                        </li>
+                                        <li class="w6  pl_20 ml_5 t_l">
+                                            人才信息
+                                        </li>
+                                        <li class="w2 ml_15">
+                                            <span class="prefix_2 ml_15">雇主操作</span>
+                                        </li>
+                                    </ul>
+                                </dd>
+                                {if $talent_arr}
+                                {loop $talent_arr $k $v}
+                                <dd class="clearfix">
+                                    <div class="fl_l  talent_user">
+                                        <!--{userpic($v['uid'],middle)}-->
+                                    </div>
+                                    <div class="fl_l clearfix talent_info_box">
+                                        <div class="clearfix">
+                                            <ul class="clearfix">
+                                                <li class="w7 t_l clearfix">
+                                                    <div class="clearfix ml_10 talent_kinds">
+                                                        <h2 class="clearfix"><a href="{$_K['siteurl']}/index.php?do=shop&sid={$v['shop_id']}" class="fl_l">{$v['shop_name']}</a><span>{if $v['user_type']=='1'}个人{/if}
+                                                                {if $v['user_type']=='2'}工作室{/if}
+                                                                {if $v['user_type']=='3'}公司{/if}</span>
+																	
+																<!--{eval echo keke_glob_class::get_shop_level_ico($v['shop_level']);}-->
+																<!--{eval echo keke_glob_class::get_w_level_ico($v['w_level'])}-->
+															
+														</h2>
+                                                        <div>
+                                                            <b>所在地区：{if $v['residency']}{$v['residency']}{else}暂无{/if}</b>
+                                                        </div>
+														 <div>
+														 	
+														 </div>
+                                                        
+                                                        <div class="clearfix">
+                                                            <b class="fl_l">能力标签：</b>
+                                                            <div class="ab_label">
+                                                                {if $v['skill_ids']}<!--{eval $skills=explode(',',$v['skill_ids']);}-->{loop $skills $v1}<span>$indus_c_arr[$v1]['indus_name']</span>
+                                                                {/loop}
+                                                                {else}
+                                                                暂无
+                                                                {/if}
+                                                            </div>
+                                                        </div>
+                                                        <div class="clearfix">
+                                                            <b class="fl_l">人才状态：</b>
+                                                            <div class="ab_label">
+                                                                <!--{eval echo(keke_glob_class::get_auth_ico($v['auth_realname'],$v['auth_mobile'],$v['auth_email'],$v['auth_bank']));}-->
+																
+																{if $v[isvip]==1}
+																	<a href="http://wpa.qq.com/msgrd?v=3&uin=$v[qq]&site=qq&menu=yes" target="_blank" "><img border="0" src="{$_K['siteurl']}/resource/img/system/qq_line.jpg" alt="点击这里给我发消息" title="点击这里给我发消息"></a>
+																{/if}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="w2">
+                                                    <div class="clearfix mt_30 pl_10 t_l">
+                                                        <p>
+                                                            TA出售的服务：{if $v['accepted_num']}{$v['accepted_num']}{else}0{/if}次
+                                                        </p>
+                                                        <p>
+                                                            近期交易数：{if $v['take_num']}{$v['take_num']}{else}0{/if}次
+                                                        </p>
+                                                        <a href="javascript:void(0)" class="clearfix re_on_off" uid="{$v[uid]}"><span class="fl_l">展示相关服务</span><span class="re_ser re_ser_on">&nbsp;</span></a>
+                                                    </div>
+                                                </li>
+                                                <li class="w2 w2_last">
+                                                    <div class="t_l pl_30 ml_15">
+                                                        <p>
+                                                            雇主好评率：
+                                                        </p>
+                                                        <h1>{if $v['w_good_rate']}{$v['w_good_rate']}{else}100{/if}%</h1>
+                                                        <div class="clearfix">
+                                                            {if $v['uid'] != $uid}<a style="font-size:12px; font-weight:normal; padding:0px 10px;" href="{$_K['siteurl']}/index.php?do=hiretask&tuid=$v[uid]" type="submit" class="submit">直接雇佣</a>
+                                                            <a style="font-size:12px; font-weight:normal; padding:0px 10px; margin-top:5px;" href="javascript:;" class="submit" onclick="talent_invite({$v['uid']})" type="submit">邀请参与</a>
+                                                            {/if}
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        
+                                        <div class="clearfix re_ser_box mt_10 po_re hidden">
+                                            <div class="re_ser_arrow">
+                                            </div>
+                                            <div class="clearfix re_ser_list">
+                                                <div class="jcarousel-skin-default">
+                                                    <div id="jcarousel1" class="jcarousel">
+                                                    </div>
+                                                    <a href="#" class="left_arrow arrow" onclick="$('#jcarousel1').jcarousel('scroll', '-=1'); return false;">Prev (1)</a>
+                                                    <a href="#" class="right_arrow arrow" onclick="$('#jcarousel1').jcarousel('scroll', '+=1'); return false;">Next (1)</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                                {/loop}
+                                {else}
+                                <dd>
+                                    <div class="t_c">
+                                        暂时没有找到您想要的结果，<a href="{$_K['siteurl']}/index.php?do=talent">点击这里查看更多</a>
+                                    </div>
+                                </dd>
+                                {/if}
+                            </dl>
+                            <div class="page_count fl_r mar10 pad10">
+                                {$pages['page']}
+                            </div>
+                        </div>
+                    </div>
+		</div>
+		<!--{template footer}-->
+	</section>
+</div>
+
+
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.autoscroll.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.pagination.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/system/brand.js"></script>
+<script src="{$_K['siteurl']}/resource/js/uploadify/jquery.uploadify-3.1.min.js" type="text/javascript"></script>
+<link href="{$_K['siteurl']}/resource/js/uploadify/uploadify.css" rel="stylesheet">
+<script type="text/javascript">
+	var uid = "{$uid}";
+	var shop_id = "{$user_info['shop_id']}";
+</script>	

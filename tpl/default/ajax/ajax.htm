@@ -1,0 +1,15 @@
+ <!--{template header}-->
+{if $ac == 'cate_add'}<!--用户中心空间案例分类添加-->
+<div class="winbody" style="width:350px;height:120px;">
+ <div class="pad20 clearfix t_c">
+   	    <label class=" t_r">{$_lang['cate_name']}</label>
+     		<input name="cate_name" size="30" type="text" id="case_name" value="{$case_info['case_name']}"/>
+ </div> 
+ <div class="form_button mar0">   	   
+		   <button type="button" onclick="ajax_cate()" id="sbt_cate" value="{$_lang['add']}"><span class="check icon"></span>{$_lang['add']}</button>
+ </div> 
+</div>
+{/if}
+<!--{template footer}-->
+
+

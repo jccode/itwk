@@ -1,0 +1,105 @@
+<!--{template control/admin/tpl/admin_header}-->
+<div class="page_title">
+    	<h1>同城速配</h1>
+</div> 
+
+<form method="get" action="index.php" id="frm_art_search">
+	<input type="hidden" name="do" value="{$do}" >
+	<input type="hidden" name="view" value="{$view}">
+	<input type="hidden" name="page" value="{$page}">
+	<div class="box search p_relative">
+    	<div class="title"><h2>{$_lang['search']}</h2></div>
+    	<div class="detail" id="detail"> 
+    		<table cellspacing="0" cellpadding="0">    		
+				<tbody>
+					<tr>
+		                <th>{$_lang['id']}</th>
+		                <td>
+		                  <input type="text" class="txt" size="12" name="txt_m_id" value="{$txt_m_id}" onkeyup="clearstr(this);">
+						</td>
+		                <th>购买用户</th>
+		                <td>
+		                 <input type="text" class="txt" name="txt_username" id="txt_username" value="{$txt_username}">
+						 </td>
+						 <th>商铺</th>
+		                <td>
+		                 <input type="text" class="txt" name="txt_shop_name" id="txt_shop_name" value="{$txt_shop_name}">
+						 </td>
+	                </tr>
+					<tr>
+						<th>{$_lang['result_order']}</th>
+						<td>
+						<select name="ord[]">
+                        <option value="m_id" {if $ord['0']=='h_id' or !isset($ord['0'])} selected="selected"{/if}>{$_lang['id']}</option>
+						 <option value="" {if $ord['0']!='h_id' } selected="selected"{/if}>{$_lang['time']}</option>
+                        </select>
+                        <select name="ord[]">
+                        <option {if $ord['1']=='desc' or !isset($ord['1'])}selected="selected" {/if} value="desc">{$_lang['desc']}</option>
+                        <option {if $ord['1']=='asc'}selected="selected" {/if} value="asc">{$_lang['asc']}</option>
+                        </select>
+						</td>
+						<th>{$_lang['list_result']}</th>
+						<td >
+						<select name="slt_page_size">
+                			<option value="10" {if $slt_page_size=='10'}selected="selected"{/if}>{$_lang['page_size']}10</option>
+                			<option value="20" {if $slt_page_size=='20'}selected="selected"{/if}>{$_lang['page_size']}20</option>
+                			<option value="30" {if $slt_page_size=='30'}selected="selected"{/if}>{$_lang['page_size']}30</option>
+            			</select>
+           				<button class="pill" type="submit" value={$_lang['search']} name="sbt_search">
+								<span class="icon magnifier">&nbsp;</span>{$_lang['search']}
+							</button>
+						</td>
+					</tr>          			
+           		</tbody>
+			</table>
+    	</div> 
+</div>
+
+
+<div class="box list">
+	  
+	  
+<div class="title"><h2>{$_lang['link_list']}</h2></div>
+    <div class="detail"> 
+    <div id="ajax_dom">
+  	<input type="hidden" name="page" value="{$page}">
+            <table border="0" cellspacing="0" cellpadding="0"  >
+                <tr style="align-text:center;"> 
+                    <th width="80">{$_lang['id']}</th>
+                    <th width="200">购买用户</th>
+                    <th width="300">商铺</th> 
+					<th class="motif">使用期限</th>
+					<th width="140">
+                       {$_lang['operate']}
+                    </th>
+                </tr>			
+                {loop $shop_match_arr $v}
+                <tr class="item">                	 
+                    <td>
+                       {$v['m_id']}
+                    </td>					 
+                    <td>
+                       {$v['username']}
+                    </td>
+                    <td>
+                      {$v['shop_name']}
+                    </td>
+					<td >
+						 <!--{date('Y-m-d',$v['start_time'])}--> ~  <!--{date('Y-m-d',$v['end_time'])}-->
+                    </td>
+					<td>                      
+                       <a href="$url&ac=del&m_id={$v['m_id']}" onclick="return cdel(this);" class="button"> 
+					   <span class="trash icon"></span>{$_lang['delete']}</a>
+                    </td>
+                </tr>
+				{/loop}
+
+        </table>
+		<div class="page ">{$pages['page']}</div>
+		</div>
+
+</div>
+</div>		
+ 
+</form>
+<!--{template control/admin/tpl/admin_footer}-->

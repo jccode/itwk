@@ -1,0 +1,58 @@
+<!--{template control/admin/tpl/admin_header}--> 
+	<div class="box post">
+    <div class="detail">
+    	<form action="index.php?do=finance&view=withdraw&ac=cancel&is_submit=1&withdraw_id={$withdraw_id}" name="frm" id="frm" method="post">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+	                 <th scope="row" width="70">
+	                    <span class="bg1 t_r">提现金额：</span>
+	                 </th>
+	                 <td>{$withdraw_info['withdraw_cash']}元</td>
+	             </tr>
+				<tr>
+	                 <th scope="row" width="70">
+	                    <span class="bg1 t_r">取消理由：</span>
+	                 </th>
+	                 <td>
+						<textarea name="remark" id="remark" cols="50" rows="8"></textarea>
+					</td>
+	            </tr>
+				<tr>
+					<td></td>
+	                 <td>
+	                 	<div class="t_c">
+							<button type="button" name="is_submit" value="确认" onclick="sub();">
+								<span class="check icon"></span>确认</button>
+							<button type="button" name="calcel" value="取消" onclick="art.dialog.open.api.close();"><span class="cross icon"></span>取消</button>
+						</div>
+					</td>
+	            </tr>
+            </table>
+		</form>
+    </div>
+</div>	
+<script type="text/javascript">
+	function sub(){
+		var data = $("#frm").serialize();
+		var url = 'index.php?do=finance&view=withdraw&ac=cancel&is_submit=1&withdraw_id={$withdraw_id}&'+data;
+	    $.getJSON(url, function(json){ 
+	        if (json.status == '1') {
+				art.dialog.alert(json.msg);
+				art.dialog.open.origin.location.reload();
+				art.dialog.open.api.close();				
+				return true;
+	        }
+	        else {
+			   art.dialog.alert(json.msg);
+			   return false;
+	        }
+	    })
+	
+		/* $('#frm').submit();
+		setTimeout(function(){
+			art.dialog.open.origin.location.reload();
+			art.dialog.open.api.close();
+		},2);*/
+	}
+</script>
+<!--{template control/admin/tpl/admin_footer}-->

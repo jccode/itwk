@@ -1,0 +1,424 @@
+<!--{template header}--><!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+        <!--{template user/user_nav}-->
+		<!--main start-->
+        <section class="clearfix section">
+            <!--{template user/user_side}-->
+            <div class="show_panel ">
+		        <div class="">
+		            <div class="">
+		                <!--main content-->
+		                <div class=" clearfix box default">
+                            <!--header内容头部 start-->
+                            <header class="clearfix box_header">
+                                <h2 class="box_title">{$_lang['case_manage']}</h2>
+                                <div class="clear">
+                                </div>
+                            </header>
+                      
+                            <div class="box_detail">
+                            	
+                                <div class="rowElem tool_bar clearfix">
+                                   {if $show=='list'}
+									 <form action="{$url}#userCenter" method="post" id="frm">
+                                      <input type="hidden" name="page" value="{$page}">
+                                        <div class="service_type mr_5 fl_l clearfix">
+                                         <label class="t_1" style="float:left;">
+                                        		服务分类{$_lang['zh_mh']}
+                                        	</label>
+											<select name="cate_id" class="fl_l" style="width:70px;">
+												<option value="">全部</option>
+												{loop $cate_list $k $v}
+												
+													<option value="{$k}" {if $cate_id==$k}selected="selected"{/if}>{$v}</option>
+												{/loop}
+				
+											</select>
+                                        </div>
+										<div class="mr_5 fl_l clearfix">
+                                        	<label class=="t_1 fl_1">
+                                        		标题{$_lang['zh_mh']}
+                                        	</label>
+                                            <input type="text" name="service_title" class="togg_u txt_input" value="{$service_title}" size="13"/>
+                                        </div>
+                                        <div class="fl_l mr_5 clearfix">
+                                            <label class="t_l fl_l">
+                                           	     发布时间{$_lang['zh_mh']}
+                                            </label>
+											 <input type="text" name="start_time" class="txt" value="{$start_time}" size="8" onclick="showcalendar(event, this, 0)"> - <input type="text" name="end_time" value="$end_time" class="txt" size="8" onclick="showcalendar(event, this, 0)">   
+										</div> 
+									 </form>										 
+                                   {/if}
+                                  <div class="fl_r">
+                                      {if $show=='list'}		
+										<button class="submit" type="button" name="sbt_search" value="{$_lang['search']}" style="padding:4px 10px 3px" onclick="$('#frm').submit();">
+                                            <span class="icon magnifier"></span>{$_lang['search']}
+                                        </button>									
+                                        <button type="button" class="button bwhite" value="{$_lang['add_case']}" onclick="location.href='{$ac_url}&show=add#userCenter'">
+                                            {$_lang['add_case']}
+                                        </button>
+                                        {else}
+                                        <button type="button" class="button bwhite" value="{$_lang['view_case']}" onclick="location.href='{$ac_url}&show=list#userCenter'">
+                                            {$_lang['view_case']}
+                                        </button>
+                                      {/if}
+                                    </div>
+                                </div>
+
+                                <!--案例列表start-->
+                                 {if $show=='list'}
+								 {if $case_list}
+								 <div class="case_show hidden bf7">
+                                 <div id="container" class="clearfix">
+                                     {loop $case_list $v}
+                                     <div class="item clearfix">
+                                         <div class="item_box clearfix">
+											 <a  class="block" title="{$v['case_name']}">
+											 	<img class="block mar_auto pic_img" width="132" src="{$v['case_pic']}">
+											 	<p class="ws_hide mt_5">{$v['case_name']}</p>
+											 </a>
+                                             <div  class="case_type">
+                                                 	类别{$_lang['zh_mh']}{$cate_list[$v['cate_id']]}
+                                             </div>
+											 <div>
+                                             <a href="{$ac_url}&show=add&case_id={$v['case_id']}#userCenter" title="{$_lang['edit']}">编辑</a> |
+											 <a href="javascript:void(0)" title="{$_lang['delete']}"class="mr_10" onclick="del('$v[case_id]');">删除</a>
+											 </div>
+                                         </div>
+                                     </div>
+                                     {/loop}
+                                 </div>
+								 </div>
+		                                 {if $pages['page']}
+		                                 <div class="page">
+		                                     <p>
+		                                         {$pages['page']}
+		                                     </p>
+		                                 </div>
+		                                 {/if}
+	                                 {else}
+		                                 <div class=" mt_10 clearfix no_detail ">
+		                                    {$_lang['no_case']}
+		                                 </div>
+	                                 {/if} 
+	                             </div>	
+                        {else}
+								
+										
+									<!--from表单 start--><h3 class="mt_10 mb_10">
+                                    	{if $case_id}{$_lang['edit_spase_case']}{else}{$_lang['add_spase_case']}{/if}</h3>
+                                    <form action="{$ac_url}&show=add&case_id={$case_id}" method="post" id="frm" name="frm" enctype="multipart/form-data">
+                                    	<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+                                        <input type="hidden" name="pk[case_id]" value="{$case_id}">
+                                        <div class="rowElem clearfix" id="show_service" style="display:none;">
+                                            <label class="grid_2 t_r">
+                                                {$_lang['service_list']}{$_lang['zh_mh']}
+                                            </label>
+                                            <div class=" fl_l mr_10">
+                                                <select name="conf[service_id]" id="shop_service" style="width:260px" onchange="selectCase();">                                                	
+												
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="rowElem clearfix">
+                                            <label class="grid_2 t_r">
+                                                {$_lang['case_name']}{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_15">
+                                                <input name="conf[case_name]" size="28" type="text" title={$_lang['case_name_as']} id="case_name" value="{$case_info['case_name']}" limit="required:true;len:2-40" msg={$_lang['entet_corrent_case_name']} msgArea="span_case_name"/><span id="span_case_name"></span>
+                                            </div>
+                                        </div>
+										<div class="rowElem clearfix">
+                                            <label class="grid_2 t_r">
+                                                                                                                                  案例分类{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_15">
+                                            	<select id="cate_id" name="conf[cate_id]" style="width:260px" msg="请选择案例分类" msgArea="span_cate_name" limit="required:true;between:1-20">
+                                            		{loop $cate_list $v}
+														<option value="{$v['cate_id']}">{$v['cate_name']}</option>
+													{/loop}
+                                            	</select>
+                                               <!-- <input name="conf[cate_name]" size="28" type="text" title={$_lang['case_name_as']} id="case_name" value="{$case_info['case_name']}" limit="required:true;len:2-40" msg={$_lang['entet_corrent_case_name']} msgArea="span_case_name"/> -->
+												<span id="span_cate_name"></span>
+												<a href="javascript:void(0);" onclick="javascript:define('define');">添加分类</a>
+                                            </div>
+                                        </div>
+                                        <div class="rowElem clearfix" id="show_url" style="display:none;">
+                                            <label class="grid_2 t_r">
+                                               {$_lang['outside_link']}{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_15">
+                                                <input name="conf[case_url]" size="39" type="text" title={$_lang['outside_case_link']} id="case_url" value="{$case_info['case_url']}" limit="required:false;type:url" msg={$_lang['enter_corrent_outside_case_link']} msgArea="span_case_url"/><span id="span_case_url"></span>
+                                            </div>
+                                        </div>
+												
+                                        <div class="rowElem clearfix" id="div_type_pic" >
+                                            <label class="grid_2 t_r">
+                                                {$_lang['case_img']}{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_16" style="width:350px;">
+                                                <div class="grid_8">
+                                                    <input type="file" name="upload" id="upload" class="file">
+                                                    <input type="hidden" name="case_pic" id="case_pic" value="{$case_info['case_pic']}" />
+                                                </div>
+                                                <div class="grid_9 alpha ui_note">
+                                                    {$_lang['display_case_img']}
+                                                </div>
+                                                <span id="span_case_pic">{if $case_info['case_pic']}<img src="{$case_info['case_pic']}" width="80px;" />{/if}</span>
+                                            </div>
+                                        </div>      
+										<div class="rowElem clearfix" id="div_type_flash" style="display:none;">
+                                            <label class="grid_2 t_r">
+                                                 Flash地址{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_16" style="width:400px;">
+                                                <div class="grid_8"> 
+                                                  <input name="conf[case_flash]" size="28" type="text" title="支持优酷/土豆/酷6/六间房/56网等常见视频格式" 
+												  id="case_flash" value="{$case_info['case_flash']}" msgArea="span_case_flash" />
+                                                </div>                                        
+                                            </div>
+                                        </div>                                    
+                                        <div class="rowElem clearfix" id="desc">
+                                            <div class="grid_13 omega">
+                                                <label class="grid_2 t_r">
+                                                    {$_lang['case_description']}{$_lang['zh_mh']}
+                                                </label>
+                                                <textarea name="conf[case_desc]" id="case_desc" cols="70" rows="8" class="grid_9 xheditor-simple {skin:'nostyle'}">
+                                                    {$case_info['case_desc']}
+                                                </textarea>
+                                            </div>
+                                            <div class="grid_6 alpha ui_note">
+                                              {$_lang['case_description_carefully_enter']}
+                                            </div>
+                                        </div>
+                                         <div class="rowElem clearfix" id="desc">
+                                            <div class="grid_13 omega">
+                                                <label class="grid_2 t_r">
+                                                    {$_lang['case_listorder']}{$_lang['zh_mh']}
+                                                </label>
+                                                <input type="text" size="10"  value="{$case_info['listorder']}" id="listorder"  name="conf[listorder]"></input>
+                                            </div>
+                                        </div>
+                                        <div class="rowElem clearfix form_button t_c">
+                                            <button type="button" name="sbt_action"  class="submit"id="sbt_action" value="{if !$case_info}{$_lang['add']}{else}{$_lang['edit']}{/if}{$_lang['case']}" onclick="return check_form()">
+                                                <span class="check icon"></span>{if !$case_info}{$_lang['add']}{else}{$_lang['edit']}{/if}{$_lang['case']}
+                                            </button>
+                                        </div>
+                                    </form>
+                                    {/if}<!--from表单 end-->
+                                </div>
+                                <!--个人经历end-->
+                            </div>
+                            <!--detail内容 end-->
+                        </div>
+                        <!--main content end-->
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--main end-->
+
+<!--contain end-->
+<script src="resource/js/uploadify/jquery.uploadify-3.1.min.js" type="text/javascript"></script>
+<link href="resource/js/uploadify/uploadify.css" rel="stylesheet">
+<script type="text/javascript" src="resource/js/jqplugins/jquery.masonry.min.js"></script>
+
+<script type="text/javascript">
+		$(function(){
+			if($('#SWFUpload_0').length==0){
+				construct();
+			}
+		})
+		function construct(){
+			uploadify({
+					auto:true,
+					size:"{$basic_config['max_size']}MB",
+					exts:'*.jpg;*.gif;*.png;*.jpeg',
+					limit:1},
+					{
+						objType:'case'
+					}
+				);
+		}
+		/**
+	 * 上传完成后的后续操作
+	 * @param data 响应的json对象
+	 */
+	function uploadResponse(json){
+		if($("#"+json.fid).length<1){
+			$("#case_pic").val(json.msg.url);
+		}
+	}
+</script>
+<script type="text/javascript">
+In('form','xheditor'); 
+    $(function(){
+
+	  	$('#ajaxwaitid').show();
+	
+	    window.onload=function(){
+			$('#ajaxwaitid').hide();
+			$('.case_show').removeClass('hidden');
+	
+	        $('#container').masonry({
+			  itemSelector: '.item'
+			});
+			
+			
+	    }
+
+        var indus_pid = parseInt($("#indus_pid option:selected").val()) + 0;
+        change_indus(indus_pid);
+        if ($("#case_type_2").is(":checked")) {
+            $("#show_url").show();
+            $("#show_service").hide();
+        }
+        if ($("#case_type_1").is(":checked")) {
+            show_service();
+        }
+        $("#case_type_2").click(function(){
+            $("#show_url").show();
+            $("#show_service").hide();
+        })
+        $("#case_type_1").click(function(){
+            $("#show_url").hide();
+            show_service();
+        })
+    })
+/*	
+	function case_type_show(div){ 
+		switch(div){
+			case 'flash':
+				$('#div_type_flash').attr({style:'display:block;'});
+				$('#div_type_pic').attr({style:'display:none;'});
+			break;
+			case 'pic':
+				$('#div_type_pic').attr({style:'display:block;'});	
+				$('#div_type_flash').attr({style:'display:none;'});				
+			break;
+			default: return false; break;
+		}
+	}
+*/	
+    /**
+     * 查找用户商品
+     */
+    function show_service(){
+        $("#show_service").show();
+        $.post("{$ac_url}&show=add&ac=show_service&case_id={$case_id}", function(data){
+            $("#shop_service").empty().append(data);
+         }, 'text')
+    }
+    
+    /**
+     * 选取案例名称
+     * @param {Object} value
+     */
+    function selectCase(){
+        var case_name = $.trim($("#shop_service option:selected").text());
+        if (case_name && case_name != "{$_lang['please_choose']}") {
+            $("#case_name").val(case_name);
+        }
+    }
+    
+    /**
+     * 获取行业信息
+     * @param {Object} indus_pid 父级行业id
+     */
+    function change_indus(indus_pid){
+	
+        var indus_id = parseInt($case_info['indus_id']) + 0;
+	
+        $.post("{$ac_url}&show=add&ac=show_indus", {
+            indus_pid: indus_pid,
+            indus_id: indus_id
+        }, function(data){ 
+            $("#indus_id").empty().append(data);
+          }, 'text')
+    }
+    
+    /**
+     * 删除案例
+     * @param {Object} case_id 案例id
+     */
+    function del(case_id){
+			var url = '$ac_url&show=list&ac=del&case_id=' + case_id;
+		showDialog("{$_lang['confirm_delete']}",'confirm',"{$_lang['operate_notice']}",function(){
+			  siteSub(url,1,false);
+		});return false;
+		
+
+    }
+    
+    /**
+     *
+     * @param {Object} cate_id 自定义分类id
+     */
+    function define(cate_id){
+        if (cate_id == 'define') {
+            showWindow('define', "{$_K['siteurl']}/index.php?do=ajax&view=ajax&ac=cate_add");
+            return false;
+        }
+    }
+    
+    /**
+     * 添加自定义分类
+     */
+    function ajax_cate(){
+        v = $("#case_name").val();  //input[name='cate_name']
+        // v = escape(v);//编码转换		
+        if (v) { 
+		  var url = "{$_K['siteurl']}/index.php?do=user&view=space&op=cate&ajax=add";
+		  $.post(url,{'cate_name':v},function(status){
+			if (!isNaN(status) && status != '0') {				
+				$.post("{$_K['siteurl']}/index.php?do=user&view=space&op=cate&ajax=list&seleched_cate_id="+status, function(res){						
+					if(res){ 
+						$("#cate_id").empty().append(res); 
+					}
+				})
+	
+	        } else { 
+			   showDialog(json.msg,"alert","操作提示"); 
+	        }
+		 });
+		  
+		  hideWindow('define');
+		  
+		  /* $.getJSON("{$_K['siteurl']}/index.php?do=user&view=space&op=cate&ajax=add&cate_name=" + v, function(json){ 
+		        if (!isNaN(json.status) && json.status != '0') {				
+					$.post("{$_K['siteurl']}/index.php?do=user&view=space&op=cate&ajax=list&seleched_cate_id="+json.status, function(res){						
+						if(res){ $("#cate_id").empty().append(res); }
+					})
+	
+		        } else { 
+				   showDialog(json.msg,"alert","操作提示"); 
+		        }
+	 	   })
+			hideWindow('message');*/
+        }
+        else {
+            showDialog("{$_lang['class_name_cannot_empty']}", 'alert',"{$_lang['proven_tips']}" , '', 1);
+            return false;
+        }
+    }
+    /**
+     * 表单提交
+     * @param {Object} obj 表单id
+     */
+    function check_form(){
+            /**文本域选择判断**/
+            var shtml = $("#case_desc").val();
+            if (shtml.length < 2) {
+				 showDialog("{$_lang['description_not_less_2']}", 'alert',"操作提示" , '', 1);
+                $("#case_desc").focus();
+                return false;
+            }
+ 		siteSub('frm',2,true);
+    }
+</script>
+<!--main end-->
+<!--{template user/user_footer}-->
+<!--{template footer}-->

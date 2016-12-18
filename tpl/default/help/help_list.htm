@@ -1,0 +1,289 @@
+<!--{template header}-->
+<!--{template new_head_nav}-->
+<link rel="stylesheet" href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/help.css">
+ <div class="wrapper">
+ <!--页面头部-->
+ <header class="clearfix page_header">
+  <div class="container_24"> 
+   <!--页面导航-->
+    <div class="heidtile clearfix">
+        <span>你的位置：</span>
+        <span><a href="{$_K['siteurl']}/index.php">IT帮手网首页</a></a>&nbsp;&gt;&nbsp;</span>
+        <span><a href="{$_K['siteurl']}/index.php?do=help">客服中心</a>&nbsp;&gt;&nbsp;</span>
+        <h1><a href="{$_K['siteurl']}/index.php?do=help&view=list">问题解答</a></h1>
+    </div>
+    <!--end 页面导航-->
+ </div>
+</header> 
+ <!--end 页面标题-->
+ <!--主内容-->
+  <section class="clearfix content">
+
+  <div class="container_24 clearfix pt_20">
+  	<!--左内容-->
+	<div class="left_con clearfix fl_l">
+  		 <div class="box default">
+		        <div class="inner">
+					<header class="box_header clearfix">
+		                <h2 class="box_title">问题解答分类</h2>
+					</header>
+		            <div class="box_detail">
+		                <nav class="minor_nav clearfix">
+		                	<ul class="clearfix">
+		                		<!--主菜单-->
+								<!--{eval $i=0;}-->
+								{loop $cat_p_arr $k $v}
+									<li><a href="javascript:void(0);" title="{$v['cat_name']}">
+										<div class="icon16 {if $cat_c_arr[$art_cat_id][art_cat_pid]==$k||(!$art_cat_id&&$i==0)}less_list{else}more_list{/if}">icon</div>
+										<strong>{$v['cat_name']}</strong></a>
+									<ul class="{if ($art_cat_id&&$cat_c_arr[$art_cat_id][art_cat_pid]!=$k)||(!$art_cat_id&&$i!=0)}hidden{/if}">
+									<!--{eval $j=0;}-->
+									{loop $cat_c_arr $k1 $v1}
+										{if $v1['art_cat_pid'] == $v['art_cat_id']}
+											<li {if ($art_cat_id==$v1['art_cat_id'])||(!$art_cat_id&&$j==0)}class="selectedLava now"{/if}>
+												<a href="{$_K['siteurl']}/index.php?do=article&art_cat_id={$v1['art_cat_id']}"  title="{$v1['cat_name']}">$v1['cat_name']</a>
+											</li>
+										<!--{eval $j++;}-->
+										{/if}
+									{/loop}
+									</ul>
+									</li>
+									<!--{eval $i++;}-->
+								{/loop}
+								<!--主菜单 end-->
+							</ul>		
+		                </nav>
+		            </div>
+		        </div>
+    	  </div>
+  		  <div class="mt_10  box default">
+  		  	<div class="inner">
+  		  		<div class="phone_zx">
+  		  			<div class="pt_30 pl_30 ml_5">
+  		  				<b class="pt_20">4006-999-467</b>
+						<span class="c999">免长途客服服务热线</span>
+  		  			</div>
+  		  		</div>
+  		  	</div>
+  		  </div>
+	</div>
+	<!--左内容 end-->
+	
+	<!--右内容-->
+	<div class="right_con fl_r">
+		<div class="box help_search">
+			<div class="search_info">
+				<div class="search_input clearfix">
+					<form method="post" action="index.php?do=help&view=list">
+					<div class="clearfix">
+						<input type="text" class="c999 fl_l" id="keyword" name="keyword" value="输入您想搜索的帮助主题关键词">
+						<label class="ml_5 fl_l">
+							<button class="button" type="button" id="search_help" name="search_help">搜索</button>
+						</label>
+					</div>
+					</form>
+					<div class="mt_10 hot_search">
+						热门搜索：
+						<a href= "{$_K['siteurl']}/index.php?do=help&view=list&keyword=忘记密码">忘记密码</a>
+						<a href= "{$_K['siteurl']}/index.php?do=help&view=list&keyword=认证">认证</a>
+						<a href= "{$_K['siteurl']}/index.php?do=help&view=list&keyword=同城速配">同城速配</a>
+						<a href= "{$_K['siteurl']}/index.php?do=help&view=list&keyword=发布任务">发布任务</a>
+					</div>
+				</div>
+			</div>
+		</div>	
+		{if $keyword || $art_cat_id}
+		<div class="box default mt_10">
+			<div class="inner">
+				<header>
+					{if $keyword}
+					<span class="box_title block c333">为您搜到<b class="ml_5 mr_5">{$keyword}</b>的相关解答帮助<b class="ml_5 mr_5">{$art_count}</b>条</span>
+					{elseif $art_cat_id}
+					<span class="box_title block c333">问题解答<span class="font_simsun ml_5 mr_5">></span>{$pcat_info[1]}<span class="font_simsun ml_5 mr_5">></span>{$cat_info['cat_name']}</span>
+					{/if}
+				</header>
+				<article class="pad10">
+					<div class="help_info clearfix">
+						<ul class="clearfix border_b_c pb_20">
+							{if $art_arr}
+								{loop $art_arr $k $v}
+								<li class="clearfix"><span class="fl_l"></span><a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$v['art_cat_id']&art_id={$v['art_id']}" class="fl_l">{$v[art_title]}</a></li>
+								{/loop}
+							{else}
+								<li class="ml_20">很抱歉，没有找到你需要的内容。</li>
+							{/if}
+						</ul>
+						<div class="page pt_15 mb_5">
+							{if $pages['page']}
+							<span class="stats">共 {$art_count} 条 </span>{$pages['page']}
+							{/if}
+							<div class="clear"></div>
+						</div>
+					</div>
+				</article>
+			</div>
+		</div>
+		{else}
+		<div class="clearfix box default pl_20 pr_20 pt_10 pb_20 mt_10 circuit">
+			<div class="rmlc_lxl">入门流程</div>
+			<div class="clearfix mt_10 pt_5">
+				<div class="circuit_title fl_l">
+					<b class="hirer">雇主入门</b>
+				</div>
+				<div class="clearfix circuit_step fl_l">
+					<ul class="clearfix">
+						<li>
+							<span class="icon_help32 re_member"></span>
+							<div class="clear"></div>
+							<span>注册会员</span>
+						</li>
+						<li class="help_arrow"></li>
+						<li>
+							<span class="icon_help32 bounty"></span>
+							<div class="clear"></div>
+							<span>托管赏金</span>
+						</li>
+						<li class="help_arrow"></li>
+						<li class="clearfix three_icon">
+							<p><span class="icon18 pu_task"></span>发布任务</p>
+							<p><span class="icon18 slap_tra"></span>直接交易</p>
+							<p><span class="icon18 pur_ser"></span>购买服务</p>
+						</li>
+						<li class="help_arrow"></li>
+						<li>
+							<span class="icon_help32 ver"></span>
+							<div class="clear"></div>
+							<span>验收确认</span>
+						</li>
+						<li class="help_arrow"></li>
+						<li class="clearfix two_icon">
+							<div class="clearfix fl_l">
+								<span class="icon_help32 evaluate"></span>
+								<div class="clear"></div>
+								<span>评价</span>
+							</div>
+							<div class="clearfix fl_l ml_20">
+								<span class="icon_help32 paying"></span>
+								<div class="clear"></div>
+								<span>付款</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="clearfix pt_15">
+				<div class="circuit_title fl_l">
+					<b class="witkey">威客入门</b>
+				</div>
+				<div class="clearfix circuit_step fl_l">
+					<ul class="clearfix">
+						<li>
+							<span class="icon_help32 re_member"></span>
+							<div class="clear"></div>
+							<span>注册会员</span>
+						</li>
+						<li class="help_arrow"></li>
+						<li>
+							<span class="icon_help32 acc_cer"></span>
+							<div class="clear"></div>
+							<span>账号认证</span>
+						</li>
+						<li class="help_arrow"></li>
+						<li class="clearfix three_icon">
+							<p><span class="icon18 pu_task"></span>参与任务</p>
+							<p><span class="icon18 slap_tra"></span>接受雇佣</p>
+							<p><span class="icon18 sale_ser"></span>出售服务</p>
+						</li>
+						<li class="help_arrow"></li>
+						<li>
+							<span class="icon_help32 ver"></span>
+							<div class="clear"></div>
+							<span>完成工作</span>
+						</li>
+						<li class="help_arrow"></li>
+						<li class="clearfix two_icon">
+							<div class="clearfix fl_l">
+								<span class="icon_help32 evaluate"></span>
+								<div class="clear"></div>
+								<span>评价</span>
+							</div>
+							<div class="clearfix fl_l ml_20">
+								<span class="icon_help32 to_cash"></span>
+								<div class="clear"></div>
+								<span>提现</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix two_help mt_10">
+			<div class="fl_l help_box clearfix default box">
+				<header  class="box_header">
+					<h2 class="box_title">最常用帮助</h2>
+				</header>
+				<article class="pad10">
+					<div class="help_info">
+						<ul class="clearfix">
+							{if $art_rec}
+							{loop $art_rec $k $v}
+							<li class="clearfix"><span class="fl_l"></span><a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$v['art_cat_id']&art_id={$v['art_id']}" class="fl_l">{$v['art_title']}</a></li>
+							{/loop}
+							{else}
+							<li class="ml_20">没有找到相关信息。</li>
+							{/if}
+						</ul>
+					</div>	
+				</article>
+			</div>
+			<div class="fl_r help_box clearfix default box">
+				<header  class="box_header clearfix">
+					<div class="box_title clearfix">
+						<h2 class="fl_l">最新添加帮助</h2>
+					</div>
+				</header> 
+				<article class="pad10">
+					<div class="help_info">
+						<ul class="clearfix">
+							{if $art_new}
+							{loop $art_new $k $v}
+							<li class="clearfix"><span class="fl_l"></span><a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$v[art_cat_id]&art_id={$v['art_id']}" class="fl_l">{$v['art_title']}</a></li>
+							{/loop}
+							{else}
+							<li class="ml_20">没有找到相关信息。</li>
+							{/if}
+						</ul>
+					</div>	
+				</article>
+			</div>
+		</div>
+		{/if}
+	</div>
+	<!--右内容 end-->
+  </div>
+
+  </section> 
+ <!--end 主内容--> 
+ </div>
+
+<script type="text/javascript">
+	
+	$("#keyword").focus(function(){
+		if(this.value == '输入您想搜索的帮助主题关键词'){
+			this.value = '';
+		}
+	});
+	$("#keyword").blur(function(){
+		if(this.value == ''){
+			this.value = '输入您想搜索的帮助主题关键词';
+		}
+	});
+	$("#search_help").click(function(){
+		if($("#keyword").val() != '输入您想搜索的帮助主题关键词'){
+			window.location.href='index.php?do=help&view=list&keyword=' + $("#keyword").val();
+			window.event.returnValue = false;
+		}
+	});
+</script>
+
+<!--{template footer}-->

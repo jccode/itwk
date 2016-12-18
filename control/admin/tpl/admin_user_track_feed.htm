@@ -1,0 +1,50 @@
+<!--{template control/admin/tpl/admin_header}-->
+	<div class="box search p_relative">
+</div>
+
+<div class="box list">	 
+<div class="title"><h2>{$_lang['dns_list']}</h2></div>
+    <div class="detail"> 
+	<div id="ajax_dom">
+      {if $feed_arr}		
+		 <table width="100%" border="0" cellspacing="0" cellpadding="0"  >
+	        <tr>
+	            <th width="350">
+	               	事件标题
+	            </th>
+	            <th width="100">
+	               	事件类型
+	            </th>
+	            <th width="100">
+	               {$_lang['username']}
+	            </th>
+	            <th width="200">
+	                	时间
+	            </th>
+	        </tr>
+	        {loop $feed_arr $key $value}
+	        <tr class="item">
+	            <td>
+	            	<!--{eval $value['title'] and $value['title'] = str_replace('index.php', '../../index.php',$value['title']);}-->
+					<!--{eval $value['title'] and $value['title'] = str_replace('<a', '<a target="_blank"',$value['title']);}-->
+	            	{$value['title']}	            
+	            </td>
+	            <td>
+	                {if $feed_type[$value['feedtype']]}{$feed_type[$value['feedtype']]}{else}$value['feedtype']{/if}
+	            </td>
+	            <td>
+	               {$value['username']}
+	            </td>
+	            <td>
+	               <!--{date('Y-m-d H:i',$value['feed_time'])}-->
+	            </td>
+	        </tr>
+			{/loop} 
+	    </table>
+	    <div class="page">{$pages['page']}</div>
+	 {else}
+	 	<font color="red">此用户暂时没有动态</font>
+	 {/if}
+			</div>
+	</div>
+<!--{template control/admin/tpl/admin_footer}-->

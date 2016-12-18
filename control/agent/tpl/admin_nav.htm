@@ -1,0 +1,24 @@
+<!--{template control/admin/tpl/admin_header}-->
+  <div class="box quick_link">
+    {loop $sub_menu_arr $v}      
+        <div class="box link">
+        	
+				<div class="title">$v['0']['name']</div>
+            	<div class="detail pad10">
+        		<ul>
+        			{loop $v['0']['items'] $v2}
+            			<li><a href="javascript:nav_jump('{$v2['resource_url']}');"><span class="font_st">·</span>{$v2['resource_name']}</a></li>
+					{/loop}
+				</ul>
+				</div>
+		</div>
+	{/loop}
+</div>  
+ <script type="text/javascript">
+ 	function nav_jump(url){
+	 var win = art.dialog.open.origin;
+	 win.display_frame.location = url; 
+	 art.dialog.open.api.close();	
+	}
+</script>
+<!--{template control/admin/tpl/admin_footer}-->

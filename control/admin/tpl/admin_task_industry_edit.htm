@@ -1,0 +1,178 @@
+<!--{template control/admin/tpl/admin_header}-->
+<div class="page_title">
+    	<h1>分类管理</h1>
+        <div class="tool">
+        	<a href="index.php?do=task&view=industry&type&type=$type">分类列表</a>
+            <a href="index.php?do=task&view=industry_edit&type=$type" class="here">分类{if $indus_id}{$_lang['edit']}{else}{$_lang['add']}{/if}</a> 
+        </div>
+</div>
+
+<div class="box post">
+    <div class="tabcon">
+        	<div class="title"><h2>分类{if $indus_id}{$_lang['edit']}{else}{$_lang['add']}{/if}</h2></div>       	
+            <div class="detail">
+                <form method="post" action="index.php?do={$do}&view={$view}&type=$type" id="frm_indus_edit" >
+                <input type="hidden" name="pk[indus_id]" value="$indus_id">  
+				<input type="hidden" name="fs[indus_type]" value="$type">      
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <th scope="row" width="130">父级分类{$_lang['zh_mh']}</th>
+                        <td> 
+							<select name="fs[indus_pid]"id="slt_indus_id" style=" width:270px;"
+                         			 limit = "required:true;type:int" 
+                                     msg ={$_lang['choose_industry_class']} 
+                                     title={$_lang['you_choose_which_industry']}
+                                     msgArea="msg_indus_id">
+	                      <option value="0">{$_lang['top']}</option>
+	                        {loop $temp_arr $v}
+	                          $v
+	                        {/loop}
+	                    	</select>
+							 <span id="msg_indus_id" style="color:red;"></span> 
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">分类名称{$_lang['zh_mh']}</th>
+                        <td><input type="text" maxlength="100"  class="txt" style=" width:260px;"
+						name="fs[indus_name]" 
+						value="{$indus_info['indus_name']}"
+                        			 limit = "required:false" 
+                                     msg ={$_lang['write_industry_name']} 
+                                     title={$_lang['write_industry_name']} 
+                                     msgArea="msg_indus_name"/><span id="msg_indus_name"></span>
+                       </td>
+                      </tr>
+					  <tr>
+                        <th scope="row">{$_lang['result_order']}{$_lang['zh_mh']}</th>
+                        <td>
+                        	<input type="text"  class="txt" id="txt_listorder" name="fs[listorder]"
+						   		value="{if $indus_info['listorder']}{$indus_info['listorder']}{else}0{/if}"
+						    	maxlength="5" 
+								limit = "required:true;type:int" 
+                                onkeyup="clearstr(this)"
+                                msg ={$_lang['write_industry_order']}
+                                title={$_lang['write_industry_order']} 
+                                msgArea="slt_txt_listorder"/><span id="slt_txt_listorder"></span>   
+                        </td>
+                      </tr>
+					  <tr>
+                        <th scope="row">{$_lang['is_recommend']}{$_lang['zh_mh']}</th>
+                        <td>
+                          <p>
+                              <label><input type="checkbox" name="fs[is_recommend]" value="1"  {if $indus_info['is_recommend']==1} checked="checked" {/if}/>&nbsp;{$_lang['yes']}</label> <br />
+                          </p>
+                        </td>
+                      </tr>
+ 					  <tr>
+                        <th scope="row">seo标识：</th>
+                        <td>
+                          <p>
+                              <label>
+                              	<input type="text" class="txt" id="seo_catname" onchange="validseoname()" name="fs[seo_catname]" value="$indus_info['seo_catname']" />
+								<span id="msg_seo_catname">主要用于url的伪静态处理,不可重复</span>
+							  </label> 
+							  
+								<br />
+                          </p>
+                        </td>
+                      </tr>
+					  
+					 <tr>
+                        <th scope="row">seo标题：</th>
+                        <td>
+                          <p>
+                              <label>
+                              	<input type="text" class="txt" name="fs[seo_title]" value="$indus_info['seo_title']" />
+							  </label> 
+								<br />
+                          </p>
+                        </td>
+                      </tr>
+					  
+					  <tr>
+                        <th scope="row">seo关键词：</th>
+                        <td>
+                          <p>
+                              <label>
+                              	<input type="text" class="txt" name="fs[seo_keywords]" value="$indus_info['seo_keywords']" />
+							  </label> 
+								<br />
+                          </p>
+                        </td>
+                      </tr>
+
+					<tr>
+                        <th scope="row">seo描述：</th>
+                        <td>
+                          <p>
+                              	<textarea name="fs[seo_desc]" cols="40" rows="7" >$indus_info[seo_desc]</textarea> 
+								<br />
+                          </p>
+                        </td>
+                      </tr>
+					<tr>
+                        <th scope="row">发布标题：</th>
+                        <td>
+                          <p>
+                              	<input type="text" maxlength="100"  class="txt"  name="fs[pub_title]" value="$indus_info[pub_title]">
+								<br />
+                          </p>
+                        </td>
+                      </tr>
+					 	<tr>
+                        <th scope="row">发布内容：</th>
+                        <td>
+                          <p>
+                              	<textarea name="fs[pub_content]" cols="40" rows="7" >$indus_info[pub_content]</textarea> 
+								<br />
+                          </p>
+                        </td>
+                      </tr>
+					  
+					  <tr>
+                        <th scope="row">稿件列表：</th>
+                        <td>
+                          <p>
+                              	<label><input type="radio" name="fs[worklist_viewtype]" {if $indus_info['worklist_viewtype']!='icon'}checked=checked{/if} value="list">默认竖排显示</label>
+								<label><input type="radio" name="fs[worklist_viewtype]" {if $indus_info['worklist_viewtype']=='icon'}checked=checked{/if} value="icon">默认缩略图显示</label>
+								<br />
+                          </p>
+                        </td>
+                      </tr>
+					  
+					<tr>
+ 
+						<th scope="row">&nbsp;</th>
+						<td>
+						<button name="sbt_edit" value="1" onclick="return checkForm(document.getElementById('frm_indus_edit'),false)" class="positive primary pill button" type="submit">
+						<span class="check icon"></span>{$_lang['submit']}</button>
+						 <button class="pill button" type="button" onclick="to_back();" value={$_lang['return']}><span class="uparrow icon"></span>{$_lang['return']}</button>
+						</td>
+					</tr>
+                    </table>
+                </form>
+              </div>
+			  
+			  <script>
+			  
+					function validseoname(){
+						var nowv = $('#seo_catname').val();
+						if(nowv!=''&&nowv!='{$indus_info[seo_catname]}'){
+							$.get('index.php?do=$do&view=$view&indus_id=$indus_id&indus_pid=$indus_pid&ac=validseoname&seocatname='+nowv,function(data){
+								if(data==''){
+									$('#msg_seo_catname').html('主要用于url的伪静态处理,不可重复');
+									$('#msg_seo_catname').attr('class','');
+								}
+								else{
+									$('#msg_seo_catname').html('<font> </font>该标识已存在');
+									$('#msg_seo_catname').attr('class','valid_error');
+								}
+							});
+						}
+					}
+				
+			  </script>
+       </div>           
+</div>
+<!--主体结束-->
+<!--{template control/admin/tpl/admin_footer}-->

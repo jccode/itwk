@@ -1,0 +1,169 @@
+<!--{template header}-->
+ <style type="text/css">
+ 	.file_box{ width: 420px;}
+	.tipsy{ z-index:9999;}
+	.tipsy-inner{ max-width:450px;}
+	.tipsy p{ margin:5px; text-align:left;}
+ </style>
+<div class="winbody {$_K['theme']}_style">
+ <div class="clearfix pad10">
+    <!--from表单 start-->
+    <form method="post" id="frm_report" name="frm_report" action=''>
+     <input type="hidden" name="obj" value="{$obj}">
+     <input type="hidden" name="obj_id" value="{$obj_id}">
+     <input type="hidden" name="type" value="{$type}">
+     <input type="hidden" name="to_uid" value="{$to_uid}">
+     <input type="hidden" name="to_username" value="{$to_username}">
+	 {if $type=="1"}
+	 <div class="rowElem clearfix">
+	 	 <label class="fl_l t_r">举报类型：</label>
+		 <div class="fl_l ws_break" style="width:85%;">
+		 	<select id="report_cate" name="report_cate" onchange="changeType();">
+		 		{if $obj=='task'}
+				{loop $buyer_type $v}
+		 		<option value="{$v[0]}">{$v[1]}</option>
+				{/loop}
+				{/if}
+				{if $obj=='work'}
+				{loop $seller_type $v}
+				<option value="{$v[0]}">{$v[1]}</option>
+				{/loop}
+				{/if}
+		 	</select>
+			<div class="clearfix"></div>
+			{if $obj=='task'}
+			{loop $buyer_type $v}
+			<div id="cate_info{$v[0]}" name="cate_info" class="pt_10" {if $v[0]!=1}style="display:none;"{/if}>{$v[2]}</div>
+			{/loop}
+			{/if}
+			{if $obj=='work'}
+			{loop $seller_type $v}
+			<div id="cate_info{$v[0]}" name="cate_info" class="pt_10" {if $v[0]!=1}style="display:none;"{/if}>{$v[2]}</div>
+			{/loop}
+			{/if}
+		 </div>
+	 </div>
+	 {/if}
+     <div class="rowElem clearfix" id="upload_tip">
+  		 <label class="fl_l t_r">{$_lang['attachment_upload']}</label>
+		 <div class="fl_l file_box">
+            
+            	<div class="fl_r pt_5">
+				           	一次最多上传5个， 每个不超过{$basic_config['max_size']}M
+				           <a href="javascript:;" class="file_type" title="<p>1. 上传附件支持常见的办公软件文档格式(office文档格式)，常见的压缩文件格式(rar,zip,7z)，常见的图片格式(jpg,png,gif)等，其他不常见的格式建议压缩成RAR文档再上传。</p><p>2. 最多可上传附件5个附件，每个文件大小不得超过2M。</p>
+<p>3. 图形文件不支持CMYK模式(将无法正常显示)。</p><p>4. 文件名称须符合正常规范(勿在文件名中包含其他符号，如点号等)</p>">无法正常上传？</a>
+						</div>
+                <div class="clearfix">
+                   
+ 						<input type="hidden" name="file_ids" id="file_ids">
+                 		<input type="file" class="file" name="upload" id="upload">
+                   
+					
+                </div>
+
+                
+        </div>
+      </div>
+       <div class="rowElem clearfix" id="desc">
+      		 <label class="fl_l t_r">{$transname}{$_lang['cause']} </label>
+			 <div class="fl_l">
+      		 <textarea cols="70" rows="3" name="tar_content" id="tar_content"  class="txt_input" onkeyup="checkInner(this,100,event);" onkeydown="checkInner(this,100,event)"></textarea>
+      		<div class="clear"></div>
+             <div class="c999" id="length_show">{$_lang['input_cause_msg_notice']}</div>
+			 </div>
+      </div>
+      
+   </form>
+  <!--from表单 end-->
+   </div>
+<div class="rowElem clearfix form_button">
+       	 	 <button type="button" class="submit" value="{$_lang['save']}" onclick="subReport(); return false;">{$_lang['submit']}</button>
+		 	 <button type="button" class="button bwhite" value="{$_lang['cancel']}" onclick="hideWindow('report')">{$_lang['cancel']}</button>
+      </div>
+
+
+
+</div>
+<script type="text/javascript">
+		In.add('pop_window',{path:"{$_K['siteurl']}/resource/js/system/pop_window.js",type:'js'});  
+		In('form','ajaxfileupload','pop_window'); 
+</script>
+
+<script type="text/javascript">
+	uploadBlur=function(){
+		if(ifOut('upfile',1,1,'upload_tip')&&$("#upload").val()){
+			upload("upload",'att','front','{$task_id}','{$obj_id}','{$obj_type}','','',1,'upload_tip');
+		}else{
+			return false;
+		}
+	}
+	function subReport(){
+		var i = checkForm(document.getElementById('frm_report'));
+		if(i){
+		var shtml 	 = contentCheck('tar_content','{$title}',5,100,1,'upload_tip');
+			if(shtml){
+				var data = $("#frm_report").serialize();
+				$.post(basic_url+'&op={$op}&'+data,{sbt_edit:true},
+				function(json){
+					if(json.status=='1'){
+						showDialog(json.data,'right',json.msg);hideWindow('report');return false;
+						}
+					else{
+						showDialog(json.data,'alert',json.msg);return false;
+					}
+			},'json');
+			}
+		}
+	}
+		/**
+		 * 上传完成后的页面响应
+		 * @param json json数据
+		 */
+		function uploadResponse(json){
+			if($("#"+json.fid).length<1){//判断是否已有同样的li、
+				var file_ids = $("#file_ids").val();
+				if(file_ids){
+					$("#file_ids").val(file_ids+','+json.fid)
+				}else{	
+					$("#file_ids").val(json.fid);
+				}
+			}
+		   
+		}
+	/**
+	 * 上传附件删除
+ 	* @param file_id 附件编号
+ 	*/
+	function del_file(file_id){
+		$.getJSON("{$_K['siteurl']}/index.php?do=ajax&view=file&ajax=delete&file_id="+file_id,function(json){
+			if(json.status=='1')
+				$("#"+file_id).remove();
+				$("#file_url").val('');
+		})	
+	}
+	
+
+	$(function(){
+		uploadify({
+				auto:true,
+				size:"{$basic_config['max_size']}MB",
+				exts:'{$ext_types}',
+				limit:5},
+				{fileType:'att',objType:'report'}
+			);
+			
+		$('a.file_type').tipsy({gravity:$.fn.tipsy.autoNS,html: true});
+	})
+	//切换举报类型
+	function changeType(){
+		var typeId = $('#report_cate').val();
+		for(var i=1;i<6;i++){
+			if(i==typeId){
+				$('#cate_info' + i).attr('style','display:block;');
+			}else{
+				$('#cate_info' + i).attr('style','display:none;');
+			}
+		}
+	}
+</script>
+<!--{template footer}-->

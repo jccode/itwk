@@ -1,0 +1,391 @@
+<!--用户中心样式-->
+<div class="second_menu ">
+    <div class="box default">
+        <div class="inner">
+			<header class="box_header clearfix">
+                <h2 class="box_title">$nav[$view]['0']</h2>
+			</header>
+            <div class="box_detail">
+                <nav class="minor_nav clearfix">
+                	<ul class="clearfix">
+						{if $view=="setting"}
+                		<li>
+                			<a href="javascript:void(0)" title="基本资料">
+                				<span class="icon16 {if !in_array($op,array('index','basic','picture','fina_account'))}more_list{else}less_list{/if}"></span><strong>基本资料</strong>
+                			</a>
+							<ul class="clearfix {if !in_array($op,array('index','basic','picture','fina_account','corp_site'))}hidden{/if}">
+								<li {if $op=="basic"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=basic"  title="资料完善">资料完善</a>
+								</li>
+								<li  {if $op=="picture"}class="selectedLava"{/if} >
+									<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=picture" title="头像设置">头像设置</a>
+								</li>
+								<li  {if $op=="fina_account"}class="selectedLava"{/if} >
+									<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=fina_account" title="银行账户">银行账户</a>
+								</li>
+							</ul>
+                		</li>
+						 <li>
+                			<a href="javascript:void(0)" title="账号安全">
+                				<span class="icon16 {if !in_array($op,array('safe','account_bind'))}more_list{else}less_list{/if}"></span><strong>账号安全</strong>
+                			</a>
+							<ul class="clearfix {if !in_array($op,array('safe','account_bind'))}hidden{/if}">
+								<li {if $op=="safe"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=safe"  title="密码修改">密码修改</a>
+								</li>
+								<li {if $op=="account_bind"}class="selectedLava"{/if} >
+									<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=account_bind"title="账号绑定">账号绑定</a>
+								</li>
+							</ul>
+                		</li>
+						<li>
+                			<a href="javascript:void(0)" title="账号认证">
+                				<span class="icon16 {if !in_array($auth_code,array('realname','email','mobile','bank'))}more_list{else}less_list{/if}"></span><strong>账号认证</strong>
+                			</a>
+							<ul class="clearfix {if !in_array($auth_code,array('realname','email','mobile','bank'))}hidden{/if}">
+								<li {if $op=="auth"&&$auth_code=="realname"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=realname"  title="身份证认证">身份证认证</a>
+								</li>
+								<li {if $op=="auth"&&$auth_code=="email"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=email"  title="邮箱认证">邮箱认证</a>
+								</li>
+								<li {if $op=="auth"&&$auth_code=="mobile"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=mobile"  title="手机认证">手机认证</a>
+								</li>
+								<li {if $op=="auth"&&$auth_code=="bank"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=bank"  title="银行卡认证">银行卡认证</a>
+								</li>								
+							</ul>
+                		</li>
+						<li>
+                			<a href="javascript:void(0)" title="交易维权">
+                				<span class="icon16  {if !in_array($opp,array('complaint','report'))}more_list{else}less_list{/if}"></span><strong>交易维权</strong>
+                			</a>
+							<ul class="clearfix {if !in_array($opp,array('complaint','report'))}hidden{/if}">
+								<li {if $opp=="complaint"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=trans&opp=complaint"  title="投诉管理">投诉管理</a>
+								</li>
+								<li {if $opp=="report"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=trans&opp=report"  title="举报管理">举报管理</a>
+								</li>	
+							</ul>
+                		</li>
+						<li>
+							<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=prom" {if $op=='prom'}class="selected"{/if} title="推广赚钱">
+                				<span class="icon16 no_list"></span> <em>推广赚钱</em>
+                			</a>
+						</li>
+					
+						<li>
+							<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=credit_record" {if $op=='credit_record'}class="selected"{/if} title="我的金币">
+                				<span class="icon16 no_list"></span> <em>我的金币</em>
+                			</a>
+						</li>
+						{/if}
+						
+						
+						{if $view=="employer"}
+						<li>
+							<a href="{$_K['siteurl']}/index.php?do=release" title="我需要服务">
+                				<span class="icon16 no_list"></span><strong>我需要服务</strong>
+                			</a>
+						</li>
+						<li>
+                			<a href="javascript:void(0)" title="我发布的任务">
+                				<span class="icon16 {if !in_array($view,array('employer'))}more_list{else}less_list{/if}"></span><strong>我发布的任务</strong>
+                			</a>
+							<ul class="clearfix {if !in_array($view,array('employer'))}hidden{/if}">
+								<li {if $op=="task"&&$opp=="xsrw"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=employer&op=task&opp=xsrw"  title="悬赏任务">悬赏任务( <b>{$all_task_count['xsrw']}</b> )</a>
+								</li>
+								<li  {if $op=="task"&&$opp=="zbrw"}class="selectedLava"{/if} >
+									<a href="{$_K['siteurl']}/index.php?do=user&view=employer&op=task&opp=zbrw"title="招标任务">招标任务( <b>{$all_task_count['zbrw']}</b> )</a>
+								</li>
+								<li {if $op=="task"&&$opp=="jjrw"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=employer&op=task&opp=jjrw"  title="计件任务">计件任务( <b>{$all_task_count['jjrw']}</b> )</a>
+								</li>
+								<li {if $op=="task"&&$opp=="fwxq"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=employer&op=task&opp=fwxq"  title="服务需求">服务需求( <b>{$all_task_count['fwxq']}</b> )</a>
+								</li>
+								<li  {if $op=="task"&&$opp=="gyrw"}class="selectedLava"{/if} >
+									<a href="{$_K['siteurl']}/index.php?do=user&view=employer&op=task&opp=gyrw"title="雇佣任务">雇佣任务( <b>{$all_task_count['gyrw']}</b> )</a>
+								</li>
+								<li  {if $op=="task"&&$opp=="zjgy"}class="selectedLava"{/if} >
+									<a href="{$_K['siteurl']}/index.php?do=user&view=employer&op=task&opp=zjgy"title="直接雇佣">直接雇佣( <b>{$all_task_count['zjgy']}</b> )</a>
+								</li>
+							</ul>
+                		</li>
+						<li>
+                			<a href="javascript:void(0)" title="信誉评价">
+                				<span class="icon16 {if !in_array($opp,array('grow','mark'))}more_list{else}less_list{/if}"></span><strong>信誉评价</strong>
+                			</a>
+							<ul class="clearfix {if !in_array($opp,array('grow','mark'))}hidden{/if}">
+								<li {if $op=="credit"&&$opp=="grow"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=employer&op=credit&opp=grow"  title="信誉等级成长">信誉等级成长</a>
+								</li>
+								<li {if $op=="credit"&&$opp=="mark"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=employer&op=credit&opp=mark"  title="交易评价管理">交易评价管理</a>
+								</li>
+							</ul>
+                		</li>
+						<li>
+                			<a href="javascript:void(0)" title="发票管理">
+                				<span class="icon16 {if !in_array($opp,array('apply','accept','refuse'))}more_list{else}less_list{/if}"></span><strong>发票管理</strong>
+                			</a>
+							<ul class="clearfix {if !in_array($opp,array('apply','accept','refuse'))}hidden{/if}">
+								<li {if $op=="invoice"&&$opp=="apply"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=employer&op=invoice&opp=apply"  title="已经申请">已经申请</a>
+								</li>
+								<li  {if $op=="invoice"&&$opp=="accept"}class="selectedLava"{/if} >
+									<a href="{$_K['siteurl']}/index.php?do=user&view=employer&op=invoice&opp=accept"title="已经受理">已经受理</a>
+								</li>
+								<li {if $op=="invoice"&&$opp=="refuse"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=employer&op=invoice&opp=refuse"  title="拒绝受理">拒绝受理</a>
+								</li>
+							</ul>
+                		</li>
+						{/if}
+						
+						{if $view=="witkey"}
+						<li>
+							<a href="{$_K['siteurl']}/index.php?do=vip" title="我需要更多特权">
+                				<span class="icon16 no_list"></span><strong>我需要更多特权</strong>
+                			</a>
+						</li>
+						<li>
+                			<a href="javascript:void(0)" title="我参加的任务">
+                				<span class="icon16 {if !in_array($view,array('witkey'))}more_list{else}less_list{/if}"></span><strong>我参加的任务</strong>
+                			</a>
+							<ul class="clearfix {if !in_array($view,array('witkey'))}hidden{/if}">
+								<li {if $op=="task"&&$opp=="xsrw"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=witkey&op=task&opp=xsrw"  title="悬赏任务">悬赏任务( <b>{$all_task_count['xsrw']}</b> )</a>
+								</li>
+								<li  {if $op=="task"&&$opp=="zbrw"}class="selectedLava"{/if} >
+									<a href="{$_K['siteurl']}/index.php?do=user&view=witkey&op=task&opp=zbrw"title="招标任务">招标任务( <b>{$all_task_count['zbrw']}</b> )</a>
+								</li>
+								<li {if $op=="task"&&$opp=="jjrw"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=witkey&op=task&opp=jjrw"  title="计件任务">计件任务( <b>{$all_task_count['jjrw']}</b> )</a>
+								</li>
+								<li {if $op=="task"&&$opp=="fwxq"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=witkey&op=task&opp=fwxq"  title="服务需求">服务需求( <b>{$all_task_count['fwxq']}</b> )</a>
+								</li>
+								<li  {if $op=="task"&&$opp=="gyrw"}class="selectedLava"{/if} >
+									<a href="{$_K['siteurl']}/index.php?do=user&view=witkey&op=task&opp=gyrw"title="雇佣任务">雇佣任务( <b>{$all_task_count['gyrw']}</b> )</a>
+								</li>
+								<li  {if $op=="task"&&$opp=="zjgy"}class="selectedLava"{/if} >
+									<a href="{$_K['siteurl']}/index.php?do=user&view=witkey&op=task&opp=zjgy"title="直接雇佣">直接雇佣( <b>{$all_task_count['zjgy']}</b> )</a>
+								</li>
+							</ul>
+                		</li>
+						<li>
+							<a href="{$_K['siteurl']}/index.php?do=user&view=witkey&op=collect" {if $op=='collect'}class="selected"{/if} title="收藏夹">
+                				<span class="icon16 no_list"></span> <em>收藏夹</em>
+                			</a>
+						</li>
+						<li>
+                			<a href="javascript:void(0)" title="能力评价">
+                				<span class="icon16 {if !in_array($opp,array('grow','mark'))}more_list{else}less_list{/if}"></span><strong>能力评价</strong>
+                			</a>
+							<ul class="clearfix {if !in_array($opp,array('grow','mark'))}hidden{/if}">
+								<li {if $op=="credit"&&$opp=="grow"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=witkey&op=credit&opp=grow"  title="能力等级成长">能力等级成长</a>
+								</li>
+								<li {if $op=="credit"&&$opp=="mark"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=witkey&op=credit&opp=mark"  title="交易评价管理">交易评价管理</a>
+								</li>
+							</ul>
+                		</li>
+						<li>
+							<a href="{$_K['siteurl']}/index.php?do=user&view=witkey&op=integ" {if $op=="integ"}class="selected"{/if} title="诚信保障">
+                				<span class="icon16 no_list"></span> <em>诚信保障</em>
+                			</a>
+						</li>
+						
+						{/if}
+						
+						{if $view=="message"}
+						<li>
+                			<a href="javascript:void(0)" title="我的短信息">
+                				<span class="icon16 less_list"></span><strong>我的短信息</strong>
+                			</a>
+							<ul class="clearfix ">
+								<li {if $msg_type=="system"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=message&msg_type=system"  title="系统收件箱">系统收件箱</a>
+								</li>
+								<li {if $msg_type=="accept"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=message&msg_type=accept"  title="个人收件箱">个人收件箱</a>
+								</li>
+								<li {if $msg_type=="output"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=message&msg_type=output"  title="发件箱">发件箱</a>
+								</li>
+								<li {if $msg_type=="write"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=message&msg_type=write"  title="写站内信">写站内信</a>
+								</li>
+							</ul>
+                		</li>
+						{/if}
+						
+						{if $view=="finance"}
+							<li>
+                			<a href="javascript:void(0)" title="财务明细">
+                				<span class="icon16 less_list"></span><strong>财务明细</strong>
+                			</a>
+							<ul class="clearfix">
+								<li {if $op=="detail"&&!$action}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=finance&op=detail"  title="收支明细">收支明细</a>
+								</li>
+								<li {if $op=="detail"&&$action=="charge"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=finance&op=detail&action=charge"  title="充值记录">充值记录</a>
+								</li>
+								<li {if $op=="detail"&&$action=="withdraw"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=finance&op=detail&action=withdraw"  title="提现记录">提现记录</a>
+								</li>
+							</ul>
+                		</li>
+						<li>
+							<a href="{$_K['siteurl']}/index.php?do=user&view=finance&op=recharge" rel="nofollow" {if $op=="recharge"}class="selected"{/if} title="账号充值">
+                				<span class="icon16 no_list"></span> <em>账号充值</em>
+                			</a>
+						</li>
+						<li>
+							<a href="{$_K['siteurl']}/index.php?do=user&view=finance&op=withdraw" rel="nofollow" {if $op=="withdraw"}class="selected"{/if} title="账号提现">
+                				<span class="icon16 no_list"></span> <em>账号提现</em>
+                			</a>
+						</li>
+						{/if}
+						
+						{if $view=='space'}
+							<li>
+                			<a href="javascript:void(0)" title="商铺管理">
+                				<span class="icon16 less_list"></span><strong>商铺管理</strong>
+                			</a>
+							<ul class="clearfix">
+								{if $user_info['shop_id']}
+								<li {if $op=="basic"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=space&op=basic"  title="商铺基本设置">商铺基本设置</a>
+								</li>
+								{else}
+								<li {if $op=="basic"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=space&op=basic"  title="商铺开通">商铺开通</a>
+								</li>
+								{/if}
+								{if $user_info['shop_id']}
+							
+								<li {if $op=="skill"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=space&op=skill"  title="技能标签设置">技能标签设置</a>
+								</li>
+								<li {if $op=="service"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=space&op=service"  title="服务管理">出售服务管理</a>
+								</li>
+								{if $user_info[user_type]==2}
+								<li {if $op=="member"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=space&op=member"  title="成员管理">成员管理</a>
+								</li>
+								{/if}
+								{if $user_info[shop_level]>=2}
+								<li {if $op=="domain"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=space&op=domain"  title="个性域名设置">个性域名设置</a>
+								</li>
+								{/if}
+								{if $user_info[shop_level]==3}
+								<li {if $op=="about"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=space&op=about"  title="关于商铺">关于商铺</a>
+								</li>
+								<li {if $op=="article"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=space&op=article"  title="添加商铺文章">添加商铺文章</a>
+								</li>
+								<li {if $op=="article_manage"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=space&op=article_manage"  title="商铺文章管理">商铺文章管理</a>
+								</li>
+								<li {if $op=="job"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=space&op=job"  title="发布职位">发布职位</a>
+								</li>
+								<li {if $op=="job_manage"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=space&op=job_manage"  title="职位管理">职位管理</a>
+								</li>
+								{/if}
+								<li {if $op=="cate"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=space&op=cate"  title="案例分类">案例分类</a>
+								</li>
+								<li {if $op=="case"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=space&op=case"  title="案例管理">案例管理</a>
+								</li>
+								{if $user_info[shop_level]==3}
+								<li {if $op=="link"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=space&op=link"  title="推荐链接">推荐链接</a>
+								</li>
+								{/if}
+								<li {if $op=="upgrade"}class="selectedLava"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=vip"  title="升级商铺，更多特权">升级商铺，更多特权</a>
+								</li>
+								{/if}
+							</ul>
+                		</li>
+						{/if}
+					</ul>
+
+                </nav>
+            </div>
+        </div>
+    </div>
+	
+	
+	<!--雇佣任务-->
+	<div class="box b_orange mt_10 clearfix po_re" style="display:none;">
+		<div class="inner clearfix">
+				<a class="clearfix" href="{$_K['siteurl']}/index.php?do=hire">
+					<div class="user_side_icon hire"></div>
+					<div class="box_side">
+						<h2>雇佣任务</h2>
+						<span>无抽佣 赏金不打折！</span>
+					</div>
+				</a>
+		</div>
+		<img class="hire_hot" src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/user_side_hot.gif" width="24" height="24">
+	</div>
+	<!--雇佣任务 end-->
+	
+	<div class="box default clearfix mt_10">
+		<div class="inner clearfix">
+			<ul class="user_side_guide clearfix">
+				<li class="n_m_t clearfix" style="display:none;">
+					<a class="clearfix"  href="/zt/qtzt/pinpaiguwen/" target="_blank">
+						<div class="user_side_icon adviser"></div>
+						<div class="box_side">
+							<h3>品牌顾问</h3>
+							<span>企业一站式服务</span>
+						</div>
+					</a>
+				</li>
+				<li class="clearfix" style="display:none;">
+					<a class="clearfix"  href="{$_K['siteurl']}/index.php?do=vip" target="_blank">
+						<div class="user_side_icon match"></div>
+						<div class="box_side">
+							<h3>同城速配</h3>
+							<span>威客轻松赚真金</span>
+						</div>
+					</a>
+				</li>
+				<li class="clearfix">
+					<a class="clearfix"  href="{$_K['siteurl']}/index.php?do=review" rel="nofollow" target="_blank">
+						<div class="user_side_icon steer"></div>
+						<div class="box_side">
+							<h3>意见建议</h3>
+							<span>期待您的宝贵建议</span>
+						</div>	
+					</a>
+				</li>
+				<li class="clearfix">
+					<a class="clearfix"  href="{$_K['siteurl']}/index.php?do=help" target="_blank">
+						<div class="user_side_icon core"></div>
+						<div class="box_side">
+							<h3>帮助中心</h3>
+							<span>疑难问题 在此化解</span>
+						</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+</div>

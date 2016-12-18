@@ -1,0 +1,38 @@
+{if $comment_data}
+							{loop $comment_data $k $v}
+							<dd class="mb_10 clearfix" id="reply_record_$v['comment_id']">
+								<ul class="clearfix pb_10">
+									<li class="fl_l header_pic pl_10"><!--{userpic($v[uid],'small')}--></li>
+									<li class="t_l fl_l pr_10">
+										<a href="{$_K['siteurl']}/index.php?do=space&member_id=$v[uid]">$v[username]</a><p><!--{eval echo nl2br($v[content])}--></p>
+										<span id="c_reply_list_$v['comment_id']">
+										{if $reply_arr[$v['comment_id']]}
+											{loop $reply_arr[$v['comment_id']] $kr $vr}<p style="margin-left:30px;color:red">{$vr['content']}  ---   <span style="color:orange">$vr['username']</span>  回复于  <span style="color:gray"><!--{date('Y-m-d H:i:s',$vr[on_time])}--></span> </p>{/loop}
+										{/if}
+										</span>
+										
+										{if $uid==$v['uid']||$uid==$task_info['uid']}
+											<span id="comment_opspan_$v[comment_id]">
+												{if $uid==$task_info['uid']||($uid==$v['uid']&&$reply_arr[$v['comment_id']])}<a href="javascript:;" onclick="$('#comment_opspan_$v[comment_id]').hide();$('#comment_opspan2_$v[comment_id]').show()">回复</a>{/if} 
+												{if $uid==$v['uid']}<a href="javascript:;" onclick="del_comment($v['comment_id'])">删除</a>{/if} 
+											</span>
+										
+											
+											<span id="comment_opspan2_$v[comment_id]" style="display:none"><input type="text" value="" name="comment_reply_$v[comment_id]" id="comment_reply_$v[comment_id]"><button class="big button" onclick="reply_comment($v[comment_id])" type="button">回复留言</button></span>
+										{/if}
+									</li>
+									<li class="fl_r t_r"><span>留言时间：<!--{date('Y-m-d H:i:s',$v[on_time])}--></span></li>
+									
+								</ul>
+							</dd>
+							{/loop}
+							<dd class="mb_10 clearfix page"> 
+								<p class="clearfix">                       
+									{$comment_page['page']}
+			                    </p>
+								<div class="clear">
+			                    </div>
+							</dd>
+{else}
+该任务尚无留言记录
+{/if}			

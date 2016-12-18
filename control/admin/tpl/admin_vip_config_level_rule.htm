@@ -1,0 +1,40 @@
+<!--{template control/admin/tpl/admin_header}--> 
+<div class="page_title">
+    	<h1>设置权限</h1>
+        <div class="tool">
+       		<a href="index.php?do=$do&view=$view">等级配置</a>
+        	<a href="index.php?do=$do&view=$view&type=special">特权配置</a>
+			<a href="javascript:;" class="here">设置权限</a>
+		</div>
+</div>
+<div class="box post">
+    <div class="tabcon">
+        	<div class="title"><h2>设置权限</h2></div>       	
+            <div class="detail">
+                <form method="post" action="index.php?do={$do}&view={$view}&type=$type&op=$op&level_id=$level_id" id="frm_level_edit" enctype="multipart/form-data">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <th scope="row" width="130">权限列表：</th>
+                        <td> 
+							<ul>
+								
+							</ul>
+                        </td>
+                      </tr>
+                      
+					 
+					<tr>
+						<th scope="row">&nbsp;</th>
+						<td>
+						<button name="sbt_edit" value="1" onclick="return checkForm(document.getElementById('frm_level_edit'),false)" class="positive primary pill button" type="submit">
+						<span class="check icon"></span>提交</button>
+						 <button class="pill button" type="button" onclick="history.go(-1);" value={$_lang['return']}><span class="uparrow icon"></span>返回</button>
+						</td>
+						</tr>
+                    </table>
+                </form>
+              </div>
+       </div>           
+</div>
+<!--主体结束-->
+<!--{template control/admin/tpl/admin_footer}-->

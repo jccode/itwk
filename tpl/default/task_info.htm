@@ -1,0 +1,345 @@
+<!--{template header}-->
+<!--首页样式--> 
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/task.css" rel="stylesheet"/>
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/index.css" rel="stylesheet"/> 
+ <!--内容区 satrt-->
+<div class="wrapper clearfix">
+	<div class="container_24 clearfix"> 
+		<div class="clearfix">
+		<!--所在位置  start-->
+    	<div class="breadcrumbs clearfix">
+    		<span class="site">你的位置：</span>
+			<a href="{$_K['siteurl']}/index.php">IT帮手网首页</a>
+			<span class="font_simsun">&gt;</span>
+			<a href="#">全部任务</a>
+			<span class="font_simsun">&gt;</span>
+			<a href="#">维护</a>
+			<span class="font_simsun">&gt;</span>
+    	</div>
+		<!--所在位置 end-->
+		
+	<!--任务详情detail部分  start-->
+		<div class="rwxq_box mt_10 fl_l">
+			<div class="rwxq_detail">
+				<h1 class="title pad10"><span class="pr_10">1200</span>河南起点商贸公司LOGO征集</h1>
+				<ul class="mar10 clearfix">
+					<li class="task_state clearfix">
+						<div class="fl_l">
+							<strong>任务状态：<span class="task_info">任务进行中，您可以随时交稿</span></strong>
+							<p><span class="pr_5 mb_5"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/time.gif"></span>距交稿截止还有<span>9天7小时48分13秒</span></p>
+						</div>
+						<div class="fl_r mt_30"><a href="#"></a></div>
+						<div class="mode_detail">
+							  <p>任务赏金：<span style="color:#f00;">1000-5000元</span></p>
+					          <p>开始时间：<span style="color:#f00;">2012-5-30 14:55:22</span></p>
+					          <p>结束时间：<span style="color:#f00;">2012-6-9 14:55:22</span></p>
+						</div>
+					</li>
+					
+					<li>
+						<div class="fl_l">
+							<p>任务模式：<strong>全额悬赏</strong></p>
+							<p>中标模式：<strong>单人中标</strong></p>
+						</div>
+						<div class="fl_r mt_30"><a href="#"></a></div>
+						<div class="mode_detail more">bgmh,mjhn,jngjhjjjhhhhhhh</div>
+					</li>
+					
+					<li class="last_bor">
+						<div class="fl_l">
+							<p>赏金状态：<strong>已托管赏金</strong></p>
+							<p>保证选稿：<strong>是</strong></p>
+						</div>
+						<div class="fl_r mt_30"><a href="#"></a></div>
+						<div class="mode_detail more">bgmh,mjhn,jngjhjjjhhhhhhh</div>
+					</li>
+				</ul>
+				<p class="mar10">此任务正接受投稿中，您可以：</p>
+			</div>
+			<div class="rwxq_activit pad20 clearfix">			
+				<a href="#" class="button bor_r">查看需求</a>
+				<a href="#" class="button">参与互动</a>
+				<a href="#" class="button bor_l">举报任务</a>
+				<a href="#" class="button ml_10">报名交稿</a>
+				<a href="#" class="button ml_10">发布类似需求</a>
+				<div class="activit_rowup"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/activit_rowup.gif"></div>			
+			</div>
+		</div>
+		
+		<!--任务详情雇主部分  start-->
+		<!--{eval $g_level=unserialize($task_obj->_g_userinfo['buyer_level'])}-->
+		<!--{eval $auth_r_list = keke_auth_fac_class::get_submit_auth_record($task_info['uid'],1)}-->
+		<div class="rwxq_employer fl_l mt_10 ml_10">
+			<ul class="employer_top clearfix pad10">
+				<li class="head_pic t_c"><img class=" pic_small" width=50 height=50 src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/head_pic.gif"></li>
+				<li class="employer_detail">
+					<p>雇主：<span> LINAYOGA</span></p>
+					<p>等级:{$g_level[pic]}</p>
+					<p>认证：<!--{eval echo(keke_glob_class::get_auth_ico($v['auth_realname'],$v['auth_mobile'],$v['auth_email'],$v['auth_bank']));}--></p>
+				</li>
+			</ul>
+			<ul class="employer_center mar10 clearfix">
+				<li class="fl_l regis"><p>报名人数</p><strong>123</strong></li>
+				<li class="fl_l delivery"><p>交稿人数</p><strong>123</strong></li>				
+			</ul>
+			<ul class="clearfix pl_10 pr_10">
+				<li>任务编号：923188</li>
+				<li>关注人数：<strong class="ea5e00">123456</strong></li>
+				<li>分享可赚钱，赶快告诉朋友吧！</li>
+			</ul>
+		</div>
+		<!--任务详情雇主部分  end-->
+	<!--任务详情detail部分 end-->
+	</div>	
+	
+		<!--提交稿件部分  start-->
+		<div class="nav_lists_info clearfix mt_20">
+			<div class="nav_lists_nav clearfix">
+				<ul class="clearfix fl_l ">
+					<li><a class="selected" href="#">提交稿件(<span class="ffff00"> 99</span> )</a></li>
+					<li><a href="#">备选稿件（ 5 ）</a></li>
+					<li><a href="#">入围稿件（ 0 ）</a></li>
+					<li><a href="#">中标稿件（ 0 ）</a></li>
+				
+				</ul>
+				<ul class="clearfix fl_r page" >
+					<div class="fl_r">
+						<span>每页显示:</span>
+						<a href="#" class="selected">12</a>
+						<a href="#">24</a>
+						<a href="#">36</a>
+					</div>
+					<div class="clearfix fl_r select">
+						<select>
+							<option value="-1">按默认排序</option>
+							<option value="1">最新报价在后</option>
+							<option value="2">报价由高到低</option>
+							<option value="3">报价由低到高</option>
+							<option value="4">注册资金由高到低</option>
+							<option value="5">注册资金由低到高</option>
+						</select>
+					</div>
+					
+				</ul>
+			</div>
+			<div class="nav_lists_box clearfix">
+				<ul class="small_list mt_10 clearfix">
+					<li>
+						<a href="#"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/hide_pic.gif"></a>
+						<div><a href="#">威客名字</a><span>2011-07-26 23:15</span></div>
+						<div class="vip"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/vip.gif"></div>
+					</li>
+					<li>
+						<a href="#"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/hide_pic.gif"></a>
+						<div><a href="#">威客名字</a><span>2011-07-26 23:15</span></div>
+						<div class="vip"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/vip.gif"></div>
+					</li>
+					<li>
+						<a href="#"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/hide_pic.gif"></a>
+						<div><a href="#">威客名字</a><span>2011-07-26 23:15</span></div>
+						<div class="vip"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/vip.gif"></div>
+					</li>
+					<li>
+						<a href="#"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/hide_pic.gif"></a>
+						<div><a href="#">威客名字</a><span>2011-07-26 23:15</span></div>
+						<div class="vip"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/vip.gif"></div>
+					</li>
+					<li>
+						<a href="#"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/hide_pic.gif"></a>
+						<div><a href="#">威客名字</a><span>2011-07-26 23:15</span></div>
+						<div class="vip"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/vip.gif"></div>
+					</li>
+					<li>
+						<a href="#"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/hide_pic.gif"></a>
+						<div><a href="#">威客名字</a><span>2011-07-26 23:15</span></div>
+						<div class="vip"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/vip.gif"></div>
+					</li>
+					<li>
+						<a href="#"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/hide_pic.gif"></a>
+						<div><a href="#">威客名字</a><span>2011-07-26 23:15</span></div>
+						<div class="vip"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/vip.gif"></div>
+					</li>
+					<li>
+						<a href="#"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/hide_pic.gif"></a>
+						<div><a href="#">威客名字</a><span>2011-07-26 23:15</span></div>
+						<div class="vip"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/vip.gif"></div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--提交稿件部分  end-->
+		
+		<!--任务需求部分  start-->
+			<div class="task_demand clearfix mt_20">
+				<div class="task_demand_box pad10">
+					<div class="clearfix">
+						<h1 class="title fl_l">任务需求</h1>
+						<a href="#" class="button fl_r">↑收起</a>
+					</div>
+					<div class="clearfix">
+						<ul class="release_ex clearfix pad10">
+								<li class="head_pic t_c"><img class=" pic_small" width=50 height=50 src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/head_pic.gif"></li>
+								<li class="employer_detail">
+									<p><span> LINAYOGA</span>发布时间：2009-10-13 23:00</p>
+									<p class="font14 money">￥1200 河南起点商贸公司LOGO征集</p>
+								</li>		
+						</ul>
+						<div class="task_descript">
+							<p>简单介绍：“企贷通”是XTools CRM云计算服务提供商面向北京中小企业提供融资服务（贷款）的一款产品，与银行合作，中小企业通过XTools的云服务直接向银行申贷，速度比一般的银行借贷和融资机构快10——20倍，LOGO单独做“企贷通”。</p>
+							<p class="pt_20">征集要求</p>
+							<p>1、LOGO的样式应简洁、大方、大气，符合融资服务的特色。</p>
+							<p>2、LOGO设计作品应构思精巧，简洁明快，色彩协调，健康向上，有独特的创意，有视觉冲击力。</p>
+							<p>3、设计的LOGO要求突出金融行业的特征，须考虑到公司的业务范围。</p>
+							<p>4、色调、构图不受征集人局限，由设计人自由发挥，设计人可根据自己的理解和喜好进行创作，提供最多三种色调的方案供选择，尽量不要使用大量渐变色。（最好是金属色）</p>
+							<p>5、中标作品请提交完整的、可用的图形源文件，以便进行修改、完善和印刷。</p>
+							<p>6、提供原创作品，并附有详细的LOGO设计创意说明。 </p>
+							<p>7、设计的LOGO不得违反《中华人民共和国商标法》的有关规定，且LOGO尚未被注册。</p>
+						</div>
+						<h1 class="font14 pl_5">任务附件（<span class="ea5e00"> 3</span> ）</h1>
+						<ul class="task_access pl_10 pr_10 pt_20 pb_20 clearfix">
+							<li><img class="access_pic" src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/access_pic.gif"><a href="#">公司原来的形象标志.jpg</a>(150KB)</li>
+							<li><img class="access_pic" src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/access_file.gif"><a href="#">公司要求的设计说明.TXT</a>(150KB)</li>
+							<li><img class="access_pic" src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/access_word.gif"><a href="#">公司要求的设计说明.DOC</a>(150KB)</li>
+						</ul>
+					</div>	
+				</div>
+			</div>
+		<!--任务需求部分  end-->
+		
+		<!--互动交流部分  start-->
+			<div class="task_exchange clearfix mt_20">
+				<div class="task_exchange_box pad10">
+					<div class="clearfix">
+						<h1 class="title fl_l">互动交流（99 ）</h1>
+						<a class="button fl_r" href="#">↑收起</a>
+						<a class="button fl_r mr_10" href="#">我要留言</a>						
+					</div>
+					<div class="release_ex clearfix pt_10 pb_10">
+						<dl class="clearfix">							
+							<dd class="mb_10 clearfix">
+								<ul class="clearfix pb_10">
+									<li class="fl_l header_pic pl_10"><img class="pic_small" src="{$_K['siteurl']}/tpl/default/theme/simple/img/task/head_pic.gif" original-title=""></li>
+									<li class="t_l fl_l pr_10"><a href="#">启艺互动</a><p>请问一下雇主，你们对LOGO的整体思路的走向是什么呢？如果说的清楚些会更有利于我们设计发挥，呵呵~</p></li>
+									<li class="fl_r t_r"><span>留言时间：2009-10-13 23:00</span></li>
+								</ul>
+							</dd>
+							<dd class="mb_10 clearfix">
+								<ul class="clearfix pb_10">
+									<li class="fl_l header_pic pl_10"><img class="pic_small" src="{$_K['siteurl']}/tpl/default/theme/simple/img/task/head_pic.gif" original-title=""></li>
+									<li class="t_l fl_l pr_10"><a href="#">启艺互动</a><p>请问一下雇主，你们对LOGO的整体思路的走向是什么呢？如果说的清楚些会更有利于我们设计发挥，呵呵~</p></li>
+									<li class="fl_r t_r"><span>留言时间：2009-10-13 23:00</span></li>
+								</ul>
+							</dd>
+							<dd class="mb_10 clearfix">
+								<ul class="clearfix pb_10">
+									<li class="fl_l header_pic pl_10"><img class="pic_small" src="{$_K['siteurl']}/tpl/default/theme/simple/img/task/head_pic.gif" original-title=""></li>
+									<li class="t_l fl_l pr_10"><a href="#">启艺互动</a><p>请问一下雇主，你们对LOGO的整体思路的走向是什么呢？如果说的清楚些会更有利于我们设计发挥，呵呵~</p></li>
+									<li class="fl_r t_r"><span>留言时间：2009-10-13 23:00</span></li>
+								</ul>
+							</dd>
+							<dd class="mb_10 clearfix">
+								<ul class="clearfix pb_10">
+									<li class="fl_l header_pic pl_10"><img class="pic_small" src="{$_K['siteurl']}/tpl/default/theme/simple/img/task/head_pic.gif" original-title=""></li>
+									<li class="t_l fl_l pr_10"><a href="#">启艺互动</a><p>请问一下雇主，你们对LOGO的整体思路的走向是什么呢？如果说的清楚些会更有利于我们设计发挥，呵呵~</p></li>
+									<li class="fl_r t_r"><span>留言时间：2009-10-13 23:00</span></li>
+								</ul>
+							</dd>
+							<dd class="mb_10 clearfix">
+								<ul class="clearfix pb_10">
+									<li class="fl_l header_pic pl_10"><img class="pic_small" src="{$_K['siteurl']}/tpl/default/theme/simple/img/task/head_pic.gif" original-title=""></li>
+									<li class="t_l fl_l pr_10"><a href="#">启艺互动</a><p>请问一下雇主，你们对LOGO的整体思路的走向是什么呢？如果说的清楚些会更有利于我们设计发挥，呵呵~</p></li>
+									<li class="fl_r t_r"><span>留言时间：2009-10-13 23:00</span></li>
+								</ul>
+							</dd>							
+						</dl>
+					</div>
+				</div>
+			</div>
+		<!--互动交流部分  end-->
+		
+				<!--任务推荐部分  start-->
+			<div class="task_recommend mt_20 clearfix">
+				<div class="new_task fl_l">
+						<!--{eval $ownlists=keke_core_class::get_own_interest($ac)}-->		
+					<div class="inner pl_10 pr_10 pb_10">
+						<div class="clearfix">
+							<h1 class="title fl_l">您可能感兴趣的任务</h1>
+							<a class="fl_r pt_5 more" href="{$_K['siteurl']}/index.php?do=task_list">更多 ></a>
+						</div>
+				       
+						{if $ac='skill'}
+						{loop $ownlists $own}
+						<ul class="clearfix">
+							<li><a href="{$_K['siteurl']}/index.php?do=task&task_id=$own['task_id']"><span>￥{$own['task_cash']}</span>{$own['task_title']}</a></li>
+					
+						</ul>
+						{/loop}
+						{else}
+						暂时没有你感兴趣的任务
+						{/if}	
+					</div>
+					
+				</div>
+				
+				<div class="new_task fl_l">
+					
+					<div class="inner pl_10 pr_10 pb_10">
+						<div class="clearfix">
+							<h1 class="title fl_l">最新任务推荐</h1>
+							<a class="fl_r pt_5 more" href="{$_K['siteurl']}/index.php?do=task_list">更多 ></a>
+						</div>
+							{if $ac='istop'}
+							{loop $ownlists $own}
+						<ul class="clearfix">
+							<li><a href="{$_K['siteurl']}/index.php?do=task&task_id=$own['task_id']"><span>￥{$own['task_cash']}</span>{$own['task_title']}</a></li>
+					
+						</ul>
+						{/loop}
+						{else}
+						暂时没有推荐任务
+						{/if}
+					</div>
+				
+				</div>
+				
+				<div class="new_task fl_l bor_c_n">
+					<div class="inner pl_10 pr_10 pb_10">
+						<div class="clearfix">
+							<h1 class="title fl_l">重金任务推荐</h1>
+							<a class="fl_r pt_5 more" href="{$_K['siteurl']}/index.php?do=task_list">更多 ></a>
+						</div>
+						{if $ac='task_cash'}
+							{loop $ownlists $own}
+						<ul class="clearfix">
+							<li><a href="{$_K['siteurl']}/index.php?do=task&task_id=$own['task_id']"><span>￥{$own['task_cash']}</span>{$own['task_title']}</a></li>
+					
+						</ul>
+						{/loop}
+							{else}
+						暂时没有重金（金额大于2K）任务
+						{/if}
+					</div>
+					
+				</div>
+			</div>
+		<!--任务推荐部分  end-->
+	</div>
+</div>
+<!--内容区 end-->
+<!--{template footer}-->
+<script type="text/javascript" >
+	In.add('easySlider',{path:"{$_K['siteurl']}/resource/js/jqplugins/easySlider1.5.js",type:'js'});
+	In.add('index',{path:"{$_K['siteurl']}/{$style_path}/js/index.js",type:'js',rely:['easySlider']});
+	
+ 	In.add('lazy',{path:"{$_K['siteurl']}/resource/js/system/lazy.js",type:'js'});
+ 
+	In('easySlider','index','lazy',function(){
+		loadPics();
+	});
+		
+$(".box.model .task .box_detail .small_list li").hover(
+    function(){$(this).addClass('hover')},
+	function(){$(this).removeCss('hover')}
+	);
+</script>
+

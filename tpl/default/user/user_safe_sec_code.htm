@@ -1,0 +1,97 @@
+<!--{template header}--><!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+        <!--{template user/user_nav}-->
+		<!--main start-->
+        <section class="clearfix section">
+        <!--{template user/user_side}-->
+            <div class="show_panel ">
+		        <div class="">
+		            <div class="">
+		                <!--main content-->
+		                <div class=" clearfix box default">
+                    <!--header内容头部 start-->
+                    <header class="clearfix box_header">
+                        <h2 class="box_titlec pl_20">{$_lang['safe_set']}</h2>
+                        <div class="">
+				          <nav class="box_nav">
+				           <ul>
+				             {loop $third_nav $k $v}
+				               <li {if $opp==$k}class="selectedLava"{/if}>
+				                   <a href="{$ac_url}&opp={$k}#userCenter" title="$v['1']">$v['0']</a>
+				               </li>
+				             {/loop}
+				           </ul>
+				          </nav>
+				        </div>
+                    </header>
+                    <!--header内容头部 end-->
+					
+					<!--detail内容 start-->
+                    <article class="box_detail">
+                        <div class="messages m_warn clearfix">
+                           <div class=""><strong>安全提醒：</strong>安全密码将在支付赏金、提现等重要操作时使用，为了您的账号安全请认真填写。请妥善保管密码！IT帮手网工作人员不会以任何理由向您索取密码。</div>
+                        </div>
+                           <div class="box_detail">
+                                <div class="clearfix font14">
+								<form action="{$ac_url}&opp={$opp}" method="post" name="frm" id="frm" onload="document.form.autocomplete.setAttribute('autocomplete', 'off');">
+                                    <input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+								    {if $user_info['sec_code']}
+									<div class="rowElem clearfix">
+                                        <label class="grid_3 t_r">
+                                            {$_lang['current_safe_code']}{$_lang['zh_mh']}
+                                        </label>
+                                        <div class="grid_11">
+                                            <input class="txt_input" type="password" size="40" title={$_lang['enter_old_safe_code']} name="old_sec_code" id="old_sec_code" limit="required:true" ajax="{$origin_url}&op={$op}&opp={$opp}&check_old=" msg={$_lang['enter_old_safe_code']} msgArea="span_old"/><span id="span_old"></span>
+                                        </div>
+                                    </div>
+									{/if}
+                                    <div class="rowElem clearfix">
+                                        <label class="grid_3 t_r">
+                                            设置{$_lang['new_safe_code']}{$_lang['zh_mh']}
+                                        </label>
+                                        <div class="grid_11">
+                                            <input class="txt_input" type="password" size="40" title={$_lang['enter_new_6_safe_code']} name="new_sec_code" id="new_sec_code" limit="required:true;len:6-20" msg={$_lang['safe_code_enter_err']} msgArea="span_new" /><span id="span_new"></span>
+                                        </div>
+                                    </div>
+                                    <div class="rowElem clearfix">
+                                        <label class="grid_3 t_r">
+                                           确定新安全码{$_lang['zh_mh']}
+                                        </label>
+                                        <div class="grid_11">
+                                            <input class="txt_input" type="password" size="40" title={$_lang['confirm_new_safe_code']} name="new_equal" id="new_equal" limit="required:true;equals:new_sec_code" msg={$_lang['confirm_safe_code_err']} msgArea="span_new_equal"/><span id="span_new_equal"></span>
+                                        </div>
+                                    </div>
+                                    <div class="rowElem clearfix form_button">
+                                        <div class="grid_8">
+                                            &nbsp;
+                                        </div>
+                                        <div class="grid_10 t_l">
+                                            <button class="submit grid_2 alpha" type="button" value="{$_lang['submit']}" onclick="siteSub('frm',2,true)">
+                                                {$_lang['submit']}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+							       <!--from表单 end-->
+                                </div>
+                            </div>
+                            <!--detail内容 end-->
+                        </div>
+                        <!--main content end-->
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--main end-->
+    </div>
+</div>		
+<script type="text/javascript">
+	
+	In('form') ;
+</script>
+<!--contain end-->
+<!--{template user/user_footer}-->
+<!--{template footer}-->

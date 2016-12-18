@@ -1,0 +1,154 @@
+<!--{template control/admin/tpl/admin_header}--> 
+
+<div class="page_title">
+	<h1>客户跟踪</h1>
+     <div class="tool"> 
+        <a href="index.php?do=$do&view={$view}&op=my" {if !$op||$op=='my'}class="here"{/if}>我的跟踪用户</a>
+        <a href="index.php?do=$do&view={$view}&op=reserve" {if $op=='reserve'}class="here"{/if}>我的预约用户</a>
+		<a href="index.php?do=$do&view={$view}&op=new" {if $op=='new'}class="here"{/if}>最新注册用户</a>
+		<a href="index.php?do=$do&view={$view}&op=rand" {if $op=='rand'}class="here"{/if}>随机跟踪用户</a>
+		<a href="index.php?do=$do&view=track_edit">添加跟踪记录</a>
+	</div>
+</div>
+<!--页头结束--> 
+      <div class="box search p_relative">
+      	{if !in_array($op,array('new','rand'))}
+    	<div class="title"><h2>{$_lang['search']}</h2></div>
+		
+        <div class="detail" id="detail">
+			<form action="#" method="post">
+        	<input type="hidden" name="do"   value="$do">
+			<input type="hidden" name="view" value="$view">
+			<input type="hidden" name="type" value="$type">
+			<input type="hidden" name="page" value="$page">
+			<table cellspacing="0" cellpadding="0">
+			 <tbody>
+			 	<tr>
+			 		<th>{$_lang['user']}ID</th>
+					<td><input type="text" class="txt" name="w[uid]" value="{$w['uid']}" onkeyup="clearstr(this);"></td>
+					<th>{$_lang['username']}</th>
+					<td><input type="text" class="txt" name='w[username]' value="{$w['username']}" onkeyup="clearspecial(this);"></td>
+			 		<th>客户类型</th>
+					<td>
+					 	<select name="w[track_type]" >
+							<option value="" {if $w[track_type] == ''}selected="selected"{/if}>请选择客户类型</option>
+							{loop $track_type $k $v}
+							<option value="{$k}" {if $w[track_type] != '' && $w[track_type]==$k}selected="selected"{/if}>$v</option>
+							{/loop}
+						</select>
+					</td>
+					<th>{$_lang['show_number']}</th>
+					<td>
+						<select name="slt_page_size" class="ps vm">
+						<option value="15" {if $slt_page_size=='15'}selected="selected"{/if}>{$_lang['page_size']}15</option>
+						<option value="20" {if $slt_page_size=='20'}selected="selected"{/if}>{$_lang['page_size']}20</option>
+						<option value="30" {if $slt_page_size=='30'}selected="selected"{/if}>{$_lang['page_size']}30</option>
+						</select>
+					</td>
+				</tr>
+
+				<tr>
+					<th>手机号码</th>
+					<td>
+						<input type="text" class="txt" name='w[mobile]' value="{$w['mobile']}" onkeyup="clearspecial(this);">
+					</td>
+					<th>QQ号码</th>
+					<td>						
+						<input type="text" class="txt" name='w[qq]' value="{$w['qq']}" onkeyup="clearspecial(this);">
+					</td>
+					<th>{$_lang['result_order']}</th>
+					<td>						
+						<select name="w[ord][]">
+	                       <option value="last_track_time" {if $w['ord']['0']=='last_track_time' or !isset($w['ord']['0'])} selected="selected"{/if}>{$_lang['default']}{$_lang['order']}</option>
+	                       <option value="reg_time" {if $w[ord]['0']=='reg_time' } selected="selected"{/if}>注册时间</option>
+						   <option value="uid" {if $w[ord]['0']=='uid' } selected="selected"{/if} >用户UID</option>
+						</select>							
+                        <select name="w[ord][]">
+                        <option {if $w[ord]['1']=='desc' or !isset($w[ord]['1'])}selected="selected" {/if} value="desc">{$_lang['desc']}</option>
+                        <option {if $w[ord]['1']=='asc'}selected="selected" {/if} value="asc">{$_lang['asc']}</option>
+                        </select>
+						<button type="submit" name="sbt_search" value="$_lang['search']" class="pill" />
+							<span class=icon magnifier>&nbsp;</span>{$_lang['search']}</button>
+					</td>
+				</tr>	
+			 </tbody>
+			</table>
+			</form>
+        </div>
+		{/if}		
+	 </div>
+
+    <div class="box list">
+    	<div class="title"><h2>客户跟踪</h2></div>
+        <div class="detail">
+			<form method="post" action="#" id="frm_user_search">
+				<div id="ajax_dom">
+					<input type="hidden" name="page" value="{$page}" />
+			  		<table cellpadding="0" cellspacing="0">
+			  		<thead>
+			          <tr>			       
+						<th width="15">UID</th>
+			            <th>用户名</th>
+						<th width="50">姓名</th>
+						<th width="25">性别</th>
+						<th class="wraphide" >注册时间</th>
+						<!-- <th class="td25 wraphide">所在地</th> -->
+						<th>QQ</th>
+						<th>邮箱</th>
+						<th class="wraphide">电话</th>
+						<th class="wraphide">客户类型</th>
+						<th  class="wraphide">最后跟踪</th>
+						<th>{$_lang['operate']}</th>
+			         </tr>
+					 </thead>
+					 <tbody> 
+					{loop $data_arr $k $v}
+			        <tr class="item">
+			            <td class="td25">{$v['uid']}</td>
+			            <td class="td25 wraphide">{$v['username']}</td>
+						<td>{if $v['truename']}{$v['truename']}{else}暂无{/if}</td>
+						<td>{if $v['sex']}{$v['sex']}{else}暂无{/if}</td>
+			            <td class="wraphide"><!--{date('Y-m-d H:i:s',$v['reg_time'])}--></td>
+						<!--<td class="td25 wraphide">{$v['residency']}</td>-->
+						<td>{$v['qq']}</td>
+						<td>{$v['email']}</td>
+						<td>{$v['mobile']}</td>
+						<td>{if $v['track_type']}$track_type[$v['track_type']]{else}暂无{/if}</td>
+						<td>
+							{if $v['track_uid']}
+							 {if $yewuyuan[$v['track_uid']]}
+							 	{$yewuyuan[$v['track_uid']]}于<!--{date('Y-m-d H:i:s',$v['last_track_time'])}-->
+							 {else}
+							 	{$v['track_username']}
+							 {/if}							 	
+							{else}
+								暂无
+							{/if}
+						</td>
+						<td>							
+							{if $op == 'new' || $op == 'rand'}
+							<a class="button dbl_target" href="index.php?do={$do}&view=track&op={$op}&t_uid={$v['uid']}&ac=tiqu&page={$page}"><span class="pen icon"></span>提取</a>
+							{else}
+								<a class="button dbl_target" href="index.php?do={$do}&view=track_edit&op={$op}&t_uid={$v['uid']}&page={$page}"><span class="pen icon"></span>跟踪</a>
+							{/if}
+						</td>
+ 			        </tr>
+					{/loop}
+					 </tbody>
+					 <tfoot>
+			          <tr>
+			           <td colspan="13">
+						<div class="clearfix">
+							<button type="button" name="sbt_add" value="添加跟踪记录" class="positive pill button" onclick="document.location.href='index.php?do={$do}&view=track_edit'"/><span class="check icon"></span>添加跟踪记录</button>
+					    </div>
+					   </td>
+					 </tr>
+					 </tfoot>
+			        </table>
+					<div class="page">{$pages['page']}</div>
+					</div>
+			</form>
+        </div>
+	</div>
+				
+<!--{template control/admin/tpl/admin_footer}-->

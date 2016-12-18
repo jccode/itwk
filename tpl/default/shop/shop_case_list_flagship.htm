@@ -1,0 +1,53 @@
+<!--{template header_top}-->
+<!--{template header_shop_flagship}-->
+<div class="container_24 clearfix">
+	<section class="fla_content clearfix">
+		<!--{template shop/section_nav_flagship}-->
+		<div class="fla_banner clearfix  po_re mt_5">
+			{if $vip_topimg['ban_4']}
+		    <img src="{$_K['siteurl']}/{$vip_topimg['ban_4']}" alt="">
+		    {else}
+			<img src="{$_K[siteurl]}/{$style_path}/theme/simple/img/shop/case_list_banner.png" alt="">
+			{/if}
+			{if $uid==$shop_info['uid']}
+		   <div class="tr_editor" id="logo_diy">
+					<a href="javascript:;" onclick="shop_diy_banner(4)">编辑</a>
+		   </div>
+	       {/if}
+		</div>
+		<div class="breadcrumbs">
+			您当前的位置：<a href="{$ac_url}">公司首页</a><span class="font_simsun">></span><a href="{$ac_url}&view=case_list">案例展示</a>{if $cate_id}<span class="font_simsun">></span><a href="{$ac_url}&view=case_info&cate_id={$cate_id}" class="c666">$shop_cate[$cate_id][cate_name]</a>{/if}
+		</div>
+		<!--{template shop/section_slide_flagship}-->
+		<div class="clearfix fl_r case_right_con">
+			  {if $case_list}
+			<div id="container" class="clearfix case_lists_box"> 
+
+				
+				  {loop $case_list $k $v}
+				  <div class="item clearfix">
+				  	<div class="item_box clearfix">
+				  		<a href="{$_K['siteurl']}/index.php?do=shop&sid={$shop_info['shop_id']}&view=case_info&case_id={$v['case_id']}" class="block">
+				  			<img src="{$_K['siteurl']}/{$v['case_pic']}" alt="{$v['case_name']}" title="{$v['case_name']}">
+							<p class="mt_5">{$v['case_name']}</p>
+						</a>
+						<div  class="case_type">
+							类别：<a href="javascript:void(0);">{if $shop_cate[$v[cate_id]][cate_name]}{$shop_cate[$v[cate_id]][cate_name]}{else}暂无类别{/if}</a>
+						</div>
+					</div>
+				  </div>
+				  {/loop}
+				  
+			
+			</div>
+			<div class="page_count fl_r mar10 pb_20">
+			{$pages['page']}
+			</div>
+				  {else}
+				  <div id="container" class="clearfix case_lists_box"> 暂时没有案例信息。</div>
+				  {/if}
+		</div>	
+	
+		<!--{template shop/section_footer_flagship}-->
+	</section>
+</div>		

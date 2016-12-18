@@ -1,0 +1,101 @@
+<!--{template header_top}-->
+<!--{template header_shop_flagship}-->
+<div class="container_24 clearfix">
+	<section class="fla_content clearfix">
+		<!--{template shop/section_nav_flagship}-->
+		<div class="fla_banner clearfix  po_re mt_5">
+			{if $vip_topimg['ban_4']}
+		    <img src="{$_K['siteurl']}/{$vip_topimg['ban_4']}" alt="">
+		    {else}
+			<img src="{$_K[siteurl]}/{$style_path}/theme/simple/img/shop/case_list_banner.png" alt="">
+			{/if}
+		</div>
+		<div class="breadcrumbs">
+			您当前的位置：<a href="{$ac_url}">公司首页</a><span class="font_simsun">></span><a href="{$ac_url}&view=case_list">案例展示</a><span class="font_simsun">></span><a href="{$ac_url}&view=case_info&case_id={$case_id}" class="c666">{$shop_cate[$case_info['cate_id']][cate_name]}</a>
+		</div>
+		<!--{template shop/section_slide_flagship}-->
+		<div class="clearfix fl_r fla_right_con">
+			<div class="box default clearfix  return_list">
+				<div class="inner clearfix">
+					<header class="box_title clearfix">
+						<a href="{$_K['siteurl']}/index.php?do=shop&sid={$shop_info['shop_id']}&view=case_list" class="fl_l"><h2 ><span class="font_simsun">< </span>返回列表</h2></a>
+						<div  class="fl_r">
+							类别：
+							<a href="{$_K['siteurl']}/index.php?do=shop&sid={$shop_info['shop_id']}&view=case_list&cate_id={$case_info['cate_id']}">{$shop_cate[$case_info['cate_id']][cate_name]}</a>
+						</div>							
+					</header>
+					<article class="clearfix pad10">
+						<a href="javascript:void(0);" class="fl_l">名称：{$case_info['case_name']}</a>
+						<div class="fl_r">
+							<strong class="c333">分享案例：</strong>
+							<script src="{$_K['siteurl']}/resource/js/fx.js"></script> 									
+							 <!--{eval $share = '刚才在@IT帮手网 看到这个商铺【'.$shop_info['shop_name'].'】，卖的全是文创产品，如果你有需要，可以来看看，实力相当不错哦，值得收藏！';}-->
+								<a href="#" target="_blank" onclick="_fx(this,{'key':'sina','url':'{$_K[siteurl]}/shop-sid-{$shop_info[shop_id]}.html','title':'{$share}','overview':''});" title="分享到新浪微博"><img src="{$_K['siteurl']}/resource/img/ico/sina.gif"></a>
+								<a href="#" target="_blank" onclick="_fx(this,{'key':'qq','url':'{$_K[siteurl]}/shop-sid-{$shop_info[shop_id]}.html','title':'{$share}','overview':''});" title="分享到腾讯微博"><img src="{$_K['siteurl']}/resource/img/ico/ten.gif"></a>
+								<a href="#" target="_blank" onclick="_fx(this,{'key':'sohu','url':'{$_K[siteurl]}/shop-sid-{$shop_info[shop_id]}.html','title':'{$share}','overview':''});" title="分享到网页微博"><img src="{$_K['siteurl']}/resource/img/ico/sh.gif"></a>
+								<a href="#" target="_blank" onclick="_fx(this,{'key':'kx','url':'{$_K[siteurl]}/shop-sid-{$shop_info[shop_id]}.html','title':'{$share}','overview':''});" title="分享到开心网"><img src="{$_K['siteurl']}/resource/img/ico/kai.gif"></a>
+								<a href="#" target="_blank" onclick="_fx(this,{'key':'db','url':'{$_K[siteurl]}/shop-sid-{$shop_info[shop_id]}.html','title':'{$share}','overview':''});" title="分享到豆瓣网"><img src="{$_K['siteurl']}/resource/img/ico/dou.gif"></a>
+								<a href="#" target="_blank" onclick="_fx(this,{'key':'hi','url':'{$_K[siteurl]}/shop-sid-{$shop_info[shop_id]}.html','title':'{$share}','overview':''});" title="分享到百度Hi"><img src="{$_K['siteurl']}/resource/img/ico/baidu.gif"></a>
+								<a href="#" target="_blank" onclick="_fx(this,{'key':'qzone','url':'{$_K[siteurl]}/shop-sid-{$shop_info[shop_id]}.html','title':'{$share}','overview':''});" title="分享到QQ空间"><img src="{$_K['siteurl']}/resource/img/ico/zone.gif"></a>
+						</div>
+					</article>
+				</div>
+			</div>
+			<div class="box default clearfix mt_10 pad10">
+				<div class="inner">
+					<div class="clearfix case_info_list">
+						<img class="block" src="{$_K['siteurl']}/{$case_info['case_pic']}">
+						<h2 class="">案例说明</h2>
+						<p class="ws_break mt_10 pb_20 pl_10 pr_10">{$case_info['case_desc']}</p>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix mt_10 mb_20 case_show">
+				<div class="grid_9 alpha">
+					<b class="block t_c font14">
+						<a {if $case_up_info}href="{$_K['siteurl']}/index.php?do=shop&sid={$shop_info['shop_id']}&view=case_info&case_id={$case_up_info['case_id']}"{else}href="javascript:void(0);"{/if}>
+							<span class="font_simsun"><</span> 
+							上一个案例
+						</a>
+					</b>
+					<div class="item clearfix mar0">
+					  	<div class="item_box clearfix">
+					  		{if $case_up_info}
+					  		<a href="{$_K['siteurl']}/index.php?do=shop&sid={$shop_info['shop_id']}&view=case_info&case_id={$case_up_info['case_id']}" class="block">
+					  			<img src="{$_K['siteurl']}/{$case_up_info['case_pic']}" alt="">
+								<p class="mt_5">{$case_up_info['case_name']}</p>
+							</a>	
+							{else}
+							没有了
+							{/if}
+						</div>
+					  </div>
+				</div>
+		
+				<div class="grid_9 omega fl_r clearfix">
+					<div class="fl_r">
+						<b class="block t_c font14">
+							<a {if $case_down_info}href="{$_K['siteurl']}/index.php?do=shop&sid={$shop_info['shop_id']}&view=case_info&case_id={$case_down_info['case_id']}"{else}href="javascript:void(0);"{/if}>
+								
+								下一个案例<span class="font_simsun">></span> 
+							</a>
+						</b>
+						<div class="item clearfix mar0">
+						  	<div class="item_box clearfix">
+						  		{if $case_down_info}
+						  		<a href="{$_K['siteurl']}/index.php?do=shop&sid={$shop_info['shop_id']}&view=case_info&case_id={$case_down_info['case_id']}" class="block">
+						  			<img src="{$_K['siteurl']}/{$case_down_info['case_pic']}" alt="">
+									<p class="mt_5">{$case_down_info['case_name']}</p>
+								</a>	
+								{else}
+								没有了
+								{/if}
+							</div>
+						</div>	
+				</div>
+			</div>			
+			</div>
+		</div>	
+		<!--{template shop/section_footer_flagship}-->
+	</section>
+</div>		

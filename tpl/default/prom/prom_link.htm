@@ -1,0 +1,145 @@
+<!--{template header}-->
+<!--{template header_nav_prom}-->
+<!--首页样式--> 
+<!--内容区 satrt-->
+
+<header class="clearfix page_header">
+    <div class="container_24 clearfix"> 
+		<!--所在位置  start-->
+    	<div class="breadcrumbs clearfix">
+    		<span class="site">你的位置：</span>
+			<a href="{$_K['siteurl']}/index.php">IT帮手网首页</a>
+			<span class="font_simsun">&gt;</span>
+			<a href="{$_K['siteurl']}/index.php?do=prom">推广员频道</a>
+			<span class="font_simsun">&gt;</span>
+			<a href="{$_K['siteurl']}/index.php?do=prom&view=link">链接推广</a>
+    </div>
+	</div>
+</header>
+
+<div class="wrapper clearfix">
+<div class="container_24 clearfix"> 
+		
+		<div class="promot_step_pic mt_10 mb_10"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/prom/promot_step.gif"></div>
+		<div class="choose_box clearfix">
+			<div class="mbox fl_l">
+				<div class="title pad10">
+					<h1>推广工具箱</h1>
+					<p>选择适合你的推广方式</p>
+				</div>
+				<ul class="pad5 clearfix">
+					<li class="selected"><a style="background-position:0px -42px;" href="{$_K['siteurl']}/index.php?do=prom&view=link">链接推广</a></li>
+					<li><a style="background-position:0px -81px;" href="{$_K['siteurl']}/index.php?do=prom&view=pic_list">图片推广</a></li>
+				</ul>
+			</div>
+			<div class="link_way commission ml_10 fl_l clearfix">
+				<dl class="clearfix">
+					<dt class=" pl_10 pr_10 clearfix">
+						<h1>链接推广方式</h1>
+					</dt>
+					<dd class="pt_20 pb_20 pl_20 clearfix">
+						<p class="lineh_30"><strong class="cf60 fl_l">温馨提示：</strong>推广链接通常适用于在博客、论坛、聊天工具、网站这些地方使用。</p>
+						<div class="material clearfix">
+					<input type="hidden" name="show" value="{$show}">
+		                <input type="hidden" name="index" value="index"> 
+		
+								{loop $linkList $link}
+							<div class="pt_10 clearfix">
+								<label>{$link['prom_item']}：</label>
+								<div class="fl_l material_details clearfix">
+									<input id="prom_index_url" name="prom_index_url" class="c999 txt_input" type="text" value="{$url}&p=$link['prom_code']">
+									<a href="javascript:CopyTxt('prom_index_url');" class="button ml_10">复制链接</a>
+								</div>
+							</div>
+	                       {/loop}
+				
+							<!--<div class="pt_10 clearfix">
+								<label>注册页面：</label>
+								<div class="fl_l material_details clearfix">
+									<input id="prom_register_url" name="reg" class="c999 txt_input" type="text" value="{$effect_mode['prom_item']}">
+									<a href="javascript:CopyTxt('prom_register_url');" class="button ml_10">复制链接</a>
+								</div>
+								
+							</div>
+
+							
+							<div class="pt_10 clearfix">
+								<label>任务发布：</label>
+								<div class="fl_l material_details clearfix">
+									<input id="prom_task_url" name="pub_task" class="c999 txt_input" type="text" value="{$link}">
+									<a href="javascript:CopyTxt('prom_task_url');" class="button ml_10">复制链接</a>
+								</div>
+								
+							</div>
+
+							<div class="pt_10 clearfix">
+								<label>公司商铺注册：</label>
+								<div class="fl_l material_details clearfix">
+									<input id="prom_shop_url" name="service" class="c999 txt_input" type="text" value="{$link}">
+									<a href="javascript:CopyTxt('prom_shop_url');" class="button ml_10">复制链接</a>
+								</div>
+							
+							</div>
+
+							<div class="pt_10 clearfix">
+								<label>玩转IT帮手-雇主：</label>
+								<div class="fl_l material_details clearfix">
+									<input id="prom_guzhu_url" name="employer" class="c999 txt_input" type="text" value="{$link}">
+									<a href="javascript:CopyTxt('prom_guzhu_url');" class="button ml_10">复制链接</a>
+								</div>
+								
+							</div>
+
+
+
+							<div class="pt_10 clearfix">
+								
+								<label>玩转IT帮手-威客：</label>
+								<div class="fl_l material_details clearfix">
+									<input id="prom_weike_url" name="witkey" class="c999 txt_input" type="text" value="{$link}">
+									<a href="javascript:CopyTxt('prom_weike_url');" class="button ml_10">复制链接</a>
+								</div>
+							</div>-->
+
+
+				
+							<div class="pt_10 clearfix">
+								<label>自主推广：</label>
+								<div class="fl_l material_details clearfix">									
+									<input id="prom_self_url" name="prom_self_url" class="c999 txt_input" type="text" value="在这里粘贴你想推广的页面地址" onfocus="if(this.value=='在这里粘贴你想推广的页面地址') this.value='';" onblur="if(this.value=='') this.value='在这里粘贴你想推广的页面地址';">
+									<a href="javascript:;" onclick="make_link();" class="button ml_10">生成链接</a>
+									<a href="javascript:CopyTxt('prom_self_url');" id="urlX_copy" class="button ml_5">复制链接</a>
+								</div>
+							
+							</div>
+
+						</div>
+					</dd>
+				</dl>
+			</div>
+		</div>
+		
+	</div>
+</div>
+<script type="text/javascript">
+    function make_link() {
+        if ($('#prom_self_url').val().indexOf('uid=') != -1) return false;
+        if ($('#prom_self_url').val().indexOf('在这里粘贴你想推广的页面地址') != -1) return false;
+       // if ($('#prom_self_url').val().indexOf('$linkUrl') > 0) {
+            var newUrl; 
+            if ($('#prom_self_url').val().indexOf("?") > 0) {
+                newUrl = $('#prom_self_url').val() + '&epi={$user_info[uid]}';
+            }
+            else {
+                newUrl = $('#prom_self_url').val() + '?epi={$user_info[uid]}';
+            }
+            $('#prom_self_url').val(newUrl);
+            //document.getElementById("urlX_copy").style.display = "block";
+        }
+       // else {
+           // alert("IT帮手网主站以外的地址暂时无法自主推广（如客厅），敬请见谅！");
+       // }
+   // }
+</script>
+<!--内容区 end-->
+<!--{template footer}-->

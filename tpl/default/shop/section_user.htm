@@ -1,0 +1,95 @@
+<div class="inner">
+    <div class="shop_user_img t_c">
+        <!--{userpic($shop_info['uid'],larger)}-->
+    </div>
+    <div class="clearfix shop_info_one">
+        <ul>
+            <li class="clearfix">
+                <div class="fl_l">
+                    认证状况：
+                </div>
+                <span class="ml_5 fl_l"><!--{eval echo(keke_glob_class::get_auth_ico($shop_info['auth_realname'],$shop_info['auth_mobile'],$shop_info['auth_email'],$shop_info['auth_bank']));}--></span>
+            </li>
+		{if $shop_info['integrity']}
+            <li class="clearfix">
+                <div class="fl_l">
+                    诚信状况：
+                </div>
+                <span class="ml_5 fl_l"><img alt="" src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/credibility_of.jpg"></span>
+            </li>
+			{if $shop_integrity}
+            <li class="clearfix">
+                <div class="fl_l">
+                    托管保证金：
+                </div>
+                <span class="tg_totol ml_5 fl_l">￥{$shop_integrity['pay_cash']}元</span>
+            </li>
+			{/if}
+		{/if}
+		{if $shop_info['user_type']==3}
+            <li class="clearfix">
+                <div class="fl_l">
+                    公司认证：
+                </div>
+                <span class="ml_5 fl_l"><img alt="" src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/cer_pass.jpg"></span>
+            </li>{/if}
+        </ul>
+    </div>
+    <div class="clearfix shop_info_two ">
+        <dl class="clearfix">
+            <dt>
+                <h2>能力评价</h2>
+            </dt>
+            <dd>
+                <p class="pb_5">
+                    <!--{eval echo keke_glob_class::get_w_level_ico($shop_info['w_level'])}-->&nbsp;<!-- <img src="{$style_path}/theme/simple/img/style/w7.jpg" class="mr_10" alt=""> -->好评率：<b>{if $shop_info['w_good_rate']}{$shop_info['w_good_rate']}{else}100{/if}%</b>
+                </p>
+                {loop $buyer_aid $k $v}
+                <div class="clearfix">
+                    <div class="fl_l">
+                        {$v['aid_name']}{$_lang['zh_mh']}
+                    </div>
+                    <div class="fl_l">
+                        <!--{eval echo keke_user_mark_class::gen_star2($v['avg']);}-->
+                    </div>
+                </div>
+                {/loop}
+            </dd>
+        </dl>
+        <dl>
+            <dt>
+                <h2>交易信息</h2>
+            </dt>
+            <dd>
+                <p>
+                    交易总收入：<b class="mr_5"><!--{eval echo floatval($income['cash']+$income['credit'])}--></b>元
+                </p>
+                <p>
+                    交易总次数：<b class="mr_5">{$take_num}</b>次
+                </p>
+            </dd>
+        </dl>
+        <dl>
+            <dt>
+                <h2>商铺统计</h2>
+            </dt>
+            <dd>
+                <p>
+                    收藏人数：<span>{$favorite_count}</span>
+                </p>
+                <p>
+                    访问人数：{$shop_info['views']}
+                </p>
+                <p>
+                    开通时间：<!--{date('Y-m-d',$shop_info['on_time'])}-->
+                </p>
+            </dd>
+        </dl>
+    </div>
+</div>
+    <link href="{$_K['siteurl']}/resource/js/jqplugins/starrating/jquery.rating.css" rel="stylesheet" type="text/css">
+    <!--星级评定-->
+    <script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/starrating/jquery.rating.js">
+    </script>
+    <script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/starrating/jquery.MetaData.js">
+    </script>

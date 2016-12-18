@@ -1,0 +1,580 @@
+<!--{template header2}-->
+<link href="tpl/default/css/base.css" rel="stylesheet">
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/talent.css" type="text/css" rel="stylesheet">
+<link href="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/horizontal.css" rel="stylesheet" type="text/css" charset="utf-8">
+<link href="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/vertical.css" rel="stylesheet" type="text/css" charset="utf-8">
+
+
+<div class="bang_cent">
+        		<div class="bang_cent_left">
+                	<!--推荐的商品-->
+                	<div class="bang_pro">
+                 <script type="text/javascript">
+$(document).ready(function() {
+	$(".showmenee ul li").first().css("display","block");
+    $(".menuinfoee > ul >li").mousemove(function(){
+		$(this).addClass("menuoveree").siblings(this).removeClass("menuoveree");	
+		$(".showmenee ul li").eq($(".menuinfoee > ul >li").index(this)).css("display","block").siblings().css("display","none");
+		
+		});
+	
+});
+</script>
+{if $_GET['page']=='' or $_GET['page']=='1' }
+                	<div class="menuinfoee">
+   <ul>
+    <li class="menuoveree">推荐的商品</li>
+    <li>最新的商铺</li>
+
+   </ul>
+</div>
+                    <div class="showmenee">
+   <ul>
+      <li>
+     <div>
+     	<ul>
+		{loop $shop_recomm $v}
+		{if $v['logo']}
+        <a href="{$_K['siteurl']}/index.php?do=shop&sid={$v['shop_id']}"><img src="{$v['logo']}" width="80" height="80" /></a>
+		{else}
+		<a href="{$_K['siteurl']}/index.php?do=shop&sid={$v['shop_id']}"><img src="{$_K['siteurl']}/data/avatar/default/man_big.jpg" width="80" height="80" /></a>
+		{/if}
+        {/loop}
+        
+        </ul>
+     
+     
+     </div>
+      </li>
+      <li>
+      <div>
+     	<ul>
+       {loop $shop_recomm1 $v}
+       {if $v['logo']}
+        <a href="{$_K['siteurl']}/index.php?do=shop&sid={$v['shop_id']}"><img src="{$v['logo']}" width="80" height="80" /></a>
+		{else}
+		<a href="{$_K['siteurl']}/index.php?do=shop&sid={$v['shop_id']}"><img src="{$_K['siteurl']}/data/avatar/default/man_big.jpg" width="80" height="80" /></a>
+		{/if}
+        {/loop}
+        </ul>
+     
+     
+     </div>
+      </li>
+     
+   </ul>
+</div>
+
+{/if}
+					</div>
+                    <!--维护-->
+<div class="bang_weihu">
+
+  <div class="menuinfoff">
+   <ul>
+	<!--{eval $_i = 0;}-->
+	{loop $indus_p_arr $k $v}
+	<li {if $_i++ == 0}style="border-left:none;"{/if} {if $v["indus_id"] == $l1tid} class="menuoverff"{/if}>
+		<a href="index.php?do=talent&indus_id=$v['indus_id']">$v['indus_name']</a></li>
+	{/loop}
+   </ul>
+</div>
+
+<div class="showmenff flbj">
+   <ul>
+	<!--{eval $_i = 0;}-->
+	{loop $indus_p_arr $k $v}
+      <li style="display:none;">
+		{loop $indus_map[$k]["children"] $v1}
+		<dl style="float:left;">
+			<dt><a href="{$_K['siteurl']}/index.php?do=talent&indus_id=$v1['indus_id']"  {if $v1['indus_id']==$tid} style="background-color:#CCCCCC; padding:5px;"{/if}>$v1['indus_name']</a></dt>
+			{loop $v1["children"] $v2}
+			<dd {if $v2['indus_id']==$tid} style="background-color:#CCCCCC;"{/if}> <a href="{$_K['siteurl']}/index.php?do=talent&indus_id=$v2['indus_id']">$v2['indus_name']</a></dd>
+			{/loop}
+		</dl>
+		{/loop}
+      </li>
+	{/loop}
+   </ul>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	var idxShown = $(".menuinfoff ul li.menuoverff").index(".menuinfoff ul li");
+	if(idxShown == -1) idxShown = 0;
+	$(".showmenff ul li").eq(idxShown).css("display","block");
+    $(".menuinfoff > ul >li").mousemove(function(){
+		$(this).addClass("menuoverff").siblings(this).removeClass("menuoverff");	
+		$(".showmenff ul li").eq($(".menuinfoff > ul >li").index(this)).css("display","block").siblings().css("display","none");
+		
+		});
+	
+});
+</script>
+</div>
+
+                     <!--找帮手-->
+                     <div class="simple_style" id="wrapper">
+
+
+    
+
+       
+         
+                <!--左边内容-->
+                <div class="page_left clearfix">
+                    <!--首页选择分类-->
+                    
+ 
+					
+					
+                    <!--首页选择分类 end-->
+                    <div class="nav_lists_nav clearfix">
+                        <ul class="clearfix fl_l ">
+                            <li>
+                                <a href="{$_K['siteurl']}/index.php?do=task_list">找任务</a>
+                            </li>
+                            <li>
+                                <a class="selected" href="{$_K['siteurl']}/index.php?do=talent">找帮手</a>
+                            </li>
+                        </ul>
+						<span class="fl_r mt_10">
+									<img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/style/tip-130x25.gif" class="mr_10" width="130" height="25" alt="展开更多筛选" />
+						</span>
+                    </div>
+                    <!--筛选条件-->
+                    <div class="filter box normal po_re mb_10">
+                        <div class="inner">
+                            <!--条件列表-->
+                            <div class="condition_list pad10" id="condition_list" style="display:none">
+                                <!--分类-->
+                                <dl class="condition clearfix">
+                                    <dt class="fl_l mr_5">
+                                        人才类型：
+                                    </dt>
+                                    <dd class="">
+                                        <a href="{$urls[t]}&t=0" {if !$t}class="selected"{/if}>不限</a>
+                                        <a href="{$urls[t]}&t=1" {if $t=='1'}class="selected"{/if}>个人</a>
+                                        <a href="{$urls[t]}&t=2" {if $t=='2'}class="selected"{/if}>工作室</a>
+                                        <a href="{$urls[t]}&t=3" {if $t=='3'}class="selected"{/if}>公司</a>
+                                    </dd>
+                                </dl>
+                                <!--end 分类--><!--条件1-->
+                                <dl class="condition clearfix">
+
+                                    <dt class="fl_l mr_5">
+                                        能力等级：
+                                    </dt>
+                                    <dd class="">
+                                        <a href="{$urls[a]}&a=0" {if !$a}class="selected"{/if}>不限</a>
+                                        <a href="{$urls[a]}&a=9" {if $a=='9'}class="selected"{/if}>IT帮手</a>
+                                        <a href="{$urls[a]}&a=8" {if $a=='8'}class="selected"{/if}>二级</a>
+                                        <a href="{$urls[a]}&a=7" {if $a=='7'}class="selected"{/if}>三级</a>
+                                        <a href="{$urls[a]}&a=6" {if $a=='6'}class="selected"{/if}>四级</a>
+                                        <a href="{$urls[a]}&a=5" {if $a=='5'}class="selected"{/if}>五级</a>
+                                        <a href="{$urls[a]}&a=4" {if $a=='4'}class="selected"{/if}>六级</a>
+                                        <a href="{$urls[a]}&a=3" {if $a=='3'}class="selected"{/if}>七级</a>
+                                        <a href="{$urls[a]}&a=2" {if $a=='2'}class="selected"{/if}>八级</a>
+                                        <a href="{$urls[a]}&a=1" {if $a=='1'}class="selected"{/if}>九级</a>
+                                        <a href="index.php?do=article&art_cat_id=611&art_id=9148" class="ab_level">什么是能力等级？</a>
+                                    </dd>
+                                </dl>
+                                <dl class="condition clearfix">
+                                    <dt class="fl_l mr_5">
+                                        人才状态：
+                                    </dt>
+                                    <dd class="">
+                                        <a href="{$urls[s]}&s=0" {if !$s}class="selected"{/if}>不限</a>
+                                        <a href="{$urls[s]}&s=1" {if $s=='1'}class="selected"{/if}>实名认证</a>
+                                        <a href="{$urls[s]}&s=2" {if $s=='2'}class="selected"{/if}>邮箱认证</a>
+                                        <a href="{$urls[s]}&s=3" {if $s=='3'}class="selected"{/if}>手机认证</a>
+                                        <a href="{$urls[s]}&s=4" {if $s=='4'}class="selected"{/if}>银行卡认证</a>
+                                        <a href="{$urls[s]}&s=5" {if $s=='5'}class="selected"{/if}>VIP</a>
+                                        <a href="{$urls[s]}&s=6" {if $s=='6'}class="selected"{/if}>诚信会员</a>
+                                    </dd>
+                                </dl>
+                                <dl class="condition clearfix border_n">
+                                    <dt class="fl_l mr_5">
+                                        所在地区：
+                                    </dt>
+                                    <dd class="grid_17 alpha omega">
+                                        <a href="{$urls[z]}&z=" {if !$z}class="selected"{/if}>不限</a>
+                                        <a href="{$urls[z]}&z=安徽" {if $z=='安徽'}class="selected"{/if}>安徽</a>
+                                        <a href="{$urls[z]}&z=北京" {if $z=='北京'}class="selected"{/if}>北京</a>
+                                        <a href="{$urls[z]}&z=重庆" {if $z=='重庆'}class="selected"{/if}>重庆</a>
+                                        <a href="{$urls[z]}&z=福建" {if $z=='福建'}class="selected"{/if}>福建</a>
+                                        <a href="{$urls[z]}&z=甘肃" {if $z=='甘肃'}class="selected"{/if}>甘肃</a>
+                                        <a href="{$urls[z]}&z=广东" {if $z=='广东'}class="selected"{/if}>广东</a>
+                                        <a href="{$urls[z]}&z=广西" {if $z=='广西'}class="selected"{/if}>广西</a>
+                                        <a href="{$urls[z]}&z=贵州" {if $z=='贵州'}class="selected"{/if}>贵州</a>
+                                        <a href="{$urls[z]}&z=海南" {if $z=='海南'}class="selected"{/if}>海南</a>
+                                        <a href="{$urls[z]}&z=河北" {if $z=='河北'}class="selected"{/if}>河北</a>
+                                        <a href="{$urls[z]}&z=黑龙江" {if $z=='黑龙江'}class="selected"{/if}>黑龙江</a>
+                                        <a href="{$urls[z]}&z=河南" {if $z=='河南'}class="selected"{/if}>河南</a>
+                                        <a href="{$urls[z]}&z=湖北" {if $z=='湖北'}class="selected"{/if}>湖北</a>
+                                        <a href="{$urls[z]}&z=湖南" {if $z=='湖南'}class="selected"{/if}>湖南</a>
+                                        <a href="{$urls[z]}&z=江苏" {if $z=='江苏'}class="selected"{/if}>江苏</a>
+                                        <a href="{$urls[z]}&z=江西" {if $z=='江西'}class="selected"{/if}>江西</a>
+                                        <a href="{$urls[z]}&z=吉林" {if $z=='吉林'}class="selected"{/if}>吉林</a>
+                                        <a href="{$urls[z]}&z=辽宁" {if $z=='辽宁'}class="selected"{/if}>辽宁</a>
+                                        <a href="{$urls[z]}&z=内蒙古" {if $z=='内蒙古'}class="selected"{/if}>内蒙古</a>
+                                        <a href="{$urls[z]}&z=宁夏" {if $z=='宁夏'}class="selected"{/if}>宁夏</a>
+                                        <a href="{$urls[z]}&z=青海" {if $z=='青海'}class="selected"{/if}>青海</a>
+                                        <a href="{$urls[z]}&z=山东" {if $z=='山东'}class="selected"{/if}>山东</a>
+                                        <a href="{$urls[z]}&z=上海" {if $z=='上海'}class="selected"{/if}>上海</a>
+                                        <a href="{$urls[z]}&z=山西" {if $z=='山西'}class="selected"{/if}>山西</a>
+                                        <a href="{$urls[z]}&z=陕西" {if $z=='陕西'}class="selected"{/if}>陕西</a>
+                                        <a href="{$urls[z]}&z=四川" {if $z=='四川'}class="selected"{/if}>四川</a>
+                                        <a href="{$urls[z]}&z=天津" {if $z=='天津'}class="selected"{/if}>天津</a>
+                                        <a href="{$urls[z]}&z=新疆" {if $z=='新疆'}class="selected"{/if}>新疆</a>
+                                        <a href="{$urls[z]}&z=西藏" {if $z=='西藏'}class="selected"{/if}>西藏</a>
+                                        <a href="{$urls[z]}&z=云南" {if $z=='云南'}class="selected"{/if}>云南</a>
+                                        <a href="{$urls[z]}&z=浙江" {if $z=='浙江'}class="selected"{/if}>浙江</a>
+                                        <a href="{$urls[z]}&z=香港" {if $z=='香港'}class="selected"{/if}>香港</a>
+                                        <a href="{$urls[z]}&z=澳门" {if $z=='澳门'}class="selected"{/if}>澳门</a>
+                                        <a href="{$urls[z]}&z=台湾" {if $z=='台湾'}class="selected"{/if}>台湾</a>
+                                        <a href="{$urls[z]}&z=海外" {if $z=='海外'}class="selected"{/if}>海外</a>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <!--已选条件-->
+                            <div class="select_condition clearfix pad10">
+                                <div class="fl_l mr_5">
+                                    <form action="{$ac_url}" method="post" id="form_task_search">
+                                        <input type="hidden" name="do" value="{$do}">
+										<h3 class="title">
+											<a href="{$urls[o]}&o={if $o==1||!$o}2{else}1{/if}" rel="nofollow">注册时间{if $o!=1}↑{else}↓{/if}</a>
+											<a href="{$urls[o]}&o={if $o==3||!$o}4{else}3{/if}" rel="nofollow">中标数{if $o!=3}↑{else}↓{/if}</a>
+											<a href="{$urls[o]}&o={if $o==5||!$o}6{else}5{/if}" rel="nofollow">等级{if $o!=5}↑{else}↓{/if}</a>
+											<input type="text" name="k" class="txt_input mr_5 ml_10" value="{$_REQUEST['k']}">
+											<a class="button" onclick="document.getElementById('form_task_search').submit();" rel="nofollow">搜索</a></h3>
+                                    </form>
+                                </div>
+                                <div class="">
+                                    <!--当无选择条件时显示span标记-->
+                                    <div class="page_count fl_r mr_20">
+                                        <span>每页显示：</span>
+                                        <a href="{$urls[p_s]}&p_s=15" {if $p_s==15||!$p_s}  class="selected" {/if} rel="nofollow">15  </a>
+                                        <a href="{$urls[p_s]}&p_s=30" {if $p_s==30}  class="selected" {/if} rel="nofollow">30  </a>
+                                        <a href="{$urls[p_s]}&p_s=50" {if $p_s==50}  class="selected" {/if} rel="nofollow">50  </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end 已选条件-->
+                        </div>
+                        <!--工具栏-->
+                        <div class="operate po_ab">
+                            <a href="javascript:show_hide()" id="tool_show" title="展开">
+                                <div class="icon16 sq-plus">
+                                    展开
+                                </div>
+                            </a>
+                            <a href="javascript:show_hide()" id="tool_hide" style="display:none" title="收起">
+                                <div class="icon16 sq-minus">
+                                    收起
+                                </div>
+                            </a>
+                        </div>
+                        <!--end 工具栏-->
+                    </div>
+                    <!--end 筛选条件--><!--左内容头--><!--end 左内容头-->
+                    <div class="box normal clearfix talent_list_box">
+                        <!--列表主内容-->
+                        <div class="list clearfix">
+                            <dl>
+                                <dt>
+                                    所有人才列表
+                                </dt>
+                                <dd class="tags">
+                                    <ul>
+                                        <li class="t_l mr_5">
+                                            <span class="pl_10">人才头像</span>
+                                        </li>
+                                        <li class="w6 ml_30 pl_20 t_l">
+                                            人才信息
+                                        </li>
+                                        <li class="w2 ml_10">
+                                            <span class="pl_30 ml_30">雇主操作</span>
+                                        </li>
+                                    </ul>
+                                </dd>
+                                {if $talent_arr}
+                                {loop $talent_arr $k $v}
+                                <dd class="clearfix">
+                                    <div class="fl_l  talent_user">
+                                        <!--{userpic($v['uid'],middle)}-->
+                                    </div>
+                                    <div class="fl_l clearfix talent_info_box">
+                                        <div class="clearfix">
+                                            <ul class="clearfix">
+                                                <li class="w6 t_l clearfix">
+                                                    <div class="clearfix ml_10 talent_kinds">
+                                                        <h2 class="clearfix"><a href="{$_K['siteurl']}/index.php?do=shop&sid={$v['shop_id']}" class="fl_l">{$v['shop_name']}</a><span>{if $v['user_type']=='1'}个人{/if}
+                                                                {if $v['user_type']=='2'}工作室{/if}
+                                                                {if $v['user_type']=='3'}公司{/if}</span>
+																	
+																<!--{eval echo keke_glob_class::get_shop_level_ico($v['shop_level']);}-->
+																<!--{eval echo keke_glob_class::get_w_level_ico($v['w_level'])}-->
+															
+														</h2>
+                                                        <div class="talent-area">
+                                                            <b>所在地区：</b>{if $v['residency']}{$v['residency']}{else}暂无{/if}
+                                                        </div>
+														 <div>
+														 	
+														 </div>
+                                                        <p>
+                                                            <b>注册时间：</b><!--{date('Y-m-d',$v['reg_time'])}-->
+                                                        </p>
+                                                        <div class="clearfix">
+                                                            <b class="fl_l">能力标签：</b>
+                                                            <div class="ab_label">
+                                                                {if $v['skill_ids']}<!--{eval $skills=explode(',',$v['skill_ids']);}-->{loop $skills $v1}<span>$indus_c_arr[$v1]['indus_name']</span>
+                                                                {/loop}
+                                                                {else}
+                                                                暂无
+                                                                {/if}
+                                                            </div>
+                                                        </div>
+                                                        <div class="clearfix">
+                                                            <b class="fl_l">人才状态：</b>
+                                                            <div class="ab_label">
+                                                                <!--{eval echo(keke_glob_class::get_auth_ico($v['auth_realname'],$v['auth_mobile'],$v['auth_email'],$v['auth_bank'],$v['integrity']));}-->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="w2">
+                                                    <div class="clearfix mt_30 pl_10 t_l">
+                                                        <p>
+                                                            TA中标次数：{if $v['accepted_num']}{$v['accepted_num']}{else}0{/if}次
+                                                        </p>
+                                                        <p>
+                                                            TA参与任务：{if $v['take_num']}{$v['take_num']}{else}0{/if}次
+                                                        </p>
+                                                        <a href="javascript:void(0)" class="clearfix re_on_off" uid="{$v[uid]}"><span class="fl_l">展示相关服务</span><span class="re_ser re_ser_on">&nbsp;</span></a>
+                                                    </div>
+                                                </li>
+                                                <li class="w2">
+                                                    <div class="t_l pl_30 ml_10">
+                                                        <p>
+                                                            好评率：
+                                                        </p>
+                                                        <b class="xol_pl">{if $v['w_good_rate']}<!--{eval echo sprintf("%05.2f", $v['w_good_rate'])}-->{else}100{/if}%</b>
+                                                        <div class="clearfix">
+                                                            {if $v['uid'] != $uid}<a style="font-size:12px; font-weight:normal; padding:0px 5px;" href="{$_K['siteurl']}/index.php?do=hiretask&tuid=$v[uid]" type="submit" class="submit">直接雇佣</a>
+                                                            <a style="font-size:12px; font-weight:normal; padding:0px 5px; margin-top:5px;" href="javascript:;" class="submit" onclick="talent_invite({$v['uid']})" type="submit">邀请参与</a>
+                                                            {/if}
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="clearfix re_ser_box mt_10 po_re hidden">
+                                            <div class="re_ser_arrow">
+                                            </div>
+                                            <div class="clearfix re_ser_list">
+                                                <div class="jcarousel-skin-default">
+                                                    <div id="jcarousel1" class="jcarousel">
+                                                    </div>
+                                                    <a href="#" class="left_arrow arrow" onclick="$('#jcarousel1').jcarousel('scroll', '-=1'); return false;">Prev (1)</a>
+                                                    <a href="#" class="right_arrow arrow" onclick="$('#jcarousel1').jcarousel('scroll', '+=1'); return false;">Next (1)</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dd>
+                                {/loop}
+                                {else}
+                                <dd>
+                                    <div class="t_c">
+                                        暂时没有找到您想要的结果，<a href="{$_K['siteurl']}/index.php?do=talent">点击这里查看更多</a>
+                                    </div>
+                                </dd>
+                                {/if}
+                            </dl>
+                            <div class="page_count fl_r mar10 pad10">
+                                {$pages['page']}
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+               
+
+</div>
+                
+                </div>
+                
+                <div class="bang_cent_right">
+                	
+
+					  <span style=" margin-left:100px; line-height:30px; font-size:14px;">有任务需求？</span>
+                    <a style="text-decoration:none;"class="bang_fabu" href="{$_K['siteurl']}/index.php?do=release">马上发布任务</a>
+
+				    
+				    <div class="gonggao">
+              <div class="menuinfoaa">
+   <ul>
+    <li class="menuoveraa">平台公告</li>           
+    <li>媒体报道</li>
+    <li style="border-right:none;">中标公告</li>
+   </ul>
+   
+   
+</div>
+<div class="clear"></div>
+<script type="text/javascript">
+$(document).ready(function() {
+	$(".showmenuaa ul li").first().css("display","block");
+    $(".menuinfoaa > ul >li").mousemove(function(){
+		$(this).addClass("menuoveraa").siblings(this).removeClass("menuoveraa");	
+		$(".showmenuaa ul li").eq($(".menuinfoaa > ul >li").index(this)).css("display","block").siblings().css("display","none");
+		
+		});
+	
+});
+</script>
+              <div class="showmenuaa">
+   <ul>
+      <li>
+{loop $bulletin $v}
+			<a href="{$_K['siteurl']}/index.php?do=article&view=info&art_cat_id={$v['art_cat_id']}&art_id={$v['art_id']}">{$v['art_title']}</a>
+			 {/loop}  
+        </li>
+      <li>
+  {loop $media $v}
+				<a href="{$_K['siteurl']}/index.php?do=article&view=info&art_cat_id={$v['art_cat_id']}&art_id={$v['art_id']}">{$v['art_title']}</a>
+			 {/loop} 
+        </li>
+      <li>
+    {loop $bid $v}
+				<a href="{$_K['siteurl']}/index.php?do=task&task_id={$v['task_id']}">{$v['username']}成功中标{$v['task_id']}号[<!--{eval echo kekezu::cutstr($model_list[$v[model_id]][model_name],4)}-->]任务</a>
+			 {/loop}
+      </li>
+   </ul>
+</div>
+
+              </div>
+              
+              		<div class="gonggao2">
+                    	<ul><a href="{$_K['siteurl']}/index.php?do=register">免费注册</a>|  
+                    	<a href="{$_K['siteurl']}/index.php?do=shop&sid=$user_info[shop_id]">我的商铺</a>|
+                        <a href="{$_K['siteurl']}/index.php?do=vip"> VIP专区</a>
+                        </ul>
+                    	<h2>要设计?求帮助？有需求？ </h2>
+                    		<a class="jinru" href="{$_K['siteurl']}/index.php?do=release">点击进入</a>
+                    </div>
+                
+                	<div class="bang_dian">
+                    	<img src="tpl/default/images/dianhua.gif" width="156" height="35" /><br />
+                    		<span>4006-999-467</span><br />
+                            <br />
+                             &nbsp; 免长途客服服务热线
+                    		
+                    
+                    </div>
+                    
+                    <!--常用自主服务-->
+                    <div class="bang_zizhu">
+                    		<div class="zizhu_top"><span>常用自主服务</span><a href="#">更多</a></div>
+                            <div class="zizhu_bottom">
+                            	<ul>
+                                   <li><img src="tpl/default/images/mima.gif" width="31" height="31" /><br /><a href="{$_K['siteurl']}/index.php?do=help&view=get_password">找回登录密码</a></li>
+                                   <li><img src="tpl/default/images/mima.gif" width="31" height="31" /><br /><a href="{$_K['siteurl']}/index.php?do=help&view=get_securitycode">找回安全密码</a></li>
+                                   <li><img src="tpl/default/images/qian.gif" width="31" height="31" /><br /><a href="{$_K['siteurl']}/index.php?do=user&view=finance&op=recharge">在线充值</a></li>
+                                   <li><img src="tpl/default/images/renzheng.gif" width="31" height="31" /><br /><a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth">账号认证</a></li>
+                                </ul>
+                            
+                            
+                            </div>
+                            <div class="zizhu_top"><span>最新添加帮助</span><a href="#">更多</a></div>
+                            
+                            <div class="tianjia_bottom">
+                            	<ul>
+                                   {if $art_new}
+								{loop $art_new $k $v}
+								<li><a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$v['art_cat_id']&art_id={$v['art_id']}" title="{$v['art_title']}">{$v['art_title']}</a></li>
+								{/loop}
+								{else}
+								<li>没有找到相关信息。</li>
+								{/if}
+                                </ul>                          
+                           
+                            </div>
+                    
+                    </div>
+                
+                </div>
+        
+        </div>
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.autoscroll.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.pagination.js"></script>
+<script type="text/javascript">
+    
+//页面加载，判断搜索条件是现实还是隐藏
+    $(function(){
+        var show_cookie = getcookie('show_cookie',1);
+        if (show_cookie == 1) {
+            $("#condition_list").show();
+            $("#tool_hide").show();
+            $("#tool_show").hide();
+        }
+    });
+    //搜索条件现实 /隐藏
+    function show_hide(){
+        $("#condition_list").toggle(0, function(){
+            if ($("#tool_show").is(":hidden")) {
+                setcookie('show_cookie', '');
+                $("#tool_show").show();
+                $("#tool_hide").hide();
+            }
+            else {
+                setcookie('show_cookie', 1,3600);
+                $("#tool_hide").show();
+                $("#tool_show").hide();
+            }
+        });
+    }
+
+    var uid = parseInt('{$uid}') + 0;
+    
+    $('.re_on_off').click(function(){
+        if ($(this).children('.fl_l').text() == "展示相关服务") {
+            $(this).children('.fl_l').text('收起相关服务');
+        }
+        else {
+            $(this).children('.fl_l').text('展示相关服务');
+        }
+        $(this).find('.re_ser').toggleClass('re_ser_off');
+        $(this).parents(".talent_info_box").children('.re_ser_box').toggleClass('hidden');
+        $(this).parents('dd').find('.re_ser_box').find('.jcarousel').attr('id', 'jcarousel1');
+        $(this).parents('dd').siblings().find('.re_ser_box').addClass('hidden').end().find('.jcarousel').attr('id', '').end().find('.re_on_off .fl_l').text('展示相关服务').end().find('.re_ser').removeClass('re_ser_off').end();
+        ajaxTab('jcarousel1', '', "{$_K['siteurl']}/index.php?do=talent&ajax=1&s_uid=" + $(this).attr('uid'));
+        
+		var t = setTimeout(function() {
+        		 $('#jcarousel1').jcarousel();
+        		clearTimeout(t);
+        }, 400);
+       
+
+    });
+    $('#jcarousel2').jcarousel({
+        wrap: 'circular',
+        animation: 200
+    }).jcarouselAutoscroll({
+        interval: 3000
+    });
+    
+</script>
+<!--{template footer}-->

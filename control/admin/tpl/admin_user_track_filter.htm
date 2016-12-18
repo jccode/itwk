@@ -1,0 +1,148 @@
+<!--{template control/admin/tpl/admin_header}--> 
+<!--{template control/admin/tpl/admin_user_track_nav}-->
+<!--页头结束--> 
+      <div class="box search p_relative">
+      	{if !in_array($op,array('new','rand'))}
+    	<div class="title"><h2>{$_lang['search']}</h2></div>
+		
+        <div class="detail" id="detail">
+			<form action="#" method="post">
+        	<input type="hidden" name="do"   value="$do">
+			<input type="hidden" name="view" value="$view">
+			<input type="hidden" name="type" value="$type">
+			<input type="hidden" name="page" value="$page">
+			<table cellspacing="0" cellpadding="0">
+			 <tbody>
+			 	<tr>			 		
+					<th>已赚取金额（大于）</th>
+					<td>
+						<input type="text" name="w[balance]" class="txt" value="{$w[balance]}">
+					</td>
+					<th>认证情况</th>
+					<td>
+						<input type="checkbox" name="w[auth_realname]" class="checkbox" value="1" {if $w[auth_realname]}checked{/if}>实名
+						<input type="checkbox" name="w[auth_bank]" class="checkbox" value="1" {if $w[auth_bank]}checked{/if}>银行
+						<input type="checkbox" name="w[auth_mobile]" class="checkbox" value="1" {if $w[auth_mobile]}checked{/if}>手机
+						<input type="checkbox" name="w[auth_email]" class="checkbox" value="1" {if $w[auth_email]}checked{/if}>邮箱
+					</td>		
+					<th></th>
+					<td>						
+					</td>			
+				</tr>
+				<tr>
+					<th>任务参与数（大于）</th>
+					<td>						
+						<input type="text" name="w[take_num]" class="txt" value="{if $w[take_num]}{$w[take_num]}{else}0{/if}">
+					</td>
+					<th>最后登陆天</th>
+					<td>						
+						<input type="text" name="w[last_login_day]" class="txt" value="{if $w[last_login_day]}{$w[last_login_day]}{/if}">内
+					</td>
+					<th>{$_lang['result_order']}</th>
+					<td>
+						<select name="w[ord][]">
+	                       <option value="last_track_time" {if $w['ord']['0']=='last_track_time' or !isset($w['ord']['0'])} selected="selected"{/if}>{$_lang['default']}{$_lang['order']}</option>
+	                       <option value="reg_time" {if $w[ord]['0']=='reg_time' } selected="selected"{/if}>注册时间</option>
+						   <option value="uid" {if $w[ord]['0']=='uid' } selected="selected"{/if} >用户UID</option>
+						</select>							
+                        <select name="w[ord][]">
+                        <option {if $w[ord]['1']=='desc' or !isset($w[ord]['1'])}selected="selected" {/if} value="desc">{$_lang['desc']}</option>
+                        <option {if $w[ord]['1']=='asc'}selected="selected" {/if} value="asc">{$_lang['asc']}</option>
+                        </select>
+						<button type="submit" name="sbt_search" value="$_lang['search']" class="pill" />
+							<span class=icon magnifier>&nbsp;</span>{$_lang['search']}</button>
+					</td>
+				</tr>	
+			 </tbody>
+			</table>
+			</form>
+        </div>
+		{/if}		
+	 </div>
+
+    <div class="box list">
+    	<div class="title"><h2>客户跟踪</h2></div>
+        <div class="detail">
+			<form method="post" action="#" id="frm_user_search">
+				<div id="ajax_dom">
+					<input type="hidden" name="page" value="{$page}" />
+			  		<table cellpadding="0" cellspacing="0">
+			  		<thead>
+			          <tr>			       
+						<th width="15">UID</th>
+			            <th>用户名</th>
+						<th width="50">姓名</th>
+						<th width="25">性别</th>
+						<th class="wraphide" >注册时间</th>
+						<th>QQ</th>
+						<th>最后登陆时间</th>
+						<th class="wraphide">电话</th>
+						<th class="wraphide">客户类型</th>
+						<th  class="wraphide">最后跟踪</th>
+						<th>{$_lang['operate']}</th>
+			         </tr>
+					 </thead>
+					 <tbody> 
+					<!--{eval $today = strtotime(date("Y-m-d",time()));}-->
+					{loop $data_arr $k $v}
+			        <tr class="item">
+			            <td class="td25">{$v['uid']}</td>
+			            <td class="td25 wraphide">
+			            	{if $v['shop_id']}
+							  <a href="../../index.php?do=shop&sid={$v['shop_id']}" target="_blank">{$v['username']}</a>
+							{else}
+								{$v['username']}
+							{/if}
+						</td>
+						<td>{if $v['truename']}{$v['truename']}{else}暂无{/if}</td>
+						<td>{if $v['sex']}{$v['sex']}{else}暂无{/if}</td>
+			            <td class="wraphide"><!--{date('Y-m-d H:i:s',$v['reg_time'])}--></td>
+						<!--<td class="td25 wraphide">{$v['residency']}</td>-->
+						<td>{$v['qq']}</td>
+						<td>{if $v['last_login_time']}<!--{date('Y-m-d H:i:s',$v['last_login_time'])}-->{else}<!--{date('Y-m-d H:i:s',$v['reg_time'])}-->{/if}</td>
+						<td>{$v['mobile']}</td>
+						<td>{if $v['track_type']}$track_type[$v['track_type']]{else}暂无{/if}</td>
+						<td>
+							{if $v['track_uid']}
+							 {if $yewuyuan[$v['track_uid']]['real_name']}
+							 	{$yewuyuan[$v['track_uid']]['real_name']}
+							 {else}
+							 	{$v['track_username']}
+							 {/if}
+							   于<!--{date('Y-m-d H:i:s',$v['last_track_time'])}-->							 	
+							{else}
+								暂无
+							{/if}
+						</td>
+						<td>							
+						  <a class="button dbl_target" href="javascript:tiqu({$v['uid']});">
+						  	<span class="pen icon"></span>提取</a>
+						</td>
+ 			        </tr>
+					{/loop}
+					 </tbody>					
+			        </table>
+					<div class="page">{$pages['page']}</div>
+					</div>
+			</form>
+        </div>
+	</div>
+<!--{template control/admin/tpl/admin_footer}-->
+<script type="text/javascript">
+function tiqu(uid){
+	var url = 'index.php?do=$do&view=$view&ac=tiqu&t_uid='+uid;
+    $.getJSON(url, function(json){ 
+        if (json.status == '1') {
+			//art.dialog.alert(json.msg,'right',"操作提示",location.reload());
+			location.reload();
+			return true;
+        }
+        else {
+		   //showDialog(json.msg,"alert","操作提示");
+		   alert(json.msg);
+		   location.reload();
+		   return false;
+        }
+    })
+}
+</script>

@@ -1,0 +1,242 @@
+<!--{template control/admin/tpl/admin_header}--> 
+{if $code=='finance'}
+  <div class="box list">
+        <div class="detail">
+			<table cellpadding="0" cellspacing="0">
+             <tbody>
+                 <tr>
+                 	 <th>
+          					ID
+                        </th>
+                        <th>
+                          {$_lang['type']}
+                        </th>
+                        <th>
+                           		  财务用途
+                        </th>
+                        <th>
+                           		收支金额
+                        </th>
+						<th>
+                           		余额
+                        </th>
+                        <th>
+                            {$_lang['time']}
+						</th>
+                    </tr>
+				 {if $list}
+  				 {loop $list $v}
+                    <tr class="item">
+                        <td>
+                            {$v['fina_id']}
+                        </td>
+                        <td>
+                            {if $v['fina_type']=="out"}{$_lang['outcome']}{else}{$_lang['income']}{/if}
+                        </td>
+
+                        <td>
+                        	{if $v[remark]}
+								{$v[remark]}
+							{else}
+                        		 $fina_action_arr[$v['fina_action']]
+								{if $v['wtask_title']}
+								<a href="{$_K['siteurl']}/index.php?do=task&task_id={$v['wtask_id']}" target="_blank">{$v['wtask_title']}</a>
+								</br>(任务编号：{$v['wtask_id']} 金额：{if $v['wtask_cash_coverage']}{$cash_cove['wtask_cash_coverage']['cove_desc']}{else}{$v['wtask_cash']}{/if})
+								{elseif $v['task_title']}
+								<a href="{$_K['siteurl']}/index.php?do=task&task_id={$v['task_id']}" target="_blank">{$v['task_title']}</a>
+								</br>(任务编号：{$v['task_id']} 金额：{if $v['task_cash_coverage']}{$cash_cove['task_cash_coverage']['cove_desc']}{else}{$v['task_cash']}{/if})
+								{/if} 	
+							{/if}
+                        </td>
+                        <td>
+                            <font color="red">
+                                <font color="{if $v['fina_type']=='in'}green{else}red{/if}" >
+									{if $v['fina_type']=="out"}-{else}+{/if}{$v['fina_cash']}
+								</font>
+                            </font>
+                        </td>
+						<td>
+							{$v['user_balance']}
+						</td>
+                        <td>
+                            <!--{date('Y-m-d H:i:s',$v['fina_time'])}-->
+                        </td>
+                    </tr>
+				{/loop}
+				{else}
+                    <tr><td colspan=5 align="center">暂无资金明细数据</td>
+                  </tr>
+				{/if}
+                </tbody>
+              </table>
+			  <div class="page">{$pages['page']}</div>
+        </div>
+	</div>
+{elseif $code=='credit'}
+  <div class="box list">
+        <div class="detail">
+			<table cellpadding="0" cellspacing="0">
+             <tbody>
+                 <tr>
+                        <th>
+                         评价者
+                        </th>
+                        <th>
+                         任务标题
+                        </th>
+                        <th>
+                           评价状态
+                        </th>
+                        <th>
+                           获得分值
+                        </th>
+                        <th>
+                            评价时间
+						</th>
+                    </tr>
+				{if $list}
+  				 {loop $list $v}
+                    <tr class="item">
+                        <td>
+                            {$v['by_username']}
+                        </td>
+                        <td>
+							<a href="{$_K['siteurl']}/index.php?do=task&task_id={$v['origin_id']}" target="_blank">
+								<!--{eval echo kekezu::cutstr($v['task_title'],30)}-->..
+							</a>
+						</td>
+                        <td>
+                        	{if $v['mark_status']==1}好评{elseif $v['mark_status']==2}中评{elseif $v['mark_status']==3}差评{else}待评价{/if}
+                        </td>
+						 <td>
+                        	<!--{eval echo intval($v['mark_value'])}-->
+                        </td>
+                        
+                        <td>
+                            <!--{date('Y-m-d',$v['mark_time'])}-->
+                        </td>
+                    </tr>
+				{/loop}
+				{else}
+                    <tr><td colspan=5 align="center">暂无积分明细数据</td>
+                  </tr>
+				{/if}
+                </tbody>
+              </table>
+			  <div class="page">{$pages['page']}</div>
+        </div>
+	</div>
+{else}
+	<div class="box post">
+    <div class="detail">
+    	{if $auth_info}
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            	{if $code=='auth_realname'}
+					<tr>
+		                 <th scope="row" width="70">
+		                    <span class="bg1 t_r">真实姓名：</span>
+		                 </th>
+		                 <td>{$auth_info['realname']}</td>
+		             </tr>
+					<tr>
+		                 <th scope="row" width="70">
+		                    <span class="bg1 t_r">身份证号：</span>
+		                 </th>
+		                 <td>{$auth_info['id_card']}</td>
+		            </tr>
+					<tr>
+		                 <th scope="row" width="70">
+		                    <span class="bg1 t_r">证件图片：</span>
+		                 </th>
+		                 <td>
+		                 	{if file_exists($auth_info['id_pic'])}
+		                 		<img src="{file_exists($auth_info['id_pic']}">
+							{else}
+								图片丢失
+							{/if}
+						</td>
+		            </tr>
+					<tr>
+		                 <th scope="row" width="70">
+		                    <span class="bg1 t_r">证件图片(背面)：</span>
+		                 </th>
+		                 <td>
+		                 	{if file_exists($auth_info['id_pic_back'])}
+		                 		<img src="{file_exists($auth_info['id_pic_back']}">
+							{else}
+								图片丢失
+							{/if}
+						</td>
+		            </tr>
+				{elseif $code=='auth_email'}
+					<tr>
+		                 <th scope="row" width="70">
+		                    <span class="bg1 t_r">邮件地址：</span>
+		                 </th>
+		                 <td>{$auth_info['email']}</td>
+		            </tr>
+				{elseif $code=='auth_mobile'}
+					<tr>
+		                 <th scope="row" width="70">
+		                    <span class="bg1 t_r">手机号码：</span>
+		                 </th>
+		                 <td>{$auth_info['mobile']}</td>
+		            </tr>
+				{elseif $code=='auth_bank'}
+				
+					<tr>
+		                 <th scope="row" width="70">
+		                    <span class="bg1 t_r">开户人：</span>
+		                 </th>
+		                 <td>
+		                 	<!--{eval echo get_auth_bank_real_name($u_id);}-->
+						</td>
+		            </tr>
+					<tr>
+		                 <th scope="row" width="70">
+		                    <span class="bg1 t_r">所属银行：</span>
+		                 </th>
+		                 <td>{$bank_arr[$auth_info[bank_name]]}</td>
+		            </tr>
+					<tr>
+		                 <th scope="row" width="70">
+		                    <span class="bg1 t_r">开户行地区：</span>
+		                 </th>
+		                 <td>{$auth_info[deposit_area]}</td>
+		            </tr>
+					<tr>
+		                 <th scope="row" width="70">
+		                    <span class="bg1 t_r">开户行支行：</span>
+		                 </th>
+		                 <td>{$auth_info[deposit_name]}</td>
+		            </tr>
+					<tr>
+		                 <th scope="row" width="70">
+		                    <span class="bg1 t_r">银行卡号：</span>
+		                 </th>
+		                 <td>{$auth_info[bank_account]}</td>
+		            </tr>
+				{/if}
+					<tr>
+		                 <th scope="row" width="70">
+		                    <span class="bg1 t_r">认证状态：</span>
+		                 </th>
+		                 <td>
+		                 	<!--{eval echo keke_glob_class::get_single_ico($i,$auth_info['auth_status'])}-->
+		                 	{if $auth_info['auth_status']==1}
+								已通过
+							{elseif $auth_info['auth_status']==2}
+								审核失败
+							{else}
+								<font color="red">未通过</font><a href="index.php?do=auth&view=list&auth_code={$auth_code}" style="text-decoration:none;">去处理</a>
+							{/if}
+						 </td>
+		            </tr>
+            </table>
+		{else}
+			<div class="t_c">该用户暂未提交认证申请</div>
+		{/if}
+    </div>
+</div>
+{/if}		
+<!--{template control/admin/tpl/admin_footer}-->

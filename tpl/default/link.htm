@@ -1,0 +1,110 @@
+<!--{template header}-->
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/link.css" rel="stylesheet">
+<div class="wrapper light_green">
+	<header class="clearfix page_header">
+    	<div class="container_24">
+        <!--页面导航-->
+		    <div class="breadcrumbs clearfix">
+		    	你的位置：
+		    	<a href="{$_K['siteurl']}/index.php">IT帮手网{$_lang['home']}</a>
+				<span class="font_simsun">></span>
+				<a href="{$_K['siteurl']}/index.php?do=link">友情链接</a>
+			</div>
+        <!--end 页面导航-->
+    	</div>
+	</header>
+
+	<section class="clearfix content  pb_20">
+		<div class="container_24 clearfix">
+			<div class="box default clearfix">
+				<div class="inner">
+					<ul class="link_words clearfix">
+						{loop $word_link_arr $k $v}
+						<li><a  title="{$v['link_name']}" href="{$v['link_url']}"  target="_blank">{$v['link_name']}</a></li>
+						{/loop} 
+					</ul>
+				</div>
+			</div>
+			<div class="box default clearfix mt_10">
+				<div class="inner clearfix">
+					<div class="link_left clearfix fl_l">
+						<h2>友链申请步骤：</h2>
+						<div class="clearfix">
+							<p>1.请先在贵站做好IT帮手网的友情链接，要求：</p>
+							<ul class="mt_10 clearfix">
+								<li><span class="icon_link"></span><font style="color:#06F;">未被百度、google等搜索引擎封杀的网站</font></li>
+								<li><span class="icon_link"></span><font style="color:#06F;">首页PR≥7，且流量相近及以上的网站</font></li>
+								<li><span class="icon_link"></span><font style="color:#06F;">其他内页pr≥5</font></li>
+							</ul>
+						</div>
+						<div class="clearfix mt_10">
+							<p class="pb_10">2.做好链接后，通过在线提交申请按钮，提交您的网站信息以便于管理员审核。</p>
+							<a href="javascript:;" onclick="link_box(0)" class="button mr_10">提交申请</a>
+							<span>咨询QQ：1787116801</span>
+						</div>
+						<div class="clearfix mt_10">
+							<p>3.已经开通我站友情链接且内容健康，符合本站友情链接要求的网站，经IT帮手网管理员审核后，可在我方友情链接页面显示。</p>
+						</div>
+					</div>
+					<div class="link_right clearfix fl_l">
+						<div class="img_link_l clearfix">
+							<h2>图片代码链接：</h2>
+							<textarea id="pic_code"><a href="" target="_blank" ><img src="/logo.png" alt="IT帮手网" /></a></textarea>
+							<a href="javascript:;" onclick="CopyTxt('pic_code');" class="button">复制代码</a>
+							<h2 class="pt_10 pb_10">预览效果</h2>
+							<div class="clearfix preview_link">
+								<div class="preview fl_l">
+									<img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/style/logo_sy.gif" alt="">
+								</div>
+								<div class="fl_l ml_15 pt_15">
+									<p>logo规格尺寸</p>
+									160×60PX
+								</div>								
+							</div>
+						</div>
+						<div class="img_link_r clearfix">
+							<h2>图片代码链接：</h2>
+							<textarea id="txt_code"><a href="" target="_blank">IT帮手网</a></textarea>
+							<a href="javascript:;" onclick="CopyTxt('txt_code');" class="button">复制代码</a>
+							<h2 class="pt_10 pb_10">预览效果</h2>
+							<div class="clearfix preview_link">
+								<div class="preview fl_l">
+									<span>IT帮手网</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>	
+
+	<section class="clearfix content hidden">
+		<div class="container_24">
+			
+			<ul class="pics clearfix">
+					{loop $pic_link_arr $k $v}
+					<li><a title="{$v['link_name']}" href="javascript:window.open('$v['link_url']','_self');" 
+					target="_blank"><img width="84" height="29" alt="{$v['link_name']}" src="{$v['link_pic']}"></a></li>
+					{/loop}
+			</ul>
+			
+			
+			<ul class="words clearfix">
+					{loop $word_link_arr $k $v}
+					<li><a  title="{$v['link_name']}" href="javascript:window.open('$v['link_url']','_self');"  target="_blank">{$v['link_name']}</a></li>
+					{/loop} 
+			</ul>
+			
+		</div>
+	</section>
+
+<script type="text/javascript">
+	var uid = parseInt('{$uid}')+0;
+</script>
+<!--{template footer}-->	
+</div>
+
+
+
+

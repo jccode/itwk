@@ -1,0 +1,147 @@
+<!--{template header}-->
+<link href="{$_K['siteurl']}/{SKIN_PATH}/css/task.css" rel="stylesheet" type="text/css">
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/task.css" rel="stylesheet" type="text/css" charset="{CHARSET}">
+<!--页面内容部分-->
+<div class="wrapper ">
+<!--详细内容区-->
+<section class="clearfix content">
+	<div class="container_24">
+			<!--左边内容-->
+			<div class="page_left mt_20">
+				<div class="nav_lists_nav clearfix">
+					<div class="clearfix">
+							<ul class="clearfix fl_l ">
+								<li><a href="{$_K['siteurl']}/index.php?do=special&op=task" {if $op == 'task'}class="selected"{/if}>任务专题</a></li>
+								<li><a href="{$_K['siteurl']}/index.php?do=special&op=all" {if $op == 'all'}class="selected"{/if}>查看所有专题</a></li>										
+							</ul>
+							<div class="search_page clearfix fl_r">
+					    <!--end 小翻页--><!--列表项数量-->
+	                    <div class="page_count fl_r">
+	                    	<span>每页显示：</span>
+	                        <a href="{$_K['siteurl']}/index.php?do=$do&op=$op&order=$order&page_size=10" {if $page_size==10 || !$page_size}  class="selected" {/if}>10 </a>
+	                        <a href="{$_K['siteurl']}/index.php?do=$do&op=$op&order=$order&page_size=20" {if $page_size==20}  class="selected" {/if}>20 </a>
+	                        <a href="{$_K['siteurl']}/index.php?do=$do&op=$op&order=$order&page_size=30" {if $page_size==30}  class="selected" {/if}>30 </a>
+	                    </div>
+	                    <!--end 列表项数量-->
+						<!--小翻页-->	                                               	                                             	                                           
+				
+					<div class="clearfix fl_r select pr_10">
+						<select id="special_order">
+							<option value="{$_K['siteurl']}/index.php?do=$do&op=$op&page_size=$page_size&order=0" {if $order==0}selected{/if}>按默认排序</option>
+							<option value="{$_K['siteurl']}/index.php?do=$do&op=$op&page_size=$page_size&order=1" {if $order==1}selected{/if}>按时间升序</option>
+							<option value="{$_K['siteurl']}/index.php?do=$do&op=$op&page_size=$page_size&order=2" {if $order==2}selected{/if}>按时间降序</option>
+						</select>						
+					</div>
+				</div>
+					</div>
+				</div>
+				<div class="clearfix task_imgs mt_20">
+						<ul>
+							{loop $special_arr $val}
+							<li>
+								<a href="{$val['url']}" target="_blank">
+									<!-- <img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/style/login_img.gif" alt="{$val['title']}"> -->
+									<img src="{$val['img']}" alt="{$val['title']}">{$val['title']}									
+								</a>
+							</li>
+							{/loop}							
+						</ul>
+					</div>
+				<div class="page_count fl_r mt_10">{$page}</div>
+			</div>
+			<!--左边内容 end-->
+			<!--右边内容-->
+			<div class="page_right mt_20 clearfix">
+				<div class="box default  release_needs clearfix">
+					<div class="inner">
+							<div class="top_box t_c pad10 clearfix">
+								<h1>品牌合作，选IT帮手！</h1>
+								<button class="big button  block" type="submit">我要和IT帮手合作</button>
+								<span>
+									有任何疑问?<a class="ml_10" href="#">联系我们的BD专员</a>
+								</span>
+							</div>
+							<div class="tip_box clearfix">
+								<ul>
+									<li>
+										<strong><em>01.</em>策划方案撰写</strong>
+										<p>我们将以专业的策划视角，为您制定切合实际的活动和推广方案，并通过精心安排的宣传和手段对项目进行操作，实现您的特定目标。</p>
+									</li>
+									<li>
+										<strong><em>02.</em>任务需求发布建议</strong>
+										<p>您的需求加上我们的建议，形成完美、有效的活动方案，最终达到您理想的推广效果，让更多的威客来参与任务。</p>
+									</li>
+									<li>
+										<strong><em>03.</em>任务专题推广和传播</strong>
+										<p>我们将一切以您的需求为出发点，为您量身定制专题活动，配合相应的推广造势。让更多的人来完成任务传播品牌，扩大您的品牌影响力。</p>
+									</li>
+									<li>
+										<strong><em>04.</em>专案专人全程服务</strong>
+										<p>我们将贯彻“客户就是上帝”的宗旨，提供专案专人全程协助，一站式运营，打造最贴心、最有效的服务。</p>
+									</li>
+								</ul>
+										
+							</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+
+				<div class="box default clearfix mt_10 notice">
+					<div class="inner">
+						<header class="box_header clearfix po_re">
+							<h2 class="title fl_l">让IT帮手告诉您</h2>
+						</header>
+						<article class="box_detail">
+							<ul>
+								<li>
+									<a href="#">征集苗族化妆品包装盒设计</a>
+								</li>
+								<li>
+									<a href="#">征集苗族化妆品包装盒设计</a>
+								</li>
+								<li>
+									<a href="#">征集苗族化妆品包装盒设计</a>
+								</li>
+								<li>
+									<a href="#">征集苗族化妆品包装盒设计</a>
+								</li>
+							</ul>	
+						</article>
+					</div>
+				</div>
+				<div class="box default clearfix mt_10 ep_box ep_email">
+					<div class="inner">
+						<article class="box_detail">
+							<div class="right_con">
+								<h2 class="c333">任务周报订阅</h2>
+								<span>每周五定时发送邮件</span>
+							</div>
+							<div class="your_email mt_5 mb_5">
+								<input style="color:#999;" type="text" value="你的邮箱" onfocus="if(this.value=='你的邮箱'){this.value=''; this.style.color='#333'}" onblur="if(this.value==''){this.value='你的邮箱'; this.style.color='#999'}" >
+								<label><button class="button" type="button">订  阅</button></label>
+							</div>
+							
+						</article>
+					</div>
+				</div>
+				<div class="box mt_10">
+					<a href="#">
+						<img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/style/ep_sina.gif" alt="">
+					</a>
+				</div>
+		</div>
+			<!--右边内容 end-->
+	</div>
+</section>
+<!--end详细内容区-->
+</div>
+<!--end页面内容部分-->
+<script type="text/javascript">
+	$(document).ready(function(){								
+		$('#special_order').change(function(){
+			var val = $('#special_order').val();
+			window.location.href = val;						
+		});
+	})			
+</script>
+<!--{template footer}-->

@@ -1,0 +1,397 @@
+<!--{if $_K['inajax']}-->
+<!--{if !isset($ajaxmenu)}-->
+
+<h3 class="flb"><em>{$title}</em><span><a href="javascript:;" class="flbc" onClick="hideWindow('$handlekey');" title="close">{$_lang['close']}</a></span></h3>
+<!--{/if}--> 
+<!--{else}--> 
+<!--{template header_top}--> 
+<!--{template header_search}-->
+<div class="clear"></div>
+<!--{/if}-->
+<style type="text/css">
+	.valid_error span{ display:inline-block; width:180px;}
+</style>
+<div class="wrapper"> 
+  <!--页面头部-->
+  <header class="clearfix page_header hidden">
+    <div class="container_24 clearfix"> 
+      <!--面包屑-->
+      <div class="breadcrumbs clearfix"> <a href="{$_K['siteurl']}/index.php">{$_lang['home']}</a> </div>
+      <!--end 面包屑-->
+      <div class="page_title">
+        <h2 class="title">{$_lang['pay']}</h2>
+      </div>
+      <div class="clear"> </div>
+    </div>
+  </header>
+  <!--end 页面头部--><!--详细内容区-->
+  <section class="content box clearfix">
+  <div class="container_24">
+    <div class="mt_20 pay_info clearfix">
+      <div class="user pb_20 clearfix">
+        <div class="user_head fl_l"> <a href="{$_K['siteurl']}/index.php?do=user&view=index"><!--{userpic($user_info['uid'],'middle')}--></a> 
+          <!--<a href="#"><img class="pic_morebig" src="tpl/default/theme/simple/img/style/help_index_pep.gif"></a>}--> 
+        </div>
+        <div class="user_detail fl_l pl_20 clearfix">
+          <ul>
+            <li>用户名：{$user_info['username']} </li>
+            <li>账户可用余额：<span class="ea5e00"><strong>{$user_info['balance']} </strong>元</span></li>
+            <li> <a href="{$_K['siteurl']}/index.php?do=user&view=finance&op=withdraw" rel="nofollow">账户提现</a> </li>
+          </ul>
+        </div>
+      </div>
+      <form action="#" name="charge" id="charge">
+        <div class="user pb_20 clearfix"> <b>充值金额：</b>
+          <input type="text" name="charge_cash" id="charge_cash" value="" class="txt"
+					 onkeyup="$('#online_c_cash').val(this.value);$('#offline_c_cash').val(this.value);$('#bank_c_cash').val(this.value);$('#tw_cash').val(this.value);"
+					  limit="required:true;type:float;between:1-" msg="请正确填写充值金额" msgArea="span_charge">
+          &nbsp;&nbsp;&nbsp; 元 <span style="color:#F1871F;">(充值金额不小于1元)</span><span id="span_charge"></span> </div>
+      </form>
+      <div class="pay_tab mt_20 clearfix">
+        <ul>          
+          <li id="tab_paym_1" {if $_SESSION['brand']!='tw'}class="selected"{/if} onclick="swaptab('paym','selected','',3,1)"><a href="javascript:;">在线网上支付</a></li>
+		  <li id="tab_paym_2" onclick="swaptab('paym','selected','',3,2)"><a href="javascript:;">线下银行汇款</a></li>
+		 {if $_SESSION['brand']=='tw'}<li id="tab_paym_3" class="selected" onclick="swaptab('paym','selected','',3,3)"><a href="javascript:;">台湾会员专用</a></li>{/if}
+        </ul>
+      </div>
+      <div class="form_box pad20 mar0 clearfix"> 
+        
+        <!--支付方式 end--> 
+        
+        <!--在线网上支付-->
+        <div class="clearfix {if $_SESSION['brand']=='tw'}hidden{/if}" id="div_paym_1">
+        
+        <!--支付方式2-->
+        <form action="{$_K['siteurl']}/index.php?do=$do&view=$view&op=$op" method="post">
+          <div class="box default pay_box">
+            <div class="inner">
+              <div class="pad20 clearfix choose_tx">
+                <div class="fl_l"> <img class="pic_middle" src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/style/pay_wy.gif" alt=> </div>
+                <div class="fl_l ml_20">
+                  <h2>使用网上银行付款</h2>
+                  <div class="hk_money"> 选择网上银行付款不会动用您的账户余额 </div>
+                  <ul class="bank_seclet mt_20 clearfix">
+                    {loop $bank_list $k $v}
+                    <li>
+                      <input type="radio" {if $k=='CCB'}checked="checked"{/if} name='bank_code' value="{$k}">
+                      <img src="resource/img/system/kppw_2.0_<!--{eval echo strtolower($k)}-->.png" alt="{$v}" class="ml_5"> </li>
+                    {/loop}
+                  </ul>
+                  <input type="hidden" name="charge_cash" id="bank_c_cash" value=0>
+                  <input name="charge_type" value="online_pay" type="hidden">
+                  <input type="hidden" value=1 name="btn_submit">
+                  <input type="hidden" value='gopay' name="pay_mode">
+                  <button type="submit" class="big button" onclick="return checkForm(document.getElementById('charge'));">下一步</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <!--支付方式2 end--> 
+        
+        <!--支付方式3-->
+        <form action="{$_K['siteurl']}/index.php?do=$do&view=$view&op=$op" method="post">
+        <div class="box default pay_box">
+        <div class="inner">
+        <div class="pad20 clearfix choose_tx">
+        <div class="fl_l"> <img class="pic_middle" src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/style/pay_zf.gif" alt=> </div>
+        <div class="fl_l ml_20">
+        <h2>使用支付平台付款</h2>
+        <div class="hk_money"> 选择网上银行付款不会动用您的账户余额 </div>
+        <div class="mt_20 mb_10 clearfix">
+        <form action="{$_K['siteurl']}/index.php?do=pay&order_id=$order_id" method="post" >
+          <!--{eval $k=0;}--> 
+          {loop $payment_list $pay}
+          {if $pay['pay_status']&&$pay['pay_dir']!='gopay'} 
+          <!--{eval $k++;}-->
+          <div class="fl_l clearfix mr_30">
+            <label for="{$pay['payment']}">
+            <img src="payment/{$pay['pay_dir']}/{$pay['img']}" align="absmiddle" title="{$pay['pay_name']}" style="width:100px; height:40px;" class="block">
+            <div class="t_c">
+              <input class="mt_5"  type="radio" name="pay_mode" value="{$pay['payment']}" id="{$pay['payment']}" {if $k=='1'}checked="checked"{/if}/>
+            </div>
+            </label>
+          </div>
+          {/if}											
+          {/loop} 
+          {if $k==0}
+             {$_lang['pay_tips']}
+          {/if}
+          </div>
+          <input type="hidden" name="charge_cash" id="online_c_cash" value=0>
+          <input name="charge_type" value="online_pay" type="hidden">
+          <input type="hidden" value=1 name="btn_submit">
+          <button type="submit" class="big button" onclick="return checkForm(document.getElementById('charge'));">下一步</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+<!--支付方式3 end -->
+</div>
+<!--在线网上支付 end--> 
+
+<!--线下银行汇款-->
+<div class="mt_5 clearfix hidden" id="div_paym_2">
+  <div class="pay_bank_messages mt_10">
+    <div class="pay_mess_con"> <b class="fon14">IT帮手网友情提醒：</b> 为识别汇款人，汇款时请多汇几分钱，冲值500元，可以汇500.01,500,02，并在附言上注明您的用户名，汇款完成后<a class="red" href="javascript:;" onclick="$('#form_submit_record').show()">提交汇款记录</a>或者第一时间联系我们，电话400 999 467 或者致电 0592-6301579 </div>
+  </div>
+  <div style="display:none" id="form_submit_record">
+    <form id="offline_pay_form" action="{$_K['siteurl']}/index.php?do=$do&view=$view&op=$op&pay_mode=offline" method="post">
+      <table class="clearfix general_acc mt_10" id="form_submit_record">
+        <thead>
+          <tr>
+            <th scope="col" colspan="4">提交汇款记录</th>
+          </tr>
+        </thead>
+        <tbody class="clearfix">
+          <tr>
+            <td  width="15%"><b>汇款帐号：</b></td>
+            <td colspan="3"><input type="text" name="txt_bank_account" id="txt_bank_account" value=""  class="txt_input" limit="type:digit" msgArea="msg_txt_bank_account" msg="银行帐号填写错误" original-title="无卡存款请留空">
+              <span id="msg_txt_bank_account"></span></td>
+          </tr>
+          <tr>
+            <td width="15%"><b>汇款人：</b></td>
+            <td colspan="3"><input type="text" name="txt_real_name" id="txt_real_name" value="" class="txt_input" limit="required:true" msgArea="msg_txt_real_name" msg="汇款人姓名必填" original-title="汇款人姓名">
+              <span id="msg_txt_real_name"></span></td>
+          </tr>
+          <tr>
+            <td  width="15%"><b>您的汇款银行：</b></td>
+            <td colspan="3"><select id="slt_bank_type" name="slt_bank_type" onchange="if(this.value=='other'){$('#hd_bank_name').show();}else{$('#hd_bank_name').hide();}">
+                
+												{loop $bank_list $k=>$v}
+													
+                <option value="$k">$v</option>
+                
+												{/loop}
+												
+                <option value="other">其它银行</option>
+              </select>
+              <span id="hd_bank_name" style="display:none"><br>
+              <br>
+              请输入汇款银行的名称：
+              <input type="text" class="txt_input" name="txt_bank_type" id="txt_bank_type" msg="银行名称必填" msgArea="msg_txt_bank_name" original-title="汇款银行名称">
+              </span><span id="msg_txt_bank_type"></span></td>
+          </tr>
+          <tr>
+            <td  width="15%"><b>支行名称银行：</b></td>
+            <td colspan="3"> 请输入银行的名称：
+              <input type="text" class="txt_input" name="txt_bank_ex_name" id="txt_bank_ex_name" msg="请填写汇款银行支行名称" msgArea="msg_bank_ex_name" original-title="银行支行名称">
+              <span id="msg_txt_bank_type"></span></td>
+          </tr>
+          <tr>
+            <td width="15%"><b>您汇入的帐号：</b></td>
+            <td colspan="3"><select id="slt_to_bank" name="slt_to_bank" limit="required:true" msg="请选择汇款银行帐号" msgArea="msg_to_bank">
+                <option value="">请选择</option>
+                <option>企业账户(4100200109200028434)</option>
+                <option>中国银行(6013821700611523399)</option>
+                <option>招商银行(6225885926161308)</option>
+                <option>交通银行(6222600790002826240)</option>
+                <option>建设银行(6227001935120437859)</option>
+                <option>工商银行(6222024100012177857)</option>
+                <option>农业银行(6228480070174619810)</option>
+                <option>兴业银行(622909126239583418)</option>
+              </select>
+              <span id="msg_to_bank"></span> 您汇到我们哪个银行上去了 </td>
+          </tr>
+          <tr>
+            <td  width="15%"><b>实汇金额：</b></td>
+            <td colspan="3"><input type="text" name="txt_send_cash" id="txt_send_cash" limit="required:true" value="" msg="汇款实际汇出的金额" msgArea="msg_send_cash" class="txt_input">
+              <span id="msg_send_cash"></span> (为了方便核对，如果您多汇了几分钱，请在这里输入实际金额) </td>
+          </tr>
+          <tr>
+            <td  width="15%"></td>
+            <td colspan="3"><button class="button" onclick="return checkForm(document.getElementById('offline_pay_form'))" value="提交" name="sbt_edit" type="submit">提交</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <input type="hidden" name="charge_cash" id="offline_c_cash">
+      <input name="charge_type" value="offline_pay" type="hidden">
+      <input type="hidden" value=1 name="btn_submit">
+    </form>
+  </div>
+  <table class="mt_10 clearfix firm_acc">
+    <thead>
+      <tr>
+        <td scope="col" colspan="4" height="20"><strong>企业账户汇款</strong></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td  width="10%"><b>开户行：</b></td>
+        <td colspan="3">中国工商股份有限公司厦门市分行营业部</td>
+      </tr>
+      <tr>
+        <td  width="10%"><b>开户名：</b></td>
+        <td>厦门IT帮手网络科技有限公司</td>
+        <td class="t_c" width="10%"><b>账号：</b></td>
+        <td><span class="red">4100200109200028434</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="clearfix general_acc mt_10">
+    <thead>
+      <tr>
+        <td scope="col" colspan="3" height="20"><strong>普通账户汇款</strong></td>
+      </tr>
+    </thead>
+    <tbody class="clearfix">
+      <tr>
+        <td><div class="fl_l mt_10"> <img src="tpl/default/img/about/china.png" alt="" width="60" height="60"> </div>
+          <ul class="ml_10 fl_l">
+            <li><b>开户行：</b>中国银行厦门前埔支行</li>
+            <li><b>账　号：</b>6013 8217 0061 1523 399</li>
+            <li><b>户　名：</b>黄国华</li>
+          </ul></td>
+        <td><div class="fl_l mt_10"> <img src="tpl/default/img/about/zhaoshang.png" alt="" width="60" height="60"> </div>
+          <ul class="ml_10 fl_l">
+            <li><b>开户行：</b>招商银行厦门莲前支行</li>
+            <li><b>账　号：</b>6225 8859 2616 1308</li>
+            <li><b>户　名：</b>黄国华</li>
+          </ul></td>
+        <td><div class="fl_l mt_10"> <img src="tpl/default/img/about/jiaotong.png" alt="" width="60" height="60"> </div>
+          <ul class="ml_10 fl_l">
+            <li><b>开户行：</b>交通银行厦门前埔支行</li>
+            <li><b>账　号：</b>6222 6007 9000 2826 240</li>
+            <li><b>户　名：</b>黄国华</li>
+          </ul></td>
+      </tr>
+      <tr>
+        <td><div class="fl_l mt_10"> <img src="tpl/default/img/about/ccb.png" alt="" width="60" height="60"> </div>
+          <ul class="ml_10 fl_l">
+            <li><b>开户行：</b>建设银行厦门分行洪山柄支行</li>
+            <li><b>账　号：</b>6227 0019 3512 0437 859</li>
+            <li><b>户　名：</b>黄国华</li>
+          </ul></td>
+        <td><div class="fl_l mt_10"> <img src="tpl/default/img/about/icbc.png" alt="" width="60" height="60"> </div>
+          <ul class="ml_10 fl_l">
+            <li><b>开户行：</b>工商银行厦门分行软件园支行</li>
+            <li><b>账　号：</b>622202 4100012177857</li>
+            <li><b>户　名：</b>黄国华</li>
+          </ul></td>
+        <td><div class="fl_l mt_10"> <img src="tpl/default/img/about/abc.png" alt="" width="60" height="60"> </div>
+          <ul class="ml_10 fl_l">
+            <li><b>开户行：</b>农业银行厦门分行软件园支行</li>
+            <li><b>账　号：</b>622848 0070174 619810</li>
+            <li><b>户　名：</b>黄国华</li>
+          </ul></td>
+      </tr>
+      <tr>
+        <td><div class="fl_l mt_10"> <img src="tpl/default/img/about/xingye.png" alt="" width="60" height="60"> </div>
+          <ul class="ml_10 fl_l">
+            <li><b>开户行：</b>兴业银行厦门分行莲前支行</li>
+            <li><b>账　号：</b>622909 126239 583418</li>
+            <li><b>户　名：</b>黄国华</li>
+          </ul></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!--线下银行汇款 end-->
+<!-- 台湾会员专用start -->
+					<div class="mt_5 clearfix  {if $_SESSION['brand']!='tw'}hidden{/if}" id="div_paym_3">	
+					<div class="pay_bank_messages mt_10">
+    <div class="pay_mess_con"> <b class="fon14">IT帮手网友情提醒：</b>台湾会员若欲使用台币进行充值，将由IT帮手网台湾总代理「关键数位行销公司」进行充值服务，请连结至「<a href="http://epweike.songogo.com/" target="_blank">http://epweike.songogo.com/</a>」，并按指示申请。</div>
+  </div>					
+						<div id="form_submit_record">
+						<form id="tw_pay_form" action="" method="post">						
+							<table class="clearfix general_acc mt_10" id="form_submit_record">
+        <thead>
+          <tr>
+            <th scope="col" colspan="4">充值申请提交</th>
+          </tr>
+        </thead>
+        <tbody class="clearfix">
+          <tr>
+            <td  width="15%"><b>申请人姓名：</b></td>
+            <td colspan="3"><input type="text" name="name" id="name" value=""  class="txt_input" limit="required:true;leng:3-10" msgArea="msg_txt_name" msg="真实姓名出错" original-title="请填写您的真实姓名">
+              <span id="msg_txt_name"></span></td>
+          </tr>
+          <tr>
+            <td width="15%"><b>申请人EMAIL：</b></td>
+            <td colspan="3"><input type="text" name="email" id="email" value="" class="txt_input" limit="required:true;type:email" msgArea="msg_txt_email" msg="EMAIL格式错误" original-title="EMAIL为必填">
+              <span id="msg_txt_email"></span></td>
+          </tr>
+          <tr>
+            <td  width="15%"><b>申请人手机：</b></td>
+            <td colspan="3">
+               <input type="text" name="mobile" id="mobile" value="" class="txt_input" limit="required:true;type:mobileTW" msgArea="msg_txt_mobile" msg="申请人手机填写错误" original-title="请输入申请人手机">
+              <span id="msg_txt_mobile"><br>
+            </td>
+          </tr>
+         <tr class="">
+            <td width="15%"></td>
+            <td colspan="3">
+            <input type="hidden" name="price" value="" id="price"></input>
+            <input type="hidden" name="brand" value="tw" id="brand"></input>
+            <input type="hidden" name="charge_cash" id="tw_cash"></input>
+            <input name="charge_type" value="tw" type="hidden" id="charge_type"></input>
+            <input type="hidden" value=1 name="btn_submit"></input>
+            <input type="hidden"  name="no" id="no"></input>
+             <input type="hidden"  name="username" value="{$_SESSION['username']}"></input>
+            <input type="hidden"  name="uid" value="{$_SESSION['uid']}"></input> 
+            
+            <button class="button submit" onclick="set_rechange()" value="提交申请" name="sbt_edit" type="button">提交申请</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+						</form>
+						</div>
+						</div>
+				<!-- 台湾会员专用end -->
+</div>
+</div>
+</div>
+</section>
+<!--end 详细内容区-->
+</div>
+<script type="text/javascript" src="resource/js/system/form_and_validation.js"></script> 
+<script type="text/javascript">
+	function user_pay(){
+		pay();
+		return false;
+	}
+	function pay(){
+		var pay_mode = $(":radio[name='online']:checked").val();
+		var url = "{$_K['siteurl']}/index.php?do=$do&pay_mode="+pay_mode+"&order_id=$order_id&model_id=$order_info['model_id']"; 
+		showWindow("pay",url,'get',0,{cover:1});return false;
+	}
+	function set_rechange(){
+		i=checkForm(document.getElementById('charge'))
+		e=checkForm(document.getElementById('tw_pay_form'))
+		if(i&&e){
+			$.post("{$_K['siteurl']}/index.php",
+				{
+				"do":"user",
+				"view":"finance",
+				"op":"recharge",
+				"pay_mode":"offline",
+				"brand":$("#brand").val(),
+				"tw_cash":$("#tw_cash").val(),
+				"btn_submit":1,
+				"charge_type":$("#charge_type").val(),
+				"charge_cash":$("#charge_cash").val(),
+				"name":$("#name").val(),
+				"mobile": $("#mobile").val(),
+				"email":$("#email").val()
+				},
+				function(json){
+				  if(json.status==1){
+					/*showDialog(json.msg,'confirm',"{$_lang['operate_tips']}",'location.href="{$_K['siteurl']}/index.php?do=user"');
+					$("#no").val(json.data['order_id']);
+					$("#price").val($("#charge_cash").val());
+					$("#tw_pay_form").attr("action","https://www.songogo.com/ecpay/seller_china.php?id=0001");
+					$("#tw_pay_form").attr('target','_blank');
+					$("#tw_pay_form").submit();*/
+					  showDialog(json.msg,'confirm',"{$_lang['operate_tips']}",'window.open("http://epweike.songogo.com/","_blank");');
+				  }
+				},
+			'json');
+		}
+	}
+</script> 
+<!--{template footer}--> 

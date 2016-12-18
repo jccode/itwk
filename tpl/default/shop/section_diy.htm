@@ -1,0 +1,62 @@
+<div class="clearfix login_con po_re">
+				<div class="tab_nav_list clearfix">
+					<h2 class="fl_l">DIY</h2>
+					<ul class="fl_l ml_15">
+						<li class="selected" id="tab_plac_1" onmouseover="swaptab('plac','selected','',3,1)"><a href="javascript:;">导航颜色</a></li>
+					</ul>
+				</div>
+		     
+			 <form action="" method="post" id="frm_shop_style" name="frm_shop_style">
+				<div class="div_nav_con clearfix" >
+					<div class="div_one mt_5"  id="div_plac_1">					 
+						<ul class="clearfix">
+							<li class="clearfix">
+								<div class="bg_orange"></div>
+								<div class="mt_5"> 
+									<input type="radio" name="shop_style" value="orange" id="orange"
+									{if $shop_info['shop_skin'] == 'orange'}checked="true"{/if}><label>默认</label>
+								</div>
+							</li>
+							<li class="clearfix">
+								<div class="bg_purple"></div>
+								<div class="mt_5"> 
+									<input type="radio" name="shop_style" value="purple" id="purple" 
+									{if $shop_info['shop_skin'] == 'purple'}checked="true"{/if}><label for="purple">紫色</label>
+								</div>
+							</li>
+							<li class="clearfix">
+								<div class="bg_green"></div>
+								<div class="mt_5"> 
+									<input type="radio" name="shop_style" value="green" id="green"
+									{if $shop_info['shop_skin'] == 'green'}checked="true"{/if} ><label for="green">绿色</label>
+								</div>
+							</li>
+							<li class="clearfix">
+								<div class="bg_blue"></div>
+								<div class="mt_5"> 
+									<input type="radio" name="shop_style" value="blue"  id="blue"
+									{if $shop_info['shop_skin'] == 'blue'}checked="true"{/if}><label for="blue">蓝色</label>
+								</div>
+							</li>
+						</ul>					 
+				   </div>
+				</div>
+				<button type="button" class="button po_ab" onclick="shop_diy_skin()">保存DIY设置</button>
+		  </form>
+</div>		  
+<script type="text/javascript">
+function shop_diy_skin(){	
+	var data = $("#frm_shop_style").serialize(); 
+	var url = "/index.php?do=ajax&view=shop_diy&ac=skin&" + data;
+    $.getJSON(url, function(json){ 
+        if (json.status == '1') {
+			showDialog(json.msg,'right',"操作提示","location.href='{$_K[siteurl]}/index.php?do=shop&sid={$sid}&view=diy'");
+			return true;
+        }
+        else {
+		   showDialog(json.msg,"alert","操作提示"); 
+		   return false;
+        }
+    })
+}
+</script>

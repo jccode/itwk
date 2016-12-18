@@ -1,0 +1,160 @@
+<!--{template header}-->
+<link rel="stylesheet" href="{$_K['siteurl']}/{SKIN_PATH}/css/news.css">
+<link rel="stylesheet" href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/news.css">
+<div class="wrapper">
+	<!--start 页面标题-->
+	<header class="clearfix page_header">
+		<div class="container_24">
+            <!--页面导航-->
+            <div class="heidtile clearfix">
+                <span>你的位置：</span>
+                <span><a href="{$_K['siteurl']}/index.php">IT帮手网首页</a>&nbsp;&gt;&nbsp;</span>
+                <span><a href="{$_K['siteurl']}/index.php?do=article">新闻中心</a>{if $art_cat_id}&nbsp;&gt;&nbsp;{/if}</span>
+                <h1><a href="{$_K['siteurl']}/index.php?do=article&art_cat_id={$art_cat_id}">{$ncat_names[$art_cat_id]}</a></h1>
+                <!--<a class="fl_r mr_10" href=".cn/zt/APPS/android/" target="_blank">下载移动客户端，交易随时随地掌控</a>-->
+            </div>
+            <!--end 页面导航-->
+		</div>
+	</header>
+	<!--end 页面标题-->
+	<!--主内容-->
+	<div class="bodier clearfix pt_10">
+		<!--左边部分 start-->
+		<div class="main bor2">
+			<div class="aboutZone commission">
+				<dl>
+					<dt><div class="aboutZoneHD"><!--{eval echo $art_cat_id ? $ncat_names[$art_cat_id]."列表" : "资讯内容"}--></div><!--<a href="#" class="fl_r c666">更多<span class="font_simsun">></span></a>--></dt>
+					<dd class="clearfix">
+						<ul class="clearfix">
+							{if $art_info}
+							{loop $art_info $v}
+							<li>
+								<a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$v[art_cat_id]&art_id={$v[art_id]}">
+									<!--{eval echo kekezu::cutstr($v[art_title],80)}-->
+								</a>
+								<span><!--{date('Y-m-d',$v['pub_time'])}--></span>
+							</li>
+							{/loop}
+							{else}
+							<li class="ml_10">没有找到您需要的内容。</li>
+							{/if}
+						</ul>
+						<div class="page_count fl_r ml_10 mt_10 mb_10 clearfix">
+							{$pages['page']}
+						</div>
+					</dd>
+				</dl>
+			</div>
+		</div>
+		<!--左边部分 end-->
+		
+		<!--右边部分 start-->
+		<div class="aside">
+			<div class="search pad10">
+				<div><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/news/fond_article.gif"></div>
+				<div class="pt_5 pb_5">
+					<input class="c999 txt_input" type="text" name="keyword" id="keyword" {if $keyword}value="{$keyword}"{else}value="请输入关键字"{/if} original-title="">
+					<label><button class="button" id="search_art" type="button">搜索</button></label>
+				</div>
+			</div>
+			<div class="hot mt_10">
+				<div class="aboutZone commission">
+					<dl class="clearfix">
+						<dt>
+							<div class="aboutZoneHD">推荐热点</div>
+							<a href="{$_K['siteurl']}/index.php?do=article" class="fl_r c666">更多<span class="font_simsun">></span></a>
+						</dt>
+						<dd class="clearfix">
+							<ul class="clearfix">
+								{if $recommend_info}
+								{loop $recommend_info $k $v}
+								<li>
+									<a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$v[art_cat_id]&art_id={$v[art_id]}">
+										<img class="img_big" style="width:110px; height:80px;" src="{$v[art_pic]}">
+									</a>
+									<p class='t_c'><a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$v[art_cat_id]&art_id={$v[art_id]}">{$v[art_title]}</a></p>
+								</li>
+								{/loop}
+								{else}
+								<li class="ml_10">没有找到相关信息</li>
+								{/if}
+							</ul>
+						</dd>
+					</dl>
+				</div>
+			</div>
+			<div class="attent mt_10">
+				<div class="aboutZone commission">
+					<dl class="clearfix">
+						<dt>
+							<div class="aboutZoneHD">热门关注</div>
+							<a href="{$_K['siteurl']}/index.php?do=article" class="fl_r c666">更多<span class="font_simsun">></span></a>
+						</dt>
+						<dd class="clearfix">
+							<ul class="clearfix">
+								{if $hot_info}
+								{loop $hot_info $k $v}
+								<li>
+									<a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$v[art_cat_id]&art_id={$v[art_id]}">{$v[art_title]}</a>
+								</li>
+								{/loop}
+								{else}
+								<li class="ml_10">没有找到相关信息</li>
+								{/if}
+							</ul>
+						</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+		<!--右边部分 end-->
+		
+		<div class="clear"></div>
+		<!--
+			<div class="box clearfix default mt_10 teamwork">
+				<div class="inner">
+					<header class="box_title clearfix">
+						<h2 class="c333 fl_l">合作链接</h2>
+						<div class="fl_r clearfix">							
+							<div class="fl_l ml_20">
+								<button class="button primary c090" style="padding:2px 10px;_margin-top:4px;" type="button" onclick="link_box(5)" >申请友情链接</button>
+							</div>
+						</div>
+					</header>
+					<article class="pad10 clearfix">
+						<ul>
+							{loop $link_arr $v}
+							<li><a href="{$v['link_url']}" target="_blank">{$v['link_name']}</a></li>
+							{/loop}
+						</ul>
+					</article>
+				</div>
+			</div>
+		-->
+	</div>
+<!--{template footer}-->
+</div>
+<!--end 主内容-->
+<script type="text/javascript" >
+	var uid = parseInt('{$uid}')+0;
+	
+	$('#keyword').focus(function(){
+		if(this.value == '请输入关键字'){
+			this.value = '';
+		}
+	})
+	
+	$('#keyword').blur(function(){
+		if(this.value == ''){
+			this.value = '请输入关键字';
+		}
+	})
+	
+	$("#search_art").click(function(){
+		if($("#keyword").val() != '请输入关键字'){
+			window.location.href=encodeURI("{$_K['siteurl']}/index.php?do=article&art_cat_id={$art_cat_id}&keyword=' + $('#keyword').val()");
+			window.event.returnValue = false;
+		}
+	});
+</script>
+

@@ -1,0 +1,31 @@
+
+
+/*__header_menu
+---------------------------------------*/
+.header_menu { background:url(C_headermenu.png) repeat; height:35px;  width:960px; overflow:hidden;}	
+	.header_menu .left {width:2px; font-size:1px; float:left; }
+	.header_menu .right {width:2px; font-size:1px; float:right; background-image:url(C_headermenu_end.png);}
+	.header_menu .center {margin-left:25px;width:926px; line-height:35px; float:left; overflow:hidden;font-size:14px;font-weight:bold;}
+		.header_menu li {float:left; background:url(C_headermenu_splitsymbol.png) no-repeat;overflow:hidden;text-align:center;padding:0px 15px;}
+			.header_menu li.current {background:url(C_headermenu_current.png) no-repeat;padding:0px 15px;}
+			.header_menu li.current a {color:#000;}
+	.header_menu a { color:#FFF;}
+	.header_menu li.end { padding:0px; float:right; margin-right:15px; }
+	.header_menu a.end {margin-top:5px; display:block; padding-right:0px; text-indent:20px; background:none; }
+        
+/*__header_statistics
+--------------------------------------*/
+.header_statistics { background:#F5F5F5; height:45px; line-height:45px;border:1px solid #DFDFDF;border-top:none;}
+	.header_statistics li { float:left; background:none; margin:0px; text-indent:16px;}
+	.header_statistics li a{ color:#666666;font-size:14px;}
+	.header_statistics li a .current{color:#ff0000;font-weight:bold;}
+
+.bannerzone { width:960px; margin:0px auto;}
+    .bannerzone .item { margin:5px 0px;}
+
+/*_location__
+-----------------------------------------------------------------------------------------------------------------------------*/
+.location{height:45px;line-height:45px;color:#333333;}
+	.location .left{float:left;}
+	.location .right{float:right;padding-top:7px;}
+    

@@ -1,0 +1,26 @@
+<nav class="nav talent_nav">
+	<div class="container_24 clearfix">
+		<div class="nav_right clearfix fl_r">
+			<a href="{$_K['siteurl']}/index.php?do=article">新闻中心</a>
+			<span class="line"></span>
+			<a href="{$_K['siteurl']}/index.php?do=special&view=special_list">精彩专题</a>
+			<span class="line"></span>
+			<a href="{$_K['siteurl']}/index.php?do=help&view=service">客服中心</a>
+			<span class="line"></span>
+			<a href="http://e.weibo.com/epweikecom" rel="nofollow" target="_blank">官方微博</a>
+		</div>
+		<div class="nav_left clearfix fl_l">
+				<ul>
+					<li ><a href="{$_K['siteurl']}/index.php?do=talent"   {if (!$p&&!$c&&$do=='talent')}class="selected"{/if}>人才首页</a></li>
+					{if $c}
+					<li><a href="{$_K['siteurl']}/index.php?do=talent&c={$c}" class="selected">{$indus_c_arr[$c][indus_name]}</a></li>
+					{elseif $p}
+					<li ><a href="{$_K['siteurl']}/index.php?do=talent&p={$p}" class="selected">{$indus_p_arr[$p][indus_name]}</a></li>
+					{/if}
+					<li><a  href="{$_K['siteurl']}/index.php?do=special&view=special_list&cat_id=2">人才专题</a></li>
+					<!--<li ><a href="{$_K['siteurl']}/index.php?do=help&view=service" {if $view=='service'}class="selected"{/if}>品牌馆</a></li>-->
+				</ul>
+		</div>
+		
+	</div>
+</nav>

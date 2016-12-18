@@ -1,0 +1,12 @@
+<div class="page_title">
+	<h1>客户跟踪</h1>
+     <div class="tool"> 
+        <a href="index.php?do=$do&view=track&op=my" {if !$op||$op=='my'}class="here"{/if}>我的跟踪用户</a>
+        <a href="index.php?do=$do&view=track&op=reserve" {if $op=='reserve'}class="here"{/if}>我的预约用户</a>
+		<a href="index.php?do=$do&view=track&op=new" {if $op=='new'}class="here"{/if}>最新注册用户</a>
+		<a href="index.php?do=$do&view=track&op=rand" {if $op=='rand'}class="here"{/if}>随机跟踪用户</a>
+		<a href="index.php?do=$do&view=track_edit&op=track_edit" {if $op=='track_edit'}class="here"{/if}>添加跟踪记录</a>
+		<a href="index.php?do=$do&view=track_filter&op=track_filter" {if $op=='track_filter'}class="here"{/if}>数据筛选</a>
+		<a href="index.php?do=$do&view=track&op=migrate" {if $op=='migrate'}class="here"{/if}>数据迁移</a> 
+	</div>
+</div>

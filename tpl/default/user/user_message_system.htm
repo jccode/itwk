@@ -1,0 +1,156 @@
+<!--{template header}-->
+<!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+        <!--{template user/user_nav}-->
+		<!--main start-->
+        <section class="clearfix section">
+            <!--{template user/user_side}-->
+            <div class="show_panel ">
+		        <div class="">
+		            <div class="">
+		                <!--main content-->
+		                <div class=" clearfix box default">
+                            <!--header内容头部 start-->
+                            <header class="clearfix box_header">
+											<div class="page_count fl_r mr_20" style="margin-top: 1px;">
+											    <span>每页显示：</span>
+											    <a {if $p_s==30}class="selected" {/if} href="{$url}&amp;p_s=30">30  </a>
+											    <a {if $p_s==50}class="selected" {/if} href="{$url}&amp;p_s=50">50  </a>
+											    <a {if $p_s==100}class="selected" {/if} href="{$url}&amp;p_s=100">100  </a>
+											</div>
+                                <h2 class="box_title">{if $op=='inbox'}{$_lang['inbox']}{else}{$_lang['outbox']}{/if}</h2>
+                                <div class=" ">
+                                    <nav class="box_nav">
+                                        <ul>
+                                            <li {if $msg_type =='system'}  class="selectedLava" {/if}>
+                                                <a href="{$_K['siteurl']}/index.php?do=$do&view=$view&msg_type=system" original-title="{$_lang['system_msg']}">{$_lang['system_msg']}[{$s_n}]</a>
+                                            </li>
+                                            <li {if $msg_type=='accept'}  class="selectedLava" {/if}>
+                                                <a href="{$_K['siteurl']}/index.php?do=$do&view=$view&msg_type=accept" original-title="{$_lang['private_message']}">{$_lang['private_message']}[{$a_n}]</a>
+                                            </li>
+                                            <li {if $msg_type=='output'}  class="selectedLava" {/if}>
+                                                <a href="{$_K['siteurl']}/index.php?do=$do&view=$view&msg_type=output" original-title="{$_lang['private_message']}">{$_lang['sms_has_been_sent']}[{$o_n}]</a>
+                                            </li>
+                                            <li {if $msg_type=='write'}  class="selectedLava" {/if}>
+                                                <a href="{$_K['siteurl']}/index.php?do=$do&view=$view&msg_type=write" original-title="{$_lang['private_message']}">{$_lang['write_message']}</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <div class="clear">
+                                </div>
+                            </header>
+                            <!--header内容头部 end-->
+							<div class="box_detail">
+                            <div class="data_list">
+                                <form method="post" id="frm_msg" action="{$_K['siteurl']}/index.php?do=$do&view=$view&msg_type=$msg_type">
+                                	<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+                                	<input type="hidden" name="pl_del" value="pl_del">
+									<input type="hidden" name="op" value="del">
+                                    <table class="data_table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" style="width:55px;">
+                                                  {$_lang['status']}
+                                                </th>
+                                                <th scope="col" colspan="3" width="250">
+                                                    {$_lang['title']}
+                                                </th>
+                                                <th scope="col">
+                                                    {if $op=='outbox'}{$_lang['send']}{else}{$_lang['from']}{/if}
+                                                </th>
+                                                <th scope="col">
+                                                    {$_lang['time']}
+                                                </th>
+                                                <th scope="col" colspan="1" width="120">
+                                                    {$_lang['operate']}
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        	{if $data}
+                                            {loop $data $k $v}
+											
+                                            <tr class="odd">
+                                                <td>
+                                                    <input type="checkbox" value="$v['msg_id']" id="cbk_selected" name="ckb[]">{if $op!='outbox'}
+                                                    {if $uid==$v['to_uid']&&!$v['view_status']}{$_lang['unread']}{else}{$_lang['already_read']}{/if}
+                                                    {/if}
+                                                </td>
+                                                <td colspan="3">
+                                                	<!--{eval if($v['uid']){$type='inbox';}else{$type="system";}}-->
+                                                    <a {if !$v['view_status']}style="font-weight: bold"{/if} title="$v['title']"
+ href="{$_K['siteurl']}/index.php?do=$do&view=$view&op=views&ac=view&msg_id=$v['msg_id']&msg_type=$msg_type"> $v['title'] </a>
+                                                </td>
+                                                <td>
+                                                	{if !$v['username'] || $v['username'] == 1}{$_lang['system_msg']}{else}{$v['username']}{/if}
+                                                </td>
+                                                <td>
+                                                    <!--{date('Y-m-d H:i',$v['on_time'])}-->
+                                                </td>
+                                                <td colspan="1">
+                                                    <a  href="{$_K['siteurl']}/index.php?do=$do&view=$view&op=views&ac=view&msg_id=$v['msg_id']&msg_type=$msg_type">{$_lang['view']}</a>
+													<a href="{$_K['siteurl']}/index.php?do=$do&view=$view&op=del&msg_id=$v['msg_id']&page=$page&msg_type=$msg_type" onclick="return del(this);">{$_lang['delete']}</a>
+                                                </td>
+                                            </tr>
+                                            {/loop}
+										
+                                        </tbody>
+                                    <tfoot>
+                                      <tr>
+                                         <td colspan="7">
+											<div class="page_count fl_r mr_20" style="margin-top: 10px;">
+											    <span>每页显示：</span>
+											    <a {if $p_s==30}class="selected" {/if} href="{$url}&amp;p_s=30">30  </a>
+											    <a {if $p_s==50}class="selected" {/if} href="{$url}&amp;p_s=50">50  </a>
+											    <a {if $p_s==100}class="selected" {/if} href="{$url}&amp;p_s=100">100  </a>
+											</div>
+	                                       	<div class="clearfix pad10">   
+											    <!--<input type="checkbox" id="checkbox" onclick="checkall()" style="display:none;cursor:pointer;">-->
+												<a  href="javascript:;" class="fl_l button bwhite mr_5" value="0" id="checkbox" onclick="checkall(this.id)">{$_lang['select_all']}</a>
+	                                      	 	<button class="pill negative button bwhite" onclick="mulit_del();" value="{$_lang['delete_selected']}" type="button">
+													{$_lang['delete_selected']}</button>
+											</div>
+                                         </td>
+                                  </tr> 
+                               </tfoot>
+							   	{else}
+									<tr>	
+										<td colspan="8" class="t_c">
+										{$_lang['norecord']}
+										</td> 
+									</tr>
+								{/if}
+                           </table>
+                         </form>
+                       </div>
+					   </div>
+                     <div class="page pb_20 pr_20 fl_r t_r">{$pages['page']}<div class="clear"></div></div>
+                   </div>
+                 <!--main content end -->
+              <div class="clear"></div>
+           </div>
+         </div>
+       </section>
+      <!--main end-->
+    </div>
+  </div>
+  <!--contain end-->
+  <script type="text/javascript">
+  	In('form');
+	function del(obj){
+		var url = obj.href;
+		showDialog("{$_lang['confirm_delete']}",'confirm',"{$_lang['operate_notice']}",function(){
+			  siteSub(url,1,false);
+		});return false;
+	}
+	function mulit_del(){
+		showDialog("{$_lang['confirm_delete']}",'confirm',"{$_lang['operate_notice']}",function(){
+		
+			siteSub('frm_msg',2);
+		});
+	}
+   </script>
+   <!--{template user/user_footer}-->
+   <!--{template footer}-->

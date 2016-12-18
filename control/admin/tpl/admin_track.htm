@@ -1,0 +1,147 @@
+<!--{template control/admin/tpl/admin_header}--> 
+ 
+	<div class="page_title">	
+    	<h1>跟踪记录</h1>
+         <div class="tool">
+            <!-- <a href="index.php?do=$do&view=list&type=$type" {if $view=='list'}class="here" {/if}>{if $type=='art'}{$_lang['article']}{elseif $type=='help'}{$_lang['help']}{elseif $type=='case'}案例{else}{$_lang['single_page']}{/if}{$_lang['list']}</a>
+            <a href="index.php?do=$do&view=edit&type=$type" {if $view=='edit'}class="here" {/if}>{if $type=='art'}{$_lang['article']}{elseif $type=='help'}{$_lang['help']}{elseif $type=='case'}案例{else}{$_lang['single_page']}{/if}{$_lang['add']}</a>
+    	    -->
+		</div>
+	</div>
+    <!--页头结束-->
+
+    <!--提示结束-->
+     
+        <div class="box search p_relative">
+    	<div class="title"><h2>{$_lang['search']}</h2></div>
+        <div class="detail" id="detail">
+		    <form action="#" method="get" name="s" id="sl">
+            	<input type="hidden" name="do" value="$do">
+				<input type="hidden" name="view" value="$view">
+				<input type="hidden" name="type" value="$type">
+				<input type="hidden" name="page" value="$page">			 
+                <table cellspacing="0" cellpadding="0">
+					<tbody>
+                        <tr>
+                            <th>任务编号</th>
+							<td>
+								<input type="text" value="$task_id" name="task_id" class="txt"/>
+							</td>							
+                            <th>任务标题</th>
+                            <td><input type="text" value="$task_title" name="task_title" class="txt"/></td>
+							<th>跟踪人</th>
+                            <td>
+                            	<input type="text" value="$t_username" name="t_username" class="txt"/>
+							</td>
+						</tr>
+                        <tr> 
+                            <th>雇主</th>
+                            <td><input type="text" value="$g_username" name="g_username" class="txt"/></td>
+							<th>排序</th>
+							<td>
+                                <select name="ord[]">
+                                	<option value="dateline" {if $ord['0']=='dateline'} selected="selected"{/if}>跟踪时间</option>
+                                </select>
+                                <select name="ord[]">
+                               		<option {if $ord['1']=='desc' or !isset($ord['1'])}selected="selected" {/if} value="desc">{$_lang['desc']}</option>
+                                	<option {if $ord['1']=='asc'}selected="selected" {/if} value="asc">{$_lang['asc']}</option>
+                                </select>
+							</td> 
+                            <th>{$_lang['list_result']}</th>
+                            <td>
+                        	<select name="page_size">
+								<option value="10" {if $page_size=='10'}selected="selected"{/if}>{$_lang['page_size']}10</option>
+								<option value="20" {if $page_size=='20'}selected="selected"{/if}>{$_lang['page_size']}20</option>
+								<option value="30" {if $page_size=='30'}selected="selected"{/if}>{$_lang['page_size']}30</option>
+							</select>
+                          	<button class="pill" type="submit" value="{$_lang['search']}" name="sbt_search">
+                        		<span class="icon magnifier"></span>{$_lang['search']}
+							</button>
+							</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+			
+        </div>
+    </div>
+    <!--搜索结束-->
+    
+    <div class="box list">
+    	<div class="title"><h2>任务跟踪记录</h2></div>
+        <div class="detail">
+        	<form action="" id='frm_list' method="post">
+        		<div id="ajax_dom">
+        		<input type="hidden" name="page" value="{$page}">
+              <table cellpadding="0" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>任务编号</th>
+					<th>任务模式</th>
+                    <th>是否托管</th>                   
+                    <th>任务金额</th>
+                    <th>任务标题</th>
+					<th>任务状态</th>
+					<th>雇主</th>
+					<th>跟踪情况</th>
+					<th>跟踪人</th>
+					
+                  </tr>
+				  </thead>
+                  <tbody>
+                  {loop $track_list $key $value} 
+				  <tr>
+					<td>$value[task_id]</td>
+					<td>$value[taskmodel]</td>
+					<td>$value[ispay]</td>
+					<td>$value[task_cash]</td>
+					<td>$value[task_title]</td>
+					<td>$value[task_status]</td>
+					<td>$value[username]</td>
+					<td><!--{date('Y-m-d H:i:s',$value[dateline])}--><br>$value[t_content]</td>
+					<td>$value[t_username]</td>
+				  </tr>
+                  {/loop}
+                  </tbody>
+				  <tfoot>
+                  <tr>
+                    <td colspan="12">
+	                    <div class="clearfix">
+	             			<input type="hidden" name="sbt_action" class="sbt_action"/>
+							<button name="sbt_action" type="submit" value="导出为excel" onclick="return batch_act(this,'frm_list');" class="pill negative"><span class="icon trash"></span>导出为excel</button>
+	                    </div>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+			  <div class="page">{$pages['page']}</div>
+			  </div>
+        	</form>
+        </div>       
+    </div>
+	<!--主体结束-->
+<script type="text/javascript">
+	function createHtml(writedir,filename){
+		var url = "index.php?do=static&view=update&sbt_edit=1&write_dir="+writedir+"&file_name="+filename;
+			ajaxDialog(url);
+	}
+ function ajaxDialog(url){
+ 	 art.dialog({
+			title: "{$_lang['static_file_update']}",
+			content: "{$_lang['start_update_static_file']}",
+			yesFn: function(){
+				var dia = this;
+				dia.content("{$_lang['static_file_update_not_operation']}").lock();
+						$.getJSON(url,function(json){
+							if(json.status==1){dia.close();
+								art.dialog({icon: 'succeed',content: json.msg,time:3});
+							}else{art.dialog.alert(json.msg);}
+							return false;
+						})
+						 return false;
+				},
+				noFn :function(){this.close();return false;}
+		})
+ }
+</script>
+<!--{template control/admin/tpl/admin_footer}-->

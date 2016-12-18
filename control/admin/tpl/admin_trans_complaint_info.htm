@@ -1,0 +1,103 @@
+<!--{template control/admin/tpl/admin_header}-->
+<div class="page_title">
+    <h1>{$action_arr['complaint']['1']}{$_lang['manage']}</h1>
+    <div class="tool">
+        <a href="index.php?do={$do}&view=complaint">{$action_arr['complaint']['1']}{$_lang['list']}</a>
+		<a href="javascript:void(0);" class="here">{$action_arr['complaint']['1']}处理</a>
+    </div>
+</div>
+ <div class="box post">
+  <div class="tabcon">
+   <div class="title"><h2>{$trans_object[$report_info['obj']]}{$action_arr['complaint']['1']}#{$report_id}</h2></div>
+    <div class="detail">
+     <form action="index.php?do={$do}&view={$view}&report_id={$report_id}" method="post" name="frm" id="frm">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+       <tr>
+         <th scope="row" width="130">{$trans_object[$report_info['obj']]}{$_lang['id']}</th>
+       	 <td>#{$report_info['to_uid']}</td>
+       </tr>
+	   {if $report_info['obj']=='task'||$report_info['obj']=='work'}
+	   <tr>
+         <th scope="row" width="130">{$trans_object[$report_info['obj']]}{$_lang['title']}</th>
+         <td><a href="{$_K['site_url']}/index.php?do=task&task_id={$obj_info['origin_id']}" target="_blank">{$obj_info['origin_title']}</a></td>
+       </tr>
+	   {/if}
+	  <tr>
+       <th scope="row" width="130">{$action_arr['complaint']['1']}发起人</th>
+       <td>
+       		<a href="index.php?do=task&view=unpublished_user&send_uid={$report_info['uid']}">$report_info['username']</a>
+	   </td>
+      </tr>
+	  <tr>
+       <th scope="row" width="130">{$action_arr['complaint']['1']}{$_lang['object']}</th>
+       <td>
+       		<a href="index.php?do=task&view=unpublished_user&send_uid={$report_info['to_uid']}">$report_info['to_username']</a>
+	   </td>
+      </tr>
+	  <tr>
+         <th scope="row" width="130">{$_lang['apply']}{$action_arr[$type]['1']}{$_lang['time']}</th>
+         <td><!--{date('Y-m-d H:i:s',$report_info['on_time'])}--></td>
+      </tr>
+	  <tr>
+        <th scope="row" width="130">{$_lang['status']}</th>
+        <td>{$trans_status[$report_info['report_status']]}</td>
+      </tr>
+	 <tr>
+        <th scope="row" width="130">{$action_arr['complaint']['1']}原因</th>
+        <td><!--{eval echo nl2br($report_info['report_desc'])}--></td>
+     </tr>
+	 <tr>
+        <th scope="row" width="130">{$action_arr['complaint']['1']}{$_lang['attachment']}</th>
+        <td>
+			<!--{eval $filename=substr($report_info['report_file'],strrpos($report_info['report_file'],'/')+1);}-->
+			{if $report_info['report_file']}<a href="index.php?do={$do}&view={$type}&ac=download&filename=$filename&filepath={$v['report_file']}">{$filename}</a>{else}没有上传附件{/if}
+		</td>
+    </tr>
+	<tr id="pass">
+       <th scope="row" width="130">{$action_arr['complaint']['1']}{$_lang['reply']}</th>
+	   <td>
+	   	{if $report_info['report_status']=='1'}
+	  	 <textarea cols="" rows="7" style="width:360px;" name="op_result" id="op_result"></textarea>
+		{else}
+			{$report_info['op_result']}
+		{/if}
+	   </td>
+	</tr>
+	<tr>
+      <th scope="row">&nbsp;</th>
+      <td>
+          <div class="clearfix padt10">
+          	<input type="hidden" name="sbt_op" value="1">
+			{if $report_info['report_status']=='1'}
+          		 <button class="positive primary pill button" type="submit" name="btn_report" value="{$_lang['process']}{$action_arr[$type]['1']}" onclick="return report();"><span class="icon pen"></span>{$_lang['process']}{$action_arr['complaint']['1']}</button>
+			{/if}
+         	 <button class="pill button" type="button" id="go_back" onclick="to_back();" value={$_lang['return']}><span class="uparrow icon"></span>{$_lang['return']}</button>
+          </div>
+      </td>
+   </tr>
+  </tbody>
+ </table>
+ </form>
+ </div>       
+</div>
+<script type="text/javascript">
+	var uid = parseInt($uid);
+	function report(){
+		$("#pass").show();
+		$("#nopass").hide();
+		var shtml=$("#op_result").val();		
+		if(shtml.length<10){
+			art.dialog.alert("回复信息不能小于10字符。");return false;
+		}else{
+			art.dialog({
+   				title: "操作提示",
+  				content: "确定要处理投诉信息吗？",
+				icon: '',
+   				yesFn: function(){$("#process_result").val(shtml);$("#action").val('pass');$("#frm").submit()},
+				noFn :function(){this.close();return false;}
+			});
+			return false;
+		}
+	}
+</script>
+<!--{template control/admin/tpl/admin_footer}-->

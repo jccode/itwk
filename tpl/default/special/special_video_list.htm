@@ -1,0 +1,68 @@
+<!--{template header}--><!--{template new_head_nav}-->
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/special.css" rel="stylesheet"/>
+<header class="clearfix page_header">
+    <div class="container_24">
+        <!--页面导航-->
+        <div class="heidtile clearfix">
+            <span>你的位置：</span>
+            <span><a href="{$_K['siteurl']}/index.php">IT帮手网首页</a>&nbsp;&gt;&nbsp;</span>
+            <span><a href="{$_K['siteurl']}/index.php?do=special">特色专栏</a>&nbsp;&gt;&nbsp;</span>
+			<h1><a href="{$_K['siteurl']}/index.php?do=special&view=video_list">特色视频</a></h1>
+        </div>
+        <!--end 页面导航-->
+    </div>
+</header>
+<section class="clearfix content">
+    <div class="container_24">
+        <div class="left_bar">
+            <!--目录菜单-->
+            <div class="box category">
+                <div class="box_header">
+                    <div class="box_title">
+                        <h2 class="title">视频分类</h2>
+                    </div>
+                </div>
+                <div class="box_detail">
+                    <menu class="sort">
+                        <li>
+                            <a href="{$_K['siteurl']}/index.php?do=special&view=video_list" {if !$v_cat}class="selected"{/if}  title="所有视频"><span>所有视频</span></a>
+                        </li>
+                        {loop $v_cat_arr $k $v}
+                        <li>
+                            <a href="{$url}&v_cat=$k" {if $v_cat==$k}class="selected"{/if}  title="{$v}"><span>$v</span></a>
+                        </li>
+                        {/loop}
+                    </menu>
+                </div>
+            </div>
+            <!--目录菜单 end--><!--雇佣任务--><!--{template special/special_side}-->
+        </div>
+        <div class="right_side ">
+            {if $video_list}
+            <ul class="project clearfix">
+                {loop $video_list $v}
+                {if $v['v_path']}
+                <li>
+                    <a href="{$_K['siteurl']}/index.php?do=special&view=video_info&v_cate=$v['v_cat']&v_id=$v['v_id']" title="{$v['v_title']}" class="video_pic"><!--<object width="388" height="300" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param value="$video_info['v_path']" name="movie"><param value="high" name="quality"><param value="Transparent" name="wmode"><embed width="388" height="300" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" wmode="transparent" quality="high" src="$v['v_path']"></object>--><img src="{$_K['siteurl']}/{$v['img']}" title="$v['v_title']" width="230" height="180"/></a>
+                    <p class="t_c">
+                        <a href="{$_K['siteurl']}/index.php?do=special&view=video_info&v_cate=$v['v_cat']&v_id=$v['v_id']" title="$v['v_title']">$v['v_title']</a>
+                    </p>
+                </li>{/if}
+                {/loop}
+            </ul>
+            {else}
+            <div class="no_detail box default pad10">
+                暂无相关视频
+            </div>
+            {/if}
+            {if $pages['page']}
+            <div class="page_box mr_10 clearfix">
+                <div class="page">
+                    {$pages['page']}
+                </div>
+            </div>
+            {/if}
+        </div>
+    </div>
+</section>
+<!--{template footer}-->

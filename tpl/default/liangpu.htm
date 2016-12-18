@@ -1,0 +1,173 @@
+<!--{template header2_shop}-->
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/talent.css" type="text/css" rel="stylesheet">
+<link href="{$_K['siteurl']}/resource/css/lipuzt.css" type="text/css" rel="stylesheet">
+<div class="wrapper"> 
+  <!--页面头部-->
+  <header class="clearfix page_header">
+    <div class="container_24"> 
+      <!--页面导航-->
+      <div class="breadcrumbs clearfix"> 你的位置：<a href="/index.php">IT帮手网首页</a> > <a href="index.php?do=liangpu">帮手商城</a> </div>
+      <!--end 页面导航--> 
+    </div>
+  </header>
+  <!--end 页面标题-->
+   <img src="tpl/default/images/ziyebanner.jpg" /><div class="clear"></div>
+   
+   
+   <div class="contentziye">
+					<div class="shangcheng">
+
+            	<div class="menuinfocc">
+<!-- 
+   <ul>
+  <li {if $p=='1'} class="menuovercc"{/if}><a href="{$_K['siteurl']}/index.php?do=liangpu&p=1" target="_self">维护</a></li>
+   <li {if $p=='2'} class="menuovercc"{/if}><a href="{$_K['siteurl']}/index.php?do=liangpu&p=2" target="_self">开发</a></li>
+    <li {if $p=='3'} class="menuovercc"{/if}><a href="{$_K['siteurl']}/index.php?do=liangpu&p=3" target="_self">测试</a></li>
+    <li {if $p=='4'} class="menuovercc"{/if}><a href="{$_K['siteurl']}/index.php?do=liangpu&p=4" target="_self">租赁</a></li>
+    <li {if $p=='5'} class="menuovercc"{/if}><a href="{$_K['siteurl']}/index.php?do=liangpu&p=5" target="_self">推广</a></li>
+<li {if $p=='others'} class="menuovercc"{/if}><a href="{$_K['siteurl']}/index.php?do=liangpu&p=others" target="_self">其它类别</a></li>
+
+   </ul>  -->
+   
+   <ul>
+	{loop $indus_p_arr $k $v}
+	<li {if $p == $k } class="menuovercc"{/if}><a href="{$_K['siteurl']}/index.php?do=liangpu&p=$k" target="_self">$v['indus_name']</a></li>
+	{/loop}
+   </ul>
+
+			</div>
+				<div class="showmencc">
+   <ul>
+      <li style="display:block;">
+      <div class="shangpu">
+       {if $talent_arr}
+       {loop $talent_arr $k $v}	  
+	  	<div class="shangpu_list">
+      		<div class="shangpu_top">{if $v['isvip']==1}<img src="tpl/default/images/sanjiao.png" width="72" height="71" />{/if}</div>
+            <div class="shangpu_nr">
+
+<div class="pingpai_img"><a href="{$_K['siteurl']}/index.php?do=shop&sid={$v['shop_id']}" target="_blank">
+<!--{userpic($v['uid'],middle)}--></a></div>
+$v['residency']
+<!--{eval echo keke_glob_class::get_w_level_ico($v['w_level'])}--><br />
+{if $v['integrity']==1}<img src="/tpl/default/theme/simple/img/style/credibility_of.jpg" />{else}<img src="tpl/default/images/credibility_of_no.png" />{/if}<br />
+<span>好评：{if $v['w_good_rate']}<!--{eval echo sprintf("%.2f", $v['w_good_rate'])}-->{else}100{/if}%</span>
+                     <br />
+                     <br />
+                     <br />
+          
+                     <span class="rushi"><a href="{$_K['siteurl']}/index.php?do=shop&sid={$v['shop_id']}" target="_blank">$v['username']</a></span>
+                     <div class="clear"></div>
+                     <div class="shang_liebiao">
+                     	<ul>
+						<!--{eval $service_count = sizeof($talent_arr[$k]['service_info'])}-->
+                    {if $talent_arr[$k]['service_info']}
+                    {loop $talent_arr[$k]['service_info'] $n $val}
+                        	<ul><a href="{$_K['siteurl']}/index.php?do=shop&sid={$v[shop_id]}&view=service_info&service_id={$val[service_id]}&service_type={$val['service_type']}" target="_blank">$val['title']</a><span>￥$val['price']</span></ul>
+                       {/loop}
+					 {if $service_count==1}
+					
+					 {elseif $service_count==2}
+                
+				  {elseif $service_count==3}
+                 
+                      {/if}  
+					   {else}
+					    <ul><a href="#">暂不提供服务</a></ul>
+						 {/if}  
+                        </ul>         
+                     </div>
+            </div>
+      	</div>
+		
+		 {/loop}
+       {/if}
+        <div class="clear"></div>
+        <div class="fanye">
+                	{$pages['page']}
+                </div>
+        
+        <div class="clear"></div>
+        <div class="tijiao2"> <a href="{$_K['siteurl']}/index.php?do=vip">我也要开通商铺</a><a href="{$_K['siteurl']}/index.php?do=vip&view=open">升级为VIP商铺</a><a href="{$_K['siteurl']}/index.php?do=user&view=witkey&op=integ">点亮我的诚信图标</a></div>
+      
+      </div>
+      </li>
+      </ul>
+</div>
+
+            
+            </div>
+            
+
+            </div>
+   
+   
+   
+   
+   
+</div>
+
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.autoscroll.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.pagination.js"></script>
+<script type="text/javascript"> 
+    
+//页面加载，判断搜索条件是现实还是隐藏
+    $(function(){
+        var show_cookie = getcookie('show_cookie',1);
+        if (show_cookie == 1) {
+            $("#condition_list").show();
+            $("#tool_hide").show();
+            $("#tool_show").hide();
+        }
+    });
+    //搜索条件现实 /隐藏
+    function show_hide(){
+        $("#condition_list").toggle(0, function(){
+            if ($("#tool_show").is(":hidden")) {
+                setcookie('show_cookie', '');
+                $("#tool_show").show();
+                $("#tool_hide").hide();
+            }
+            else {
+                setcookie('show_cookie', 1,3600);
+                $("#tool_hide").show();
+                $("#tool_show").hide();
+            }
+        });
+    }
+ 
+    var uid = parseInt('') + 0;
+    
+    $('.re_on_off').click(function(){
+        if ($(this).children('.fl_l').text() == "展示相关服务") {
+            $(this).children('.fl_l').text('收起相关服务');
+        }
+        else {
+            $(this).children('.fl_l').text('展示相关服务');
+        }
+        $(this).find('.re_ser').toggleClass('re_ser_off');
+        $(this).parents(".talent_info_box").children('.re_ser_box').toggleClass('hidden');
+        $(this).parents('dd').find('.re_ser_box').find('.jcarousel').attr('id', 'jcarousel1');
+        $(this).parents('dd').siblings().find('.re_ser_box').addClass('hidden').end().find('.jcarousel').attr('id', '').end().find('.re_on_off .fl_l').text('展示相关服务').end().find('.re_ser').removeClass('re_ser_off').end();
+        ajaxTab('jcarousel1', '', "/index.php?do=talent&ajax=1&s_uid=" + $(this).attr('uid'));
+        
+var t = setTimeout(function() {
+        		 $('#jcarousel1').jcarousel();
+        		clearTimeout(t);
+        }, 400);
+       
+ 
+    });
+    $('#jcarousel2').jcarousel({
+        wrap: 'circular',
+        animation: 200
+    }).jcarouselAutoscroll({
+        interval: 3000
+    });
+    
+</script> 
+<!--页脚 satrt-->
+<!--{template footer}-->
+</body>
+</html>

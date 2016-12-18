@@ -1,0 +1,5 @@
+执行日期：20120307172826
+veryfy_result=b
+verify true
+0
+ notify_url_log:sign=0e157f8d3e65b5b3c76458ceca6de547&mysign=0e157f8d3e65b5b3c76458ceca6de547,_input_charset=GBK&is_success=T&notify_id=1796&outer_task_id=sreward-1014894&service=keke.task.change.status&work_status=bid

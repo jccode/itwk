@@ -1,0 +1,208 @@
+<!--{template header}--><!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+        <!--{template user/user_nav}-->
+		<!--main start-->
+        <section class="clearfix section">
+            <!--{template user/user_side}-->
+            <div class="show_panel ">
+		        <div class="">
+		            <div class="">
+		                <!--main content-->
+		                <div class=" clearfix box default">
+                            <!--header内容头部 start-->
+                            <header class="clearfix box_header">
+                                <h2 class="box_title">{$_lang['trading_rights']}</h2>
+                                <div class="">
+                                    <nav class="box_nav">
+                                        <ul>
+                                            {loop $third_nav $k $v}
+                                            <li {if $role==$v['2']}class="selectedLava"{/if}>
+                                                <a href="{$_K['siteurl']}/index.php?do={$do}&view={$view}&op={$op}&opp={$opp}&role={$v['2']}#userCenter" title="{$v['1']}">{$v['0']}</a>
+                                            </li>
+                                            {/loop} 
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <div class="clear">
+                                </div>
+                            </header>
+                            <!--header内容头部 end-->
+							
+							
+							<!--detail内容 start-->
+                            <article class="box_detail">
+                                <!--messages消息 start-->
+								
+					
+                                <div class="messages m_warn clearfix">
+                                    <div class="grid_18">
+                                   <strong>友情提示：</strong>
+                                    {if $op!='rights'}
+                                    {$_lang['and_being']}{$transrights_type[$opp]['1']}{$_lang['were_no_actual_transactions_but_found_in']}IT帮手网{$_lang['there_are_irregularities_can_be']}{$transrights_type[$opp]['1']}{$_lang['way_to_inform']}IT帮手网，{$transrights_type[$opp]['1']}{$_lang['anonymous']}
+                                    {else}
+                                    {$_lang['and']}{$transrights_type[$op]['1']}{$_lang['some_problems_can_be']}{$transrights_type[$op]['1']}{$_lang['way_to_inform']}[{$_K['html_title']}]，{$transrights_type[$op]['1']}{$_lang['the_realname']}
+                                    {/if}
+									</div>
+                                </div>
+                                <!--messages消息 end-->
+                                <div class="pad10">
+                                    <!--from表单 start-->
+                                    <div class="clearfix box">
+                                        <form action="{$url}#userCenter" method="post" id="frm">
+                                            <input type="hidden" name="page" value="{$page}">
+                                            <div class="rowElem tool_bar clearfix">
+                                            	{if $opp=='report'}
+                                                <div class="mr_10 fl_l">
+                                                    <label class="t_l fl_l">
+                                                        <strong>{$transrights_type[$opp]['1']}{$_lang['type']}{$_lang['zh_mh']}</strong>
+                                                    </label>
+                                                    <select class="fl_l" name="obj" style="width:100px;">
+														<option value="" {if !$obj}selected{/if}>{$_lang['all']}</option>
+                                                        {loop $transrights_object $k $v}
+														{if $k!='user'}
+														<option value="$k" {if $k==$obj}selected="selected"{/if}>{$v} </option>
+														{/if}
+                                                        {/loop}
+                                                    </select>
+                                                </div>
+												{/if}
+                                                <div class="mr_10 fl_l">
+                                                    <label class="t_l fl_l">
+                                                        <strong>{$transrights_type[$opp]['1']}{$_lang['status']}{$_lang['zh_mh']}</strong>
+                                                    </label>
+                                                    <select class="fl_l" name="status" style="width:100px">
+                                                        <option value="" {if !$status}selected{/if}>{$_lang['all']}</option>
+                                                        {loop $transrights_status $k $v}<option value="$k" {if $k==$status}selected="selected"{/if}>{$v} </option>
+                                                        {/loop}
+                                                    </select>
+                                                </div>
+                                                <div class="mr_10 fl_l">
+                                                    <label class="t_l fl_l">
+                                                      <strong> {$transrights_type[$opp]['1']}时间{$_lang['zh_mh']}</strong>
+                                                    </label>
+                                                 <input style="width:70px" type="text" name="start_time" class="txt" value="{$start_time}" size="12" onclick="showcalendar(event, this, 0)"> - <input style="width:70px;" type="text" name="end_time" value="$end_time" class="txt" size="12" onclick="showcalendar(event, this, 0)">
+                                                </div>
+                                                <div class="fl_r">
+                                                    <button class="block" type="submit" name="sbt_search" value="{$_lang['search']}"><span class="icon magnifier"></span>{$_lang['search']}</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <!--date_table数据表格 start-->
+                                        <div class="data_list">
+                                            <table cellpadding="0" cellspacing="0" class="data_table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" style="width:56px;">
+                                                            {$transrights_object[$obj]}{$_lang['id']}
+                                                        </th>
+                                                        <th scope="col" style="width:65px;">
+                                                            {if $role=='1'}{$_lang['be']}{/if}{$transrights_type[$opp]['1']}{$_lang['people']}
+                                                        </th>
+														{if $opp=='report'}
+                                                     	<th scope="col" style="width:65px;">
+                                                     		{$transrights_type[$opp]['1']}类型
+                                                     	</th>
+														{/if}
+                                                        <th scope="col" style="width:120px;">
+                                                            {$transrights_type[$opp]['1']}原因
+                                                        </th>
+                                                    
+                                                        <th scope="col" style="width:75px;">
+                                                            {$transrights_type[$opp]['1']}{$_lang['attachment']}
+                                                        </th>
+                                                        <th scope="col">
+                                                            {$_lang['start_time']}
+                                                        </th>
+                                                        <th scope="col"  style="width:75px;">
+                                                            {$_lang['current_status']}
+                                                        </th>
+                                                        <th scope="col" class="t_c"  style="width:80px;">
+                                                            {$_lang['operate']}
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                 {if $report_list}
+                                                    {loop $report_list $v}
+                                                    <tr>
+                                                        <td>
+                                                            [ {$v['obj_id']} ]
+                                                        </td>
+                                                        <td>
+                                                            <a href="{$_K['siteurl']}/index.php?do=shop&u_id=<!--{eval if($role=='1')echo $v['to_uid'];else echo $v['uid'];}-->" target="_blank">{if $role=='1'}{$v['to_username']}{else}{$v['username']}{/if}</a>
+                                                        </td>
+														{if $opp=='report'}
+                                                    	<td>
+                                                    		{if $v['obj']=='task'}{$buyer_type[$v[report_cate]][1]}{else}{$seller_type[$v[report_cate]][1]}{/if}
+                                                    	</td>
+														{/if}
+                                                        <td scope="col">
+                                                            {if $v['report_desc']}<div class="ws_break" style="width:200px"><!--{eval echo kekezu::cutstr(strip_tags($v['report_desc']),60)."..."}--></div>{else}
+                                                            {$_lang['no_contents']}
+                                                            {/if}
+                                                        </td>
+                                                     
+                                                        <td>
+                                                            <!--{eval $filename=substr($v['report_file'],strrpos($v['report_file'],'/')+1);}-->{if $v['report_file']}<a href="{$ac_url}&ac=download&filename=$filename&filepath={$v['report_file']}">下载附件</a>{else}{$_lang['not_submitted_attachments']}{/if}
+                                                        </td>
+                                                        <td>
+                                                            <!--{date('Y-m-d H:i',$v['on_time'])}-->
+                                                        </td>
+                                                        <td>
+                                                            $transrights_status[$v['report_status']]
+                                                        </td>
+                                                        <td class="t_c">
+                                                            {if $v['obj']=='task'||$v['obj']=='work'}<!--任务、稿件--><a href="{$_K['siteurl']}/index.php?do=task&task_id={$v['origin_id']}" target="_blank">
+                                                            {$_lang['view_belongs']}{$transrights_object[$v['obj']]}</a> {/if}
+                                                            {if $v['report_status']=='1'}<a href="javascript:del('{$v['report_id']}','{$v['report_file']}');">{$_lang['delete']}</a> {/if}
+                                                        </td>
+                                                        </tr>
+                                                     {/loop}
+                                                   {else}
+                                                     <tr>
+													   <td colspan="8" class="t_c">
+                                                            {$_lang['norecord']}
+                                                        </td>
+                                                    </tr>
+                                                   {/if}
+                                                                </tbody>
+                                                            </table>
+                                                            </div>
+                                                    
+                                                     <!--data_table数据表格 end-->
+                                                     <div class="page">
+                                                         <p>
+                                                             {$pages['page']} 
+                                                         </p>
+                                                     </div>
+                                                </div>
+                                                <!--from表单 end-->
+                                                </div>
+                                                    </article>
+                                                    <!--detail内容 end-->
+                                                    </div>
+                                                </div>
+                                                <!--main content end -->
+                                                <div class="clear">
+                                                </div>
+                                                </div>
+                                            </div>
+                                            </section>
+                                            <!--main end-->
+                                        </div>
+                                    </div>
+                                    <!--contain end-->
+         <!--{template user/user_footer}-->
+<script type="text/javascript">
+	function del(report_id,report_file)
+	{
+		showDialog("{$_lang['deleted_site_will_no_longer_accept_this_provision']}{$transrights_type[$op]['1']}{$_lang['info']}","confirm","{$_lang['operate_tips']}",
+		function(){
+			location.href="{$url}&ac=del&report_id="+report_id+"&filepath="+report_file;
+		},function(){
+			return false;
+		});
+	}
+</script>
+ <!--{template footer}-->

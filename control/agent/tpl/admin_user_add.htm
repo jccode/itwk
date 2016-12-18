@@ -1,0 +1,108 @@
+<!--{template control/admin/tpl/admin_header}-->  
+<div class="page_title">
+    	<h1>{$_lang['user_manage']}</h1>
+        <div class="tool">
+            <a href="index.php?do=user&view=list" >{$_lang['user_manage']}</a>
+            <a href="index.php?do=user&view=add" class="here">{if $edituid}{$_lang['edit']}{else}{$_lang['add']}{/if}{$_lang['user']}</a>
+    	</div>
+    </div>
+		<div class="box post">
+        <div class="tabcon">
+        	<div class="title"><h2>{if $edituid}{$_lang['edit_member_info']}{else}{$_lang['add_member_info']}{/if}</h2></div>
+            <div class="detail">
+               <form action="#" method="post" name="frm1" id="frm1">
+                    <input type="hidden" value="{$edituid}" name="edituid">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tbody>
+                      <tr>
+                        <th scope="row" width="130">{$_lang['username']}{$_lang['zh_mh']}</th>
+                        <td>
+                       <input type="text" class="txt" style=" width:260px;" {if $edituid}disabled="disabled"{/if} value="{$member_arr['username']}" name="fds[username]" id="txt_username" maxlength="50" title="{$_lang['please_input_limit_char_username']}" limit="required:true;len:2-20" msg="{$_lang['username_can_not_null']}" ajax="../../index.php?do=register&check_username=" msgArea="txt_username_msg"/><b style="color:red"> *</b><span id="txt_username_msg"></span>
+
+					  </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">{$_lang['password']}{$_lang['zh_mh']}</th>
+                        <td> <input type="password" class="txt" style="width:260px;" name="fds[password]" id="password"limit="{if !$edituid}required:true;len:6-20{else}len:6-20{/if}" title="{$_lang['please_input_password']}..." msg="{$_lang['password_limit']}" msgArea="pwd_pwd_msg"  class="input_t"/>{if !$edituid}<b style="color:red">*</b>{/if}<span id="pwd_pwd_msg"></span>
+						</td>
+
+                      </tr>
+ 					  <tr>
+                       <th scope="row">移动电话{$_lang['zh_mh']}</th>
+                        <td> <input type="text" class="txt" style="width:260px;" name="fds[mobile]" id="mobile" value="{$member_arr['mobile']}"/></td>
+                      </tr>
+					  <tr>
+                       <th scope="row">住宅电话{$_lang['zh_mh']}</th>
+                        <td> <input type="text" class="txt" style="width:260px;" name="fds[phone]" id="phone"  value="{$member_arr['phone']}"/></td>
+                      </tr>
+					  <tr>
+                       <th scope="row">QQ{$_lang['zh_mh']}</th>
+                        <td> <input type="text" class="txt" style="width:260px;" name="fds[qq]" id="qq" value="{$member_arr['qq']}"/></td>
+                      </tr>
+					  <tr>
+                       <th scope="row">MSN{$_lang['zh_mh']}</th>
+                        <td> <input type="text" class="txt" style="width:260px;" name="fds[msn]" id="msn" value="{$member_arr['msn']}"/></td>
+                      </tr>
+                       <th scope="row">{$_lang['email']}{$_lang['zh_mh']}</th>
+                        <td> <input type="text" class="txt" style="width:260px;" name="fds[email]" id="email"limit="required:true;type:email" value="{$member_arr['email']}" msg="{$_lang['format_error']}" title="{$_lang['please_input_right_email']}..." msgArea="txt_email_msg" ajax="../../index.php?do=register&check_email="/><b style="color:red"> *</b><span id="txt_email_msg"></span></td>
+                      </tr>
+					  </tr>
+                       <th scope="row">注册时间{$_lang['zh_mh']}</th>
+                        <td> <input type="text" name="fds[reg_time]" class="txt" value="<!--{eval echo date("Y-m-d",$member_arr['reg_time'])}-->" style="width:260px;" onclick="showcalendar(event, this, 0)"></td>
+                      </tr>
+					  <tr>
+                       <th scope="row">认证信息{$_lang['zh_mh']}</th>
+                        <td> 
+							<label><input type="checkbox" name="fds[auth_realname]" {if $member_arr[auth_realname]}checked=checked{/if} value="1"/>实名认证</label>
+							<label><input type="checkbox" name="fds[auth_mobile]" {if $member_arr[auth_mobile]}checked=checked{/if} value="1"/>手机认证</label>
+							<label><input type="checkbox" name="fds[auth_email]" {if $member_arr[auth_email]}checked=checked{/if} value="1"/>邮箱认证</label>
+							<label><input type="checkbox" name="fds[auth_bank]" {if $member_arr[auth_bank]}checked=checked{/if} value="1"/>银行认证</label>
+						</td>
+                      </tr>
+					  
+					  {if $edituid}
+					  <tr>
+                        <th scope="row">{$_lang['status']}{$_lang['zh_mh']}</th>
+                        <td>
+                          <p>
+						  <select id="fds[status]" name="fds[status]">
+							<option value="3" {if $member_arr['status']==3}selected="selected"{/if}>待激活</option>
+							<option value="2" {if $member_arr['status']==2}selected="selected"{/if}>冻结</option>
+							<option value="1" {if $member_arr['status']==1}selected="selected"{/if}>正常</option>
+						  </select> <input type="hidden" name="fds[group_id]" value="0"></input>
+                        </p></td>
+                      </tr>
+					  {/if}
+					 </tbody>
+					 <tfoot>
+                      <tr>
+                        <th scope="row">&nbsp;</th>
+                        <td>
+                            <div class="clearfix padt10">
+                            	<input type="hidden" name="is_submit" value="1">
+                                <button class="positive primary pill button" type="button" value="{$_lang['submit']}" onclick="frm_check();"><span class="check icon"></span>{$_lang['submit']}</button>
+                                <button class="pill button" type="button" onclick="history.go(-1);" value="{$_lang['return']}"><span class="uparrow icon"></span>{$_lang['return']}</button>
+                            </div>
+                        </td>
+                      </tr>
+					 </tfoot>
+                    </table>
+                    
+                </form>
+        </div>
+        
+        
+    </div>
+ <script type="text/javascript">
+ 	function frm_check()
+	{
+		if( checkForm(document.getElementById("frm1"),false)){
+			
+			$("#frm1").submit();
+			
+		}
+
+	}
+ </script>
+</div>
+<!--{template control/admin/tpl/admin_footer}-->

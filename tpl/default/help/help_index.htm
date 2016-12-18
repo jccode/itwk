@@ -1,0 +1,256 @@
+<!--{template header}-->
+<!--{template new_head_nav}-->
+<link rel="stylesheet" href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/help.css">
+<link href="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/horizontal.css" rel="stylesheet" type="text/css" charset="utf-8">
+<link href="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/vertical.css" rel="stylesheet" type="text/css" charset="utf-8">
+ 
+ 
+ <div class="bang_cent">
+        		<div class="bang_cent_left">
+                	<img  class="daodaan" src="tpl/default/images/daodaan.gif" width="207" height="37" /><br />
+
+                   <input type="text" class="sousuo_input" id="keyword" name="keyword" value="输入您想搜索的帮助主题关键词">
+				  <label class="ml_5 fl_l">
+								<button class="sousuo_btn2" id="search_help" name="search_help" type="button" >搜索</button>
+							</label>
+                    <div class="re_sousuo">热门搜索：
+							<a href= "{$_K['siteurl']}/index.php?do=help&view=list&keyword=忘记密码">忘记密码</a>
+							<a href= "{$_K['siteurl']}/index.php?do=help&view=list&keyword=认证">认证</a>
+							<a href= "{$_K['siteurl']}/index.php?do=help&view=list&keyword=同城速配">同城速配</a>
+							<a href= "{$_K['siteurl']}/index.php?do=help&view=list&keyword=发布任务">发布任务</a></div>
+                    
+                    <div class="bangzhu">
+                    	<div class="banner3">
+   <dl>
+      <dt>
+        <div class="help_index_banner clearfix po_re fl_l">
+								<div id="carousel" class="jcarousel">
+									<ul>
+									<!--{ad_show(HELP_TOP_SLIDE,1)}-->
+									</ul>
+								</div>
+								<div class="jcarousel-pagination"></div>
+							</div>
+      </dt>
+      <dd>
+         <ul></ul>
+         <ul></ul>
+         <ul></ul>
+    
+      </dd>
+   </dl>
+</div>
+						<div class="banner3_right">
+                        	<h2>最常用帮助</h2>
+                        	<ul>
+                                 {if $art_rec}
+									{loop $art_rec $k $v}
+									<li><a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$v['art_cat_id']&art_id={$v['art_id']}" class="fl_l">
+									{$v['art_title']}</a></li>
+									{/loop}
+									{else}
+									<li>没有找到相关内容。</li>
+									{/if}
+                                  
+                                </ul>
+                        
+                        
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    
+                    <div class="bang_problems">
+                    
+                    	<h2>各种服务渠，道为你解决各种问题</h2>
+                        <ul>
+                        		<li style="border:none">
+                                <img src="tpl/default/images/fangda.gif" width="80" height="68" />
+                                <h2>常见问题解答</h2>
+                                <p>常见问题解答常见问题解答常见问题解答常常见问题解</p>
+                                <a href="{$_K['siteurl']}/index.php?do=help&view=list">进入>></a>
+                        
+                        
+                       			</li>
+                                <li style="border:none">
+                                <img src="tpl/default/images/fangda2.gif" width="80" height="68" />
+                                <h2>会员自助服务</h2>
+                                <p>无需等待，自己就可以操作完成，比找客服更快！</p>
+                                <a href="{$_K['siteurl']}/index.php?do=help&view=self" class="mt_10 block pt_5">进入>></a>
+                        
+                        
+                       			</li>
+                                <li style="border:none">
+                                <img src="tpl/default/images/qq.gif" width="80" height="68" />
+                                <h2>在线QQ服务</h2>
+                                <p>IT帮手专业客服为您在线实时解决问题<br />
+                                	服务时间：<span>早上8:30-晚上11:00</span>
+                                </p>
+                                <a href="{$_K['siteurl']}/index.php?do=help&view=service">进入>></a>
+                        
+                        
+                       			</li>
+                                <li style="border:none">
+                                <img src="tpl/default/images/fangda3.gif" width="80" height="68" />
+                                <h2>客服400热线</h2>
+                                <p>常见问题解答常见问题解答常见问题解答常常见问题解<br />
+                                	服务时间：<span>早上8:30-晚上11:00</span>
+                                    <br /><br />
+                                    全国地区免长途
+                                </p>
+                               
+                        
+                        
+                       			</li>
+                        
+                        </ul>
+                    
+                    
+                    </div>
+                    
+                
+                </div>
+                
+                <div class="bang_cent_right">
+                	
+
+					 
+
+				    <script type="text/javascript">
+$(document).ready(function() {
+	$(".showmenuaa ul li").first().css("display","block");
+    $(".menuinfoaa > ul >li").mousemove(function(){
+		$(this).addClass("menuoveraa").siblings(this).removeClass("menuoveraa");	
+		$(".showmenuaa ul li").eq($(".menuinfoaa > ul >li").index(this)).css("display","block").siblings().css("display","none");
+		
+		});
+	
+});
+</script>
+				    <div class="gonggao">
+              <div class="menuinfoaa">
+   <ul>
+    <li class="menuoveraa">平台公告</li>           
+    <li>媒体报道</li>
+    <li style="border-right:none;">中标公告</li>
+   </ul>
+   
+   
+</div>
+<div class="clear"></div>
+              <div class="showmenuaa">
+   <ul>
+      <li>
+{loop $bulletin $v}
+			<a href="{$_K['siteurl']}/index.php?do=article&view=info&art_cat_id={$v['art_cat_id']}&art_id={$v['art_id']}">{$v['art_title']}</a>
+			 {/loop}  
+        </li>
+      <li>
+  {loop $media $v}
+				<a href="{$_K['siteurl']}/index.php?do=article&view=info&art_cat_id={$v['art_cat_id']}&art_id={$v['art_id']}">{$v['art_title']}</a>
+			 {/loop} 
+        </li>
+      <li>
+    {loop $bid $v}
+				<a href="{$_K['siteurl']}/index.php?do=task&task_id={$v['task_id']}">{$v['username']}成功中标{$v['task_id']}号[<!--{eval echo kekezu::cutstr($model_list[$v[model_id]][model_name],4)}-->]任务</a>
+			 {/loop}
+      </li>
+   </ul>
+</div>
+
+              </div>
+              
+              		<div class="gonggao2">
+                    	<ul><a href="{$_K['siteurl']}/index.php?do=register">免费注册</a>|  
+                    	<a href="{$_K['siteurl']}/index.php?do=shop&sid=$user_info[shop_id]">我的商铺</a>|
+                        <a href="{$_K['siteurl']}/index.php?do=vip"> VIP专区</a>
+                        </ul>
+                    	<h2>要设计?求帮助？有需求？ </h2>
+                    		<a class="jinru" href="{$_K['siteurl']}/index.php?do=release">点击进入</a>
+                    </div>
+                
+                	<div class="bang_dian">
+                    	<img src="tpl/default/images/dianhua.gif" width="156" height="35" /><br />
+                    		<span>4006-999-467</span><br />
+                            <br />
+                             &nbsp; 免长途客服服务热线
+                    		
+                    
+                    </div>
+                    
+                    <!--常用自主服务-->
+                    <div class="bang_zizhu">
+                    		<div class="zizhu_top"><span>常用自主服务</span><a href="#">更多</a></div>
+                            <div class="zizhu_bottom">
+                            	<ul>
+                                   <li><img src="tpl/default/images/mima.gif" width="31" height="31" /><br /><a href="{$_K['siteurl']}/index.php?do=help&view=get_password">找回登录密码</a></li>
+                                   <li><img src="tpl/default/images/mima.gif" width="31" height="31" /><br /><a href="{$_K['siteurl']}/index.php?do=help&view=get_securitycode">找回安全密码</a></li>
+                                   <li><img src="tpl/default/images/qian.gif" width="31" height="31" /><br /><a href="{$_K['siteurl']}/index.php?do=user&view=finance&op=recharge">在线充值</a></li>
+                                   <li><img src="tpl/default/images/renzheng.gif" width="31" height="31" /><br /><a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth">账号认证</a></li>
+                                </ul>
+                            
+                            
+                            </div>
+                            <div class="zizhu_top"><span>最新添加帮助</span><a href="#">更多</a></div>
+                            
+                            <div class="tianjia_bottom">
+                            	<ul>
+                                   {if $art_new}
+								{loop $art_new $k $v}
+								<li><a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$v['art_cat_id']&art_id={$v['art_id']}" title="{$v['art_title']}">{$v['art_title']}</a></li>
+								{/loop}
+								{else}
+								<li>没有找到相关信息。</li>
+								{/if}
+                                </ul>
+                            
+                           
+                            </div>
+                    
+                    </div>
+                
+                </div>
+        
+        </div>
+ 
+ 
+ 
+ 
+ 
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.autoscroll.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.pagination.js"></script>
+<script type="text/javascript">
+var uid = parseInt('{$uid}')+0; 
+
+		$('#carousel').jcarousel({
+		    wrap: 'circular',
+			 animation: 200
+		}).jcarouselAutoscroll({
+		   interval:  10000
+		});
+$('.jcarousel-pagination').jcarouselPagination({
+   perpage: 1
+});
+
+$("#keyword").focus(function(){
+	if(this.value == '输入您想搜索的帮助主题关键词'){
+		this.value = '';
+	}
+});
+$("#keyword").blur(function(){
+	if(this.value == ''){
+		this.value = '输入您想搜索的帮助主题关键词';
+	}
+});
+$("#search_help").click(function(){
+	if($("#keyword").val() != '输入您想搜索的帮助主题关键词'){
+		var keyw = $("#keyword").val();
+		window.location.href= "{$_K['siteurl']}/index.php?do=help&view=list&keyword="+keyw;
+		window.event.returnValue = false;
+	}
+});
+</script>
+
+<!--{template footer}-->

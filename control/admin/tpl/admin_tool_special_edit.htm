@@ -1,0 +1,199 @@
+<!--{template control/admin/tpl/admin_header}-->
+<script type="text/javascript" src="../../resource/js/system/keke.js"></script>
+ <script type="text/javascript" src="../../resource/js/system/ajaxfileupload.js"></script>
+<div class="page_title">
+   <h1>{$_lang['special_manage']}</h1>
+         <div class="tool">
+         	<a href="index.php?do={$do}&view=special" >{$_lang['special_list']}</a>
+			<a href="index.php?do={$do}&view=special_edit" class="here">{if $sp_id}{$_lang['special_edit']}{else}{$_lang['special_add']}{/if}</a>
+ 		 </div>
+</div>
+<!--页头结束-->
+    
+<div class="box post">
+    <div class="tabcon">
+        	<div class="title"><h2>{if $sp_id}{$_lang['special_edit']}{else}{$_lang['special_add']}{/if}</h2></div>
+            <div class="detail">
+                <form method="post" action="index.php?do={$do}&view={$view}" id="frm_cat_edit" > <!-- enctype="multipart/form-data" -->
+                <input type="hidden" name="do" value="{$do}">
+                <input type="hidden" name="view" value="{$view}">
+				<input type="hidden" name="ac" value="add">
+				<input type="hidden" name="is_submit" value="1">
+				{if $sp_id}
+					<input type="hidden" name="ac" value="edit">
+					<input type="hidden" name="sp_id" value="{$sp_id}">
+				{else}
+					<input type="hidden" name="ac" value="add">
+				{/if}
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tbody>
+                      <tr>
+                        <th scope="row" width="130">{$_lang['title']}：</th>
+                        <td><input type="text" class="txt" style="width:260px;" name="fds[title]" id="title" maxlength="35" limit="required:true;len:2-35" msg="标题不能为空，长度限制在3-35" msgarea="title_msg" title="请输入标题" value="{$special_arr['title']}">
+						<span id="title_msg"></span></td>
+                      </tr>      
+					   
+					   <tr>
+                        <th scope="row" width="130">{$_lang['cat_id']}：</th>
+                        <td>
+                        	<select style="width:270px;" name="fds[cat_id]">
+                        	  {loop $special_cat_list $key $val}
+                        		<option value="{$key}" {if $key == $special_arr['cat_id']}selected{/if}>{$val}</option>
+							  {/loop}
+                        	</select>
+                        </td>
+                      </tr>           
+					  <tr>
+                        <th scope="row">{$_lang['url']}：</th>
+                        <td>
+                          <p>
+                              <label>
+                              	<input type="text" class="txt" id="url" name="fds[url]" value="{$special_arr['url']}" style="width:260px;">
+									<span id="msg_url"></span>
+  							  </label> 
+							<br>
+                          </p>
+                        </td>
+                      </tr>	 
+					   <tr>
+                        <th scope="row">{$_lang['listorder']}：</th>
+                        <td>
+                          <p>
+                              <label>
+                              	<input type="text" class="txt" id="listorder" name="fds[listorder]" value="<!--{if empty($special_arr['listorder'])}-->50<!--{else}-->{$special_arr['listorder']}<!--{/if}-->" style="width:260px;">
+									<span id="msg_listorder"></span>
+  							  </label> 
+							<br>
+                          </p>
+                        </td>
+                      </tr>	 
+                      <tr>
+                        <th scope="row">{$_lang['seo_title']}：</th>
+                        <td>
+                          <p>
+                              <label>
+                              	<input type="text" class="txt" id="seo_title" name="fds[seo_title]" value="{$special_arr['seo_title']}" style="width:260px;">
+									<span id="msg_seo_title"></span>
+  							  </label> 
+							<br>
+                          </p>
+                        </td>
+                      </tr>
+  					  <tr>
+                        <th scope="row">{$_lang['seo_keywords']}：</th>
+                        <td>
+                          <p>
+                              <label>
+                              	<input type="text" class="txt" name="fds[seo_keywords]" value="{$special_arr['seo_keywords']}" style="width:260px;">
+  							  </label> 
+							 <br>
+                          </p>
+                        </td>
+                      </tr>
+					   <tr>
+                        <th scope="row">{$_lang['seo_catname']}：</th>
+                        <td>
+                          <p>
+                              <label>
+                              	<input type="text" class="txt" name="fds[seo_catname]" value="{$special_arr['seo_catname']}" style="width:260px;">
+  							  </label> 
+							<br>
+                          </p>
+                        </td>
+                      </tr>					
+  					  <tr>
+                        <th scope="row">{$_lang['seo_desc']}：</th>
+                        <td>
+                          <p>
+                              	<textarea name="fds[seo_desc]" cols="40" rows="7">{$special_arr['seo_desc']}</textarea> 
+							  <br>
+                          </p>
+                        </td>
+                      </tr>
+					    <tr>
+                        <th scope="row">{$_lang['img']}:</th>
+						<td id="t_pic" class=" p_relative"> 
+							<input type="file" id="art_pic" class="file" name="art_pic"  size="50" ext=".jpg,.png,.gif,.jpeg,.bmp" >
+							<input type="button" id="btn_updata" onclick="pic_upload('art_pic');" value="{$_lang['upload']}">
+							<input type="hidden" id="fid" value="<!--{eval echo get_fid($special_arr['img'])}-->"/>
+                        	<input type="hidden" name="fds[img]"  value="{$special_arr['img']}" id="hdn_art_pic">
+						
+							<span id="file_span"> 
+								{if $special_arr['img']}
+								<img src="../../{$special_arr['img']}" height="80" alt=''/> 
+								<a title="{$_lang['delete']}" href="javascript:void(0);" onclick="del_file('$special_arr['img']');">
+								<strong>{$_lang['delete']}×</strong>
+								</a>{/if}
+							</span>
+							
+                            <div class="padt10 direct">
+                            <p>{$_lang['allowed_to_be_uploaded']}{$basic_config['max_size']}M</p>
+                            </div>
+                        </td>
+                      </tr> 
+<script>
+	//图片上传	  	
+	function pic_upload(id){
+		var o  = document.getElementById(id);
+		if(!isExtName(o)){
+			art.dialog.alert("{$_lang['file_format_error']}");
+			return false;
+		}else{
+			var art_id = '$art_id';
+        $.ajaxFileUpload({
+            url: '../../index.php?do=ajax&view=upload&file_name='+id+'&file_type=att&obj_id='+art_id,
+            fileElementId: id,
+            dataType: 'json',
+            success: function(json){ 
+                if (json.err) {
+                    art.dialog.alert("{$_lang['upload_fail_file_too_large']}"+ json.err);
+                }else {
+                    var hf = $("#hdn_"+id);
+                   $("#hdn_art_pic").val(json.msg.up_file+"?fid="+json.fid);
+                   $("#fid").val(json.fid);
+					$("#file_span").html("<span id=\"file_"+json.fid+"\" > <img src='../../"+json.msg.up_file+"' height=\"80\" /> <a title=\"{$_lang['delete']}\" href=\"javascript:void(0);\" onclick=\"del_file('"+json.msg.up_file+"');\"><strong>{$_lang['delete']}×</strong></a></span>");
+                }
+            },
+            error: function(json, status, e){
+                if(e){
+					art.dialog.alert(e);	
+				}
+            }
+        });
+		}
+    }
+						
+	//图片删除 
+
+		function del_file(file_path){
+			var value = file_path.split("?")['0'];
+			var fid=$("#fid").val();
+			var url  = '../../index.php?do=ajax&view=file&ajax=del&filepath='+value+"&fid="+fid;
+			$.post(url,function(json){
+				if(json.status==1){ 
+					 $("#file_span").children().remove();
+					 $("#hdn_art_pic").val("");
+				}
+				
+			},'json');
+		}
+				
+				
+	</script>	
+                    <tr>
+                        <th scope="row">&nbsp;</th>
+                    	<td>
+                    	<button name="sbt_edit" value="1" onclick="return checkForm(document.getElementById('frm_cat_edit'),false)" class="pill positive primary  button" type="submit"><span class="check icon"></span>提交</button>
+                    	<button class="pill button" type="button" onclick="history.go(-1);" value="返回上一页"><span class="uparrow icon"></span>返回上一页</button>
+                    	</td>
+                    </tr>
+                    </tbody>
+					</table>
+                </form>
+             </div>
+       </div>
+</div>
+<!--主体结束-->
+</div>
+</body>
+<!--{template control/admin/tpl/admin_footer}-->

@@ -1,0 +1,320 @@
+<!--{template control/admin/tpl/admin_header}--> 
+	<!--提示结束-->
+    
+    <div class="box list">
+    	<div class="title"><h2>网站数据统计</h2></div>
+		<div class="t_c"><span>统计开始时间：{$start_time}--统计结束时间：{$end_time}</span></div>
+        <div class="detail fl_l" style="width:48%">
+        	<table cellpadding="0" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th></th>
+					<th>提交任务数(个)</th>
+					<th>提交任务金额(元)</th>
+                  </tr>
+				  </thead>
+                  <tbody>
+                 
+                  <tr class="item t_r">
+                  	<td>
+                  		任务提交数量（总）
+                  	</td>
+					<td class="t_c">{$submit['total']['count']}</td>
+					<td class="t_c">{$submit['total']['cash']}</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		悬赏
+                  	</td>
+					<td class="t_c">{$submit['reward']['count']}</td>
+					<td class="t_c">{$submit['reward']['cash']}</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		计件
+                  	</td>
+					<td class="t_c">{$submit['preward']['count']}</td>
+					<td class="t_c">{$submit['preward']['cash']}</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		招标
+                  	</td>
+					<td class="t_c">{$submit['tender']['count']}</td>
+					<td class="t_c">{$submit['tender']['cash']}</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		劳务服务
+                  	</td>
+					<td class="t_c">{$submit['service']['count']}</td>
+					<td class="t_c">{$submit['service']['cash']}</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		雇佣
+                  	</td>
+					<td class="t_c">{$submit['hire']['count']}</td>
+					<td class="t_c">{$submit['hire']['cash']}</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		直接雇佣
+                  	</td>
+					<td class="t_c">{$submit['taskhire']['count']}</td>
+					<td class="t_c">{$submit['taskhire']['cash']}</td>
+                  </tr>
+                  
+                  </tbody>
+				  
+              </table>
+			 
+        </div> 
+		<div class="detail fl_l" style="width:48%">
+        	<table cellpadding="0" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th></th>
+					<th>成功任务数(个)</th>
+					<th>成功任务金额(元)</th>
+                  </tr>
+				  </thead>
+                  <tbody>
+                 
+                  <tr class="item t_r">
+                  	<td>
+                  		成功任务数量（总）
+                  	</td>
+					<td class="t_c">{$success['total']['count']}</td>
+					<td class="t_c">{$success['total']['host']}</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		悬赏
+                  	</td>
+					<td class="t_c">{$success['reward']['count']}</td>
+					<td class="t_c">{$success['reward']['cash']}(今日托管:$success['reward']['host'])</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		计件
+                  	</td>
+					<td class="t_c">{$success['preward']['count']}</td>
+					<td class="t_c">{$success['preward']['cash']}(今日托管:$success['preward']['host'])</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		招标
+                  	</td>
+					<td class="t_c">{$success['tender']['count']}</td>
+					<td class="t_c">{$success['tender']['host']}(今日托管:$success['tender']['host'])</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		劳务服务
+                  	</td>
+					<td class="t_c">{$success['service']['count']}</td>
+					<td class="t_c">{$success['service']['cash']}(今日托管:$success['service']['host'])</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		雇佣
+                  	</td>
+					<td class="t_c">{$success['hire']['count']}</td>
+					<td class="t_c">{$success['hire']['host']}(今日托管:$success['hire']['host'])</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		直接雇佣
+                  	</td>
+					<td class="t_c">{$success['taskhire']['count']}</td>
+					<td class="t_c">{$success['taskhire']['cash']}(今日托管:$success['taskhire']['host'])</td>
+                  </tr>
+                  
+                  </tbody>
+				  
+              </table>
+			 
+        </div> 
+		<div class="clear"></div>
+		<div class="detail  fl_l" style="width:48%">
+        	<table cellpadding="0" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th></th>
+					<th>任务转化率（个数）</th>
+					<th>任务转化率（金额）</th>
+                  </tr>
+				  </thead>
+                  <tbody>
+                 
+                  <tr class="item t_r">
+                  	<td>
+                  		转化率（总）
+                  	</td>
+					<td class="t_c">{$conversion['total']['count']}%</td>
+					<td class="t_c">{$conversion['total']['cash']}%</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		悬赏
+                  	</td>
+					<td class="t_c">{$conversion['reward']['count']}%</td>
+					<td class="t_c">{$conversion['reward']['cash']}%</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		计件
+                  	</td>
+					<td class="t_c">{$conversion['preward']['count']}%</td>
+					<td class="t_c">{$conversion['preward']['cash']}%</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		招标
+                  	</td>
+					<td class="t_c">{$conversion['tender']['count']}%</td>
+					<td class="t_c">{$conversion['tender']['cash']}%</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		劳务服务
+                  	</td>
+					<td class="t_c">{$conversion['service']['count']}%</td>
+					<td class="t_c">{$conversion['service']['cash']}%</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		雇佣
+                  	</td>
+					<td class="t_c">{$conversion['hire']['count']}%</td>
+					<td class="t_c">{$conversion['hire']['cash']}%</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		直接雇佣
+                  	</td>
+					<td class="t_c">{$conversion['taskhire']['count']}%</td>
+					<td class="t_c">{$conversion['taskhire']['cash']}%</td>
+                  </tr>
+                  
+                  </tbody>
+				  
+              </table>
+			 
+        </div> 
+		<div class="detail fl_l" style="width:48%">
+        	<table cellpadding="0" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th></th>
+					<th>完成任务数（个）</th>
+					<th>完成任务金额（元）</th>
+                  </tr>
+				  </thead>
+                  <tbody>
+                 
+                  <tr class="item t_r">
+                  	<td>
+                  		任务完成量（总） 	
+                  	</td>
+					<td class="t_c">{$complete['total']['count']}</td>
+					<td class="t_c">{$complete['total']['cash']}</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		悬赏
+                  	</td>
+					<td class="t_c">{$complete['reward']['count']}</td>
+					<td class="t_c">{$complete['reward']['cash']}</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		计件
+                  	</td>
+					<td class="t_c">{$complete['preward']['count']}</td>
+					<td class="t_c">{$complete['preward']['cash']}</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		招标
+                  	</td>
+					<td class="t_c">{$complete['tender']['count']}</td>
+					<td class="t_c">{$complete['tender']['cash']}</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		劳务服务
+                  	</td>
+					<td class="t_c">{$complete['service']['count']}</td>
+					<td class="t_c">{$complete['service']['cash']}</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		雇佣
+                  	</td>
+					<td class="t_c">{$complete['hire']['count']}</td>
+					<td class="t_c">{$complete['hire']['cash']}</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		直接雇佣
+                  	</td>
+					<td class="t_c">{$complete['taskhire']['count']}</td>
+					<td class="t_c">{$complete['taskhire']['cash']}</td>
+                  </tr>
+                  
+                  </tbody>
+				  
+              </table>
+			 
+        </div> 
+		<div class="clear"></div>
+		<div class="detail" style="width:48%">
+        	<table cellpadding="0" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th></th>
+					<th>新增数</th>
+					<th>总数</th>
+                  </tr>
+				  </thead>
+                  <tbody>
+                 
+                  <tr class="item t_r">
+                  	<td>
+                  		注册会员统计
+                  	</td>
+					<td class="t_c">{$additional['register']['count']}</td>
+					<td class="t_c">{$additional['register']['total']}</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		VIP商铺销售统计 	
+                  	</td>
+					<td class="t_c">{$additional['vipbuy']['new_count']}个({$additional['vipbuy']['total_count']}个)</td>
+					<td class="t_c">{$additional['vipbuy']['new_buy']}元({$additional['vipbuy']['total_buy']}元)</td>
+					</tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		社会化登录统计 	
+                  	</td>
+					<td class="t_c">{$additional['oatuh']['count']}</td>
+					<td class="t_c">{$additional['oatuh']['total']}</td>
+                  </tr>
+				  <tr class="item t_r">
+                  	<td>
+                  		邮件订阅统计
+                  	</td>
+					<td class="t_c">{$additional['mail']['count']}</td>
+					<td class="t_c">{$additional['mail']['total']}</td>
+                  </tr>
+                  </tbody>
+				  
+              </table>
+			 
+        </div>     
+    </div>
+	<!--主体结束-->
+
+<!--{template control/admin/tpl/admin_footer}-->

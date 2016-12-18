@@ -1,0 +1,153 @@
+<!--{template header}--><!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+        <!--{template user/user_nav}-->
+		<!--main start-->
+    <!--星级评定样式-->
+        <section class="clearfix section">
+        <!--{template user/user_side}-->
+            <div class="show_panel ">
+		        <div class="">
+		            <div class="">
+		                <!--main content-->
+		                <div class=" clearfix box default">
+                    <!--header内容头部 start-->
+                    <header class="clearfix box_header">
+                        <h2 class="box_title">能力等级成长</h2>
+                      
+                    </header>
+                    <!--header内容头部 end--><!--detail内容 start-->
+                    <article class="box_detail">
+                      
+                        
+                            <div class="  groupinfo">
+                                <div class="border_b_c clearfix">
+                                    <p>
+                                        <b class="graid_b">{$_lang['ability_grade']}</b> <!--{eval echo keke_glob_class::get_w_level_ico($user_info['w_level'])}--> {$_lang['next_level_need']}{$able_level['level_up']}{$_lang['reputation_value']}{$_lang['zh_jh']}
+                                    </p>
+                                    <!--loading 加载 start-->
+                                    <div class="loading_bar">
+                                        <div class="progress_bar shine" grade="{$able_level['grade_rate']}">
+                                            {$able_level['level_name']}
+                                        </div>
+                                    </div>
+                                    <!--loading 加载 end-->
+                                </div>
+								  <div class="border_b_c clearfix">
+                                    <p>
+                                        <b>{$_lang['reputation_value']}</b>
+                                        <strong class="c690">{$user_info['seller_credit']}</strong>
+                                    </p>
+                                    <p>
+                                        <b>成长数据：</b>
+											创意服务成功<strong><!--{eval echo intval($found_count['task_bid']['count'])}--></strong>次,
+											赚得<strong><!--{eval echo number_format($found_count['task_bid']['cash'],2)}--></strong>元；
+											劳务服务成功<strong><!--{eval echo intval($found_count['sale_service']['count'])}--></strong>次,
+											赚得<strong><!--{eval echo number_format($found_count['sale_service']['cash'],2)}--></strong>元
+											
+                                       </p>
+                                </div>
+                          
+                            </div>
+                       
+						<div class="clear"></div>
+                        			<div class="">
+                                    <div class="clearfix">
+                                    		 <div class="data_list mt_10">
+                                            <table cellpadding="0" cellspacing="0" class="data_table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">
+                                                           成长事件
+                                                        </th>
+                                                        <th scope="col" width="300">
+                                                            标题
+                                                        </th>
+                                                        <th scope="col">
+                                                            金额
+                                                        </th>
+                                                        <th scope="col">
+                                                          日期
+                                                        </th>
+                                                        <th scope="col">
+                                                            获得信誉值
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                	{if $mark_list}
+                                                    {loop $mark_list $v}
+                                                    <tr>
+                                                        <td>
+                                                          编号：{$v[mark_id]}
+                                                        </td>
+                                                        <td>
+                                                            <a href="{$_K['siteurl']}/index.php?do=task&task_id={$v['origin_id']}">
+                                                            	<span style="color:#FF6600">
+                                                            		[{$model_name_arr[$v['model_code']]['model_name']}]
+																</span>{$v['task_title']}
+                                                            </a>
+                                                        </td>
+                                                        <td>
+                                                           $v['obj_cash']
+                                                        </td>
+                                                        <td>
+                                                            <!--{date('Y-m-d H:i',$v['mark_time'])}-->
+                                                        </td>
+                                                        <td>
+                                                            {$v['mark_value']}
+                                                        </td>
+                                                    </tr>
+                                                    {/loop}
+													{else}
+													<tr>	
+														<td colspan="5" class="t_c">
+																	{$_lang['norecord']}
+                                                        </td> 
+													</tr>
+													{/if} 
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td colspan="5">
+                                                            {$_lang['total']}:{$count}{$_lang['tiao']}
+															<div class="page clearfix">
+																{$pages['page']}
+															</div>
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+									</div>
+                          </div>
+                    </article>
+                    <!--detail内容 end-->
+                </div>
+                <!--main content end -->
+                <div class="clear">
+                </div>
+            </div>
+        </div>
+        </section>
+        <!--main end-->
+    </div>
+</div>
+<!--contain end-->
+
+<link href="resource/js/jqplugins/starrating/jquery.rating.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="resource/js/jqplugins/starrating/jquery.rating.js"></script>
+<script type="text/javascript" src="resource/js/jqplugins/starrating/jquery.MetaData.js"></script>
+<script type="text/javascript">
+    $(function(){
+        /**进度条加载**/
+        $('.progress_bar').each(function(){
+            $(this).animate({
+                width: $(this).attr("grade") + "%"
+            }, 3000)
+        })
+		$(".border_b_c:last").removeClass("border_b_c");
+    })
+</script>
+
+ <!--{template user/user_footer}-->
+<!--{template footer}-->

@@ -1,0 +1,74 @@
+@charset "utf-8";
+/* CSS Document */
+.box_header .box_nav a { font-size:18px; font-family:"微软雅黑";}
+
+/* 图片展示部分 */
+.hall_pic{border:1px solid #dfdfdf; padding-bottom:10px; background:#fff;/*overflow:hidden;*/}
+.hall_pic li{float:left;}
+.hrr_right .rz_pp { position:absolute; right:10px; top:10px;}
+.recommendation_list ul{*padding-bottom:10px;}	
+.recommendation_list li{  width:80px; height:80px; margin-bottom:10px; margin-right:9px;  display:inline-block; overflow:hidden;}
+.recommendation_list li a { display:block; width:80px; height:80px; overflow:hidden;}
+.recommendation_list li img{width:80px; height:80px; overflow:hidden;}
+.task_list .tag{border:none;}
+.simple_style .list dd.tags .w6 { width:734px; padding-left:25px;}
+.simple_style .list dd.tags .w2 { width:10%;}
+.simple_style .list dd{color:#666; border-top:none; padding-bottom:0; padding-left:10px; padding-right:10px;}
+.simple_style .list dd ul{ padding-bottom:20px; }
+.rollbox .jcarousel{width:620px;  height:130px; left:0;}
+.rollbox .bt{position:absolute; top:10px; right:10px; width:31px;}
+.rollbox .bt a.left_arrow{background:url(/resource/img/hire/rbtleft.gif) no-repeat; width:15px; height:17px; display:block; float:left; text-indent:-9999px;}
+.rollbox .bt a.right_arrow{background:url(/resource/img/hire/rbtright.gif) no-repeat; width:15px; height:17px; display:block; float:left; text-indent:-9999px;}
+.battle_roll .jcarousel{left:0; top:25px; width:215px; overflow:hidden; height:150px;}
+.select_condition a.selected{padding:2px 10px 3px 5px; margin-right:0;}
+.select_condition{ background:#fff; border-top:none;}
+
+.hrr_container {position: relative;}
+.hrr {position: absolute;background: url(../img/brand/pp_totl.png) no-repeat scroll 0 2px transparent; width: 164px; height: 62px;top:-18px}
+.hrr_right {padding-left: 200px; position: relative;}
+.box_nav ul li.backLava {display:block; float:none; border-bottom-width: 3px;border-bottom-style: solid;border-bottom-color: #f60;margin:0;z-index:1; bottom:0;}
+
+.box_header{border-bottom:none;;background:none; padding:10px!important;}
+
+
+/* 所有人才列表  */
+.clearfix re_ser_box { width:851px;}
+.talent_list_box .pic_middle{padding:5px;}
+.talent_user{width:13%;}
+.talent_info_box{width:87%;}
+.list dd li.w6 { width:605px;}
+.list dd li.w2 { width:120px;}
+.talent_info_box h1{color:#EA5E00; font-size:20px; line-height:25px;}
+.talent_info_box a.button{padding:6px 10px; margin-bottom:5px;}
+.talent_kinds h2 span{ background:#999; font-weight:normal; color:#fff; padding:0 5px; font-size:12px; margin:6px 5px 0 10px; height:20px; _padding-top:5px; line-height:20px;}	
+.talent_kinds h2 img{*vertical-align:middle; _vertical-align:middle;}
+.talent_kinds .ab_label{width:80%; float:left;}
+.talent_kinds .ab_label span{margin-right:7px;}
+.talent_kinds .ab_label img{ margin-right:5px;}
+.talent_info_box span.re_ser{width:10px; height:9px; display:block; float:left; margin:9px 0 0 5px;}
+.simple_style .talent_info_box a.re_on_off{color:#666 !important;}
+.talent_info_box span.re_ser.re_ser_on{ background:url(/tpl/default/theme/simple/img/style/re_ser_on.gif) no-repeat;} 
+.talent_info_box span.re_ser.re_ser_off{ background:url(/tpl/default/theme/simple/img/style/re_ser_off.gif) no-repeat;} 
+.re_ser_box{padding-top:13px;}
+.re_ser_arrow{background:url(../img/style/tip.gif) no-repeat; width:25px; height:13px; position:absolute; right:180px; top:0; z-index:2; }
+.re_ser_list{border:1px solid #E9E9E9; background:#fff; padding:20px 0; height:160px; position:relative; z-index:1; top:-1px;}	
+.re_ser_list a,.list dd .re_ser_list li{width:122px; color:#666; margin-right:10px; display:inline-block;} 
+.simple_style .list .hover { background:#fff!important;}
+.re_ser_list a.arrow{width:12px; height:24px; display:block; float:left; text-indent:-9999px; top:85px;  position:absolute; overflow: hidden; border:none;}
+.re_ser_list a.left_arrow{background:url(/tpl/default/theme/simple/img/style/re_ser_left.gif) no-repeat; left:15px;}
+.re_ser_list a.right_arrow{background:url(/tpl/default/theme/simple/img/style/re_ser_right.gif) no-repeat; right:15px; margin-right:0;}
+.re_ser_img{border:1px solid #DFDFDF; background:#fff; width:120px; margin-bottom:5px; display:block;}
+.re_ser_img img{width:110px; height:110px; padding:5px; display:block;}
+.re_ser_list .jcarousel-skin-default .jcarousel{width:775px; height:152px; left:35px; top:0;}
+.talent_info_box .submit {font-size:12px; font-weight:normal; padding:0px 10px; margin-bottom:5px;}
+
+/* 提交稿件头部 */
+.simple_style .nav_lists_nav {border-bottom:3px solid #ea5e00; background:#fff;}
+.simple_style .nav_lists_nav ul li{height:41px; margin-right:5px; line-height:40px; float:left; background:#f9f9f9; }	
+.simple_style .nav_lists_nav ul li a{padding:0 25px; display:block; color:#333; font-family:"微软雅黑"; font-size:14px;border:1px solid #ccc; border-bottom:none; }
+.simple_style .nav_lists_nav ul li a.selected,
+.nav_lists ul li a:hover.selected{background:#ea5e00; border-color:#ea5e00; color:#fff; font-weight:bold;}
+.simple_style .nav_lists_nav ul li a:hover{background:#ea5e00; color:#fff;}
+.simple_style .nav_lists_box{border-left:1px solid #dfdfdf; border-rigth:1px solid #dfdfdf; border-bottom:1px solid #dfdfdf; background:#E9E9E9;}
+.simple_style .nav_lists_box{border-left:1px solid #dfdfdf; border-rigth:1px solid #dfdfdf; border-bottom:1px solid #dfdfdf; background:#E9E9E9;}
+

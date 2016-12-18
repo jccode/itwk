@@ -1,0 +1,23 @@
+<nav class="nav vip_nav">
+	<div class="container_24 clearfix">
+		<div class="nav_right clearfix fl_r">		
+			<a href="{$_K['siteurl']}/index.php?do=article">新闻中心</a>
+			<span class="line"></span>
+			<a href="{$_K['siteurl']}/index.php?do=special&view=special_list">精彩专题</a>
+			<span class="line"></span>
+			<a href="{$_K['siteurl']}/index.php?do=help&view=service">客服中心</a>
+			<span class="line"></span>
+			<a href="http://e.weibo.com/epweikecom" rel="nofollow" target="_blank">官方微博</a>	
+		</div>
+		<div class="nav_left clearfix fl_l">
+				<ul>
+					<li  ><a href="{$_K['siteurl']}/index.php?do=vip" {if $view=='index'||!$view} class="selected"{/if} >VIP首页</a></li>
+					<li><a href="{$_K['siteurl']}/index.php?do=vip&view=desc"  {if $view=='desc'} class="selected"{/if}>特权介绍</a></li>
+					<li><a  href="{$_K['siteurl']}/index.php?do=vip&view=story" {if $view=='story'} class="selected"{/if}>赚钱故事</a></li>
+					<li><a  href="{$_K['siteurl']}/index.php?do=vip&view=help" {if $view=='help'} class="selected"{/if}>常见问题</a></li>
+					<li><a  href="{$_K['siteurl']}/index.php?do=vip&view=open" class=" {if $view=='open'} selected {/if} open">开通和管理</a></li>
+				</ul>
+		</div>
+		
+	</div>
+</nav>

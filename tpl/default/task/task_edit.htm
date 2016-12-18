@@ -1,0 +1,322 @@
+<!--{template header}-->
+<style type="text/css">.form_button{margin-top: 0;}</style>
+<!--winbody content-->
+<link rel="stylesheet" href="{$_K['siteurl']}/resource/css/public.css">
+
+<script src="{$_K['siteurl']}/resource/js/system/select_indus.js" type="text/javascript"></script>
+<!--{eval $indus_map_json = json_encode($indus_map);}-->
+<script type="text/javascript">
+	var indus_map = {$indus_map_json};
+	var task_info = <!--{eval echo json_encode($task_info);}-->;
+	
+	jQuery(function ($) {
+		var is = new SelectIndus(indus_map);
+        is.init();
+        if(task_info["indus_id"]) { 
+			is.initCheckState(task_info.indus_id, task_info.indus_pid);
+		}
+	});
+	
+</script>
+
+<div class="winbody {$_K['theme']}_style ov_hide">
+<div class="po_re dis_box" style="width:1450px;">
+<div id='step1' class="fl_l"  style="width:700px;">
+ <div class="clearfix  pad20 " style="height:385px; overflow: auto;">
+   	<!--div class="messages m_infor"><span class="icon16"></span>{$_lang['be_careful_info']}{$_lang['zh_jh']}</div-->
+    <!--from表单 start-->
+    <form method="post" id="frm_edit_step1" name="frm_edit_step1" action="">
+       <div class=" clearfix" id="desc">
+       		<div class="rowElem clearfix">
+       			<lable class=" "><strong>{$_lang['indus_type']}</strong></lable>
+				<div class="">
+                    
+                    	<select name="indus_ids[]" id="selectp"  >
+						<option value="">{$_lang["select_industry"]}</option>
+                     	</select>
+                       <select name="indus_ids[]" id="indus_pid" title="{$_lang['select_industry']}"  caseon="submit" limit = "required:true;between:5-10" msg = '{$_lang['industry_no_choose']}' 1msgArea="span_indus">
+                       	<option value="">{$_lang["select_industry"]}</option>
+					</select>
+	                  <span id="reload_indus">
+     	            	<select name="indus_ids[]" id="indus_id" caseon="submit" title='{$_lang['choose_part']}' 1msgArea="span_indus"><span id="span_indus"></span>
+                        	<option value="">{$_lang["select_industry"]}</option>
+                      	</select>
+         		        	</span>
+                    
+				</div>
+				<span id="span_indus"></span>
+       		</div>
+			<div class="rowElem clearfix">
+				<label class=" t_r"><strong>{$_lang['task_title']}</strong></label>
+				<div class="">
+					<input name="txt_title" id="txt_title" type="text" value="{$task_info['task_title']}" title="{$_lang['txt_title']}" size="34" msgArea="span_title"
+					limit="required:true;len:5-50" msg="{$_lang['task_title_error']}" maxlength="50" style="width:440px"/>
+					<div class="clearfix"></div>
+					<div id="span_title"></div>
+				</div>
+			</div>
+			<div class="rowElem clearfix">
+				<label class=" t_r"><strong>{$_lang['task_desc']}</strong></label>
+				<div class="">
+					<textarea cols="54" rows="10" style="width:450px; height:180px;" name="tar_content" id="tar_content" msgArea="msg_content" onblur="contentCheck('tar_content','需求描述',10,1500,0,'msg_content',editor);" 
+					 class="tar_content xheditor {tools:'Bold,FontSize,Fontface,FontColor,Italic,Underline,Strikethrough,Align,List,Outdent,Indent,Table',skin:'nostyle',innerCheck:true,wordLimit:1500}"><!--{eval echo kekezu::escape($task_info['task_desc'])}--></textarea>
+	                <div class="clear"></div>
+	                <div class="c999" id="length_show"></div>
+					<div id="msg_content"></div>
+				</div>
+			</div>
+			<div class="rowElem clearfix">
+				<label class=" t_r"><strong>任务附件</strong></label>
+				<div class="">
+					<ul id="attach_list_ul">
+						{loop $attach_list $att}
+						<li onmousemove="$('#attach_list_da_$att['file_id']').show()" onmouseout="$('#attach_list_da_$att['file_id']').hide()" id="attach_list_li_$att['file_id']"><a href="$att['save_path']">$att['file_name']</a><a id="attach_list_da_$att['file_id']" class="red" style="display:none" href="javascript:;" onclick="attach_del($att['file_id'])">删除</a></li>
+						{/loop}
+					</ul>
+					上传新附件:<input type="file" id="new_attach_file" name="file_name" ext="{loop $flie_types $k $v}{if $k},{/if}.$v{/loop}" onchange="isExtName(this,1)"> <button onclick="upload()" type="button">上传</button>
+					
+					<script>
+						
+						function attach_del(attid){
+							$.get('index.php?do=ajax&view=file&ajax=delete&file_id='+attid,function(json){
+								if(json.status==1){
+									$('#attach_list_li_'+attid).remove();
+								}
+							},'json');
+							
+						}
+						function upload(){	
+							$.ajaxFileUpload({url:'index.php?do=ajax&view=upload&file_type=att&obj_id=$task_id&obj_type=task&task_id=$task_id&file_name=file_name',
+							fileElementId:'new_attach_file',
+							dataType:'json',
+							success:function(json){
+								if(json.err){
+									showDialog('上传失败,可能文件过大<br>'+json.err, 'alert', '错误提示','',0);
+								}else{
+									var mod = '<li onmousemove="$(\'#attach_list_da_'+json.fid+'\').show()" onmouseout="$(\'#attach_list_da_'+json.fid+'\').hide()" id="attach_list_li_'+json.fid+'"><a href="'+json.msg.url+'">'+json.msg.localname+'</a><a id="attach_list_da_'+json.fid+'" class="red" style="display:none" href="javascript:;" onclick="attach_del('+json.fid+')">删除</a></li>';
+									
+									$('#attach_list_ul').append(mod);
+									
+									//$("#div_att_file").html($("#div_att_file").html()+"&nbsp;"+'<a fd='+json.fid+' id=a_att_'+json.fid+' href="'+json.msg.url+'" target="_blank">附件'+json.msg.localname+'</a>&nbsp;<a href="javascript:;" onclick="del_att(this,'+json.fid+')" ><img alt="删除" src="{$_K['siteurl']}/resource/img/ico/delete.gif"></a>');
+									//var hf = $("#hdn_att_file").val();
+									//var str = hf?hf+',':hf+'';
+									//$("#hdn_att_file").val(str+json.fid);
+								}
+							},
+							error:function(json,status,e){
+							  
+								showDialog('上传失败,可能文件过大<br>'+json.err, 'alert', '错误提示','',0);
+							}
+						
+							});
+						}
+					</script>
+					<script src="{$_K['siteurl']}/resource/js/system/ajaxfileupload.js"></script>
+					<div class="clear"></div>
+	                <div class="c999" id="length_show"></div>
+					<div id="msg_content"></div>
+				</div>
+			</div>
+			
+			
+      </div>
+   </form>
+  <!--from表单 end-->
+	
+ </div>
+ <div class="form_button">
+	<a href='javscript:void(0);' onclick="task_edit();return false;" class='submit'>下一步</a>
+	<a href='javscript:void(0);' onclick="hideWindow('edit');return false;" class='button bwhite'>取消</a>
+ </div>
+ 
+</div>
+<div id='step2' class='fl_l' style="width:700px;">
+	<div class="clearfix box pad20" style="height:385px; overflow: auto;">
+    <!--from表单 start-->
+		 <div class="rowElem clearfix po_re" id="model_id" mid="{$model_id}">
+			<label class=""><strong>请选择任务进行模式：</strong></label>
+			<div class="">
+				<ul class="winMode">
+					<li onclick="swaptab('taskmode','current','',3,1,{ajax:1,url:'{$_K[siteurl]}/index.php?do=ajax&view=task&ajax=edit&model_id=1'});$('#model_id').attr('mid',1);" id="tab_taskmode_1" {if $task_info[model_id]==1}class="current"{/if}><a href="javascript:;">单人悬赏</a></li>
+					<li onclick="swaptab('taskmode','current','',3,2,{ajax:1,url:'{$_K[siteurl]}/index.php?do=ajax&view=task&ajax=edit&model_id=2'});$('#model_id').attr('mid',2);" id="tab_taskmode_2" {if $task_info[model_id]==2}class="current"{/if}><a href="javascript:;">多人悬赏</a></li>
+					<li onclick="swaptab('taskmode','current','',3,3,{ajax:1,url:'{$_K[siteurl]}/index.php?do=ajax&view=task&ajax=edit&model_id=4'});$('#model_id').attr('mid',4);" id="tab_taskmode_3" {if $task_info[model_id]==4}class="current"{/if}><a href="javascript:;">普通招标</a></li>
+				</ul>
+			</div>
+		</div>
+		<!--单人悬赏-->
+		<div id="div_taskmode_1" class="rowElem clearfix po_re {if $model_id!=1}hidden{/if}"></div>
+		<!--单人悬赏 end-->
+		<!--多人悬赏start-->
+		<div id="div_taskmode_2" class="rowElem clearfix po_re {if $model_id!=2}hidden{/if}"></div>	
+		<!--多人悬赏 end-->
+		<!--普通招标  start-->
+		<div id="div_taskmode_3" class="rowElem clearfix po_re {if $model_id!=4}hidden{/if}"></div>
+		<!--普通招标  end-->
+      
+ </div>
+ <div class="rowElem clearfix form_button">
+      	<a href='javscript:void(0);' onclick="slideStep('backward');return false;" class='button bwhite'>上一步</a>	
+		<a href='javscript:void(0);' onclick="task_pub();return false;" class="submit">保存</a>
+		<a href='javscript:void(0);' onclick="hideWindow('edit');redirectUrl();return false;" class='button bwhite'>取消</a>	
+ 		</div>
+</div>
+<div class='clear'></div>
+</div>
+</div>
+<!--winbody content end-->
+<script type="text/javascript">
+	/**
+	 * 需要提交textarea提交的操作用此方法.补充需求，
+	 */
+	In.add('release',{path:"{$_K['siteurl']}/resource/js/system/release.js",type:'js'});
+	In('form','release');
+	var mid = '{$model_id}';
+		mid==4?mid=3:'';
+		$(function(){
+			$('#div_taskmode_'+mid).load('{$_K[siteurl]}/index.php?do=task&task_id={$task_id}&op=edit&t=load');
+		})
+	/**
+	 * 需要提交textarea提交的操作用此方法.补充需求，
+	 */
+	var LOCK=0;
+	function task_edit(){
+		//var shtml = contentCheck('tar_content','{$title}',20,500,1,'desc');
+		if(LOCK==0){
+			var pass = false;
+			if(checkForm(document.getElementById('frm_edit_step1'))){
+				if(contentCheck('tar_content','需求描述',10,1500,0,'',editor)){
+					pass = true;
+					LOCK=1;
+				}
+				if(pass){
+					
+					// set indus_id, indus_pid  取最后一个非空的id为indus_id, 倒数第二个非空为indus_pid
+					var indus_ids = [$("#selectp").val(), $("#indus_pid").val(), $("#indus_id").val()];
+					var i = indus_ids.length - 1;
+					while(i >= 0 && indus_ids[i] == "") {
+						i--;
+					}
+					var indus_id = (i >= 1) ? indus_ids[i] : 0;
+					var indus_pid = (i >= 1) ? indus_ids[i-1] : 0;
+					
+					// var indus_pid = $('#indus_pid').val();
+					// var indus_id = $('#indus_id').val();
+					
+					var task_title = $('#txt_title').val();
+					var task_desc = $('#tar_content').val();
+					$.post(basic_url+'&op={$op}',{sbt_edit:true,indus_pid:indus_pid,
+					indus_id:indus_id,task_title:task_title,task_desc:task_desc,step:'step1'},
+					function(json){
+						LOCK=0;
+						if(json.status=='1'){
+							slideStep('forward');
+						}
+						else{
+							showDialog(json.data,'alert',json.msg);
+						}
+					},'json');
+				}
+			}
+		}
+	}
+	/**
+	 * 任务发布
+	 */
+	function task_pub(){
+		var mid = $('#model_id').attr('mid');
+			if(mid==''||mid=='undefined'){
+				mid=1;
+			}
+			mid==3?mid=4:'';
+			if(LOCK==0){
+				var form = $('#fwin_edit').find("form#frm_edit_"+mid+"_step2").get(0);
+				var i   = checkForm(form);
+				var pass=true;
+				if(mid==2&&!prize_valid2()){
+						pass = false;//奖项规则验证
+				}
+				if(i&&pass){
+						LOCK=1;
+					var data = $("#frm_edit_"+mid+"_step2").serialize();
+						hideWindow('edit');
+						$.getJSON(basic_url+'&op={$op}&sbt_edit=1&'+data,function(json){
+							LOCK=0;
+							if(json.status=='1'){
+								showDialog(json.data,'right',json.msg,"redirectUrl();");
+							}
+							else{
+								showDialog(json.data,'alert',json.msg);
+							}
+						});
+				}
+		}
+	}
+	
+	function slideStep(t){
+		switch(t){
+			case 'forward':
+				/*$('.winbody').height('380px');
+				$('#step1').animate({width:'0'},function(){
+					$(this).addClass('hidden').next().css({'left':2,'width':'100%'}).removeClass('hidden').addClass('block');
+					$('.winbody').height('auto');
+				});*/
+				$('.dis_box').animate({left:'-700'});
+				break;
+			case 'backward':
+				/*$('.winbody').height('380px');
+				$('#step2').animate({width:'0',left:'530'},function(){
+					$(this).addClass('hidden').prev().css('width','100%').removeClass('hidden').addClass('block');
+					$('.winbody').height('auto');
+				});*/
+				$('.dis_box').animate({left:'0'});
+				break;
+		}
+	}
+	function redirectUrl(){
+		window.location.href=basic_url;
+	}
+	/*
+ * 奖项验证
+ * */
+function prize_valid2(){
+	
+	var pcount = $('#txt_prize_count').val();
+	var t_cash = $('#txt_task_cash_2').val();
+	if(t_cash==''||pcount==''){
+		return false;
+	}
+	$('#msg_prize_valid').hide();
+	var mess='';
+	var pz_c_cash = 0;//当前填写的总金额
+	for(var i=1;i<=pcount;i++){
+		if($('#task_prize_'+i).val()==''||$('#task_prize_'+i).val()<=0){
+			$('#msg_prize_valid').html(i+'等奖的中标金额未填写');
+			$('#msg_prize_valid').show();
+			return false;
+		}
+		
+		if(i>=2&&parseInt($('#task_prize_'+i).val())>=parseInt($('#task_prize_'+(i-1)).val())){
+			
+			
+			$('#msg_prize_valid').html((i-1)+'等奖的中标金额必须大于'+i+'等奖');
+			$('#msg_prize_valid').show();
+			return false;
+		}
+		pz_c_cash += parseInt($('#task_prize_'+i).val());
+	}
+	if(pz_c_cash != t_cash){
+		$('#msg_prize_valid').html('中标金额不等于任务金额');
+		$('#msg_prize_valid').show();
+		return false;
+	}
+	
+	return true;
+}
+</script>
+<script src="{$_K['siteurl']}/resource/js/jquery.bgiframe.pack.js"></script>
+<script>
+	$(function(){
+		$('div.fwinmask').bgiframe();;
+	})
+</script>
+<!--{template footer}-->

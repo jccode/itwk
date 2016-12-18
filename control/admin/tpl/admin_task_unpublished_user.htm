@@ -1,0 +1,199 @@
+<!--{template control/admin/tpl/admin_header}-->
+<script type="text/javascript" src="../../resource/js/system/keke.js"></script>
+ <script type="text/javascript" src="../../resource/js/system/ajaxfileupload.js"></script>
+<div class="page_title">
+   <h1>未发布任务</h1>
+         <div class="tool">
+         	<a href="index.php?do={$do}&view=unpublished_list" >任务列表</a>
+			<a href="index.php?do={$do}&view=unpublished_user&send_uid={$send_uid}" class="here">会员信息</a>
+ 		 </div>
+</div>
+<!--页头结束-->
+    
+<div class="box post">
+    <div class="tabcon">
+        	<div class="title"><h2>任务编辑</h2></div>
+            <div class="detail">
+             <form method="post" action="index.php?do={$do}&view={$view}" id="frm_cat_edit" > 
+                <input type="hidden" name="do" value="{$do}">
+                <input type="hidden" name="view" value="{$view}">
+				<input type="hidden" name="ac" value="add">
+				<input type="hidden" name="is_submit" value="1">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tbody>
+                      <tr>
+                        <th scope="row" width="130">会员ID：</th>
+                        <td>{$space_arr['uid']}</td>
+                      </tr>
+					   <tr>
+                        <th scope="row">会员名：</th>
+                        <td>
+                        	<a href="index.php?do=user&view=list&condit=uid&txt_val={$space_arr['uid']}" target="_blank">
+                        		{$space_arr['username']}</a>
+							</td>
+                      </tr> 
+					  <tr>
+                        <th scope="row">会员性别：</th>
+                        <td>{$space_arr['sex']}</td>
+                      </tr>	 
+					  <tr>
+                        <th scope="row">会员头像：</th>
+                        <td>
+                        	<a href="../../index.php?do=space&member_id={$space_arr['uid']}" target="_blank">
+                        		<!--{userpic($space_arr['uid'],'small')}--></a>
+						</td>
+                      </tr>					 
+					  <tr>
+                        <th scope="row">Email：</th>
+                        <td>
+                        	{$space_arr['email']}
+							{if $space_arr['auth_email'] == 1}
+								 <span style="color:green;">（验证已通过）</span>
+							{else}
+							 	 <span style="color:red;">（未验证）</span>
+							{/if}
+							{if $contact['email']}
+								<ul style="margin-right:550px;width:200px" class="pay_item">
+									<li>
+										<b>发布邮箱</b>：$contact['email']
+									</li>
+								</ul>
+							{/if}
+						</td>
+                      </tr>
+					  <tr>
+                        <th scope="row">手机号码：</th>
+                        <td>
+                        	{if $space_arr['mobile']}
+	                        	{$space_arr['mobile']} 
+								{if $space_arr['auth_mobile'] == 1}
+								     <span style="color:green;">（验证已通过）</span>
+								{elseif $space_arr['auth_mobile'] == 2}
+								     <span style="color:red;">（验证未通过）</span>
+								{else} 
+								        （待审核）
+								{/if} 
+							{/if} 
+							{if $contact['mobile']}
+								<ul style="margin-right:550px;width:200px" class="pay_item">
+									<li>
+										<b>发布手机</b>：$contact['mobile']
+									</li>
+								</ul>
+							{/if}
+						</td>
+                      </tr>
+					   <tr>
+                        <th scope="row">身份证名字/号码： </th>
+                        <td>
+                        	{if $space_arr['truename']}
+	                        	{$space_arr['truename']}/{$space_arr['idcard']}
+								{if $space_arr['auth_realname'] == 1}
+								     <span style="color:green;">（验证已通过）</span>
+								{elseif $space_arr['auth_realname'] == 2}
+								     <span style="color:red;">（验证未通过）</span>
+								{else} 
+								        （待审核）
+								{/if} 
+							{/if}
+						</td>
+                      </tr>
+					  <tr>
+                        <th scope="row">身份证图片： </th>
+                        <td>
+                        	{if $space_arr['auth_realname_arr']}
+	                        	<a href="../../{$space_arr['auth_realname_arr']['id_pic']}" target="_blank">
+	                        		<img src="../../{$space_arr['auth_realname_arr']['id_pic']}" title="点击查看大图" style="height:100px;"></a>
+							    <a href="../../{$space_arr['auth_realname_arr']['id_pic_back']}" target="_blank">
+	                        		<img src="../../{$space_arr['auth_realname_arr']['id_pic_back']}" title="点击查看大图" style="height:100px;"></a>
+							{/if}
+						</td>
+                      </tr>
+					  <tr>
+                        <th scope="row">会员银行账号： </th>  
+                        <td>
+                        	{if $space_arr['auth_bank_arr']}
+								{loop $space_arr['auth_bank_arr'] $v}
+								  {$bank[$v['bank_name']]}，
+								      持卡人：{$v['username']},
+								     卡号：{$v['bank_account']},
+							      {if $v['auth_status'] == 1}
+								     <span style="color:green;">（验证已通过）</span>
+								  {elseif $v['auth_status'] == 2}
+								     <span style="color:red;">（验证未通过）</span>
+								  {else} 
+								        （待审核）
+								  {/if} <br />
+								{/loop}
+							{/if}
+                        	{$space_arr['pay_bank']}
+						</td>
+                      </tr>
+					   <tr>
+                        <th scope="row">支付宝账号： </th>
+                        <td>{$space_arr['pay_zfb']}支付宝是否认证</td>
+                      </tr>
+					  <tr>
+                        <th scope="row">所在地区：</th>
+                        <td>{$space_arr['residency']} {$space_arr['address']}</td>
+                      </tr>
+					  <tr>
+                        <th scope="row">会员积分：</th>
+                        <td>{$space_arr['credit']}</td>
+                      </tr>
+					  <tr>
+                        <th scope="row">联系QQ：</th>
+                        <td>{$space_arr['qq']}
+							{if $contact['qq']}
+								<ul style="margin-right:550px;width:200px" class="pay_item">
+									<li>
+										<b>发布QQ</b>：$contact['qq']
+									</li>
+								</ul>
+							{/if}
+						</td> 
+                      </tr>
+					  <tr>
+                        <th scope="row">个性签名：</th>
+                        <td>{$space_arr['summary']}</td>
+                      </tr>				 
+					  <tr>
+                        <th scope="row">注册IP：</th>
+                        <td>{$space_arr['reg_ip']}</td>
+                      </tr>
+					  <tr>
+                        <th scope="row">注册时间： </th>
+                        <td><!--{eval echo date("Y-m-d H:i:s",$space_arr['reg_time']);}--></td>
+                      </tr>
+					  <tr>
+                        <th scope="row">最后一次登录时间：</th>
+                        <td><!--{eval echo date("Y-m-d H:i:s",$space_arr['last_login_time']);}--></td>
+                      </tr>
+					  <tr>
+                        <th scope="row">用户状态：</th>
+                        <td>
+                        	{if $space_arr['status'] == 2}
+								账号已被冻结
+							{elseif $space_arr['status'] == 3}
+								账号待激活
+							{else}
+								正常
+							{/if}
+						</td>
+                      </tr>
+					   <tr>
+                        <th scope="row">&nbsp;</th>
+                    	<td>	                    	
+                    	<button class="pill button" type="button" onclick="history.go(-1);" value="返回上一页"><span class="uparrow icon"></span>返回上一页</button>
+                    	</td>
+	                    </tr>
+                    </tbody>
+					</table>
+                </form>
+             </div>
+       </div>
+</div>
+<!--主体结束-->
+</div>
+</body>
+<!--{template control/admin/tpl/admin_footer}-->

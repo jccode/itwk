@@ -1,0 +1,127 @@
+<!--{template header}-->
+<!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+        <!--{template user/user_nav}-->
+		<!--main start-->
+        <section class="clearfix section">
+        <!--{template user/user_side}-->
+            <div class="show_panel " style="overflow:hidden;">
+		        <div class="">
+		            <div class="">
+		                <!--main content-->
+		                <div class=" clearfix box default">
+		                	<div class="inner">
+                	 			<header class="box_header clearfix">
+                					<h2 class="box_title">我的财务信息</h2>
+								</header>
+								<div class="box_detail clearfix">
+									<div class="user pb_20 clearfix">
+										<div class="user_head fl_l">
+											<a href="{$_K['siteurl']}/index.php?do=user&view=index"><!--{userpic($user_info['uid'],'middle')}--></a>
+											<!--<a href="#"><img class="pic_morebig" src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/help_index_pep.gif"></a>}-->
+										</div>
+										<div class="user_detail fl_l pl_20">
+											<ul>
+												<li>用户名：{$user_info['username']} </li>
+												<li>账户可用余额：<span class="ea5e00"><strong><!--{eval echo number_format($user_info['balance'],2)}--> </strong>元</span></li>
+												<li>
+												{if !$user_info['auth_bank']}
+												<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=bank">
+													银行卡认证（<span class="ea5e00">未认证</span>）</a>	
+												{else}
+												<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=bank">													
+													银行卡认证（<span style="color:#008000;" >已认证</span>）</a>						
+												{/if}
+												<a href="{$_K['siteurl']}/index.php?do=user&view=finance&op=recharge" rel="nofollow">账户充值</a>
+												<a href="{$_K['siteurl']}/index.php?do=user&view=finance&op=withdraw" rel="nofollow">账户提现</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="security_strength pt_30 pb_30 clearfix c333">
+										<label class="fl_l font14b"><strong>资金安全强度：</strong></label>
+										<div class="fl_l">
+											<p>您可以通过以下方式提高资金安全强度：</p>
+											<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=safe&opp=change_password">修改密码</a>
+											<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=safe&opp=sec_code">修改安全密码</a>
+											<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=email">完善账号安全认证</a>
+										</div>
+									</div>
+									<div class="all_authent pt_10">
+										<h1 class="font14b c333">安全认证信息：</h1>
+										<ul class="clearfix">
+											<li {if !$user_info['auth_bank']} class="no_authent" {/if}>
+												<div class="clearfix">
+													{if !$user_info['auth_realname']}
+														<span class="fl_l"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/ele_one.gif">
+														<strong class="c333 pl_5">实名认证</strong></span>														
+														<span class="fl_r"><span class="not_authent pl_5 f30">未认证</span></span>
+													{else}
+														<span class="fl_l c333"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/cation_one.gif">
+														<strong class="c333 pl_5">实名认证</strong></span>
+														<span class="pl_5 c090 fl_r already_authent">已认证</span>
+													{/if}
+												</div>
+												<div class="pt_10"><p>用于提升账号的安全性和提高信任度，认证后不可更改。</p></div>
+											</li>
+											<li {if !$user_info['auth_bank']} class="no_authent" {/if}>
+												<div class="clearfix">
+													{if !$user_info['auth_email']}
+														<span class="fl_l"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/ele_three.gif">
+														<strong class="c333 pl_5">邮箱认证</strong></span>														
+														<span class="fl_r"><span class="not_authent pl_5 f30">未认证</span></span>
+													{else}
+														<span class="fl_l c333"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/mailbox_authent.gif">
+														<strong class="c333 pl_5">邮箱认证</strong></span>
+														<span class="pl_5 c090 fl_r already_authent">已认证</span>
+													{/if}												
+												</div>
+												<div class="pt_10"><p>邮箱认证后，可使用邮箱直接登录，邮箱找回密码，收到网站最新任务，最新信息等。</p></div>
+											</li>
+											<li {if !$user_info['auth_bank']} class="no_authent" {/if}>
+												<div class="clearfix">
+													{if !$user_info['auth_mobile']}
+														<span class="fl_l"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/ele_two.gif">
+														<strong class="c333 pl_5">手机认证</strong></span>														
+														<span class="fl_r"><span class="not_authent pl_5 f30">未认证</span></span>
+													{else}
+														<span class="fl_l c333"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/phone_authent.gif">
+														<strong class="c333 pl_5">手机认证</strong></span>
+														<span class="pl_5 c090 fl_r already_authent">已认证</span>
+													{/if}	
+												</div>
+												<div class="pt_10"><p>手机认证后，可使用手机登录、手机找回密码、接收定制IT帮手网各类重要提醒。</p></div>
+											</li>
+											<li {if !$user_info['auth_bank']} class="no_authent" {/if}>
+												<div class="clearfix">
+													{if !$user_info['auth_bank']}
+														<span class="fl_l"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/bank_authent.gif">
+														<strong class="c333 pl_5">银行卡认证</strong></span>														
+														<span class="fl_r"><span class="not_authent pl_5 f30">未认证</span></span>
+													{else}
+														<span class="fl_l c333"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/bank_cer.gif">
+														<strong class="c333 pl_5">银行卡认证</strong></span>
+														<span class="pl_5 c090 fl_r already_authent">已认证</span>
+													{/if}														
+												</div>
+												<div class="pt_10"><p>通过银行认证后可将账户中的钱提现到银行卡上。</p></div>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+				
+                		</div>
+                		<!--main content end -->
+                		<div class="clear"></div>
+            		</div>
+        		</div>
+			</div>
+        </section>
+        <!--main end-->
+    </div>
+</div>
+<!--contain end-->
+<!--{template user/user_footer}-->
+<!--{template footer}-->

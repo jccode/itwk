@@ -1,0 +1,100 @@
+<!--{template header}-->
+<!--{template new_head_nav}-->
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/special.css" rel="stylesheet"/>
+<header class="clearfix page_header">
+    <div class="container_24">
+        <!--页面导航-->
+        <div class="heidtile clearfix">
+            <span>你的位置：</span>
+            <span><a href="{$_K['siteurl']}/index.php">IT帮手网首页</a>&nbsp;&gt;&nbsp;</span>
+            <span><a href="{$_K['siteurl']}/index.php?do=special">特色专栏</a>&nbsp;&gt;&nbsp;</span>
+			<h1><a href="{$_K['siteurl']}/index.php?do=special&view=video_list">特色视频</a></h1>
+        </div>
+        <!--end 页面导航-->
+    </div>
+</header>
+
+<section class="clearfix content">
+    <div class="container_24 clearfix">
+        <div class="left_bar">
+        	<!--目录菜单-->
+			<div class="box category">
+				  <div class="go_home">
+                    <a href="{$_K['siteurl']}/index.php?do=special&view=video_list" class="selected"><span class="font_simsun pr_5">&lt;</span>返回列表页面</a>
+                </div>
+				<div class="box_header">
+					<div class="box_title"><h2 class="title">视频分类</h2></div>
+				</div>
+				<div class="box_detail">
+					<menu class="sort">
+						<li><a href="{$url}" {if !$v_cat}class="selected"{/if}><span>所有视频</span></a></li>
+						{loop $v_cat_arr $k $v}
+						<li><a href="{$url}&v_cat=$k" {if $v_cat==$k}class="selected"{/if}><span>$v</span></a></li>
+						{/loop}
+					</menu>
+				</div>
+			</div>
+			<!--目录菜单 end-->
+			
+			
+            <!--雇佣任务-->
+            <!--{template special/special_side}-->
+			
+        </div>
+        <div class="right_side">
+            <!--左边部分 start-->
+
+			<div class=" pad20" style="background:#fff;">
+				<div class="article_title"><h1>$vide_info['v_title']</h1><p class="c999 t_c">上传时间：<!--{date('Y-m-d h:i:s',$vide_info['dateline'])}--></div> 
+				<div class="article_detaile pt_10 pl_20 pr_20 pb_20 clearfix">
+					
+					<div class="t_c pt_20 pb_20">
+						<object width="450" height="300" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param value="$video_info['v_path']" name="movie">
+						<param value="high" name="quality">
+						<param value="Transparent" name="wmode">
+						<param value="$vide_info['v_path']" name="src">
+						<embed width="450" height="300" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" wmode="transparent" quality="high" src="$vide_info['v_path']">
+						</object>
+						
+					</div>
+				</div>
+			 <div class="pt_10 clearfix">
+                        <span class="fl_l">上一篇：{if $video_up_info}<a href="{$_K['siteurl']}/index.php?do=special&view=video_info&v_id={$video_up_info['v_id']}">{$video_up_info['v_title']}</a>{else}没有了{/if}</span>
+                        <span class="fl_r">下一篇：{if $video_down_info}<a href="{$_K['siteurl']}/index.php?do=special&view=video_info&v_id={$video_down_info['v_id']}">{$video_down_info['v_title']}</a>{else}没有了{/if}</span>
+                    </div>
+					
+			<div class="related mt_10">
+				<div class="aboutZone commission">
+					<dl class="clearfix">
+						<dt>
+							<div class="aboutZoneHD">相关案例</div>
+							<a href="{$_K['siteurl']}/index.php?do=special&view=video_list" class="fl_r c666">更多&gt;</a>
+						</dt>
+						<dd class="clearfix">
+							<ul class="clearfix">
+							   <ul class="clearfix">
+                                    {if $about_info}
+                                    {loop $about_info $k $v}
+                                    <li style="width:339px">
+                                        <a href="{$_K['siteurl']}/index.php?do=special&view=video_info&v_id={$v[v_id]}">{$v[v_title]}</a>
+                                    </li>
+                                    {/loop}
+                                    {else}
+                                    <li>
+                                        没有找到相关案例
+                                    </li>
+                                    {/if}
+                                </ul>
+							</ul>
+						</dd>
+					</dl>
+				</div>
+			</div>
+			
+		</div>
+		<!--左边部分 end-->
+        </div>
+    </div>
+</section>
+<!--{template footer}-->
+

@@ -1,0 +1,120 @@
+<!--{template control/admin/tpl/admin_header}-->
+
+<div class="page_title">
+    	<h1>服务管理</h1>
+        <div class="tool">              
+		   <a href="index.php?do={$do}&view=service_list" class="here" >{$_lang['service_list']}</a>  
+        </div>
+</div>
+<!--页头结束-->
+
+<!--提示结束-->
+	
+	<div class="box search p_relative">
+    	<div class="title"><h2>{$_lang['search']}</h2></div>
+    	<div class="detail" id="detail"> 
+		
+		<form action="#" method="get" name="s" id="sl">
+			<input type="hidden" name="model_id" value="$model_id"> 
+        	<input type="hidden" name="do" value="$do">
+			<input type="hidden" name="view" value="$view">
+			<input type="hidden" name="type" value="$type">
+			<input type="hidden" name="page" value="$page">
+			
+    		<table cellspacing="0" cellpadding="0">    		
+				<tbody>
+					<tr>
+						<th>{$_lang['id']}</th>
+		                <td><input type="text" class="txt" name="w[service_id]" id="service_id" value="{$w[service_id]}" onkeyup="clearstr(this);"  ></td>
+		                <th>{$_lang['service_name']}</th>
+		                <td><input type="text" class="txt" name='w[title]' id="title" value="{$w[title]}" ></td>
+					</tr>
+					<tr>
+						<th>{$_lang['shopkeeper']}店主</th>
+						<td>
+							<input type="text" class="txt" name="w[username]" id="username" value="{$w[username]}" tips="{$_lang['please_input_shop_name']}">
+						</td>		
+						<th>{$_lang['order']}</th>
+						<td>
+							 <select name="w[ord]">
+                     		 	 <option {if $w[ord]=='service_id desc' or !isset($w[ord])}selected="selected" {/if}  value="service_id desc">ID{$_lang['desc']}</option>
+                     		 	 <option {if $w[ord]=='service_id asc'} selected="selected" {/if}  value="service_id asc">ID{$_lang['asc']}</option>
+                     		 </select>
+ 							<select name="w[page_size]">
+	                			<option value="10" {if $w[page_size]=='10'}selected="selected"{/if}>{$_lang['page_size']}10</option>
+	                			<option value="20" {if $w[page_size]=='20'}selected="selected"{/if}>{$_lang['page_size']}20</option>
+	                			<option value="30" {if $w[page_size]=='30'}selected="selected"{/if}>{$_lang['page_size']}30</option>
+	            			</select>
+	           				<button class="pill" type="submit" value="{$_lang['search']}" name="sbt_search"><span class="icon magnifier">&nbsp;</span>{$_lang['search']}</button>
+						</td>				
+					</tr>          			
+           		</tbody>
+			</table>
+			</form>
+    	</div>
+    </div>
+<!--搜索结束-->
+	
+<div class="box list">	
+    <div class="title"><h2>服务列表</h2></div>
+    <div class="detail"> 
+	<form action="" method="post" name="frm_list" id="frm_list">
+		<input type="hidden" name="w[page_size]" value="{$page_size}">
+		<div id="ajax_dom">
+		<input type="hidden" name="page" value="{$page}" />
+    	<table cellpadding="0" cellspacing="0">
+    		<tbody>
+        	<tr>
+        		<th width="10%">ID</th>
+				<th width="5%">服务类型</th>
+           		<th width="15%">服务名称</th>
+           		<th width="10%">{$_lang['quotation_yuan']}</th>
+				<th width="7%">{$_lang['shopkeeper']}店主</th>
+                <th width="10%">{$_lang['belong_to_industry']}</th>
+                <th width="10%">{$_lang['location']}</th>
+                <th width="17%">{$_lang['operate']}</th>
+            </tr>
+			
+            {loop $service_arr $k $v}
+            <tr class="item">
+            	<td>{$v[service_id]}</td>
+                <td>
+                	{if $v[service_type]==1}
+					劳务服务
+					{else}
+					创意服务
+					{/if}
+                </td>
+				<td><a target="_blank" href="{$_K[siteurl]}/index.php?do=shop&view=service_info&sid={$v[shop_id]}&service_id={$v[service_id]}"><!--{eval echo kekezu::cutstr($v[title],44)}--></a></td>
+                <td>{if $v[price]}{$v[price]}元/{$price_unit[$v[unite_price]]}{else}{$_lang['no_quotation']}{/if}</td>
+				<td>{$v[username]}</td> 
+                <td>
+                	{if $v[service_type]==1}
+					{$service_indus_p_arr[$v['indus_pid']]['indus_name']} - {$service_indus_c_arr[$v['indus_id']]['indus_name']}
+					{else}
+					{$indus_p_arr[$v['indus_pid']]['indus_name']} - {$indus_c_arr[$v['indus_id']]['indus_name']}
+					{/if}
+                	
+				</td>
+                <td>{$v[city]}</td>
+                <td>
+                <a href="index.php?do=$do&view=service_edit&service_id=$v['service_id']&page={$page}" class="button dbl_target"><span class="pen icon"></span>{$_lang['edit']}</a>
+                <a href="{$url_str}&ac=del&service_id={$v[service_id]}&page={$page}"  onclick="return cdel(this);" class="button"><span class="trash icon"></span>{$_lang['delete']}</a>
+			
+				</td>
+            </tr>
+            {/loop} 
+          	<tr>
+            	<td colspan="8">
+                    <div class="page fl_right">{$pages[page]}</div>
+                 </td>
+        	</tr>
+		 </tbody>
+        </table>
+		</div>
+     </form>   
+    </div> 
+</div> 
+<!--主体结束-->
+
+ <!--{template control/admin/tpl/admin_footer}-->

@@ -1,0 +1,429 @@
+<!--{template header2}-->
+<!--首页样式-->
+<link href="{$_K['siteurl']}/{SKIN_PATH}/css/index.css" rel="stylesheet"/>
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/index.css" rel="stylesheet"/>
+<link href="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/horizontal.css" rel="stylesheet" type="text/css" charset="utf-8">
+<link href="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/vertical.css" rel="stylesheet" type="text/css" charset="utf-8">
+<!--玩转IT帮手 开始-->
+<div id="wz_box" style="display:none;"></div>
+<div id="body_id" class="black_overlay" style="display:none;"></div>
+<script type="text/javascript" src="{$_K['siteurl']}/tpl/default/js/wz_ajax.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/tpl/default/js/xiaojunpeng.js"></script>
+<!--玩转IT帮手 结束-->
+<!--内容区 satrt-->
+<div class="content_banner">
+
+	<div class="col_category mb_10">
+		<div class="orange_box">
+			<div class="box c_style  ">
+				<div class="inner">
+					<div class="category">
+
+						<!--分类 start-->
+						<div id="category_box" class="category po_re">
+							<!--分类切换 start. (只显示前5大分类)-->
+							<ul class="tab block" id="indus">
+								<!--{eval $_i = 0; $_max = 5;}-->
+								{loop $indus_p_arr $k $v}
+								{if $_i++ < $_max}
+								<li>
+									<a class="{if $_i == 1}selected{/if}" id="ul_indus_$k" onclick="swaptab('indus','selected','purple',$_max,$_i);"><span>$v['indus_name']</span></a>
+								</li>
+								{/if}
+								{/loop}
+							</ul>
+							<!--分类切换 end-->
+
+							<!--{eval $_i = 0; $_max = 5;}-->
+							{loop $indus_p_arr $k $v}
+							{if $_i++ < $_max}
+							<ul class="indus_list clearfix {if $_i!=1}hidden{/if}" id="div_indus_$_i">
+								{loop $indus_map[$k]['children'] $v1}
+								<li>
+									<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v1['indus_id']" target="_blank" >$v1['indus_name']<em></em></a>
+									{if $v1['children'] && count($v1['children']) > 0}
+									<ul class="s_nav hidden">
+										{loop $v1['children'] $k2 $v2}
+										{if $v1['indus_id']==$v2['indus_pid']}
+										<li>
+											<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v2['indus_id']">$v2['indus_name']</a>
+										</li>
+										{/if}
+										{/loop}
+									</ul>
+									{/if}
+								</li>
+								{/loop}
+							</ul>
+							{/if}
+							{/loop}
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- 
+	<div class="banner_right">
+		<div class="banner">
+			<dl>
+				<dt>
+					<ul>
+						<!--{showad(549)}- ->
+					</ul>
+					<ul>
+						<!--{showad(550)}- ->
+					</ul>
+					<ul>
+						<!--{showad(551)}- ->
+					</ul>
+				</dt>
+				<dd>
+					<ul></ul>
+					<ul></ul>
+					<ul></ul>
+					<ul></ul>
+				</dd>
+			</dl>
+		</div>
+	</div> -->
+	<div class="col_banner mb_10 ">
+	   <div class="box ">
+	     <div class="inner">
+	      <!--切换广告 start-->
+	       <div class="banner po_re">
+	         <div id="slides">
+	          <!--图片内容区域 start-->
+	              <div class="slides_container">
+					     <!--{ad_show(HOME_TOP_SLIDE,1)}-->				
+	              </div>
+	          <!--图片内容区域 end-->
+	      
+	         </div>
+	       </div>
+	      <!--切换广告 end-->
+	     </div>
+	    </div>
+	   <div class="clear"></div>
+	</div>
+	
+</div>
+<div class="content_pro">
+	<script type="text/javascript">
+		$(document).ready(function() {
+			id = window.setInterval(scrollAuto, 2000);
+			function scrollAuto() {
+				if ((length - 4) > i) {
+					if (!flag) {
+						i++;
+					} else {
+						flag = false;
+					}
+					showleg = leg * i;
+					$(".productkuan").animate({
+						left : -showleg + 'px'
+					}, "slow");
+				} else {
+					i = 0;
+					$(".productkuan").animate({
+						left : '0px'
+					}, "slow");
+				}
+			}
+
+			var i = 0;
+			var flag = false;
+			var leg = $('.guen dl').innerWidth();
+			var showleg = $('.guen dl').innerWidth();
+			var length = $('.guen dl').length;
+			$(".next").click(function() {
+				if ((length - 4) > i) {
+					if (!flag) {
+						i++;
+					} else {
+						flag = false;
+					}
+					showleg = leg * i;
+					$(".productkuan").animate({
+						left : -showleg + 'px'
+					}, "slow");
+				}
+			});
+			$(".prev").click(function() {
+
+				if (i != 0) {
+
+					if (i == 1) {
+
+						showleg = 0;
+					} else {
+						i--;
+						showleg = leg * i * -1;
+						flag = true;
+					}
+					$(".productkuan").animate({
+						left : showleg + 'px'
+					}, "slow");
+				}
+			});
+			$(".next,.prev,.guen").hover(function() {
+				clearInterval(id)
+			}, function() {
+				id = window.setInterval(scrollAuto, 2000)
+			});
+		});
+	</script>
+	<div class="prev"><img src="tpl/default/images/left.gif" width="17" height="34" />
+	</div>
+	<div class="next"><img src="tpl/default/images/right.gif" width="17" height="34" />
+	</div>
+	<div class="product">
+
+		<div class="productkuan guen">
+			{loop $heavily $v}
+			<dl>
+				<dt>
+                    <!-- ￥{$v['task_cash']} -->
+					<h2 class="{if $v['task_cash_coverage']}range{/if}">￥{if $v['task_cash_coverage']} {$cash_cove_arr[$v['task_cash_coverage']]['cove_desc']} {else} {$v['task_cash']} {/if}</h2><a href="index.php?do=task&task_id={$v['task_id']}" target="_blank">{$v['task_title']} </a>
+				</dt>
+			</dl>
+			{/loop}
+		</div>
+	</div>
+</div>
+<div class="content_fenlei" >
+	<div class="content_fenlei_left" id="feileiid">
+
+
+		{loop $indus_map $k $v}
+		<div class="fenlei">
+			<span class="aside_ico" id="divx">$v["indus_name"]</span>
+			<ul id="diva" class="fenlei_container">
+				{loop $v["children"] $v1}
+				<li>
+					<ul>
+						<h2><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v1['indus_id']" target="_blank" >$v1['indus_name']</a></h2>
+						{loop $v1["children"] $v2}
+						<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v2['indus_id']">$v2['indus_name'] |</a>
+						{/loop}
+					</ul>
+				</li>
+				{/loop}
+			</ul>
+		</div>
+		{/loop}
+
+
+
+		<!--推荐任务-->
+
+		<div class="renwu">
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$(".showmenubb ul li").first().css("display", "block");
+					$(".menuinfobb > ul >li").mousemove(function() {
+						$(this).addClass("menuoverbb").siblings(this).removeClass("menuoverbb");
+						$(".showmenubb ul li").eq($(".menuinfobb > ul >li").index(this)).css("display", "block").siblings().css("display", "none");
+
+					});
+
+				});
+			</script>
+			<div class="menuinfobb">
+				<ul>
+					<li class="menuoverbb">
+						最新任务
+					</li>
+					<li>
+						推荐任务
+					</li>
+					<li>
+						直接雇佣
+					</li>
+					<li>
+						悬赏任务
+					</li>
+				</ul>
+			</div>
+			<div class="showmenubb">
+				<ul>
+					<li>
+						{loop $task_new1 $v}
+						<div>
+						    <h2>￥{if $v['task_cash_coverage']} {$cash_cove_arr[$v['task_cash_coverage']]['cove_desc']} {else} {$v['task_cash']} 元 {/if}</h2> <!-- ￥{$v['task_cash']} -->
+							<a href="index.php?do=task&task_id={$v['task_id']}" target="_blank">{$v['task_title']} </a><span>({$v['work_num']}|{$v['view_num']})</span>
+						</div>
+						{/loop}
+					</li>
+					<li>
+						{loop $task_new4 $v}
+						<div>
+							<h2>￥{if $v['task_cash_coverage']} {$cash_cove_arr[$v['task_cash_coverage']]['cove_desc']} {else} {$v['task_cash']} 元 {/if}</h2>
+							<a href="index.php?do=task&task_id={$v['task_id']}" target="_blank">{$v['task_title']} </a><span>({$v['work_num']}|{$v['view_num']})</span>
+						</div>
+						{/loop}
+					</li>
+					<li>
+						{loop $task_new2 $v}
+						<div>
+							<h2>￥{if $v['task_cash_coverage']} {$cash_cove_arr[$v['task_cash_coverage']]['cove_desc']} {else} {$v['task_cash']} 元 {/if}</h2>
+							<a href="index.php?do=task&task_id={$v['task_id']}" target="_blank">{$v['task_title']} </a><span>({$v['work_num']}|{$v['view_num']})</span>
+						</div>
+						{/loop}
+					</li>
+					<li>
+						{loop $task_new3 $v}
+						<div>
+							<h2>￥{if $v['task_cash_coverage']} {$cash_cove_arr[$v['task_cash_coverage']]['cove_desc']} {else} {$v['task_cash']} 元 {/if}</h2>
+							<a href="index.php?do=task&task_id={$v['task_id']}" target="_blank">{$v['task_title']} </a><span>({$v['work_num']}|{$v['view_num']})</span>
+						</div>
+						{/loop}
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="content_fenlei_right">
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$(".showmenuaa ul li").first().css("display", "block");
+				$(".menuinfoaa > ul >li").mousemove(function() {
+					$(this).addClass("menuoveraa").siblings(this).removeClass("menuoveraa");
+					$(".showmenuaa ul li").eq($(".menuinfoaa > ul >li").index(this)).css("display", "block").siblings().css("display", "none");
+
+				});
+
+			});
+		</script>
+		<div class="gonggao">
+			<div class="menuinfoaa">
+				<ul>
+					<li class="menuoveraa">
+						平台公告
+					</li>
+					<li>
+						媒体报道
+					</li>
+					<li style="border-right:none;">
+						中标公告
+					</li>
+				</ul>
+
+			</div>
+
+			<div class="showmenuaa">
+				<ul>
+					<li>
+						{loop $bulletin $v}
+						<a href="{$_K['siteurl']}/index.php?do=article&view=info&art_cat_id={$v['art_cat_id']}&art_id={$v['art_id']}">{$v['art_title']}</a>
+						{/loop}
+					</li>
+					<li>
+						{loop $media $v}
+						<a href="{$_K['siteurl']}/index.php?do=article&view=info&art_cat_id={$v['art_cat_id']}&art_id={$v['art_id']}">{$v['art_title']}</a>
+						{/loop}
+					</li>
+					<li>
+						{loop $bid $v}
+						<a href="{$_K['siteurl']}/index.php?do=task&task_id={$v['task_id']}">{$v['username']}成功中标{$v['task_id']}号[<!--{eval echo kekezu::cutstr($model_list[$v[model_id]][model_name],4)}-->]任务</a>
+						{/loop}
+					</li>
+				</ul>
+			</div>
+
+		</div>
+
+		<div class="gonggao2">
+			<ul>
+				<a href="{$_K['siteurl']}/index.php?do=register">免费注册</a>| <a href="{$_K['siteurl']}/index.php?do=shop&sid=$user_info[shop_id]">我的商铺</a>| <a href="{$_K['siteurl']}/index.php?do=vip"> VIP专区</a>
+			</ul>
+			<h2>要设计?求帮助？有需求？ </h2>
+			<a class="jinru" href="{$_K[siteurl]}/index.php?do=release">点击进入</a>
+		</div>
+		<!--<a href="#"><img src="tpl/default/images/cheng.gif" width="270" height="54" /></a>-->
+
+	</div>
+
+	<!--新手指南-->
+	<div class="content_zhinan">
+		<ul>
+
+			<li>
+				<h2 class="zhi">新手指南</h2>
+				<a href="{$_K['siteurl']}/index.php?do=register">免费注册</a>
+				<a href="{$_K['siteurl']}/index.php?do=about">了解IT帮手网</a>
+				<a href="{$_K['siteurl']}/index.php?do=user">用户中心</a>
+				<a href="{$_K['siteurl']}/index.php?do=help">客服中心</a>
+			</li>
+			<li>
+				<h2 class="zhi2">交易保障</h2>
+				<a href="{$_K['siteurl']}/index.php?do=integrity">担保交易</a>
+				<a href="{$_K['siteurl']}/index.php?do=user&view=auth">认证中心</a>
+				<a href="{$_K['siteurl']}/index.php?do=user&view=employer">支付方式</a>
+				<!--<a href="{$_K['siteurl']}/index.php?do=user">真假信息验证</a>-->
+			</li>
+			<!-- <li>
+			<h2 class="zhi3">交易安全</h2>
+			<a href="{$_K['siteurl']}/index.php?do=release">我有需求</a>
+			<a href="{$_K['siteurl']}/index.php?do=task_list">我要赚钱</a>
+			<a href="{$_K['siteurl']}/index.php?do=help">交易安全</a>
+			<a href="{$_K['siteurl']}/index.php?do=help&view=service">服务中心</a>
+			</li>-->
+			<!-- <li>
+			<h2 class="zhi4">支付方式</h2>
+			<a href="{$_K['siteurl']}/index.php?do=about&view=pay&op=online">网上银行支付</a>
+			<a href="{$_K['siteurl']}/index.php?do=about&view=pay&op=offline">银行ATM转账</a>
+			<a href="{$_K['siteurl']}/index.php?do=about&view=pay&op=offline">银行柜台支付</a>
+			</li>-->
+			<li>
+				<h2 class="zhi5">VIP会员</h2>
+				<a href="{$_K['siteurl']}/index.php?do=vip&view=desc">VIP服务介绍</a>
+				<a href="{$_K['siteurl']}/index.php?do=vip&view=index">VIP专栏</a>
+				<a href="{$_K['siteurl']}/index.php?do=vip&view=open">升级为VIP会员</a>
+			</li>
+
+		</ul>
+
+		<ul class="bei">
+			<h2>推广员</h2>
+			<a href="index.php?do=prom"><img src="tpl/default/images/bei.gif"></a>
+		</ul>
+
+	</div>
+
+	<div class="youqing">
+		<h2>友情链接</h2>
+		<ul>
+			{loop $link_arr $v}
+			<a href="{$v['link_url']}" target="_blank">$v['link_name']</a>|
+			{/loop}
+		</ul>
+
+	</div>
+
+</div>
+
+<!--内容区 end-->
+
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.autoscroll.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.pagination.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/easySlider1.5.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/slides.min.jquery.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/{$style_path}/js/index.js"></script>
+<script type="text/javascript">
+	//友情链接
+	var uid = parseInt('{$uid}') + 0;
+	In.add('lazy', {
+		path : "{$_K['siteurl']}/resource/js/system/lazy.js",
+		type : 'js'
+	});
+	In('lazy', function() {
+		loadPics();
+	}); 
+</script>
+
+<!--{template footer}-->

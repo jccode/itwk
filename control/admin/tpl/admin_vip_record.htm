@@ -1,0 +1,135 @@
+<!--{template control/admin/tpl/admin_header}-->
+<div class="page_title">
+    	<h1>VIP购买记录</h1>
+</div> 
+
+<form method="get" action="index.php" id="frm_art_search">
+	<input type="hidden" name="do" value="{$do}" >
+	<input type="hidden" name="view" value="{$view}">
+	<input type="hidden" name="page" value="{$page}">
+	<div class="box search p_relative">
+    	<div class="title"><h2>{$_lang['search']}</h2></div>
+    	<div class="detail" id="detail"> 
+    		<table cellspacing="0" cellpadding="0">    		
+				<tbody>
+					<tr>
+		                <th>{$_lang['id']}</th>
+		                <td>
+		                  <input type="text" class="txt" size="12" name="txt_h_id" value="{$txt_h_id}" onkeyup="clearstr(this);">
+						</td>
+		                <th>购买用户</th>
+		                <td>
+		                 <input type="text" class="txt" name="txt_username" id="txt_username" value="{$txt_username}">
+						 </td>
+						 <th>金额</th>
+		                <td>
+		                 <input type="text" class="txt" name="txt_cash_cost" id="txt_cash_cost" value="{$txt_cash_cost}">
+						 </td>
+	                </tr>
+					<tr>
+						<th>商铺类型</th>
+						<td>
+							<select name="txt_level_id">
+							  <option value="" {if !$txt_level_id}selected="selected"{/if}>所有店铺</option>
+							  {loop $levellist $v}
+	                	       <option value="{$v['level_id']}" {if $txt_level_id==$v['level_id']}selected="selected"{/if}>{$v['level_name']}</option>
+							  {/loop}	                			
+	            			</select>
+						</td>
+						<th>{$_lang['result_order']}</th>
+						<td>
+						<select name="ord[]">
+                        <option value="h_id" {if $ord['0']=='h_id' or !isset($ord['0'])} selected="selected"{/if}>{$_lang['id']}</option>
+						 <option value="" {if $ord['0']!='h_id' } selected="selected"{/if}>{$_lang['time']}</option>
+                        </select>
+                        <select name="ord[]">
+                        <option {if $ord['1']=='desc' or !isset($ord['1'])}selected="selected" {/if} value="desc">{$_lang['desc']}</option>
+                        <option {if $ord['1']=='asc'}selected="selected" {/if} value="asc">{$_lang['asc']}</option>
+                        </select>
+						</td>
+						<th>{$_lang['list_result']}</th>
+						<td >
+						<select name="slt_page_size">
+                			<option value="10" {if $slt_page_size=='10'}selected="selected"{/if}>{$_lang['page_size']}10</option>
+                			<option value="20" {if $slt_page_size=='20'}selected="selected"{/if}>{$_lang['page_size']}20</option>
+                			<option value="30" {if $slt_page_size=='30'}selected="selected"{/if}>{$_lang['page_size']}30</option>
+            			</select>
+           				<button class="pill" type="submit" value={$_lang['search']} name="sbt_search">
+								<span class="icon magnifier">&nbsp;</span>{$_lang['search']}
+							</button>
+						</td>
+					</tr>          			
+           		</tbody>
+			</table>
+    	</div> 
+</div>
+
+
+<div class="box list">
+	  
+	  
+<div class="title"><h2>{$_lang['link_list']}</h2></div>
+    <div class="detail"> 
+    <div id="ajax_dom">
+  	<input type="hidden" name="page" value="{$page}">
+            <table border="0" cellspacing="0" cellpadding="0"  >
+                <tr style="align-text:center;"> 
+                    <th width="80">{$_lang['id']} </th>
+                    <th width="150">购买用户</th>
+                    <th width="150">使用期限</th> <!-- class="motif" -->
+					<th width="150">金额</th>
+					<th width="150">商铺类型</th>
+					<th width="300">有效期</th>
+					<th width="150">状态</th>
+                </tr>			
+                {loop $history_arr $v}
+                <tr class="item">                	 
+                    <td>
+                       {$v['h_id']}
+                    </td>					 
+                    <td>
+                       {$v['username']}
+                    </td>
+                    <td>
+                       {if $v['day'] == 185 }
+					   	半年（{$v['day']}）
+					   {elseif $v['day'] == 365 }
+					  	 一年（{$v['day']}）
+					   {else}
+					   	{$v['day']}
+					   {/if}
+                    </td>
+					<td width="150">
+						{$v['cash_cost']}元
+                    </td>
+					<td width="80">	
+					   {$levellist[$v['level_id']]['level_name']}
+					 </td>
+					<td width="180">
+					  <!--{date('Y-m-d',$v['start_time'])}--> ~  <!--{date('Y-m-d',$v['end_time'])}-->
+                    </td>
+                    <td>
+                        {if $v['h_status']}
+                                                                         购买完成
+						{else}
+							未付款
+						{/if}
+						{if $v['remark']}
+						<a class="button" href="javascript:void(false);" onclick="art.dialog.alert('{$v[remark]}');">
+							<span class="book icon"></span>
+							备注
+						</a>
+						{/if}
+                    </td>
+                </tr>
+				{/loop}
+
+        </table>
+		<div class="page ">{$pages['page']}</div>
+		</div>
+
+</div>
+</div>		
+ 
+</form>
+<!--{template control/admin/tpl/admin_footer}-->

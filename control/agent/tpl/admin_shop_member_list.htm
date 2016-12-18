@@ -1,0 +1,125 @@
+<!--{template control/admin/tpl/admin_header}-->
+<div class="page_title">
+    <h1>成员管理</h1>
+    <div class="tool">
+    	 <a class="here" href="index.php?do=$do&view=member_list">{$_lang['member_list']}</a>
+    </div>
+</div>
+    <div class="box search p_relative">
+		<div class="title"><h2>{$_lang['search']}</h2></div>
+        <div class="detail" id="detail" {if $sbt_search}style="display:block;"{else}style="display:none;"{/if}>
+			 <form action="index.php?do={$do}&view={$view}" method="post">
+				<input type="hidden" name="page" value="$page">
+				<table cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<th>{$_lang['member_id']}</th>
+							<td><input type="text" value="$w[member_id]" name="w[member_id]" class="txt"/></td>
+							<th>{$_lang['member_name']}</th>
+							<td><input type="text" value="$w[truename]" name="w[truename]" class="txt"/>*{$_lang['search_by_like']}</td>
+							<th>{$_lang['member_shop_id']}</th>
+							<td><input type="text" value="$w[shop_id]" name="w[shop_id]" class="txt"></td>
+						</tr>
+						<tr>
+							<th>{$_lang['result_order']}</th>
+                 			<td>
+	                    	<select name="w[ord][]">
+	                           <option value="member_id" {if $w['ord']['0']=='v_id' or !isset($w['ord']['0'])} selected="selected"{/if}>{$_lang['default']}{$_lang['order']}</option>
+	                      	</select>
+	                        <select name="w[ord][]">
+	                            <option {if $w['ord']['1']=='desc' or !isset($w['ord']['1'])}selected="selected" {/if} value="desc">{$_lang['desc']}</option>
+	                        	<option {if $w['ord']['1']=='asc'}selected="selected" {/if} value="asc">{$_lang['asc']}</option>
+	                        </select>
+                 			</td>
+            			 	<th>{$_lang['list_result']}</th>
+                  		 	<td colspan="3">
+             			    <select name="w[page_size]">
+                     		    <option value="10" {if $w['page_size']=='10'}selected="selected"{/if}>{$_lang['page_size']}10</option>
+                      		    <option value="20" {if $w['page_size']=='20'}selected="selected"{/if}>{$_lang['page_size']}20</option>
+                     		    <option value="30" {if $w['page_size']=='30'}selected="selected"{/if}>{$_lang['page_size']}30</option>
+                			</select>
+							<button class="pill" type="submit" value={$_lang['search']} name="sbt_search">
+                        		<span class="icon magnifier">&nbsp;</span>{$_lang['search']}
+							</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>	
+			</form>
+		</div>
+    </div>
+	
+<div class="box list">
+    	<div class="title"><h2>{$_lang['member_list']}</h2></div>
+        <div class="detail">
+  		<form action="index.php?do={$do}&view={$view}" id='frm_list' method="post">
+  			<input type="hidden" name="page" value="{$page}">
+			<input type="hidden" name="w[page_size]" value="{$w['page_size']}">
+			<div id="ajax_dom">
+  			<table  cellpadding="0" cellspacing="0">
+  				<thead>
+  					 <tr>
+  					 <th width="15"><input type="checkbox" onclick="checkall();" id="checkbox" name="checkbox"/></th>
+                    <th width="20">
+                        {$_lang['member_id']}
+                    </th>
+                    <th width="25%">
+                    	 {$_lang['member_name']}
+                    </th>
+					<th>
+                     	 {$_lang['member_pic']}
+                    </th>
+                    <th>
+                      	{$_lang['member_desc']}
+                    </th>
+                    <th>
+                       	{$_lang['shop_id']}
+                    </th>
+                    <th>
+                      {$_lang['operate']}
+                    </th>
+                </tr>
+				</thead>
+				<tbody>
+                {loop $member_arr $k $v}
+                <tr class="item">
+                	<td>
+                		<input type="checkbox" name="ckb[]" class="checkbox" value="{$v['member_id']}">
+                	</td>
+                    <td>
+                        {$v['member_id']}
+                    </td>
+                    <td>
+                    <a href="javascript:void(0);" >{$v['truename']}</a>
+                    </td>
+					 <td>
+                       <img src="{$_K[siteurl]}/{$v['member_pic']}" alt="" style="width:20px; height:20px;">
+                    </td>
+                    <td>
+                      	{$v['member_desc']}
+                    </td>
+                    <td>
+                        $v['shop_id']
+                    </td>
+                    <td>
+                        <a href="index.php?do={$do}&view={$view}&ac=del&member_id={$v['member_id']}&page={$page}&w['page_size']={$w['page_size']}" onclick="return cdel(this);" class="button"><span class="trash icon"></span>{$_lang['delete']}</a>
+                    </td>
+                </tr>
+				{/loop}
+				</tbody>
+				<tfoot>
+				 <tr>
+                    <td colspan="6">
+                        <label for="checkbox">{$_lang['select_all']}</label>
+                        <input type="hidden" name="sbt_action" class="sbt_action"/>
+                        <button name="sbt_action" type="submit" value={$_lang['mulit_delete']} onclick="return batch_act(this,'frm_list');" class="pill negative" ><span class="icon trash"></span>{$_lang['mulit_delete']}</button>
+					</td>	
+				</tr>		
+				</tfoot>
+  			</table>
+			<div class="page">{$pages['page']}</div>
+			</div>
+		</form>
+      </div>
+</div>	 
+<!--{template control/admin/tpl/admin_footer}-->

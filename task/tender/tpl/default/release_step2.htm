@@ -1,0 +1,189 @@
+ 
+ <style type="text/css">
+ 	.file{position:absolute;font-size:20px;filter:alpha(opacity=0);-moz-opacity:0;opacity:0;z-index:1}
+ </style>
+<!--左边部分-->
+<div class="grid_17 omega alpha">
+    <div class="pad10 border_r_c">
+        <!--from表单 start-->
+        <div class="form_box clearfix box border_n">
+         <form action="{$basic_url}" method="post" name="frm_step2" id="frm_step2">
+	  	<input type="hidden" name="step2" value="step2">
+	  	<input type="hidden" name="formhash" value="{FORMHASH}">
+                <div class="rowElem clearfix">
+                    <label class="grid_3">
+                        <strong>{$_lang['industry']}{$_lang['zh_mh']}</strong>
+                    </label>
+                    <div class="grid_12 alpha" >
+                        <select name="indus_pid" id="indus_pid" title="{$_lang['select_industry']}"  onchange="showIndus(this.value)" limit = "required:true;between:5-10" msg = '{$_lang['industry_no_choose']}' msgArea="span_indus">
+                            <option value="">{$_lang['select_industry']}</option>
+                      		{loop $indus_p_arr $v}
+								 <option value="{$v[indus_id]}" {if $release_info[indus_pid]==$v[indus_id]}selected{/if}>{$v[indus_name]}</option>
+							{/loop} 
+						 </select>
+						 
+                    
+                    <span id="reload_indus">
+                        <select name="indus_id" id="indus_id"  title='{$_lang['choose_part']}' limit = "required:true;between:5-10" msg='{$_lang['industry_z_no_choose']}' title='{$_lang['need_person']}' msgArea="span_indus"><span id="span_indus"></span>
+                            <option value="">{$_lang['choose_part']}</option>
+							{if $release_info[indus_id]}}
+							{loop $indus_arr $k $v}
+                           		 <option value="{$v[indus_id]}" {if $release_info[indus_id]==$v[indus_id]}selected{/if}>{$v[indus_name]}</option>
+							{/loop}
+							{/if}
+                        </select>
+					</span>
+						<div class="clear"></div>
+						 <div id="span_indus"></div>
+                    </div>
+					
+                </div>
+                <div class="rowElem clearfix po_re">
+                    <label class="grid_3">
+                        <strong>{$_lang['title']}{$_lang['zh_mh']}</strong>
+                    </label>
+                    <div class="grid_12 alpha">
+                        <input name="txt_title" id="txt_title" type="text" value="<!--{eval echo kekezu::escape($release_info['txt_title'])}-->" title="{$_lang['txt_title']}" size="34" msgArea="span_title"
+						limit="required:true;len:5-50" msg="{$_lang['msg_title']}" maxlength="50" style="width:315px"/>
+                        <div class="clear">
+                        </div>
+                        <div class="c999" id="span_title">{$_lang['span_title']}</div>
+                    </div>
+                </div>
+                <div class="rowElem clearfix">
+                    <label class="grid_3">
+                        <strong>{$_lang['need']}{$_lang['zh_mh']}</strong>
+                    </label>
+                    <div class="grid_10 alpha">
+                        <textarea cols="59" rows="12" name="tar_content" title="{$_lang['textarea_title']}" id="tar_content" msgArea="msg_content" onkeyup="checkInner(this,1000,event);" onkeydown="checkInner(this,1000,event)"><!--{eval echo kekezu::escape($release_info[tar_content])}--></textarea>
+                        <div class="clear"></div>
+                        <div class="c999" id="length_show">{$_lang['textarea_len']}</div>
+						<div class="" id="msg_content"></div>
+                    </div>
+                </div>
+				
+                <div class="rowElem clearfix lit_form border_n">
+                    <label class="grid_3">
+                        <strong>{$_lang['upload']}{$_lang['zh_mh']}</strong>
+                    </label>
+                    <!--上传内容-->
+                    <div class="grid_9 alpha">
+                        <div class="bord_c">
+                            <div class="upfile">
+                                <div class="grid_2">
+                                	<input type="file" class="file" name="upload" id="upload" size="1" ext="{$ext_types}" onchange="isExtName(this,1);uploadBlur();">
+		  	 						 <button class="button" type="button" value="{$_lang['upload_file']}" id="file_upload">
+                                  		      {$_lang['upload_file']}
+                                    </button>
+                                </div>
+                                <div class="grid_6">
+			 						<input type="hidden" name="file_ids" id="file_ids">
+                                    <span style="line-height:15px; display:block" class=" ws_prewrap ws_break">{$_lang['upload_title']}{$basic_config['max_size']}M.
+									{$_lang['upload_style']}{$ext_types}</span>
+                                </div>
+                                <div class="clear">
+                                </div>
+                            </div>
+                            <div class="file_list">
+                                <ul id="upfile">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end 上传内容-->
+                </div>
+                <div class="rowElem clearfix">
+                    <label class="grid_3">
+                        <strong>{$_lang['contact']}{$_lang['zh_mh']}</strong>
+                    </label>
+                    <div class="grid_9 alpha">
+                        <div class="clearfix">
+                            <input class="border_n" type="radio" name="contact_type" value="1" {if $release_info[contact_type]=='1'}checked{/if}>
+                            <label>
+                                {$_lang['new_contact']}
+                            </label>
+                            <input class="border_n" type="radio" name="contact_type" value="2"  {if $release_info[contact_type]=='2'||!$release_info[contact_type]}checked{/if}/>
+                            <label>
+                                {$_lang['have_contact']}
+                            </label>
+                        </div>
+						
+                        <div class="lit_form">
+                            <div class="info t_l clearfix">
+                                <input class="border_n" type="checkbox" name="contact" id="mobile" checked disabled>
+                                <label>{$_lang['mobile']}</label>
+                                <input class="border_n" type="checkbox" name="contact" id="mobile_email" checked disabled>
+                                <label> {$_lang['email']}</label>
+                                <input class="border_n" type="checkbox" name="contact" id="qq" >
+                                <label>Q Q</label>
+                                <input class="border_n" type="checkbox" name="contact" id="msn">
+                                <label>MSN</label>
+                            </div>
+                            <div class="clearfix pad10">
+                                <label class="grid_2">{$_lang['mobile']}{$_lang['zh_mh']}</label>
+                                <input type="text" name="cont[mobile]" id="contact_mobile" size="23" title="{$_lang['mobile_title']}"  value="{$release_info[cont][mobile]}"
+								limit="required:true;type:mobileCn" ignore="true" msg="{$_lang['mobile_msg']}" msgArea="span_mobile" disabled ext="{$user_info[mobile]}"/><span id="span_mobile"></span>
+                            </div>
+                            <div class="clearfix pad10">
+                                <label class="grid_2">  {$_lang['email']}{$_lang['zh_mh']}</label>
+                                <input type="text" name="cont[email]" id="contact_email" size="23" title="{$_lang['email_title']}"  value="{$release_info[cont][email]}"
+								limit="required:true;type:email" ignore="true" msg="{$_lang['email_msg']}" msgArea="span_email" disabled ext="{$user_info[email]}"/><span id="span_email"></span>
+                            </div>
+                            <div class="clearfix pad10" style="display:none" id="ct_qq">
+                                <label class="grid_2"> QQ{$_lang['zh_mh']}</label>
+                                <input type="text" name="cont[qq]" size="23" title="{$_lang['QQ_title']}" id="contact_qq" msgArea="span_qq" ext="{$user_info[qq]}"
+								limit="required:false;type:int;len:6-13" ignore="true" msg="{$_lang['QQ_msg']}" disabled value="{$release_info[cont][qq]}"/><span id="span_qq"></span>
+                            </div>
+                            <div class="clearfix pad10" style="display:none" id="ct_msn">
+                                <label class="grid_2"> MSN{$_lang['zh_mh']}</label>
+                                <input type="text" name="cont[msn]" size="23" title="{$_lang['msn_title']}"  msgArea="span_msn" id="contact_msn" ext="{$user_info[msn]}"
+								limit="required:false;type:email" ignore="true" msg="{$_lang['msn_msg']}" disabled value="{$release_info[cont][msn]}"/><span id="span_msn"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div><!--from表单 end-->
+        <div class="step_button">
+            <button type="submit" name="is_submit" onclick="stepCheck();" class="big button">{$_lang['next_step']}</button>
+            <span class="block"><input type="checkbox" name="agreement" id="agreement" checked>
+                <label>
+                    {$_lang['agree']}《<a href="{$_K['siteurl']}/index.php?do=about&view=release">{$_lang['agreement']}</a>》
+                </label>
+            </span>
+        </div>
+    </div>
+</div>
+<!--end 左边部分--><!--右边部分-->
+<div class="grid_7 omega alpha">
+    <div class=" prefix_1 suffix_1 pt_20">
+        <h3 class="font14b">{$_lang['online_kf']}</h3>
+        <div class="online_service clearfix border_b_c mb_10 pb_10">
+            <div class="user_info mt_10">
+                <div class="grid_2 omega">
+                    <p>
+                    	<!--{userpic($kf_info[uid],'small')}-->
+                    </p>
+                </div>
+                <ul class="intor">
+                    <li>
+                        {$_lang['username']}{$_lang['zh_mh']}{$kf_info[username]}
+                    </li>
+                    <li>
+                        {$_lang['tel']}{$_lang['zh_mh']}{$kf_info[phone]} {$kf_info[mobile]}
+                    </li>
+                </ul>
+            </div>
+            <div class="clear">
+            </div>
+            <div class="clearfix mt_10 t_c">
+                <a href="http://wpa.qq.com/msgrd?V=1&Uin={$kf_info[qq]}&Site={$_K[sitename]}&Menu=yes" target="_blank" class="button">{$_lang['QQ_search']}</a>
+                <a href="javascript:;" onclick="sendMessage('{$kf_info[uid]}','{$kf_info[username]}')" class="button">{$_lang['website_msg']}</a>
+            </div>
+        </div>
+        <h3 class="font14b">{$_lang['what']}{$model_info[model_name]}？ </h3>
+         <p><!--{eval echo htmlspecialchars_decode($model_info[model_desc])}--></p>
+		
+    </div>
+</div>
+<!--end 右边部分-->

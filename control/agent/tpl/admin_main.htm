@@ -1,0 +1,61 @@
+<!--{template control/admin/tpl/admin_header}-->
+<!--
+<div class="po_ab fixed-right adv ">
+		<a href="#">{$_lang['ad_leasing']}w150xh90</a>
+</div>
+-->
+<div class="page_title clearfix">
+    <h1>{$_lang['manage_index']}</h1>
+    <div class="tool">
+    </div>
+</div>
+<div class="box user_quick clearfix">
+    <div class="detail pad10">
+        <ul>
+            <li class="avatar">
+                <a href="#" title="admin"><!--{userpic($admin_info['uid'],'small')}--></a>
+            </li>
+            <li class="name">
+                <span>{$_lang['good_morning']}</span>，{$_lang['public_admin_uid']}<b>{$admin_info['username']}</b>
+                <span class="clock"> - {$_lang['today_is']}<span id="date"><!--{date('Y-m-d H:i:s',time())}--></span></span>
+            </li>
+           
+        </ul>
+    </div>
+</div>
+
+<div class="box">
+    <div class="title">
+        {$_lang['server_info']}
+    </div>
+    <div class="detail pad10">
+        <ul>
+         
+            <li>
+                {$_lang['server_software']}{$_lang['zh_mh']}		{$sys_info['web_server']}
+            </li>
+            
+            <li>
+                MySQL {$_lang['support']}{$_lang['zh_mh']} {$mysql_ver}-community
+            </li>
+            <li>
+                PHP{$_lang['version']} {$_lang['zh_mh']} {PHP_OS}/PHP v{PHP_VERSION}
+            </li>
+          
+            <li>
+                {$_lang['server_max_upload_file']} : {if $sys_info ['file_uploads']}	{$sys_info['max_filesize']} {else}<font color=red>$_lang['close'] </font>{/if}
+            </li>
+			
+			 <li>
+                 {$_lang['db_size']} : $dbsize MB
+            </li> 
+			 <li>
+                 {$_lang['upload_size']} :	 $file_size MB
+            </li>
+			
+        </ul>
+    </div>
+</div>
+<script type="text/javascript" src="$notice" charset="gbk">
+</script>
+<!--{template control/admin/tpl/admin_footer}-->

@@ -1,0 +1,303 @@
+<!--{template header}--><!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+        <!--{template user/user_nav}-->
+		<!--main start-->
+        <section class="clearfix section">
+        <!--{template user/user_side}-->
+		<div class="show_panel clearfix">
+			<div class="box default clearfix">
+				<div class="witkey_info clearfix pad10">
+					<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=picture" class="witkey_info_left fl_l">
+						<div class="witkey_img">
+							<!--{userpic($user_info['uid'],middle)}-->
+						</div>
+						<div class="t_c">
+							更换头像
+						</div>
+					</a>
+					<div class="witkey_info_right fl_l ml_5 po_re">
+						<div class="clearfix welcome">
+							<div class="fl_l">欢迎您，<a href="{$_K['siteurl']}/index.php?do=user&view=index" class="font14b mr_20">{$username}</a>认证状况：</div>							
+							<div class="fl_l clearfix mt_5" style="width:100px;">
+								<!--{eval echo(keke_glob_class::get_auth_ico($user_info['auth_realname'],$user_info['auth_mobile'],$user_info['auth_email'],$user_info['auth_bank']));}-->
+						    </div>				
+							<a href="javascript:void(0);" class="witkey_remind sethomepage {if $user_info['homepage']!='witkey'}hidden{/if}"  id="nowitkey" onclick="set_homepage('{$_K['siteurl']}/index.php?do=user&view=witkey&opp=ajax_homepage&tag=','')">-&nbsp;&nbsp;取消"我是威客"为首页</a>
+							<a href="javascript:void(0);" class="witkey_remind sethomepage {if $user_info['homepage']=='witkey'}hidden{/if}"  id="setwitkey" onclick="set_homepage('{$_K['siteurl']}/index.php?do=user&view=witkey&opp=ajax_homepage&tag=witkey','witkey')">+&nbsp;&nbsp;设"我是威客"为首页</a>
+						</div>
+						<div class="clear"></div>
+						<div class="clearfix mt_5">
+							威客信用：<!--{eval echo keke_glob_class::get_w_level_ico($user_info['w_level'])}-->  威客好评：<b class="red">{if $user_info[w_good_rate]}{$user_info[w_good_rate]}{else}100{/if}%</b>
+						</div>
+						<div class="witkey_remind clearfix mt_20">
+							威客提醒：
+							{if $paywork_count}<a href="{$_K['siteurl']}/index.php?do=user&view=witkey&op=employerpay">待雇主付款( <b class="red">$paywork_count</b> )</a>{else}待雇主付款( 0 ){/if}
+							<span class="c999 ml_10 mr_10">|</span>
+							{if $needupload_count}<a href="{$_K['siteurl']}/index.php?do=user&view=witkey&op=needwork">待上传作品( <b class="red">$needupload_count</b> )</a>{else}待上传作品( 0 ){/if}
+							<span class="c999 ml_10 mr_10">|</span>
+							{if $workmark_count}<a href="{$_K['siteurl']}/index.php?do=user&view=witkey&op=needmark">待评价( $workmark_count )</a>{else}待评价( 0 ){/if}
+							<span class="c999 ml_10 mr_10">|</span>
+							<a href="{$_K['siteurl']}/index.php?do=user&view=message" >站内短信( <b class="red">{if $messagecount}{$messagecount}{else}0{/if}</b> )</a>
+						</div>
+						<div class="clearfix witkey_funlink mt_10">
+							<span class="fl_l">可用金额：<b class="red">{$user_info[balance]}</b>元</span>
+							<a href="{$_K['siteurl']}/index.php?do=user&view=finance&op=recharge" rel="nofollow">账户充值</a>
+							<a href="{$_K['siteurl']}/index.php?do=user&view=finance&op=withdraw" rel="nofollow">提现</a>
+							<a href="{$_K['siteurl']}/index.php?do=user&view=finance&op=detail">收支明细</a>
+						</div>
+						<!-- <a href="#" class="button"><span class="mr_5">+</span>设“我是威客”为首页</a> -->
+					</div>
+				</div>
+			</div>
+			<div class="clearfix mt_10">
+					<div class="my_witkey_lcon clearfix fl_l">
+						<div id="new_announcement" class="witkey_bulletin po_re clearfix mb_10">
+							<b class="fl_l">最新公告：</b>
+							<a href="{$_K['siteurl']}/index.php?do=article&view=info&art_cat_id={$bulletin[0]['art_cat_id']}&art_id={$bulletin[0]['art_id']}" class="grid_11 alpha omega">{$bulletin[0]['art_title']}</a>
+							<a href="javascript:;" class="close" onclick="$('#new_announcement').hide();" >关闭</a>
+						</div>
+						<div class="clearfix box default mb_10 ">							<div class="inner">
+								<header class="clearfix box_title">									<h2 class="fl_l">我的商铺</h2>
+									<a href="{$_K['siteurl']}/index.php?do=shop&sid={$shop_info[shop_id]}" target="_blank" class="fl_r">预览我的商铺</a>								</header>
+								<article class="clearfix my_shop">
+									<div class="my_shop_l grid_6 omega alpha">
+										<b>商铺信息</b>
+										<p>商铺类型：
+										<b><!--{eval 
+												switch($user_info[user_type]){
+													case '1': echo '个人'; break;
+													case '2': echo '工作室'; break;
+													case '3': echo '公司'; break;
+												}
+											}--></b></p>
+										<p>出售中的创意服务：<b>{$service_count_2}个</b></p>
+										<p>出售中的劳务服务：<b>{$service_count_1}个</b></p>
+										<p>出售中的案例总数：<b>{$case_count}个</b></p>
+									</div>
+									<div class="my_shop_r fl_l">
+										<b>完善你的商铺，或得更高的客户关注度</b>
+										<p>目前的商铺访问人气值：<b>{$shop_info['views']}</b></p>
+										<div class="clearfix">
+											<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=basic">基本信息完善</a>
+											<a href="{$_K['siteurl']}/index.php?do=user&view=space&op=skill">设置技能标签</a>
+											<a href="{$_K['siteurl']}/index.php?do=shelves">出售产品</a>
+											<a href="{$_K['siteurl']}/index.php?do=user&view=space&op=service">出售服务</a>
+											<a href="{$_K['siteurl']}/index.php?do=user&view=space&op=case&show=add#userCenter">上传案例</a>
+											<a href="{$_K['siteurl']}/{if $user_info['shop_id']}index.php?do=vip&view=open{else}index.php?do=user&view=space&op=upgrade{/if}">升级商铺，或得更多特权</a>
+										</div>
+									</div>
+								</article>
+							</div>						</div>
+						<div class="clearfix box default mb_10">							<div class="inner">
+								<header class="box_title clearfix">									<h2 class="fl_l">任务关注</h2>
+									<a href="javascript:;" onclick="showWindow('message', '{$_K[siteurl]}/index.php?do=ajax&view=task_tag&ac=add');" class="fl_r">设置</a>								</header>
+								<article class="pad10">
+									<div class="attention_tab clearfix po_re mt_10">
+										<a href="{$_K['siteurl']}/index.php?do=task_list" class="attention_more fl_r">查看更多</a>
+										<a href="#" onclick="$('#jcarousel').jcarousel('scroll', '-=1'); return false;" class="fl_l attention_arrow">
+											<img src="{$style_path}/theme/simple/img/style/in_left.gif" alt="">
+										</a>
+										<a href="#" onclick="$('#jcarousel').jcarousel('scroll', '+=1'); return false;" class="fl_l attention_arrow"  >
+											<img src="{$style_path}/theme/simple/img/style/in_right.gif" alt="">
+										</a>
+										<div id="jcarousel" class="jcarousel">
+										<ul id="attention_ul">
+										 <!--{eval $k_1 = 0;}-->
+									     {loop $attention_task_arr[name] $k $v}
+											<li id="attention_li_{$k}" {if $k_1==0}class="selected"{/if}>
+												<a href="javascript:;" onclick="attention_li_slide({$k})" {if $k_1==0}class="border_n"{elseif $k_1==1}{/if}>{$v}</a> <!--style="border:none;"-->
+											</li>
+											 <!--{eval $k_1++;}-->
+										 {/loop}
+										</ul>
+										</div>
+
+						       
+									</div>
+									<div id="attention_list" class="attention_div clearfix">
+									<!--{eval $k_2 = 0;}-->
+									 {loop $attention_task_arr[list] $k $v_1}
+										<ul id="attention_list_ul_{$k}" {if $k_2!=0}style="display:none;"{/if}>
+										  {loop $v_1 $v_2}
+											<li>
+												<b class="grid_2 omega alpha">{if $v_2['task_cash']}{$v_2['task_cash']}{else}0{/if}元</b>
+												<a href="{$_K['siteurl']}/index.php?do=task&task_id={$v_2['task_id']}" target="_blank" class="grid_10 omega alpha ws_hide">{$v_2['task_title']}</a>
+												<a href="{$_K['siteurl']}/index.php?do=task&task_id={$v_2['task_id']}" target="_blank" class="fl_r ">参与</a>
+											</li>
+										  {/loop}	
+										</ul>
+										 <!--{eval $k_2++;}-->
+									  {/loop}									  
+									</div>
+								</article>
+							</div>						</div>
+						<div class="box clearfix default mb_10">							<div class="inner">
+								<header class="box_title clearfix">
+									<h2 class="fl_l">威客帮助</h2>
+									<a href="{$_K['siteurl']}/index.php?do=help&view=list&art_cat_id=606" class="fl_r"><span class="font_simsun mr_5">></span>更多</a>
+								</header>
+								<article class="clearfix pad10">
+									<div class="witkey_help_step clearfix">
+										<div class="grid_3 omega alpha">
+											<div class="pad10 pl_20">
+												<p>出售产品/服务</p>
+												<p>参加任务</p>
+											</div>
+										</div>
+										<div class="fl_l ml_5 mr_5">
+											<img src="{$style_path}/theme/simple/img/style/witkey_help_arrow.gif" class="" alt="">
+										</div>	
+										<div class="grid_6 omega alpha">
+											<div class="pad10 pl_20">
+												<p>雇主购买产品或者服务</p>
+												<p>中标</p>
+												<p>被雇主直接雇佣</p>
+											</div>	
+										</div>
+										<div class="fl_l ml_5 mr_5">
+											<img src="{$style_path}/theme/simple/img/style/witkey_help_arrow.gif" class="" alt="">
+										</div>
+										<div class="grid_3 omega alpha">
+											<div class="pad10 pl_20 pt_30 mt_5">
+												<p>赚钱赏金</p>
+											</div>
+										</div>
+									</div>
+									<div class="pad10 clearfix witkey_help_con">
+										<ul>
+											{loop $art_help_arr $v}
+											<li class="ws_hide clearfix">												
+												<a href="{$_K['siteurl']}/index.php?do=help&view=info&art_cat_id={$v['art_cat_id']}&art_id={$v['art_id']}" title="{$v['art_title']}"><span class="icon_link">·</span>{$v['art_title']}</a>
+											</li>
+											{/loop}		
+										</ul>
+									</div>
+								</article>
+							</div>						</div>
+					</div>
+					<div class="my_witkey_rcon clearfix fl_r">
+						<div class="clearfix box default">							<div class="inner">
+								<header class="clearfix box_title">
+									<h2 class="fl_l">优秀威客说</h2>
+									<a href="{$_K['siteurl']}/index.php?do=special&view=witkey_list" class="fl_r"><span class="font_simsun mr_5">></span>更多</a>
+								</header>
+								<article class="pad10 clearfix">
+									<div class="witkey_say clearfix ">
+									  {loop $art_witkey $v}									 	
+										 <a href="{$_K['siteurl']}/index.php?do=special&view=witkey_info&art_cat_id={$v['art_cat_id']}&art_id={$v['art_id']}" class="witkey_photo mar0">
+											<img src="{$v['art_pic']}" alt="{$v['art_title']}">
+										 </a>
+									  {/loop}										
+									</div>
+									<div class="witkey_say_con mt_10 clearfix">
+										<ul>
+										  {loop $art_witkey $v}	
+											<li class="ws_hide clearfix">
+												<span class="icon_link">·</span>
+												<a href="{$_K['siteurl']}/index.php?do=special&view=witkey_info&art_cat_id={$v['art_cat_id']}&art_id={$v['art_id']}">{$v['art_title']}</a>
+											</li>
+										  {/loop}										  
+										</ul>
+									</div>
+								</article>
+							</div>						</div>
+						<div class="box default clearfix  ep_box ep_email mt_10">
+							<div class="inner">
+								<article class="clearfix pad10 pb_5">
+								   <!--{eval $subscribe_email = keke_core_class::get_task_subscribe_email($uid)}-->
+									<div class="right_con">
+										<h2 class="c333">任务订阅</h2>
+										<span>每周五定时发送邮件</span>
+									</div>
+									<form method="post" target="_blank" action="http://list.qq.com/cgi-bin/qf_compose_send">
+										<input type="hidden" value="qf_booked_feedback" name="t" original-title="">
+										<input type="hidden" value="4c6d9ff6532b0eb719b276ad2837a19b94004ef4c626e0a3" name="id" original-title="">
+										<div class="your_email mt_5 mb_5 clearfix">
+											<input class="c999" type="text" id="email" name="to" value="{if $subscribe_email}{$subscribe_email}{else}您的邮箱{/if}" 
+												onfocus="if(this.value=='您的邮箱'){this.value=''}" onblur="if(this.value==''){this.value='您的邮箱'}">
+											<label>
+												<button class="button" id="btn_subscribe" type="submit">
+	                                               	订  阅
+	                                           </button>
+											</label>
+										</div>
+									</form>
+								</article>
+							</div>
+						</div>
+						<div class="clearfix box default mt_10">
+							<div class="inner">
+								<header class="box_title clearfix">
+									<h2>意见栏，给我们建议</h2>
+								</header>
+								<article class="pad10 clearfix">
+									<form id="frm_shop_comment" name="frm_shop_comment" action="" method="post">
+									<textarea name="shop_comment_tent" id="shop_comment_tent" cols="30" rows="4" class="c999" onfocus="if (this.value=='有话您说，我们在聆听') {this.value='';}" onblur="if (this.value=='') {this.value='有话您说，我们在聆听';}">有话您说，我们在聆听</textarea>									
+									<button type="button" class="button mt_10" onclick="sub_shou_comment();">提交</button>
+									</form>
+								</article>
+							</div>
+						</div>		
+					</div>
+				</div>
+		</div>
+    	</section>
+    	<!--main end-->
+	</div>
+</div>
+<script type="text/javascript" src="resource/js/jqplugins/jcarousel/jquery.jcarousel.js"></script>
+<script type="text/javascript">
+	var uid = parseInt('{$uid}')+0; //判断是否登录
+	
+	$(function(){
+		$('#jcarousel').jcarousel();
+	});
+
+function attention_li_slide(id){ 
+	$('#attention_ul > li').removeClass();
+	$('#attention_li_'+id).addClass('selected');
+	
+	$('#attention_list > ul').addClass('hidden');	
+	$('#attention_list_ul_'+id).removeClass('hidden');
+} 
+
+function sub_shou_comment(){ 
+	var content = $('#shop_comment_tent').val();
+	if(!content || content == '有话您说，我们在聆听') return false;
+	
+	var data= $("#frm_shop_comment").serialize(); 
+	var url = "{$_K['siteurl']}/index.php?do=user&view=employer&opp=ajax_content&"+data+"&sbt_edit=1"; 
+	$.post(url,
+	function(json){
+		if(json.status=='1'){
+			showDialog("感谢您提供宝贵意见。","notice","操作提示");return false; 
+			return false;
+		}else { 
+			showDialog("留言失败，请与管理员联系。","notice","操作提示");return false; 
+			return false;
+		}
+	},'json');
+} 
+function set_homepage(url,tag){
+	$.post(url,
+			function(json){
+				if(json.status=='1'){
+					if(tag!=''){
+						showDialog("设置‘我是威客’为用户中心首页成功。","notice","操作提示");
+						$('#setwitkey').addClass("hidden");
+						$('#nowitkey').removeClass("hidden");
+					}else{
+						showDialog("取消将‘我是威客’为用户中心首页成功。","notice","操作提示");
+						$('#nowitkey').addClass("hidden");
+						$('#setwitkey').removeClass("hidden");
+					}
+					return false;
+				}else { 
+					showDialog("设置失败，请与管理员联系。","notice","操作提示");
+					return false;
+				}
+			},'json');
+}
+</script>
+<!--{template user/user_footer}-->
+<!--{template footer}-->

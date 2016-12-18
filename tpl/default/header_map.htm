@@ -1,0 +1,48 @@
+<!--{template header_top}-->
+<!--头部 start-->
+    <header class="header">
+        <div class="container_24 clearfix">
+        	<!--logo start-->
+            <hgroup class="logo">
+             	 		<a href="{$_K['siteurl']}/" class="fl_l">
+             	 			<img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/style/logo_sy.gif">
+             	 		</a>
+						<div class="fl_l line"></div>
+				 		<a class="little_logo fl_l" href="#">
+				 			<h2>网站地图</h2>
+				 		</a>	
+            </hgroup>
+            <!--logo end-->
+            
+          <div class="search_bigbox ">
+          	<div class="clearfix tab">
+	          	<ul class=" fl_l">
+	          		<li><a href="#" class="selected">搜任务</a></li>
+					<li><a href="#">搜人才</a></li>
+	          	</ul>
+				<div class="fl_r"><p>客服热线：<span>4006-999-467</span></p></div>
+			</div>
+            <div class="clearfix">
+            	<!--主搜索 start-->
+                <div class="search clearfix po_re">
+                    <!--搜索框和选项 start-->
+                    <form action="" method="post" id="frm_search" class="clearfix fl_l">
+                    <div class="search_box">
+                    	<span class="icon magnifier"></span>
+						<input type="text" name="search_key" onkeydown="search_keydown(event);" id="search_key" class="fl_l search_input txt_input togg c999" value="输入关键词搜索" title="{$_lang['input']}{$_lang['task']}/{$_lang['goods']}"  x-webkit-speech x-webkit-grammar="bUIltin:search" lang="zh-CN">
+                    </div>
+					</form>
+                    <!--搜索框和选项 end-->
+                    <!--搜索提交 start-->
+                    <div class="fl_l mr_5">
+                    	<button class="search_btn" id="search_btn" type="button" onclick="topSearch();"><span class="icon magnifier"></span>{$_lang['search']}</button>
+                    </div>
+                    <!--搜索提交 end-->
+				</div>
+              </div>
+                <!--主搜索 end-->
+            </div>                                    
+            <div class="clear"></div>
+        </div>
+    </header>
+    <!--头部 end-->

@@ -1,0 +1,147 @@
+<!--{template control/agent/tpl/admin_header}-->
+<script type="text/javascript" src="../../resource/js/system/keke.js"></script>
+ <script type="text/javascript" src="../../resource/js/system/ajaxfileupload.js"></script>
+ <div class="page_title">
+    	<h1>{$_lang['shop_edit']}</h1>
+        <div class="tool">
+        	<a href="index.php?do={$do}&view=list" class="here" >{$_lang['shop_list']}</a>
+        </div>
+</div>
+<!--页头结束-->    
+<div class="box post">
+    <div class="tabcon">
+        	<div class="title"><h2>{$_lang['edit']}{$model_info['model_name']}</h2></div>       	
+            <div class="detail">
+                <form method="post" action="index.php?do=$do&view=$view&shop_id={$shop_id}" id="frm_shop_edit" name="frm_shop_edit" enctype="multipart/form-data">
+				<input type="hidden" name="hdn_act" value="1">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <th scope="row">{$_lang['shop_username']}{$_lang['zh_mh']}</th>
+                        <td><b>{$shop_info[username]}</b></td>
+					  </tr>
+					   <tr>
+                        <th scope="row" width="130">{$_lang['shop_name']}{$_lang['zh_mh']}</th>
+                        <td><input type="text" class="txt" name="shop[shop_name]" size="45" value="{$shop_info['shop_name']}" id="shop_name" msg="{$_lang['shop_name_limit']}" msgArea="span_shop_name" limit="required:true;len:2-100"><span id="span_shop_name"></span></td>
+                      </tr> 
+                      <tr>
+                        <th scope="row" width="130">{$_lang['shop_desc']}{$_lang['zh_mh']}</th>
+                        <td>
+                        	<textarea name="shop[shop_desc]" rows="10"  class="xheditor {tools:'Bold,Fontface,FontColor,Italic,Underline,Strikethrough,Align,List,Outdent,Indent,Table',skin:'nostyle'}" cols="70" id="shop_desc">{$shop_info['shop_desc']}</textarea>
+                        </td>
+                      </tr>					       
+					  <tr>
+                        <th scope="row">{$_lang['personalized_domain']}{$_lang['zh_mh']}</th>
+                        <td><input type="text" class="txt" size="45" value="{$shop_info['domain']}" name="shop[domain]" id="domain" msg="{$_lang['domain_limit']}" msgArea="span_domain" limit="required:false;len:1-100" ><span id="span_domain"></span></td>
+					  </tr>
+  					  <tr>
+                        <th scope="row">{$_lang['seo_title']}{$_lang['zh_mh']}</th>
+                        <td><textarea class="txt" rows=4 cols="50" name="shop[seo_title]" id="seo_title" msg="{$_lang['seo_title_limit']}" msgArea="span_seo_title" limit="required:false;len:1-500" >{$shop_info['seo_title']}</textarea><span id="span_seo_title"></span></td>
+					  </tr>
+					  <tr>
+                        <th scope="row">{$_lang['seo_keywords']}{$_lang['zh_mh']}</th>
+                        <td><textarea class="txt" rows=4 cols="50" name="shop[seo_keywords]" id="seo_keywords" msg="{$_lang['seo_keywords_limit']}" msgArea="span_seo_keywords" limit="required:false;len:1-500" >{$shop_info['seo_keywords']}</textarea><span id="span_seo_keywords"></span></td>
+					  </tr>
+					  <tr>
+                        <th scope="row">{$_lang['seo_desc']}{$_lang['zh_mh']}</th>
+                        <td><textarea class="txt" rows=4 cols="50" name="shop[seo_desc]" id="seo_desc" msg="{$_lang['seo_desc_limit']}" msgArea="span_seo_desc" limit="required:false;len:1-1000" >{$shop_info['seo_desc']}</textarea><span id="span_seo_desc"></span></td>
+					  </tr>
+					  <tr>
+                        <th scope="row">{$_lang['shop_status']}{$_lang['zh_mh']}</th>
+                        <td>
+                        	<select name="shop[is_close]">
+                        		<option value="0" {if $shop_info['is_close']=='0'}selected{/if}>开通</option>
+								<option value="1" {if $shop_info['is_close']=='1'}selected{/if}>关闭</option>
+                        	</select>
+						</td>
+					  </tr>
+					  <tr>
+                        <th scope="row">VIP开通{$_lang['zh_mh']}</th>
+                        <td>
+                        	
+							<ul class="pay_item" style="float:left;width:220px">
+								<li>
+									{loop $vip_level $v}
+									{if strpos($_SESSION['brandType'],'tw')!==false}
+									<input type="radio" name="vip_l" value="{$v['level_id']}">{$v['level_name_tw']}
+									{/if}
+									{/loop}
+									<br>
+									<input type="radio" name="vip_d" value="1" checked="checked">一年
+									<input type="radio" name="vip_d" value="2">二年
+									<input type="radio" name="vip_d" value="3">三年
+									<a class="button" href="javascript:void(0);" onclick="addVip('{$shop_info[uid]}','{$shop_id}');">
+										<span class="cog icon"></span>
+										开启
+									</a>
+								</li>
+							</ul> 
+							<script type="text/javascript">
+								function addVip(u,s){
+									var l = $(":radio[name='vip_l']:checked").val();
+									var d = $(":radio[name='vip_d']:checked").val();
+									var str = '您将给该用户开通：<br>';
+										str+=d==1?'一年':(d==2?'二年':'三年');
+										str+=l==2?'拓展版':'旗舰版';
+										str+='VIP使用权';
+									art.dialog.confirm(str,function(){
+										var url = "index.php?do=shop&ac=add_vip&u="+u+'&s='+s+'&l='+l+'&d='+d;
+										$.getJSON(url,function(json){
+											art.dialog.tips(json.msg,1.5);
+											location.href='index.php?do=shop&view=vip_info&shop_id='+s;
+										});
+									});
+								}
+							</script>
+						</td>
+					  </tr>
+					  <tr>
+					  	<th scope="row">{$_lang['shop_is_top']}{$_lang['zh_mh']}</th>
+						<td>
+							<select name="shop[istop]">
+								<option value="0" {if $shop_info['istop']=='0'}selected{/if}>不推荐</option>
+								<option value="1" {if $shop_info['istop']=='1'}selected{/if}>推荐</option>
+							</select>
+						</td>
+					  </tr>
+					  <tr>
+					  	<th scope="row">{$_lang['shop_order']}{$_lang['zh_mh']}</th>
+						<td>
+							<input type="text" class="txt" size="10" name="shop[listorder]" id="listorder" {if $shop_info[listorder]}value="{$shop_info[listorder]}"{else}value="999"{/if}>
+						</td>
+					  </tr>
+                    <tr>
+                        <th scope="row">&nbsp;</th>
+                    	<td>
+                    	<button name="sbt_edit" value="1" class="positive primary  button" type="submit" onclick="return checkForm(document.getElementById('frm_shop_edit'))">
+                    		<span class="check icon"></span>{$_lang['submit']}</button>
+                    	<button type="button"  name="rst_edit" class="pill button"  onclick="history.go(-1)"/><span class="uparrow icon"></span>{$_lang['return']}</button>
+                    	</td>
+                    </tr>
+					<tr>
+					  <th scope="row">其他信息：</th>
+					{if $shop_info['shop_info']} 
+						{if in_array($shop_info['shop_type'],array(1,2))}<!-- 个人、工作室 -->
+						   <td>
+								所在地区{$_lang['zh_mh']}{$shop_info['shop_info']['zone']} </br>
+								真实姓名{$_lang['zh_mh']}{$shop_info['shop_info']['realname']} </br>
+								身份证号{$_lang['zh_mh']}{$shop_info['shop_info']['id_card']} </br>
+								身份证正面{$_lang['zh_mh']}<a href="../../{$shop_info['shop_info']['id_pic']}" title="点击查看原图" target="_blank"><img src="../../{$shop_info['shop_info']['id_pic']}" height="50"></a> </br>
+								身份证反面{$_lang['zh_mh']}<a href="../../{$shop_info['shop_info']['id_pic']}" title="点击查看原图" target="_blank"><img src="../../{$shop_info['shop_info']['id_pic_back']}" height="50"></a> </br>
+						   </td>							
+						{elseif $shop_info['shop_type'] == 3}<!-- 公司 -->
+							<td>
+								公司名称{$_lang['zh_mh']}{$shop_info['shop_info']['name']} </br>
+								营业执照编号{$_lang['zh_mh']} {$shop_info['shop_info']['card_id']}</br>
+								营业执照图片{$_lang['zh_mh']}<a href="../../{$shop_info['shop_info']['company_card_pic']}" title="点击查看原图" target="_blank"><img src="../../{$shop_info['shop_info']['company_card_pic']}" height="50"></a></br>
+						   </td>
+						{/if}
+					</tr>
+					{/if}
+                    </table>
+                </form>
+              </div>
+       </div>           
+</div>
+<!--主体结束-->
+
+<!--{template control/agent/tpl/admin_footer}-->

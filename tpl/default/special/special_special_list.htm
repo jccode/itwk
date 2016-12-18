@@ -1,0 +1,92 @@
+<!--{template header}-->
+<!--{template new_head_nav}-->
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/special.css" rel="stylesheet"/>
+<header class="clearfix page_header">
+    <div class="container_24">
+        <!--页面导航-->
+        <div class="heidtile clearfix">
+            <span>你的位置：</span>
+            <span><a href="{$_K['siteurl']}/index.php">IT帮手网首页</a>&nbsp;&gt;&nbsp;</span>
+            <span><a href="{$_K['siteurl']}/index.php?do=special">特色专栏</a>&nbsp;&gt;&nbsp;</span>
+			<h1><a href="{$url}"  title="精彩专题">精彩专题</a></h1>
+        </div>
+        <!--end 页面导航-->
+    </div>
+</header>
+<section class="clearfix content">
+    <div class="container_24 clearfix">
+        <div class="left_bar">
+        	<!--目录菜单-->
+			<div class="box category">
+				<div class="box_header">
+					<div class="box_title"><h2 class="title">专题分类</h2></div>
+				</div>
+				<div class="box_detail">
+			<menu class="sort">
+					<li><a href="{$_K['siteurl']}/zt/" {if !$cat_id}class="selected"{/if} title="所有专题"><span>所有专题</span></a></li>
+						{loop $cat_arr $k $v}
+								<li><a href="{$_K['siteurl']}/zt/$cat_seoarr[$k]/" {if $cat_id==$k}class="selected"{/if} title="{$v}"><span>$v</span></a></li>
+						{/loop}
+					</menu>
+				</div>
+			</div>
+			<!--目录菜单 end-->
+			
+			
+            <!--雇佣任务-->
+            <!--{template special/special_side}-->
+			
+        </div>
+        <div class="right_side">
+        	{if $special_list}
+        	<ul class="project clearfix">
+        		
+	        		{loop $special_list $v}
+	        		<li ><a href="{$v[url]}" target="_blank">
+	        		<img class="proctect_pic" src="{$_K['siteurl']}/{$v['img']}" title="$v['title']" alt="$v['title']"/></a><p class="t_c"><a href="{$v[url]}" target="_blank" title="$v['title']">$v['title']</a></p></li>
+				{/loop}
+				
+			</ul>
+			
+			{if $pages['page']}
+           <div class="page_box mr_10 clearfix">
+				<div class="page">
+				{$pages['page']}
+				</div>	
+			</div>
+			{/if}
+			{else}
+					<div class="box default no_detail pad10">暂无暂无相关专题</div>
+			{/if}
+        </div>
+		<div class="clear"></div>
+	   
+	   {if $page < 2}
+		<div class="box clearfix default mt_10 teamwork">
+			<div class="inner">
+				<header class="box_title clearfix">
+					<h2 class="c333 fl_l">合作链接</h2>
+					<div class="fl_r clearfix">
+						<!-- <a href="javascript:void(0);" onclick="showWindow('message', '{$_K['siteurl']}/index.php?do=ajax&view=link&ac=add');" class="fl_l font12 font_normal">我要出现在这</a> -->
+						<div class="fl_l ml_20">
+							<button class="button primary c090" style="padding:2px 10px; _margin-top:4px" type="button" onclick="link_box(8)" >申请友情链接</button>
+						</div>
+					</div>
+				</header>
+				<article class="pad10 clearfix">
+					<ul>
+						{loop $link_arr $v}
+							<li><a href="{$v['link_url']}" target="_blank">{$v['link_name']}</a></li>
+						{/loop}
+					</ul>
+				</article>
+			</div>
+		</div>
+	  {/if}	
+	  
+    </div>
+</section>
+<script type="text/javascript">
+var uid = parseInt('{$uid}')+0; 
+</script>
+<!--{template footer}-->

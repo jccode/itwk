@@ -1,0 +1,139 @@
+<!--{template header}-->
+<link type="text/css" rel="stylesheet" href="{$_K['siteurl']}/resource/js/jqplugins/tagsinput/jquery.tagsinput.css">
+<style type="text/css">
+	div.tagsinput{ width:auto; height:auto;}
+	.lablist {margin:10px 0 0 20px; *margin:10px 0 0 10px; float:left; width:480px;}
+	.lablist .lab1 {border:solid 1px #FFC184; color:#FF6600; background-color:#FFF2E6; margin-right:5px; margin-bottom:5px; float:left; line-height:19px; padding:0 24px 0 5px; position:relative;}
+	.lablist .lab1 a {background-image:url(resource/img/public/close_lab1.png); width:19px; height:19px; display:block; float:right; position:absolute; top:0; right:0;}
+</style>
+
+<div class="{$_K['theme']}_style">
+ <div class=" winbody">
+ <!--main content-->
+	<div class="messages m_warn">
+			<strong>温馨提示</strong>您最多可关注5个分类
+		</div>
+
+   <div class="clearfix pad10">
+    <!--from表单 start-->
+    <form action="" method="post" id="frm" name="frm" enctype="multipart/form-data">			
+    		<div class="clearfix">
+				     <select name="indus_pid" id="indus_pid" title="请选择分类"  onchange="showIndus(this.value)" limit = "required:true;between:5-10" msg = '行业分类未选择' msgArea="span_indus">
+	                    <option value="">请选择分类</option>
+	              		{loop $indus_p_arr $v}
+							 <option value="{$v['indus_id']}" {if $release_info['indus_pid']==$v['indus_id']}selected{/if}>{$v['indus_name']}</option>
+						{/loop} 
+					 </select>
+					 <select name="indus_id" id="indus_id"  limit = "required:true;between:5-10" msg='行业子分类未选择' title='请选择子分类' msgArea="span_indus">
+                        <option value="">请选择子分类</option>
+						{if $release_info['indus_id']}}
+						{loop $indus_arr $k $v}
+                       		 <option value="{$v['indus_id']}" {if $release_info['indus_id']==$v['indus_id']}selected{/if}>{$v['indus_name']}</option>
+						{/loop}
+						{/if}
+                    </select>
+					<button type="button" class="button mr_5" value="添加关注" onclick="atselect('add');">添加关注</button>
+					<div id="span_indus"></div>					
+			</div>
+		
+		
+					<div class="tagsinput pt_20" id="lablist">
+						<p><strong>已关注的标签：</strong></p>
+						<!-- 分类标签 -->
+						{loop $industry_arr $v}
+							<span id="lab{$v['indus_id']}" class="tag"><span>{$v['indus_name']}</span> <a href="javascript:;" onclick="atselect('del',{$v['indus_id']});">x</a></span>
+						{/loop}						
+					</div>
+			
+			
+
+      
+   </form>
+  <!--from表单 end-->
+</div>
+	<div class="  form_button">
+	         <button type="button" class="submit mr_5" value="保存设置" onclick="task_tag_submit();">
+	         	保存设置</button>
+			 <button type="button" class="button bwhite" value="{$_lang['cancel']}" onclick="hideWindow('message')">
+			 	{$_lang['cancel']}</button>
+				<input name="sbt_action" type="hidden" value="1" />
+				<input type="hidden" id="clist" name="clist" value="{$task_attention_info['indus_id']}">
+	      </div>
+ </div>
+</div>
+<script src="{$_K['siteurl']}/resource/js/jquery.bgiframe.pack.js"></script>
+<script type="text/javascript">
+function task_tag_submit(){	
+	var clist = $('#clist').val();
+	var url = "{$_K['siteurl']}/index.php?do=ajax&view=task_tag&ac=ajax_add_indus&clist=" + clist;
+    $.getJSON(url, function(json){ 
+        if (json.status == '1') {
+			hideWindow('message');
+			showDialog("添加成功",'right',"操作提示","location.href='{$_K[siteurl]}/index.php?do=user&view=witkey'");
+			return true;
+        }
+        else {
+		   showDialog("添加失败","alert","操作提示"); 
+		   return false;
+        }
+    })
+}
+
+function atselect(op, id) {
+    var strlist__, strcid, strcount, arrC, html;
+	strlist__ = $("#clist").val();    //隐藏值
+    strcid = $("#indus_id").val();    //行业子分类
+    
+	switch(op){
+		case 'del': //删除				 
+	        if ( !id ) return false;
+            strlist__ = "," + strlist__ + ",";
+            strlist__ = strlist__.replace("," + id + ",", ",");
+            strlist__ = strlist__.substring(1, strlist__.length - 1);
+            if (strlist__ == ",") { strlist__ = ""; }
+            $("#clist").val( strlist__ ); 		
+			$("#lab" + id).slideUp(20).remove(); 		
+		break;
+		case 'add': //添加	
+			if ( !strcid ) return false;				
+			
+	        if (strlist__ == "") { //添加第一个
+	            strcount = 0;
+	            $("#clist").val(strcid);		         
+	        } else { //alert(2);
+	            strlist__ = strlist__ + ",";
+	            arrC = strlist__.split(",");
+	            strcount = arrC.length - 1;
+	            if (strcount >= 5) {
+	                alert("您最多可以关注5个分类！");
+	                return false;
+	            } else {
+	                strlist__ = "," + strlist__;
+	                if (strlist__.indexOf("," + strcid + ",") >= 0) {
+	                    alert("您已经关注过该分类！");
+	                    return false;
+	                } else {
+	                    strlist__ = strlist__.substring(1, strlist__.length - 1);
+	                    strlist__ = strlist__ + "," + strcid;
+	                    $("#clist").val( strlist__ );
+	                }
+	            }
+	        }
+			
+			var indus_text = document.getElementById("indus_id").options[window.document.getElementById("indus_id").selectedIndex].text;
+			html = '<div id="lab'+strcid+'" class="lab1">';
+			html += indus_text;
+			html += '<a href="javascript:void(0)" onclick="atselect(\'del\','+strcid+');"></a>';
+			html += '</div>';				
+			$('#lablist').append( html );
+		break;
+	}
+}
+
+	In('form');
+
+	$(function(){
+		$('div.fwinmask').bgiframe();
+	})
+</script>
+<!--{template footer}-->

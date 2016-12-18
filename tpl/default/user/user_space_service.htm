@@ -1,0 +1,196 @@
+<!--{template header}--><!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+        <!--{template user/user_nav}--><!--main start-->
+        <section class="clearfix section mt_10">
+            <!--{template user/user_side}-->
+            <div class="show_panel ">
+		        <div class="">
+		            <div class="">
+		                <!--main content-->
+		                <div class=" clearfix box default">
+                            <!--header内容头部 start-->
+                            <header class="clearfix box_header">
+                                <h2 class="box_title">{$_lang['service_management']}</h2>
+                                <div class=" ">
+                                    <nav class="box_nav">
+                                        <ul>
+                                            <li class="selectedLava">
+                                                <a href="{$_K['siteurl']}/index.php?do={$do}&view={$view}&op={$op}#userCenter" title="{$_lang['service_list']}">{$_lang['service_list']}</a>
+                                            </li>
+											<li><a href="{$_K['siteurl']}/index.php?do=shelves" target="_blank" title="{$_lang['add_service']}">出售服务</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <div class="clear">
+                                </div>
+                            </header>
+                            <!--header内容头部 end--><!--detail内容 start-->
+                            <article class="box_detail">
+                            
+                                <div class="">
+                                    <!--from表单 start-->
+                                    <div class="clearfix box pad10">
+                                        <form action="{$url}#userCenter" method="post" id="frm">
+                                            <input type="hidden" name="page" value="{$page}">
+                                            <div class="rowElem tool_bar clearfix">
+                                                <div class="service_type mr_5 fl_l clearfix">
+                                                 <label class="t_1" style="float:left;">
+                                                		服务类型{$_lang['zh_mh']}
+                                                	</label>
+													<select name="service_type" class="fl_l" style="width:70px;">
+														<option value="">全部</option>
+														<option value="2" {if $service_type==2}selected="selected"{/if}>创意类服务</option>
+														<option value="1" {if $service_type==1}selected="selected"{/if}>劳务类服务</option>
+													</select>
+                                                </div>
+												<div class="mr_5 fl_l clearfix">
+                                                	<label class=="t_1 fl_1">
+                                                		{$_lang['please_input_service_title']}{$_lang['zh_mh']}
+                                                	</label>
+                                                    <input type="text" name="service_title" class="togg_u txt_input" value="{$service_title}" size="13"/>
+                                                </div>
+                                                <div class="fl_l mr_5 clearfix">
+                                                    <label class="t_l fl_l">
+                                                        {$_lang['service_on_time']}{$_lang['zh_mh']}
+                                                    </label>
+													
+                                                    
+                                                    		<input type="text" name="start_time" class="txt" value="{$start_time}" size="8" onclick="showcalendar(event, this, 0)"> - 
+															
+															<input type="text" name="end_time" value="$end_time" class="txt" size="8" onclick="showcalendar(event, this, 0)">
+                                                           
+												</div>
+                                            
+                                                <div class="fl_r">
+                                                    <button class="submit" type="submit" name="sbt_search" value="{$_lang['search']}" style="padding:2px 10px">
+                                                        <span class="icon magnifier"></span>{$_lang['search']}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <!--date_table数据表格 start-->
+                                        <div class="data_list">
+                                            <table cellpadding="0" cellspacing="0" class="data_table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">
+                                                           图片/分类/标题
+                                                        </th>
+												
+                                                        <th scope="col" style="width:100px">
+                                                            定价
+                                                        </th>
+                                                        <th scope="col" style="width:105px">
+                                                            添加时间
+                                                        </th>
+														<th scope="col" style="width:40px">
+                                                            状态
+                                                        </th>
+                                                        <th scope="col" style="width:120px">
+                                                            {$_lang['operate']}
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {if $service_info}
+                                                    {loop $service_info $k $v}
+                                                    <tr>
+                                                        <td>
+                                                        	<div class="fl_l mr_10" style="width:80px;">
+                                                        	<img src="{$v['pic']}" style="width:80px; "/>
+															</div>
+															<div class="">
+																<!-- 
+															{if $v['service_type']=='1'}
+															<p>[ 劳务服务 ]</p>
+															{$service_indus_p_arr[$v['indus_pid']]['indus_name']} - {$service_indus_c_arr[$v['indus_id']]['indus_name']}
+															{elseif $v['service_type']=='2'}
+															<p>[ 创意产品 ]</p>
+															{$indus_p_arr[$v['indus_pid']]['indus_name']} - {$indus_c_arr[$v['indus_id']]['indus_name']}
+															{/if}
+															 -->
+															
+															{if $v['service_type']=='1'}
+															<p>[ 劳务服务 ]</p>
+															{elseif $v['service_type']=='2'}
+															<p>[ 创意产品 ]</p>
+															{/if}
+															<p><a href="#" title="{$v['title']}"><!--{eval echo kekezu::cutstr($v['title'],20)}--></a></p>
+															</div>
+                                                        </td>
+                                                        <td>
+                                                           <strong class="ea5e00">{$v['price']} {$_lang['yuan']}</strong> / {$price_unit[$v['unite_price']]}
+                                                        </td>
+                                                        <td>
+                                                            <!--{date('Y-m-d',$v['on_time'])}-->
+                                                        </td>
+                                                        <td>
+															{if $v['is_top']==1}
+															<span class="ea5e00">已推荐</span>
+															{else}
+															<span class="c999">未推荐</span>
+															{/if}
+                                                        </td>														
+                                                        <td>
+                                                            <a href="{$_K['siteurl']}/index.php?do=shelves&step=step2&service_id={$v['service_id']}">{$_lang['edit']}</a> |
+															{if $v['is_top']==1}
+															<a href="javascript:void(0);" onclick="siteSub('{$url}&service_id={$v[service_id]}&operate=cancel_rec',1,false);">取消推荐</a> |
+															{else}
+															<a href="javascript:void(0);" onclick="siteSub('{$url}&service_id={$v[service_id]}&operate=rec',1,false);">推荐</a> |
+															{/if}
+															
+															<a href="{$url}&service_id={$v['service_id']}&operate=del" onclick="return del(this);">{$_lang['delete']}</a>
+														</td>
+                                                    </tr>
+                                                    {/loop}
+                                                    {else}
+                                                    <tr>
+                                                        <td colspan="5" class="t_c">
+                                                            {$_lang['norecord']}
+                                                        </td>
+                                                    </tr>
+                                                    {/if}
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td colspan="5" class="t_r">
+                                                            {$_lang['total']}:{$count}{$_lang['ge']}
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                        <!--data_table数据表格 end-->
+                                        <div class="page clearfix">
+                                            <p>
+                                                {$pages['page']}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!--from表单 end-->
+                                </div>
+                            </article>
+                            <!--detail内容 end-->
+                        </div>
+                    </div>
+                    <!--main content end -->
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--main end-->
+    </div>
+</div>
+<!--contain end-->
+<script type="text/javascript">
+    function del(obj){
+	var url = obj.href;
+      showDialog("{$_lang['confirm_delete']}",'confirm',"{$_lang['operate_notice']}",function(){
+		 siteSub(url,1,false);
+		});return false;
+    }
+  </script>
+<!--{template user/user_footer}-->
+<!--{template footer}-->

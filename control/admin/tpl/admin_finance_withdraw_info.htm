@@ -1,0 +1,145 @@
+<!--{template control/admin/tpl/admin_header}--> 
+<div class="page_title">
+    	<h1>{$_lang['withdraw_audit']}</h1>
+        <div class="tool">
+            <a href="index.php?do={$do}&view={$view}" >{$_lang['withdraw_list']}</a>
+            <a href="index.php?do={$do}&view={$view}&withdraw_id={$withdraw_id}" class="here">{$_lang['withdraw_audit']}</a>
+    	</div>
+    </div>
+ <div class="box post">
+        <div class="tabcon">
+        	<div class="title"><h2>{$_lang['mention_now_info_audit']}</h2></div>
+            <div class="detail">
+                <form action="index.php?do=finance&view=withdraw&ac=pass&withdraw_id=$withdraw_id" method="post">
+                	<input type="hidden" name="is_submit" value="1">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <th scope="row" width="130">{$_lang['withdraw_applicant']}</th>
+                        <td> $withdraw_info['username']<a href="javascript:void(0);" class="button" onclick="showDetail($withdraw_info['uid']);"><span class="book icon"></span>查看财务明细</a></td>
+                      </tr>
+					  <tr>
+                        <th scope="row" width="130">提现金额</th>
+                        <td>
+                        	$withdraw_info['withdraw_cash']
+                        	{$_lang['yuan']}
+                        </td>
+                      </tr>
+					  <tr>
+                        <th scope="row" width="130">手续费</th>
+                        <td>
+                        	<!--{eval echo keke_finance_class::get_to_cash($withdraw_info['withdraw_cash'],$withdraw_info[pay_type]);}-->
+                        	{$_lang['yuan']}
+							(手续费用以实际情况为准)
+                        </td>
+                      </tr>
+					  <tr>
+                        <th scope="row" width="130">{$_lang['application_time']}</th>
+                        <td><!--{date('Y-m-d H:i:s',$withdraw_info['applic_time'])}--></td>
+                      </tr>
+					  {if $withdraw_info['withdraw_status']!=1}
+                      <tr>
+                        <th scope="row" width="130">处理时间</th>
+                        <td><!--{date('Y-m-d H:i:s',$withdraw_info['process_time'])}--></td>
+                      </tr>
+					  {/if}
+					  <tr>
+                        <th scope="row" width="130">{$_lang['accepts_state']}</th>
+                        <td>{$status_arr[$withdraw_info['withdraw_status']]}</td>
+                      </tr>
+					  <tr>
+                        <th scope="row" width="130">{$_lang['payment_method']}</th>
+                        <td>  {if in_array($withdraw_info['pay_type'],$k_arr)}
+								{$bank_arr[$withdraw_info['pay_type']]}
+							 {elseif $withdraw_info['pay_type']}
+							 	{$withdraw_info['pay_type']}
+							{else}
+								提现方式缺失
+							 {/if}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" width="130">收款地址</th>
+                        <td>$withdraw_info['bank_address']</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" width="130">{$_lang['payment_accoun']}</th>
+                        <td>$withdraw_info['pay_account']</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" width="130">{$_lang['collection_name']}</th>
+                        <td>{if $withdraw_info['pay_username']}$withdraw_info['pay_username']{else}暂未填写{/if}</td>
+                      </tr>
+					  {if $withdraw_info['withdraw_status']!=1}
+                      <tr>
+                        <th scope="row" width="130">备注</th>
+                        <td>{if $withdraw_info['remark']}$withdraw_info['remark']{else}暂未填写{/if}</td>
+                      </tr>
+					  {/if}
+					  <tr>
+					  	<!--{eval $user_space_info = kekezu::get_user_info( $withdraw_info ['uid'] );}-->
+                        <th scope="row" width="130">用户当前余额</th>
+                        <td><font color="red">{$user_space_info[balance]}</font></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">&nbsp;</th>
+                        <td>
+                        	<a onclick="showbankDetail('auth_bank','{$withdraw_info[uid]}');" href="javascript:void(0);">查看银行认证</a>
+							
+							{if $withdraw_info['withdraw_status']==1}
+							     <button class="positive primary button" id="submit_save" type="button" value="{$_lang['pass']}" onclick="pass('{$withdraw_info[withdraw_id]}');"><span class="icon check"></span>{$_lang['pass']}</button>
+                           	 	 <a href="javascript:void(0);" onclick="cancelpass($withdraw_info['withdraw_id']);" class="button"><span class="book icon"></span>取消打款</a>
+						   	{/if}
+                                <button class="pill button" type="button" value="{$_lang['return']}" onclick="javascript:history.go(-1);" ><span class="icon uparrow"></span>{$_lang['return']}</button>
+                            </div>
+                        </td>
+                      </tr>
+                    </table>
+                    
+                </form>
+            </div>
+        </div>
+<script type="text/javascript">
+	/**
+	* @param code 展示项
+	* @param uid 用户ID
+	*/
+	function showbankDetail(code,uid){
+		var url = "index.php?do=user&view=detail&u_id="+uid+'&code='+code;
+		art.dialog.open(url,{
+			title:'用户详情展示',
+			width:700
+			}
+		);
+	}
+
+	function pass(id){
+		var url = 'index.php?do={$do}&view={$view}&show=add_audit&withdraw_id='+id+'&page={$page}';
+		art.dialog.open(url,{
+			title:'提现审核',
+			width:500
+		});
+	}
+	
+	function cancelpass(id){
+		var url = 'index.php?do={$do}&view={$view}&show=cancel_audit&withdraw_id='+id+'&page={$page}';
+		art.dialog.open(url,{
+			title:'取消提现',
+			width:500
+		});
+	}
+	
+	/**
+	 * @param  code 展示项
+	 * @param  uid 用户ID
+	 */
+	function showDetail(uid){
+		var url = "index.php?do=user&view=detail&u_id="+uid+'&code=finance';
+		art.dialog.open(url,
+		{
+			title:'用户详情展示',
+			width:700,
+			height:500
+		}
+		);
+	}
+</script>
+    <!--{template control/admin/tpl/admin_footer}-->

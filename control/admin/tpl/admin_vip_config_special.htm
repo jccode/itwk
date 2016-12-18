@@ -1,0 +1,57 @@
+<!--{template control/admin/tpl/admin_header}--> 
+<div class="page_title">
+	<h1>vip配置</h1>
+     <div class="tool"> 
+        <a href="index.php?do=$do&view=$view">等级配置</a>
+        <a href="index.php?do=$do&view=$view&type=special" class="here">特权配置</a>
+	</div>
+</div>
+
+
+
+<div class="box list">
+    	<div class="title"><h2>vip特权列表</h2></div>
+        <div class="detail">
+			<form method="" action="" id="frm_user_search">
+		  		<table cellpadding="0" cellspacing="0">
+		  		  <tbody>
+		          <tr>
+		            <th>特权名称</th>
+					<th>特权描述</th>
+					<th>程序标识</th>
+					<th>操作</th>
+					
+		          </tr>
+				{loop $special_list $key $value}
+		        <tr class="item">
+		            <td>{$value['sp_name']}</td>
+		            <td width="50%">{$value[sp_desc]}</td>
+					<td>{$value['sp_key']}</td>
+					<td>
+						<a class="button dbl_target" href="index.php?do={$do}&view={$view}&type={$type}&sp_id={$value['sp_id']}&op=edit"><span class="pen icon"></span>编辑</a>
+						<a class="button dbl_target" href="index.php?do={$do}&view={$view}&type={$type}&sp_id={$value['sp_id']}&op=delete"><span class="pen icon"></span>删除</a>
+					</td>
+					
+		          </tr>
+				 {/loop}
+		          <tr>
+		          	<td colspan="4">
+		          		<a class="button" name="sbt_add" value={$_lang['credit_rules']} class="positive pill" 
+						href="index.php?do=$do&view=$view&op=edit&type=special"/>
+						<span class="check icon"></span>添加特权</a>	
+		          	</td>
+		          </tr>
+				  </tbody>
+		        </table>
+			</form>
+        </div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		$(".control").add(".title").click(function(){
+			$(".tip").children().not($(".control,.title")).slideToggle('800');
+		});
+	})
+</script>
+<!--主体结束-->
+<!--{template control/admin/tpl/admin_footer}-->

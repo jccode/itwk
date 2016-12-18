@@ -1,0 +1,558 @@
+<!--{template header}-->
+<style type="text/css">
+	ul,ul.square, ul.circle{ margin-top:0; margin-bottom:0;}
+	.form_button{ margin-top:0;}
+</style>
+<div class="winbody">
+ <div class="lineh_20">
+ <!--main content-->
+   <div class=" clearfix">
+     {if $ac == 'title'}
+		<div class="messages m_warn"><strong>标题长度不超过20个字</strong></div>
+		<div class="pl_20 pr_20 pb_20">
+		<dl>	
+		<dt><strong>通过网站数据分析得出：</strong></dt>
+		<dd>
+			<ul class="square">
+				<li>标题是影响任务完成质量的重要因素。</li>
+				<li>一个好的标题能吸引到更多优秀的威客，在标题里带上品牌名还能起到宣传推广的作用哦。</li>
+			</ul>
+		</dd>
+		<dt><strong>优秀任务标题的特征：</strong></dt>
+		<dd>
+			<ul class="square">
+				<li>容易识别，含义丰富</li>
+			</ul>
+		</dd>
+		<dt><strong>参考案例：</strong></dt>
+		<dd>
+			<ul class=" circle ">
+				<li>差：名片设计</li>
+				<li class="cc00">优秀：IT帮手网LOGO设计</li>
+				<li>一般：公司LOGO及名片设计</li>
+			</ul>
+			<ul class=" circle ">
+				<li>差：手绘图设计</li>
+				<li class="cc00">优秀：厦门集美连体橱柜产品手绘图设计</li>
+				<li>一般：连体橱柜手绘图设计</li>
+			</ul>
+		<dd>
+			</dl>
+	 	</div>
+		
+	 {elseif $ac == 'desc'}
+
+	 	<div class="tab pl_10 pr_10 pt_10">
+	 		
+			<a style="display:none;" href="javascript:void(0);" onclick="swaptab('tab','selected','',5,1)" class="selected" id="tab_tab_1">设计</a>
+			<a style="display:none;" href="javascript:void(0);" onclick="swaptab('tab','selected','',5,2)" id="tab_tab_2">文案</a>
+			<a href="javascript:void(0);" onclick="swaptab('tab','selected','',5,3)" id="tab_tab_3">编程</a>
+			<a style="display:none;" href="javascript:void(0);" onclick="swaptab('tab','selected','',5,4)" id="tab_tab_4">取名</a>
+			<a style="display:none;" href="javascript:void(0);" onclick="swaptab('tab','selected','',5,5)" id="tab_tab_5">计件</a>
+			
+	 	</div>
+		<div class="tab_detail pad0">
+			<div id="div_tab_1">
+            <div class="pad10">
+                <p>
+                    <strong>“客家人”厦门经营特色小吃的餐厅，LOGO设计及简单应用</strong>
+                </p>
+                <p>
+                    <strong>经营介绍：</strong>
+                    “客家人”是一家以经营特色小吃为主的快餐餐厅特色餐品“客家人”是用独特的传统工艺制作而成，口感独特，明显区别其它面种，传承百年，获奖无数。
+                </p>
+                <p>
+                    <strong>VI应用内容：</strong>设计LOGO、店面招牌设计(竖排，横排)、菜牌、名片、餐巾纸、筷子纸筒、牙签包装 、员工胸牌、服装设计。
+                </p>
+                <p>
+                    <strong>设计要求：</strong>
+                </p>
+                <ul class="ml_20">
+                    <li>
+                        1、大气、简洁、明快;
+                    </li>
+                    <li>
+                        2、有视觉冲击力，醒目易识别，突出餐饮品牌元素;
+                    </li>
+                    <li>
+                        3、能体现特色，LOGO已有，但如限制了设计师的创意，可重新设计。
+                    </li>
+                    <li>
+                        4、附上创意说明。
+                    </li>
+                </ul>
+                <p>
+                    <strong>知识产权说明：</strong>
+                </p>
+                <ul class="ml_20">
+                    <li>
+                        1、所设计的作品为原创，为第一次发布，未侵犯他人的著作权，如有侵犯他人著作权，由设计者承担所有法律责任;
+                    </li>
+                    <li>
+                        2、中标的设计作品，我方支付设计制作费，即拥有该作品的知识产权，包括著作权,使用权和发布权等,有权对设计作品进行修改,组合和应用;设计者不得再向其他任何地方使用该设计作品;
+                    </li>
+                </ul>
+            </div>
+		<div class=" ws_prewrap ws_break hidden">“客家人”厦门经营特色小吃的餐厅，LOGO设计及简单应用
+		经营介绍： “客家人”是一家以经营特色小吃为主的快餐餐厅特色餐品“客家人”是用独特的传统工艺制作而成，口感独特，明显区别其它面种，传承百年，获奖无数。
+		VI应用内容：设计LOGO、店面招牌设计(竖排，横排)、菜牌、名片、餐巾纸、筷子纸筒、牙签包装 、员工胸牌、服装设计。
+		设计要求：
+		    1、大气、简洁、明快;
+		    2、有视觉冲击力，醒目易识别，突出餐饮品牌元素;
+		    3、能体现特色，LOGO已有，但如限制了设计师的创意，可重新设计。
+		    4、附上创意说明。
+		知识产权说明：
+		    1、所设计的作品为原创，为第一次发布，未侵犯他人的著作权，如有侵犯他人著作权，由设计者承担所有法律责任;
+		    2、中标的设计作品，我方支付设计制作费，即拥有该作品的知识产权，包括著作权,使用权和发布权等,有权对设计作品进行修改,组合和应用;设计者不得再向其他任何地方使用该设计作品;
+		</div>
+		<div class="form_button">
+			<a href="javascript:void(0)" class="button bwhite"  id="tpl_1">使用模板</a>
+		</div>
+	</div>
+	<div class="hidden" id="div_tab_2">
+	    <div class="pad10">
+	        <p>
+	            软文主要围绕“节能灯”来写，要以消费者(可以是公司、网吧、酒店、工厂、超市，学校任意)需求来讲述通过使用该产品的效果，不能太过于做作.要有针对性。考虑到很多威客对我们公司不熟悉，了解产品请登录：www.XXXXXXcom ，详细了解大家可以和我直接联系，我的QQ是 xxxxxx
+	        </p>
+	        <p>
+	            <strong>软文要求：</strong>
+	        </p>
+	        <ul class="ml_20">
+	            <li>
+	                1、软文将用于发布在各种行业论坛及博客，标题和内容绝对不能有广告味，要能引起点击和共鸣，能吸引网友参与讨论或点击浏览
+	            </li>
+	            <li>
+	                2、文章要有吸引力，有趣味性， 要站在用户的角度来描写，帖子内容与标题给人感觉以个人感受、经验分享或消费经历为表现形式,以宣传推广我司业务。
+	            </li>
+	            <li>
+	                3、要求原创(不能在网上搜了抄袭)，文笔或专业，或幽默，或结合时事，具备新闻性皆可。不要做的太像推广。
+	            </li>
+	            <li>
+	                4、附上创意说明。
+	            </li>
+	        </ul>
+	        <p>
+	            <strong>知识产权说明：</strong>
+	        </p>
+	        <ul class="ml_20">
+	            <li>
+	                1、所设计的作品为原创，为第一次发布，未侵犯他人的著作权，如有侵犯他人著作权，由设计者承担所有法律责任;
+	            </li>
+	            <li>
+	                2、中标的设计作品，我方支付设计制作费，即拥有该作品的知识产权，包括著作权,使用权和发布权等,有权对设计作品进行修改,组合和应用;设计者不得再向其他任何地方使用该设计作品;
+	            </li>
+	        </ul>
+	    </div>
+		<div class=" ws_prewrap ws_break hidden">软文主要围绕“节能灯”来写，要以消费者(可以是公司、网吧、酒店、工厂、超市，学校任意)需求来讲述通过使用该产品的效果，不能太过于做作.要有针对性。考虑到很多威客对我们公司不熟悉，了解产品请登录：www.XXXXXXcom ，详细了解大家可以和我直接联系，我的QQ是 xxxxxx
+		软文要求：
+		    1、软文将用于发布在各种行业论坛及博客，标题和内容绝对不能有广告味，要能引起点击和共鸣，能吸引网友参与讨论或点击浏览
+		    2、文章要有吸引力，有趣味性， 要站在用户的角度来描写，帖子内容与标题给人感觉以个人感受、经验分享或消费经历为表现形式,以宣传推广我司业务。
+		    3、要求原创(不能在网上搜了抄袭)，文笔或专业，或幽默，或结合时事，具备新闻性皆可。不要做的太像推广。
+		    4、附上创意说明。
+		知识产权说明：
+		    1、所设计的作品为原创，为第一次发布，未侵犯他人的著作权，如有侵犯他人著作权，由设计者承担所有法律责任;
+		    2、中标的设计作品，我方支付设计制作费，即拥有该作品的知识产权，包括著作权,使用权和发布权等,有权对设计作品进行修改,组合和应用;设计者不得再向其他任何地方使用该设计作品;
+		</div> 
+		<div class="form_button">
+			<a href="javascript:void(0)" class="button bwhite"  id="tpl_2">使用模板</a>
+		</div>			
+	</div>
+	<div class="hidden" id="div_tab_3">
+	<div class="pad10">
+	        <p>
+	            想找一个熟悉microship芯片12F系列的朋友，在读懂程序功能的基础上，写出功能流程说明和注解，整理出流程合理的汇编源码，已有microship 8位 mcus的hex文件。这是一个比较简单的小程序。希望高手帮忙。提交物分两部分：
+	        </p>
+	        <p>
+	            <strong>1. 程序功能说明：</strong>
+	        </p>
+	        <p>
+	            这个程序在芯片中的工作流程说明和流程图，针脚的定义，输入输出信息。
+	        </p>
+	        <p>
+	            <strong>2.汇编源码</strong>
+	        </p>
+	        <p>
+	            <strong>特别注意:</strong>
+	        </p>
+	        <ul class="ml_20">
+	            <li>
+	                a.要求的不是简单的反汇编，而是在读懂程序功能基础上，给出设计合理的汇编源码。
+	            </li>
+	            <li>
+	                b.说明如何修改代码控制芯片管脚输入输出值。
+	            </li>
+	            <li>
+	                c.要求必须对每行加以注释，使新手可以读懂。
+	            </li>
+	        </ul>
+	        <p>
+	            附件中是hex文件和配置字，如果有不清楚的地方，随时联系。谢谢。
+	        </p>
+	    </div>
+		<div class=" ws_prewrap ws_break hidden">想找一个熟悉microship芯片12F系列的朋友，在读懂程序功能的基础上，写出功能流程说明和注解，整理出流程合理的汇编源码，已有microship 8位 mcus的hex文件。这是一个比较简单的小程序。希望高手帮忙。提交物分两部分：
+		1. 程序功能说明：
+		这个程序在芯片中的工作流程说明和流程图，针脚的定义，输入输出信息。
+		2.汇编源码
+		特别注意:
+		    a.要求的不是简单的反汇编，而是在读懂程序功能基础上，给出设计合理的汇编源码。
+		    b.说明如何修改代码控制芯片管脚输入输出值。
+		    c.要求必须对每行加以注释，使新手可以读懂。
+		附件中是hex文件和配置字，如果有不清楚的地方，随时联系。谢谢。
+		</div>
+		<div class="form_button">
+			<a href="javascript:void(0)" class="button bwhite" id="tpl_3">使用模板</a>
+		</div>
+	</div>
+	<div class="hidden" id="div_tab_4">
+	    <div class="pad10 ">
+	        <p>
+	            服装公司名称征集，本公司位于广州。
+	        </p>
+	        <p>
+	            经营介绍： 主营男装的设计和销售，也有部分女装，消费人群以18-35岁男性为主， 服装特色：时尚休闲而不招摇，成熟稳重而不古板。
+	        </p>
+	        <p>
+	            <strong>产品主要三类：</strong>
+	        </p>
+	        <ul class="ml_20">
+	            <li>
+	                1、是专注为年轻商务一族打造修身、简约、舒适的商务西服，衬衫
+	            </li>
+	            <li>
+	                2、是简约休闲西装，现在流行的欧版韩版，类似汉崇，道蒙。。。
+	            </li>
+	            <li>
+	                3、是偏商务的休闲类服饰，比较如POLO。。。
+	            </li>
+	        </ul>
+	        <p>
+	            <strong>要求：</strong>
+	        </p>
+	        <ul class="ml_20">
+	            <li>
+	                1、名称响亮，易记，文雅，有创意但不失稳重;(必需可以注册公司的)
+	            </li>
+	            <li>
+	                2、最好有中、英文两种名称，并可注册商标
+	            </li>
+	            <li>
+	                3、附上创意说明。
+	            </li>
+	        </ul>
+	        <p>
+	            <strong>知识产权说明：</strong>
+	        </p>
+	        <ul class="ml_20">
+	            <li>
+	                1、所设计的作品为原创，为第一次发布，未侵犯他人的著作权，如有侵犯他人著作权，由设计者承担所有法律责任;
+	            </li>
+	            <li>
+	                2、中标的设计作品，我方支付设计制作费，即拥有该作品的知识产权，包括著作权,使用权和发布权等,有权对设计作品进行修改,组合和应用;设计者不得再向其他任何地方使用该设计作品;
+	            </li>
+	        </ul>
+	    </div>
+		<div class=" ws_prewrap ws_break hidden">服装公司名称征集，本公司位于广州。
+		经营介绍： 主营男装的设计和销售，也有部分女装，消费人群以18-35岁男性为主， 服装特色：时尚休闲而不招摇，成熟稳重而不古板。
+		产品主要三类：
+		    1、是专注为年轻商务一族打造修身、简约、舒适的商务西服，衬衫
+		    2、是简约休闲西装，现在流行的欧版韩版，类似汉崇，道蒙。。。
+		    3、是偏商务的休闲类服饰，比较如POLO。。。
+		要求：
+		    1、名称响亮，易记，文雅，有创意但不失稳重;(必需可以注册公司的)
+		    2、最好有中、英文两种名称，并可注册商标
+		    3、附上创意说明。
+		知识产权说明：
+		    1、所设计的作品为原创，为第一次发布，未侵犯他人的著作权，如有侵犯他人著作权，由设计者承担所有法律责任;
+		    2、中标的设计作品，我方支付设计制作费，即拥有该作品的知识产权，包括著作权,使用权和发布权等,有权对设计作品进行修改,组合和应用;设计者不得再向其他任何地方使用该设计作品;
+		</div>
+		<div class="form_button">
+			<a href="javascript:void(0)" class="button bwhite" id="tpl_4">使用模板</a>
+		</div>			
+	</div>
+	 <div class="hidden" id="div_tab_5">
+				  <div class="pad10 ">
+				  	
+				  	<p><strong>标题：</strong>电子商务网站计件推广</p>
+					<p><strong>条件：</strong>QQ群发送，每3个QQ群为一稿，一份稿件为1元，多劳多得。</p>
+					<p><strong>QQ群要求：</strong>QQ群人数需要在100人以上，在线人数必须超过30人.超过200人的超级群优先审核。在线人数不够30人的可以多发一个群。
+	</p>
+					<p><strong>发送对象：</strong>求职、招聘、服装、交友、星座等QQ群。</p>
+					<p><strong>交稿条件：</strong>发送结束后提交一整张完整的对话框截图，截图包含(QQ群名称、QQ群总人数、在线人数和任务广告)
+	</p>
+					<p><strong>文案字体：</strong>宋体12 红色</p>
+					<p>发布内容请下载附件。（需要上传附件）</p>
+					<p><strong>完成时限：</strong>X月X日X时截止。</p>
+					
+					</div>
+		<div class=" ws_prewrap ws_break hidden">标题：电子商务网站计件推广
+		条件：QQ群发送，每3个QQ群为一稿，一份稿件为1元，多劳多得。
+		QQ群要求：QQ群人数需要在100人以上，在线人数必须超过30人.超过200人的超级群优先审核。在线人数不够30人的可以多发一个群。
+		发送对象：求职、招聘、服装、交友、星座等QQ群。
+		交稿条件：发送结束后提交一整张完整的对话框截图，截图包含(QQ群名称、QQ群总人数、在线人数和任务广告)
+		文案字体：宋体12 红色
+		发布内容请下载附件。（需要上传附件）
+		完成时限：X月X日X时截止。
+		</div>
+		<div class="form_button">
+			<a href="javascript:void(0)" class="button bwhite" id="tpl_5">使用模板</a>
+		</div>
+	</div>
+</div>
+
+	 {elseif $ac == 'file'}
+	 	<div class=" pad10 ">
+            <p>1. 上传附件支持常见的办公软件文档格式(office文档格式)，常见的压缩文件格式(rar,zip,7z)，常见的图片格式(jpg,png,gif)等，其他不常见的格式建议压缩成RAR文档再上传。</p>
+<p>2. 每个文件尺寸大小不得超过2M。</p>
+<p>3. 上传附件最大数量是5个。</p>
+<p>4. 图形文件不支持CMYK模式(将无法会被正常显示)。</p>
+<p>5. 文件名称须符合正常规范(勿在文件名中包含其他符号，如点号等)</p>
+        </div>
+	{elseif $ac == 'fl'}
+	<div class="bang_weihu">
+                     	<script type="text/javascript">
+$(document).ready(function() {
+$(".showmenff ul li").first().css("display","block");
+    $(".menuinfoff > ul >li").mousemove(function(){
+$(this).addClass("menuoverff").siblings(this).removeClass("menuoverff");	
+$(".showmenff ul li").eq($(".menuinfoff > ul >li").index(this)).css("display","block").siblings().css("display","none");
+
+});
+
+});
+</script>
+
+                     	    <div class="menuinfoff">
+   <ul>
+    <li style="border-left:none;" class="menuoverff">维护</li>
+    <li>开发</li>
+<li >测试</li>
+    <li>租贷</li>
+    <li>推广</li>
+   </ul>
+</div>
+                            <div class="showmenff flbj">
+   <ul>
+      <li>
+                  		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1858" >电脑及配件</a></dt>
+                                                                                                                                                                                                                                          <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1864">显示器</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1865">一体电脑</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1866">硬盘</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1859">服务器</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1860">工作站</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1861">台式机</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1862">笔记本</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1863">平板电脑</a></dd>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+</dl>
+         		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1867" >系统/软件</a></dt>
+                                                                                                                                                                                                          <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1897">生产控制系统</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1898">企业资产管理</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1899">中间件</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1900">其他系统/软件</a></dd>
+          <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1894">操作系统</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1895">数据库</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1896">ERP软件</a></dd>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+</dl>
+         		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1869" >网络</a></dt>
+                                                                                                                                                              <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1910">网吧</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1911">企业</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1912">家庭</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1913">社区</a></dd>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+</dl>
+         		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1868" >数码设备</a></dt>
+                                                                                                                                                      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1908">GPS</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1909">移动终端</a></dd>
+                          <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1902">单反/数码相机</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1903">MP3/MP4</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1904">摄像机</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1905">电子书</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1906">移动存储</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1907">音响</a></dd>
+                      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1901">手机</a></dd>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+</dl>
+         		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1870" >企业办公设备</a></dt>
+                                                                                                                              <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1915">网络设备</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1916">投影仪</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1917">扫描仪</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1918">安防监控</a></dd>
+      <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1919">一体机</a></dd>
+                                  <dd > <a href="http://127.0.0.1/index.php?do=indus&indus_id=1914"> 打印机</a></dd>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+</dl>
+                                                                  
+      </li>
+      <li>
+      	                                 		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1871" >租赁</a></dt>
+                                                                                                      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1921">网站设计/开发</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1922">应用租赁</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1923">控件制作</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1924">插件开发</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1925">第三方API开发</a></dd>
+                              <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1920">游戏设计/开发</a></dd>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+</dl>
+          		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1872" >系统构建/实施</a></dt>
+                                                          <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1932">企业存储</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1933">安防系统</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1934">邮件系统</a></dd>
+                  <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1927">ERP软件</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1928">企业资产管理</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1929">生产控制</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1930">云计算</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1931">网络安全</a></dd>
+                          <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1926">数据库</a></dd>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+</dl>
+          		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1873" >硬件设计/开发</a></dt>
+                              <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1938">MP3|MP4</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1939">音响</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1940">PLC及工控</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1941">单片机</a></dd>
+                              <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1935">手机</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1936">DVD</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1937">数码相机</a></dd>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+</dl>
+              		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1958" >移动应用</a></dt>
+                                                                                                                                                                                                                                                                                                      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1959">游戏</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1960">Android开发</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1961">ios开发</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1962">Windows Mobile开发</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1963">Symbian开发</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1964">应用移植</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1965">系统定制</a></dd>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+</dl>
+                                                                          </li>
+      <li>
+      	                           		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1874" >硬件</a></dt>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1945">音响</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1946">PC硬件</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1947">服务器</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1948">电视</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1949">游戏机</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1950">其它</a></dd>
+                      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1942">手机</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1943">DVD</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1944">数码相机</a></dd>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+</dl>
+                                    		<dl>
+
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1875" >软件</a></dt>
+                                                                                                                                                                                                                                                                          <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1951">手机应用</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1952">手机游戏</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1953">PC应用</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1954">PC游戏</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1955">服务器应用软件</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1956">游戏代练</a></dd>
+      <dd> <a href="http://127.0.0.1/index.php?do=indus&indus_id=1957">数码设备应用软件</a></dd>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+</dl>
+            </li>
+      <li>
+                                                                   		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1880" >打印机</a></dt>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+</dl>
+         		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1881" >投影仪</a></dt>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+</dl>
+         		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1882" >一体机</a></dt>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+</dl>
+         		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1883" >网络交换机</a></dt>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+</dl>
+         		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1884" >扫描仪</a></dt>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+</dl>
+               		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1877" >服务器租赁</a></dt>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+</dl>
+         		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1878" >工作站租赁</a></dt>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+</dl>
+         		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1879" >存储租赁</a></dt>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+</dl>
+      </li>
+  <li>
+                                                           		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1891" >搜索引擎优化</a></dt>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+</dl>
+          		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1893" >推广注册</a></dt>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+</dl>
+          		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1886" >网店推广</a></dt>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+</dl>
+          		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1887" >游戏推广</a></dt>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+</dl>
+          		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1888" >博客推广</a></dt>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+</dl>
+          		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1889" >论坛推广</a></dt>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+</dl>
+          		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1890" >QQ推广</a></dt>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+</dl>
+                              		<dl>
+<dt><a href="http://127.0.0.1/index.php?do=indus&indus_id=1885" >网站推广</a></dt>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+</dl>
+                      </li>
+   </ul>
+</div>
+                     </div>
+		
+	 {/if}
+  </div>
+
+ </div>
+</div>
+<script src="{$_K['siteurl']}/resource/js/jquery.bgiframe.pack.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$('.form_button a.bwhite').click(function(){
+			var id = $(this).attr('id');
+				id = id.substring(4);
+			var textpost = $('#div_tab_'+id+' .pad10').html();
+			$("#tar_content").val(textpost).triggerHandler('keydown');
+			$('#msg_content').removeClass().empty();
+			hideWindow('release');
+		})
+		$('div.fwinmask').bgiframe();
+	})
+</script>
+
+<!--{template footer}-->

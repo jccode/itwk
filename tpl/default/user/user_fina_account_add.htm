@@ -1,0 +1,234 @@
+<!--{template header}-->
+<!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+        <!--{template user/user_nav}-->
+		<!--main start-->
+        <section class="clearfix section">
+            <!--{template user/user_side}-->
+            <div class="show_panel ">
+		        <div class="">
+		            <div class="">
+		                <!--main content-->
+		                <div class=" clearfix box default">
+                            <!--header内容头部 start-->
+                            <header class="clearfix box_header">
+                                <h2 class="box_title">{$_lang['bank_account']}</h2>
+                                <nav class="box_nav">
+                                    <ul>
+                                     <li class="selectedLava">
+                                    	<a href="{$origin_url}&op={$op}&opp=list#userCenter">银行账户</a>
+                                	</li>
+                                    </ul>
+                                </nav>
+                                <div class="clear">
+                                </div>
+                            </header>
+                            <!--detail内容 start-->
+                            <article class="box_detail">
+								{if $step=='step1'}
+                                    <div class="clear">
+                                    </div>
+                                    <div class="form_box pt_20">
+                                        <!--from表单 start-->
+                                        <form action="{$ac_url}&step={$step}" id="frm" name="frm" method="post">
+                                            <input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+
+                                            <div class="rowElem clearfix">
+                                                <label class="grid_6 t_r">
+                                                 	开户人姓名{$_lang['zh_mh']}
+                                                </label> 
+                                               <strong>{$auth_realname_arr['realname']}</strong>
+                                                <div class="clear">
+                                                </div>
+                                                <div class=" prefix_6 c999">
+                                                   {$_lang['realname_no_need_to_retry']}
+                                                </div>
+                                            </div>
+                                         	
+                                            <div class="rowElem clearfix">
+                                                <label class="grid_6 t_r">
+                                                   	所属银行 {$_lang['zh_mh']}
+                                                </label>
+                                                <select name="conf[bank_name]" style="width:180px;">
+                                                    {loop $bank_arr $k $v}
+													   {if $k != 'alipayjs'} <!-- 暂时屏蔽支付宝 -->
+													     <option value="{$k}">{$v}</option>
+													   {/if}
+                                                    {/loop}
+                                                </select>
+												<a href="javascript:void(0);" onclick="$('#auto_bank').toggle();">自选银行</a>
+												  <div class="clear">
+                                                </div>
+												<div class="pt_5" id="auto_bank" style="display:none;"><label class="grid_6">&nbsp;</label>
+												<input type="text" name="bank_name" id="bank_name" limit="require:false;len:4-30" msg="请正确填写银行名称，4-30字符" title="请填写您的自选银行名称" msgArea="span_bank_name">
+												<span id="span_bank_name"></span>自行填写银行名称
+												</div>
+                                                <div class=" prefix_6 c999">
+                                                    {$_lang['must_use_realname']}
+                                                </div>
+                                            </div>
+											  <div class="rowElem clearfix">
+                                                <label class="grid_6 t_r">
+                                                  开户行地区{$_lang['zh_mh']}
+                                                </label>
+													<select name="province" id="province"></select><select name="city" id="city"></select><select name="area"></select>
+                                                <div class="clear">
+                                                </div>
+                                                <div class=" prefix_6 c999">
+                                                    {$_lang['tips_about_select_city']}
+                                                </div>
+                                            </div>
+                                            <div class="rowElem clearfix">
+                                                <label class="grid_6 t_r">
+                                                    开户行名称 {$_lang['zh_mh']}
+                                                </label>
+                                              <input name="conf[bank_sub_name]" id="bank_sub_name" type="text" size="35"  style="color:#999"/>
+                                                <div class="clear">
+                                                </div>
+                                                <div class=" prefix_6 c999">
+                                                    请填写您的开户行名称
+                                                </div>
+                                            </div>
+									     
+                                            <div class="rowElem clearfix">
+                                                <label class="grid_6 t_r">
+                                                    {$_lang['bank_account_num']}{$_lang['zh_mh']}
+                                                </label>
+                                                <input name="conf[card_num]" id="card_num" type="text"
+												 size="35" onkeyup="clearstr(this)" limit="required:true;type:digit;len:16-19"
+												  msg="{$_lang['error_account_format']}" title="{$_lang['tips_about_bank_account_num_length']}"
+												   ajax="{$ac_url}&step=step1&check_bank="
+												    msgArea="span_card_num" onpaste="return false"/><span id="span_card_num"></span>
+                                            </div>
+                                            <div class="rowElem clearfix">
+                                                <label class="grid_6 t_r">
+                                                    确认银行卡号{$_lang['zh_mh']}
+                                                </label>
+                                                <input name="re" id="re" type="text" size="35" msgArea="span_re_card" onkeyup="clearstr(this)" limit="required:true;type:digit;equals:card_num" title="{$_lang['confirm_id_num']}" msg="{$_lang['inconformity_with_first_input']}" onpaste="return false"/><span id="span_re_card"></span>
+                                            </div>
+                                            <div class="rowElem clearfix form_button">
+                                                <button value="{$_lang['confirm']}" id="account_add" name="account_add" type="button" class="submit step3_bu" onclick="siteSub('frm',2,true)">{$_lang['confirm']}</button>
+                                            </div>
+                                        </form>
+                                        <!--from表单结束 -->
+                                    </div>
+									
+<script type="text/javascript">
+In('form','pcas',function(){ 
+			 new PCAS("province","city","area")
+});
+</script>
+                                    <div class="clear"></div>
+                                    {elseif $step=='step2'}
+                                    <div class="box form_box ml_40 mr_40 border_n" style="margin-top:0">
+                                        <div class="form_tip pad10">
+                                           银行账户设置成功{if $user_info['auth_bank'] != 1} <a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=bank#userCenter">立即银行卡认证</a>{/if}
+                                        </div>
+                                        <div class="prefix_5 suffix_5">
+                                            <div class="completedata">
+                                                <ul>
+                                                    <li>
+                                                        <div class="pad10">
+                                                            <div class="clear">
+                                                            </div>
+                                                            <div class=" grid_3 ">
+                                                               开户人名称{$_lang['zh_mh']}
+                                                            </div>
+                                                            <div class=" grid_5 ">
+                                                                <div class="font14b">
+                                                                    {$bank_info['real_name']}
+                                                                </div>
+                                                            </div>
+                                                            <div class="clear">
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="pad10">
+                                                            <div class="clear">
+                                                            </div>
+                                                            <div class=" grid_3 ">
+                                                               银行类型{$_lang['zh_mh']}
+                                                            </div>
+                                                            <div class=" grid_5 ">
+                                                                <div class="font14b">
+                                                                    {if $bank_arr[$bank_info['bank_name']]}{$bank_arr[$bank_info['bank_name']]}{else}$bank_info['bank_name']{/if}
+                                                                </div>
+                                                            </div>
+                                                            <div class="clear">
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="pad10">
+                                                            <div class="clear">
+                                                            </div>
+                                                            <div class=" grid_3 ">
+                                                               开户行名称{$_lang['zh_mh']}
+                                                            </div>
+                                                            <div class=" grid_5 ">
+                                                                <div class="font14b">
+                                                                    {$bank_info['bank_sub_name']}
+                                                                </div>
+                                                            </div>
+                                                            <div class="clear">
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                            	 <li>
+                                                        <div class="pad10">
+                                                            <div class="clear">
+                                                            </div>
+                                                            <div class=" grid_3 ">
+                                                               开户行地区{$_lang['zh_mh']}
+                                                            </div>
+                                                            <div class=" grid_5 ">
+                                                                <div class="font14b">
+                                                                    {$bank_info['bank_address']}
+                                                                </div>
+                                                            </div>
+                                                            <div class="clear">
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="pad10">
+                                                            <div class="clear">
+                                                            </div>
+                                                            <div class=" grid_3 ">
+                                                                {$_lang['bank_account_num']}{$_lang['zh_mh']}
+                                                            </div>
+                                                            <div class=" grid_5 ">
+                                                                <div class="font14b">
+                                                                    {$bank_info['card_num']}
+                                                                </div>
+                                                            </div>
+                                                            <div class="clear">
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/if}
+                            </article>
+                            <!--detail内容 end-->
+                        </div>
+                        <!--main content end -->
+                        <div class="clear">
+                        </div>
+                    </div>
+                </div>
+                </section>
+                <!--main end-->
+            </div>
+			
+            </div>
+            <!--contain end-->
+
+<!--contain end-->
+<!--{template user/user_footer}-->
+<!--{template footer}-->

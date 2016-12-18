@@ -1,0 +1,27 @@
+<link href="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/horizontal.css" rel="stylesheet" type="text/css" charset="utf-8">
+<link href="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/vertical.css" rel="stylesheet" type="text/css" charset="utf-8">
+
+<ul class="clearfix fl_l ">
+	<li  {if !$view||$view=='index'}class="selected"{/if}><a href="{$ac_url}&view=index">$user_type_arr[$shop_info['user_type']]首页</a></li>
+	<li {if $view=='case_list'||$view=='case_info'}class="selected"{/if}><a href="{$ac_url}&view=case_list">案例展示</a></li>
+	<li {if $view=='service_list'||$view=='service_info'}class="selected"{/if}><a href="{$ac_url}&view=service_list">出售服务</a></li>
+	<li {if $view=='mark'}class="selected"{/if}><a href="{$ac_url}&view=mark">交易记录</a></li>
+	<li {if $view=='desc'}class="selected"{/if}><a href="{$ac_url}&view=desc">商铺介绍</a></li>										
+</ul>
+{if $shop_info['uid']==$uid}
+<ul class="clearfix fl_r login_nav_list">
+	{if $shop_info['shop_level']>1}
+		<li {if $view=='match_list'||$view=='match_set'}class="selected"{/if}>
+		<a href="{$ac_url}&view=match_list">同城速配</a></li>
+	{/if}
+	<li><a href="{$_K['siteurl']}/index.php?do=user&view=space" rel="nofollow">管理商铺</a></li>
+	{if $shop_info['shop_level']>1}
+	<li {if $view=='diy'}class="selected"{/if}>
+		<a href="{$ac_url}&view=diy">个性装修</a></li>
+	{/if}
+</ul>
+{/if}
+
+{if $shop_info['shop_level']>1}
+<!--{template shop/section_kf}-->
+{/if}

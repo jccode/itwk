@@ -1,0 +1,472 @@
+<!--{template header}--><!--{template header_nav_task}-->
+<!--首页样式--> 
+<script src="resource/js/uploadify/jquery.uploadify-3.1.min.js" type="text/javascript"></script>
+<link href="resource/js/uploadify/uploadify.css" rel="stylesheet">
+
+ <!--内容区 satrt-->
+<div class="wrapper clearfix">
+	<div class="container_24 clearfix"> 
+		<div class="clearfix">
+		<!--所在位置  start-->
+    	<div class="breadcrumbs clearfix">
+    		<span class="site">你的位置：</span>
+			<a href="index.php">一品威客首页首页</a>
+			<span class="font_simsun">&gt;</span>
+			<a href="{$_K['siteurl']}/index.php?do=indus&indus_id={$task_info[indus_pid]}">{$indus_p_arr[$task_info[indus_pid]][indus_name]}</a>
+			<span class="font_simsun">&gt;</span>
+			<a href="{$_K['siteurl']}/index.php?do=indus&indus_id={$task_info[indus_id]}">{$indus_arr[$task_info[indus_id]][indus_name]}</a>
+    	</div>
+		<!--所在位置 end-->
+		
+	<!--任务详情detail部分  start-->
+		<div class="rwxq_box mt_10 fl_l" id="taskScroll">
+			<div class="rwxq_detail">
+				<h1 class="title pad10"><span class="pr_10">{$task_info['task_cash']}</span>{$task_info['task_title']}</h1>
+				<ul class="mar10 clearfix">
+					<li class="task_state clearfix" >
+						<div class="fl_l">
+							<strong>任务状态：<span class="task_info">$time_desc[ext_desc]</span></strong>
+							<p>{if $time_desc['time']}<span class="pr_5 mb_5"><img src="{SKIN_PATH}/theme/{$_K['theme']}/img/task/time.gif"></span>{$time_desc['time_desc']}还有<span> <!--{eval echo kekezu::time_to_units($time_desc[time])}--></span>{else}<span>{$time_desc['time_desc']}</span>{/if}</p>
+						</div>
+						<div class="fl_r mt_30"><a href="#"></a></div>
+						<div id="d_detail_more_1" class="mode_detail" style="display:none">
+							  <p>任务赏金：<span style="color:#f00;">$task_info['task_cash']</span></p>
+					          <p>开始时间：<span style="color:#f00;"><!--{date('Y-m-d H:i:s',$task_info['start_time'])}--></span></p>
+					          <p>结束时间：<span style="color:#f00;"><!--{date('Y-m-d H:i:s',$task_info['sub_time'])}--></span></p>
+						</div>
+					</li>
+					
+					<li>
+						<div class="fl_l">
+							<p>任务模式：<strong>全额悬赏</strong></p>
+							<p>中标模式：<strong>单人中标</strong></p>
+						</div>
+						<div class="fl_r mt_30"><a href="#"></a></div>
+						<div id="d_detail_more_2" class="mode_detail more"  style="display:none">
+							雇主将选1个中标，{$task_info[notice_count]}个入围<br>
+							中标者获得赏金的{$task_config[task_rate]}%
+ 
+该任务入围人数设置{$task_info[notice_count]}人，平分赏金的{$task_config[notice_rate]}%；<br><!--{eval echo 100-$task_config[task_rate]-$task_config[notice_rate]}-->%做为推广员专项资金。</div>
+					</li>
+					
+					<li class="last_bor" >
+						<div class="fl_l">
+							<p>赏金状态：<strong>{if $task_info['cash_status']}雇主已托管赏金{else}雇主未托管赏金{/if}</strong></p>
+							<p>保证选稿：<strong>{if $task_info[must_choosework]}威客可放心交稿{else}该任务未保证选稿{/if}</strong></p>
+						</div>
+						<div class="fl_r mt_30"><a href="#"></a></div>
+						<div id="d_detail_more_3" class="mode_detail more"  style="display:none">
+							{if $task_info[must_choosework]}
+								1.雇主已经将赏金全额托管到一品威客网<br>
+								2.只要稿件是有效稿件，且数量满足中标模式要求，雇主就必须选稿。<br>
+								3.任务结束后雇主有7天时间选稿，如逾期未选，将由系统代为处理。<span onclick="lottery_notice();" style="color:#ea5e00;cursor:pointer;">查看系统处理规则</span>
+							{else}
+								1.雇雇主已经将赏金全额托管到一品威客网<br>
+								2.此任务未保证选稿，雇主可能不满意您的作品，并申请全额退款。<br>
+								3.任务进行过程雇主可随时保证选稿。
+							{/if}
+							
+							<script>
+								function lottery_notice(){
+									showDialog("<span style=\"font-size:12px;color:orange\">为了维护广大威客朋友权益，针对全额悬赏任务雇主不选标或者弃标等情况做出如下处理规则：</span><br><br><b>全额悬赏任务:</b>摇奖处理，所有有效稿件都有摇奖资格，中奖者分任务金额的{$task_config[lottery_main_rate]}%，{$task_config[lottery_other_rate]}%平分其他参与威客，<!--{eval echo 100-$task_config[lottery_main_rate]-$task_config[lottery_other_rate]}-->%属于推广员专项资金", 'notice', "一品温馨提示", '', 0);
+								}
+							</script>
+						</div>
+					</li>
+				</ul>
+				<script type="text/javascript">
+							$(function(){
+								$('.rwxq_detail ul li').hover(function(){
+									$(this).children('div').eq(2).show();
+								},function(){
+									$(this).children('div').eq(2).hide();
+								})
+							})
+						</script>
+				<p class="mar10">此任务{if $task_info['task_status']==1}正等待审核中{elseif $task_info['task_status']==-1}尚未发布成功{elseif $task_info['task_status']==0}尚未付款{elseif $task_info['task_status']==2} {if $search_condit[11]}<b style="color:red">雇主已提前选稿，交稿进入24小时倒计时</b>{else}正接受投稿中{/if} {elseif $task_info['task_status']==3}正等待雇主选稿{elseif $task_info['task_status']==4}正在摇奖中{elseif $task_info['task_status']==5}已进入公示{elseif $task_info['task_status']==7}暂时被冻结{else}已结束{/if}，您可以：</p>
+			</div>
+			<div class="rwxq_activit clearfix">			
+				<a href="{$basic_url}#task_desc_cont" onclick="$('#desc_toggle_a').html('↑收起');$('#task_desc_cont').show()" class="submit">查看需求</a>
+				{if $process_can['interactive']}
+					<a href="{$basic_url}#newcomment_box" onclick="show_comment('$task_id')" class="button">参与互动</a>
+				{/if}
+				{if $process_can['delay']}
+					<a href="javascript:void(0)" onclick="taskDelay();" class="button">{$process_desc['delay']}</a>
+				{/if}
+				{if $process_can['task_lottery']}
+					<a href="{$_K['siteurl']}/index.php?do=lottery&view=info&task_id=$task_id" onclick="" class="button">参与摇奖</a>
+				{/if}
+				{if $task_info['lott_view']}
+					<a href="{$_K['siteurl']}/index.php?do=lottery&view=info&task_id=$task_id" onclick="" class="button">查看摇奖结果</a>
+				{/if}
+				{if $process_can['task_pay']}
+					<a href="{$_K['siteurl']}/index.php?do=pay&obj_type=pub_task&obj_id=$task_id" onclick="" class="button">到收银台结算</a>
+				{/if}
+				{if $process_can['publish']}
+					<a href="{$_K['siteurl']}/index.php?do=release&&task_id=$task_id&r_step=step2" onclick="" class="button">继续发布</a>
+				{/if}
+				{if $process_can['choosework']}
+					<a id="btn_set_must_choose" href="javascript:;" onclick="set_choosework('$task_id')" class="button">保证选稿</a>
+				{/if}
+				{if $process_can ['invite']}
+					<a id="btn_invite" href="javascript:;" onclick="inviteHand('$task_id')" class="button">邀请人才</a>
+				{/if}
+				{if $process_can ['reqedit']}
+				<a href="javascript:void(0);" onclick="taskReqedit();" class="button">描述补充</a>
+				{/if}
+				{if $process_can['edit']}
+					<a href="javascript:void(0);" onclick="taskEdit();" class="button">修改任务</a>
+				{/if}
+				{if $process_can ['task_report']}
+					<a href="javascript:void(0);" onclick="report( 'task', '1','{$task_info[task_id]}','{$task_info[uid]}','{$task_info[username]}');" class="button bor_l">举报任务</a>
+				{/if}
+				{if $process_can['work_hand']}
+					<a href="javascript:;" onclick="workHand()" class="submit ml_10">报名交稿</a>
+				{/if}
+				{if $process_can['onekey']}
+					<a href= "{$_K['siteurl']}/index.php?do=release" onclick="window.open('{$_K['siteurl']}/index.php?do=release&pub_mode=onekey&t_id=$task_id');return false" class="button ml_10">发布类似需求</a>
+				{/if}
+				{if $process_can ['task_favor']}
+					<a href="javascript:;" onclick="favor('task_id','task','{$model_code}','{$task_info['uid']}','{$task_id}','{$task_info['task_title']}','{$task_id}')" class="button ml_10">收藏任务</a>
+				{/if}
+				
+				<a href="javascript:;" onclick="sendMessage({$task_info['uid']},'{$task_info['username']}')" class="button ml_10">站内信</a>
+				
+				<div class="activit_rowup"><img src="{SKIN_PATH}/theme/{$_K['theme']}/img/task/activit_rowup.gif"></div>			
+			</div>
+		</div>
+		
+		<!--任务详情雇主部分  start-->
+		<div class="rwxq_employer fl_l mt_10 ml_10">
+			<ul class="employer_top clearfix pad10">
+				<li class="head_pic t_c"><!--{userpic($task_info['uid'],'small')}--></li>
+				<li class="employer_detail">
+					<p>雇主：<span>{$task_info[username]}</span></p>
+						<!--{eval $g = $task_obj->_g_userinfo;}-->
+						<p>信用等级：<!--{eval echo keke_glob_class::get_g_level_ico($g['e_level'])}--></p>
+						<p>认证：<!--{eval echo(keke_glob_class::get_auth_ico($g['auth_realname'],$g['auth_mobile'],$g['auth_email'],$g['auth_bank']));}--></p>
+					</li>
+			</ul>
+			<ul class="employer_center mar10 clearfix">
+				<li class="fl_l regis"><p>收藏人数</p><strong>$task_info[focus_num]</strong></li>
+				<li class="fl_l delivery"><p>交稿人数</p><strong>$task_info['wiki_num']</strong></li>				
+			</ul>
+			<ul class="clearfix pl_10 pr_10">
+				<li>任务编号：$task_id</li>
+				<li>关注人数：<strong class="ea5e00">$task_info['view_num']</strong></li>
+				<li>分享可赚钱，赶快告诉朋友吧！</li>
+				<li>
+					<a href="#" target="_blank" onclick="_fx(this,{'key':'sina','url':'$prom_url','title':'$prom_content','overview':''});" href="#" title="分享到新浪微博"><img src="resource/img/ico/sina.gif"></a>
+					<a href="#" target="_blank" onclick="_fx(this,{'key':'qq','url':'$prom_url','title':'$prom_content','overview':''});" title="分享到腾讯微博"><img src="resource/img/ico/ten.gif"></a>
+					<a href="#" target="_blank" onclick="_fx(this,{'key':'sohu','url':'$prom_url','title':'$prom_content','overview':''});" title="分享到网页微博"><img src="resource/img/ico/sh.gif"></a>
+					<a href="#" target="_blank" onclick="_fx(this,{'key':'kx','url':'$prom_url','title':'$prom_content','overview':''});" title="分享到开心网"><img src="resource/img/ico/kai.gif"></a>
+					<a href="#" target="_blank" onclick="_fx(this,{'key':'db','url':'$prom_url','title':'$prom_content','overview':''});" title="分享到豆瓣网"><img src="resource/img/ico/dou.gif"></a>
+					<a href="#" target="_blank" onclick="_fx(this,{'key':'hi','url':'$prom_url','title':'$prom_content','overview':''});" title="分享到百度Hi"><img src="resource/img/ico/baidu.gif"></a>
+					<a href="#" target="_blank" onclick="_fx(this,{'key':'qzone','url':'$prom_url','title':'$prom_content','overview':''});" title="分享到QQ空间"><img src="resource/img/ico/zone.gif"></a>
+				</li>
+			</ul>
+		</div>
+		<script src="resource/js/fx.js"></script>
+		<!--任务详情雇主部分  end-->
+	<!--任务详情detail部分 end-->
+	</div>	
+	
+	
+	
+	
+	
+	
+	
+		<!--提交稿件部分  start-->
+		<div class="nav_lists_info clearfix mt_20">
+			<div class="nav_lists_nav clearfix">
+				<ul class="clearfix fl_l ">
+					<li><a {if !$st&&!$ut}class="selected"{/if} href="{$_K['siteurl']}/index.php?do=task&task_id=$task_id&page_size=$page_size&order=$order">提交稿件{if !$st}(<span class="cc00"> $task_info[work_num]</span> ){else}（$task_info[work_num]）{/if}</a></li>
+					<li><a {if $st==14}class="selected"{/if} href="{$_K['siteurl']}/index.php?do=task&task_id=$task_id&st=14&page_size=$page_size&order=$order">备选稿件{if $st==14}(<span class="cc00"> {if $search_condit[14][count]}$search_condit[14][count]{else}0{/if} </span> ){else}（{if $search_condit[14][count]}$search_condit[14][count]{else}0{/if}）{/if}</a></li>
+					<li><a {if $st==13}class="selected"{/if} href="{$_K['siteurl']}/index.php?do=task&task_id=$task_id&st=13&page_size=$page_size&order=$order">入围稿件{if $st==13}(<span class="cc00"> {if $search_condit[13][count]}$search_condit[13][count]{else}0{/if} </span> ){else}（{if $search_condit[13][count]}$search_condit[13][count]{else}0{/if}）{/if}</a></li>
+					<li><a {if $st==11}class="selected"{/if} href="{$_K['siteurl']}/index.php?do=task&task_id=$task_id&st=11&page_size=$page_size&order=$order">中标稿件{if $st==11}(<span class="cc00"> {if $search_condit[11][count]}$search_condit[11][count]{else}0{/if} </span> ){else}（{if $search_condit[11][count]}$search_condit[11][count]{else}0{/if}）{/if}</a></li>
+					<li><a {if $ut=='my'}class="selected"{/if} href="{$_K['siteurl']}/index.php?do=task&task_id=$task_id&ut=my&page_size=$page_size&order=$order">我的稿件</a></li>
+					
+				
+				</ul>
+				<ul class="clearfix fl_r page" >
+					<div class="fl_r">
+						<span>每页显示:</span>
+						<a href="{$_K['siteurl']}/index.php?do=task&task_id=$task_id&st=$st&page_size=12&order=$order" {if $page_size==12}class="selected"{/if}>12</a>
+						<a href="{$_K['siteurl']}/index.php?do=task&task_id=$task_id&st=$st&page_size=24&order=$order" {if $page_size==24}class="selected"{/if}>24</a>
+						<a href="{$_K['siteurl']}/index.php?do=task&task_id=$task_id&st=$st&page_size=36&order=$order" {if $page_size==36}class="selected"{/if}>36</a>
+					</div>
+					<div class="clearfix fl_r select">
+						<select name="order" onchange="location.href=this.value">
+							<option value="{$_K['siteurl']}/index.php?do=task&task_id=$task_id&st=$st&page_size=36" {if $order==1}selected=selected{/if} >按默认排序</option>
+							<option value="{$_K['siteurl']}/index.php?do=task&task_id=$task_id&st=$st&page_size=36&order=2" {if $order==2}selected=selected{/if} >最新稿件在先</option>
+							<option value="{$_K['siteurl']}/index.php?do=task&task_id=$task_id&st=$st&page_size=36&order=3" {if $order==3}selected=selected{/if} >按交稿顺序</option>
+						</select>
+					</div>
+					
+				</ul>
+			</div>
+			
+			{if $view == 'work'&&$work_id}
+				<!--{template task/sreward/tpl/default/work_info}-->
+			{else}
+				{if $task_info['worklist_viewtype']=='icon'}
+				<!--{template task/sreward/tpl/default/work_list_h}-->
+				{else}
+				<!--{template task/sreward/tpl/default/work_list_s}-->
+				{/if}
+			{/if}
+			
+		</div>
+		<!--提交稿件部分  end-->
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<!--任务需求部分  start-->
+			<div class="task_demand clearfix mt_20">
+				<div class="task_demand_box pad10">
+					<div class="clearfix">
+						<h1 class="title fl_l">任务需求</h1>
+						<a href="javascript:;" id="desc_toggle_a" onclick="if($(this).html()=='↑收起'){$(this).html('↓展开');$('#task_desc_cont').hide()}else{$(this).html('↑收起');$('#task_desc_cont').show()}" class="button fl_r">↑收起</a>
+					</div>
+					<div class="clearfix" id="task_desc_cont">
+						<ul class="release_ex clearfix pad10">
+								<li class="head_pic t_c"><!--{userpic($task_info['uid'],'small')}--></li>
+								<li class="employer_detail">
+									<p><span>$task_info['username']</span>发布时间：<!--{date('Y-m-d H:i:s',$task_info['start_time'])}--></p>
+									<p class="font14 money">￥{$task_info['task_cash']} $task_info['task_title']</p>
+								</li>		
+						</ul>
+						<div class="task_descript ws_prewrap ws_break">
+							<!--{eval echo kekezu::escape($task_info[task_desc])}-->
+						</div>
+						{if ($task_info['ext_status']==1||$task_info['uid']==$uid)&&$task_info['ext_desc']}
+						<h1 class="font14 pl_5">描述补充{if $task_info['ext_status']==0}(<span class="ea5e00">待审核</span>){/if}</h1>
+						<div id="task_ext_desc ws_prewrap">
+							<!--{eval echo kekezu::escape($task_info['ext_desc'])}-->
+						</div>
+						{/if}
+						{if $task_file}
+						<h1 class="font14 pl_5">任务附件（<span class="ea5e00"> <!--{eval echo count($task_file)}--></span> ）</h1>
+						<ul class="task_access pl_10 pr_10 pt_20 pb_20 clearfix">
+							{loop $task_file $file}
+							<li>
+								<img class="access_pic" src="{SKIN_PATH}/theme/{$_K['theme']}/img/task/access_{if in_array($file[file_ext],array('jpg','jpeg','gif','psd','png','bmp'))}pic{elseif $file[file_ext]=='doc'||$file[file_ext]=='docx'}word{else}file{/if}.gif">
+								<a href="$file[save_name]" target="_blank">$file['file_name']</a>{if $file['file_size']}($file['file_size']){/if}
+							</li>
+							{/loop}
+							
+						</ul>
+						{/if}
+					</div>	
+				</div>
+			</div>
+		<!--任务需求部分  end-->
+		
+		<!--互动交流部分  start-->
+			<div class="task_exchange clearfix mt_20">
+				<div class="task_exchange_box pad10">
+					<div class="clearfix">
+						<h1 class="title fl_l" id="comm_count">互动交流（{$task_info[leave_num]} ）</h1>
+						<a class="button fl_r" href="javascript:;" id="link_toggle_a" onclick="toggle_commlist(this,'t_{$task_id}')">↓展开</a>
+						<a class="button fl_r mr_10" onclick="show_comment('$task_id')" href="{$basic_url}#newcomment_box">我要留言</a>						
+					</div>
+					
+					
+					<div class="release_ex clearfix pt_10 pb_10" id="task_comment_cont_t_{$task_id}" style="display:none">
+						<dl class="clearfix" id="comment_page" datapage="<!--{eval echo intval($page)}-->">
+							{if $comment_data}
+							{loop $comment_data $k $v}
+							<dd class="mb_10 clearfix" id="reply_record_$v['comment_id']">
+								<ul class="clearfix pb_10">
+									<li class="fl_l header_pic pl_10"><!--{userpic($v[uid],'small')}--></li>
+									<li class="t_l fl_l pr_10 width85">
+										<a href="{$_K['siteurl']}/index.php?do=shop&u_id=$v[uid]">$v[username]</a><p><!--{eval echo nl2br(kekezu::escape($v[content]))}--></p>
+										<span id="c_reply_list_$v['comment_id']">
+										{if $reply_arr[$v['comment_id']]}
+											{loop $reply_arr[$v['comment_id']] $kr $vr}<p style="margin-left:30px;color:red">{$vr['content']}  ---   <span style="color:orange">$vr['username']</span>  回复于  <span style="color:gray"><!--{date('Y-m-d H:i:s',$vr[on_time])}--></span> </p>{/loop}
+										{/if}
+										</span>
+										
+										{if $uid==$v['uid']||$uid==$task_info['uid']}
+											<span id="comment_opspan_$v[comment_id]">
+												{if $uid==$task_info['uid']||($uid==$v['uid']&&$reply_arr[$v['comment_id']])}<a href="javascript:;" onclick="$('#comment_opspan_$v[comment_id]').hide();$('#comment_opspan2_$v[comment_id]').show()">回复</a>{/if} 
+												{if $uid==$v['uid']}<a href="javascript:;" onclick="del_comment($v['comment_id'])">删除</a>{/if} 
+											</span>
+										
+											
+											<span id="comment_opspan2_$v[comment_id]" style="display:none"><input type="text" value="" name="comment_reply_$v[comment_id]" id="comment_reply_$v[comment_id]"><button class="big button" onclick="reply_comment($v[comment_id])" type="button">回复留言</button> <a href="javascript:;" onclick="$('#comment_opspan2_$v[comment_id]').hide();$('#comment_opspan_$v[comment_id]').show();">取消</a></span>
+										{/if}
+									</li>
+									<li class="fl_r t_r"><span>留言时间：<!--{date('Y-m-d H:i:s',$v[on_time])}--></span></li>
+									
+								</ul>
+							</dd>
+							{/loop}
+							<dd class="mb_10 clearfix page"> 
+								<p class="clearfix">                       
+									{$comment_page['page']}
+			                    </p>
+								<div class="clear">
+			                    </div>
+							</dd>
+							{else}
+								该任务尚无留言记录
+							{/if}				
+						</dl>
+						<dl id="newcomment_box" style="display:none">
+							<dd class="mb_10 clearfix">
+								<ul class="clearfix pb_10">
+									<b>提交新的留言</b>
+									<br>
+									<textarea name="tar_newcomment" id="tar_newcomment" style="width:340px;height:120px"></textarea>
+									<br><br>
+									<button class="big button" onclick="submitcomment();" type="button">提交留言</button>
+								</ul>
+							</dd>
+						</dl>
+					</div>
+					
+					
+					
+				</div>
+			</div>
+		<!--互动交流部分  end-->
+		
+				<!--任务推荐部分  start-->
+			<div class="task_recommend mt_20 clearfix">
+				<div class="new_task fl_l">
+						<!--{eval $ownlists=keke_core_class::get_own_interest($task_id,$task_info['indus_pid'])}-->	
+					<div class="inner pl_10 pr_10 pb_10">
+						<div class="clearfix">
+							<h1 class="title fl_l">您可能感兴趣的任务</h1>
+							<a class="fl_r pt_5 more" href="{$_K['siteurl']}/index.php?do=task_list">更多 ></a>
+						</div>
+				       
+						{if $ownlists['inter']}
+						{loop $ownlists['inter'] $own}
+						<ul class="clearfix">
+							<li><a href="{$_K['siteurl']}/index.php?do=task&task_id=$own['task_id']"><span>￥{$own['task_cash']}</span>{$own['task_title']}</a></li>
+					
+						</ul>
+						{/loop}
+						{else}
+						暂时没有你感兴趣的任务
+						{/if}	
+					</div>
+					
+				</div>
+				
+				<div class="new_task fl_l">
+					
+					<div class="inner pl_10 pr_10 pb_10">
+						<div class="clearfix">
+							<h1 class="title fl_l">最新任务推荐</h1>
+							<a class="fl_r pt_5 more" href="{$_K['siteurl']}/index.php?do=task_list">更多 ></a>
+						</div>
+							{if $ownlists['istop']}
+							{loop $ownlists['istop'] $own}
+						<ul class="clearfix">
+							<li><a href="{$_K['siteurl']}/index.php?do=task&task_id=$own['task_id']"><span>￥{$own['task_cash']}</span>{$own['task_title']}</a></li>
+					
+						</ul>
+						{/loop}
+						{else}
+						暂时没有推荐任务
+						{/if}
+					</div>
+				
+				</div>
+				
+				<div class="new_task fl_l bor_c_n">
+					<div class="inner pl_10 pr_10 pb_10">
+						<div class="clearfix">
+							<h1 class="title fl_l">重金任务推荐</h1>
+							<a class="fl_r pt_5 more" href="{$_K['siteurl']}/index.php?do=task_list">更多 ></a>
+						</div>
+						{if $ownlists['heavy']}
+							{loop $ownlists['heavy'] $own}
+						<ul class="clearfix">
+							<li><a href="{$_K['siteurl']}/index.php?do=task&task_id=$own['task_id']"><span>￥{$own['task_cash']}</span>{$own['task_title']}</a></li>
+					
+						</ul>
+						{/loop}
+							{else}
+						暂时没有重金（金额大于2K）任务
+						{/if}
+					</div>
+					
+				</div>
+			</div>
+		<!--任务推荐部分  end-->
+		
+	</div>
+</div>
+<!--内容区 end-->
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/xheditor/xheditor.js"></script>
+<script src="resource/js/jquery.bgiframe.pack.js"></script>
+
+<script type="text/javascript" >
+	
+	var guid  	 	= parseInt($task_info['uid'])+0;
+	var task_id		= parseInt($task_id)+0;
+	var uid 		= parseInt('{$uid}')+0;
+	var task_status = parseInt($task_status)+0;
+	var basic_url	= "{$basic_url}";
+	var datePrv     = "{$date_prv}";
+	var username    = "{$username}";
+	var delay_count = parseInt('{$delay_count}')+0;
+	var delay_total  = parseInt('{$delay_total}')+0;
+	var trust_mode  = "{$trust_mode}";
+	
+	In.add('mreward_task',{path:"task/{$model_code}/{SKIN_PATH}/{$model_code}_task.js",type:'js'});
+	In('print','task','mreward_task');
+	
+	In.add('easySlider',{path:"resource/js/jqplugins/easySlider1.5.js",type:'js'});
+	In.add('index',{path:"$style_path/js/index.js",type:'js',rely:['easySlider']});
+	
+ 	In.add('lazy',{path:"resource/js/system/lazy.js",type:'js'});
+ 
+	In('easySlider','index','lazy',function(){
+		loadPics();
+	});
+		
+$(".box.model .task .box_detail .small_list li").hover(
+    function(){$(this).addClass('hover')},
+	function(){$(this).removeCss('hover')}
+	);
+
+	$(function(){
+		$('#d_detail_more_3').bgiframe();
+	})
+	
+	var editor = '';
+	var m = r_step  = '';
+	$(function(){
+		$('#append_parent').ajaxSuccess(function(){
+			if($('.tar_content')){
+				editor = $(".tar_content").xheditor();
+				editor?editor.checkInner():'';
+			}
+		})
+	})
+	
+	
+</script>
+
+<!--{template footer}-->

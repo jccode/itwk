@@ -1,0 +1,111 @@
+{if $opp=='remote'}
+document.writeln("<style type=\"text/css\">.successful_employer a{ white-space:nowrap;}.descrip{color:#666}.descrip a{ color:#f60;}.successful_employer li.top_item{ padding:0 0 10px; border-bottom:1px dashed #666;margin-bottom:10px; clear:both; height:134px; overflow:hidden}.bigtitle{padding:0 0 8px 0; }.bigtitle a{font:bold 14px/20px \"宋体\"; display:inline-block;white-space:nowrap; width:208px; height:20px; overflow:hidden; text-overflow:ellipsis;}.smalltitle{ padding:3px 10px;}.smalltitle a{font:14px/20px \"宋体\";display:inline-block;white-space:nowrap; width:318px; overflow:hidden; text-overflow:ellipsis; }.employer_pic{float:left;}.employer_pic img{ width:100px}.employer_detail{ padding-left:110px;_padding-left:10px; _float:left; _width:208px;}</style>");
+document.writeln("<div class=\"right_side\">");
+document.writeln("<ul class=\"successful_employer clearfix\">");
+{loop $art_employer $k $v}
+	{if $k<2}
+		document.writeln("<li class=\"top_item\">");
+		document.writeln("<div class='left detail'>");
+		<!--{eval $pre = strpos($v['art_pic'],'http://')!==FALSE?'':$_K['siteurl'].'/';}-->
+		document.writeln("<div class=\"employer_pic\"><img src=\"{$pre}{$v['art_pic']}\"></div>");
+		document.writeln("<div class=\"employer_detail clearfix\">");
+		document.writeln("<div class=\"bigtitle\"><a href=\"{$_K['siteurl']}/index.php?do=article&art_cat_id={$v['art_cat_id']}&art_id={$v['art_id']}\" title=\"{$v['art_title']}\">{$v['art_title']}</a></div>");
+		document.writeln("<div class=\"employer_detail_task pl_10\">");
+		<!--{eval $c = kekezu::cutstr(preg_replace('/\s/','',strip_tags($v['content'])),220)}-->
+		document.writeln("<p class=\"descrip\">{$c}");document.writeln("<a href=\"{$_K['siteurl']}/index.php?do=article&art_cat_id=$v['art_cat_id']&art_id={$v['art_id']}\">[查看全部]</a>");
+		document.writeln("</p>");
+		document.writeln("</div></div></div><div class=\"cl\"></div>");
+		document.writeln("</li>");{else}
+		document.writeln("<li class=\"smalltitle\"><a href=\"{$_K['siteurl']}/index.php?do=article&art_cat_id={$v['art_cat_id']}&art_id={$v['art_id']}\" title=\"{$v['art_title']}\">·{$v['art_title']}</a></li>");
+	{/if}
+	{/loop}
+	document.writeln("</ul></div>");
+{else}
+<!--{template header}-->
+<!--{template new_head_nav}-->
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/special.css" rel="stylesheet"/>
+<header class="clearfix page_header">
+    <div class="container_24">
+        <!--页面导航-->
+        <div class="heidtile clearfix">
+            <span>你的位置：</span>
+			<span><a href="{$_K['siteurl']}">IT帮手网首页</a>&nbsp;&gt;&nbsp;</span>
+            <span><a href="{$_K['siteurl']}/index.php?do=special">特色专栏</a>&nbsp;&gt;&nbsp;</span>
+            <h1><a href="{$_K['siteurl']}/index.php?do=article&article_cat_id=593">成功雇主</a></h1>
+        </div>
+        <!--end 页面导航-->
+    </div>
+</header>
+
+<section class="clearfix content">
+    <div class="container_24">
+        <div class="left_bar">
+        	<!--目录菜单-->
+			<div class="box category">
+				<div class="commission">
+					<dl class="clearfix">
+						<dt><div class="aboutZoneHD">雇主入门</div></dt>
+						<dd>
+							<ul class="character clearfix">
+								<li class="register"><a href="javascript:;" class="register_arrow"><span class="register_arrow">注册会员</span></a></li>
+							</ul>
+							<ul class="character clearfix">							
+								<li class="custody mt_10"><a href="javascript:;" class="register_arrow"><span>托管赏金</span></a></li>
+							</ul>
+							<div class="little_register">
+								<ul>
+									<li class="little_release"><span>发布任务</span></li>
+									<li class="little_release little_trade"><span>直接交易</span></li>
+									<li class="little_release buy_service"><a href="javascript:;"><span>购买服务</span></a></li>
+								</ul>
+							</div>
+							
+							
+							<ul class="character clearfix">
+								<li class="acceptance mt_10">
+									<a href="javascript:;" class="register_arrow"><span>验收确认</span></a></li>
+							</ul>
+							<ul class="evaluation mt_10 clearfix">
+								<li><a href="javascript:;"><span>评价</span></a></li>
+								<li class="ml_5 payment"><a href="javascript:;"><span>付款</span></a></li>
+							</ul>
+						</dd>
+					</dl>
+				</div>
+			</div>
+			<!--目录菜单 end-->
+			
+			
+            <!--雇佣任务-->
+            <!--{template special/special_side}-->
+        </div>
+        <div class="right_side">
+            <ul class="successful_employer clearfix">
+            	{if $art_employer}
+				{loop $art_employer $v}
+            	<li class="clearfix">
+            		<div class="left">
+            			<div class="bigtitle"><a href="{$_K['siteurl']}/index.php?do=article&art_cat_id={$v['art_cat_id']}&art_id={$v['art_id']}" class="font14b">{$v['art_title']}</a></div>
+						<div class="pt_10 pb_10 clearfix">
+							<div class="employer_pic"><img src="{$v['art_pic']}" style="width:120px; height:150px;"></div>
+							<div class="employer_detail_task pl_10">								
+							  <!--{eval $v['content'] = strip_tags($v['content']); }-->
+							  <!--{eval echo kekezu::cutstr($v['content'],200)}-->&nbsp;&nbsp;
+							  <a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$v['art_cat_id']&art_id={$v['art_id']}">[查看全部]</a>
+							</div>
+						</div>
+            		</div>
+            	</li>
+				{/loop}
+				{else}
+				<li>没有找到相关文章。</li>
+				{/if}
+            </ul>
+			{if $count>10}
+			<div class="page_box clearfix"><div class="page">{$pages['page']}</div></div>
+			{/if}	
+        </div>
+    </div>
+</section>
+<!--{template footer}-->
+{/if}

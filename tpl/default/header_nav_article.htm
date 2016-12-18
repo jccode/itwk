@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="{$_K['siteurl']}/{SKIN_PATH}/css/news.css">
+<link rel="stylesheet" href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/news.css">
+<nav class="nav article_nav">
+	<div class="container_24 clearfix">
+		<div class="nav_right clearfix fl_r">			
+			<a href="{$_K['siteurl']}/index.php?do=special&view=special_list">精彩专题</a>
+			<span class="line"></span>
+			<a href="{$_K['siteurl']}/index.php?do=help">帮助中心</a>
+			<span class="line"></span>
+			<a href="http://e.weibo.com/epweikecom" rel="nofollow" target="_blank"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/index/btn_sina.png">官方微博</a>
+		</div>
+		<div class="nav_left clearfix fl_l">
+			<ul>
+				{loop $ncat_names $k $v}
+					<li {if $art_cat_id==$k}class="selected"{/if}><a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$k">$v</a></li>
+				{/loop}
+				
+			</ul>
+		</div>
+	</div>
+</nav>

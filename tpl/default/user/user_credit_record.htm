@@ -1,0 +1,154 @@
+<!--{template header}--><!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+        <!--{template user/user_nav}-->
+		<!--main start-->
+        <section class="clearfix section">
+            <!--{template user/user_side}-->
+            <div class="show_panel ">
+		        <div class="">
+		            <div class="">
+		                <!--main content-->
+		                <div class=" clearfix box default">
+                            <!--header内容头部 start-->
+                            <header class="clearfix box_header">
+                                <h2 class="box_title">{$title}</h2>
+                   				 <div class="">
+                                    <nav class="box_nav">
+                                        <ul>
+                                            <li class="selectedLava">
+                                                <a href="{$_K['siteurl']}/index.php?do={$do}&view={$view}&op=#userCenter" title="消费的金币">消费的金币</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </header>
+                            <!--header内容头部 end--><!--detail内容 start-->
+                            <article class="box_detail">
+                              <!--messages消息 start-->
+                                <div class="messages m_warn clearfix">
+                                    <div class="grid_18">
+                                   <strong>友情提示：</strong>
+                                  进入IT帮手客厅进行发帖回帖等操作即可获取金币，金币可以用于稿件隐藏，任务隐藏等
+									</div>
+                                </div>
+                                <!--messages消息 end-->
+                                <div class="">
+                                    <!--from表单 start-->
+                                    <div class="clearfix box pad10">
+                                        <form action="{$url}#userCenter" method="post" id="frm">
+                                            <input type="hidden" name="page" value="{$page}">
+                                            <div class="rowElem tool_bar clearfix">
+                                                   <div class="mr_20 fl_l">
+                                                    <label class="t_l fl_l">
+                                                        <strong>消费方式{$_lang['zh_mh']}</strong>
+                                                    </label>
+                                                    <select class="fl_l" name="c_use" style="width:100px">
+                                                        <option value="" {if !$c_use}selected{/if}>{$_lang['all']}</option>
+                                                        {loop $credit_use $k $v}
+														<option value="$k" {if $k==$c_use}selected="selected"{/if}>{$v} </option>
+                                                        {/loop}
+                                                    </select>
+                                                </div>
+                                                <div class="mr_20 fl_l">
+                                                    <label class="t_l fl_l">
+                                                      <strong> 消费时间{$_lang['zh_mh']}</strong>
+                                                    </label>
+                                                 <input type="text" name="start_time" class="txt" value="{$start_time}" size="12" onclick="showcalendar(event, this, 0)"> - <input type="text" name="end_time" value="$end_time" class="txt" size="12" onclick="showcalendar(event, this, 0)">
+                                                </div>
+                                                <div class="fl_r">
+                                                    <button type="submit" class="block" name="sbt_search" value="{$_lang['search']}" onclick="check('frm');"><span class="icon magnifier"></span>{$_lang['search']}</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <!--from表单 end--><!--date_table数据表格 start-->
+                                        <div class="data_list">
+                                            <table cellpadding="0" cellspacing="0" class="data_table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">
+                                                         消费时间
+                                                        </th>
+                                                        <th scope="col">
+                                                           消费方式
+                                                        </th>
+                                                        <th scope="col">
+                                                          消费详情
+                                                        </th>
+														<th scope="col" class="t_c">
+                                                          消费数量
+                                                        </th>
+														<th scope="col" class="t_c">
+                                                         剩余金币
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                           {if $data_arr}
+                                            {loop $data_arr $v}
+                                                    <tr>
+                                                    <td>
+                                                        <!--{date('Y-m-d H:i',$v['on_time'])}-->
+                                                    </td>
+                                                    <td>
+                                                        {$credit_use[$v[c_use]]}
+                                                    </td>
+													<td>
+                                                   		{$v['c_remark']}
+                                                    </td>
+                                                   <td class="t_c">
+                                                   		{$v['credit']}
+                                                   	</td>
+                                                	<td class="t_c">
+                                                		{$v['left_credit']}
+                                                	</td>
+                                            </tr>
+                                            {/loop}
+                                            {else}
+                                               <tr>
+											    	 <td colspan="4" class="t_c">
+                                                          {$_lang['norecord']}
+                                                      </td>
+	                                            </tr>
+                                            {/if}
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td>
+                                                    </td>
+													<td>
+                                                    </td>
+													<td>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                       {$_lang['total']}:{$count}{$_lang['ge']}
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    <!--data_table数据表格 end-->
+                                    <div class="page clearfix">
+                                        <p>
+                                            {$pages['page']}
+                                        </p>
+                                    </div>
+                                </div>
+                                </div>
+                            </article>
+                            <!--detail内容 end-->
+                        </div>
+                        <!--main content end -->
+                        <div class="clear">
+                        </div>
+                    </div>
+                </div>
+                </section>
+                <!--main end-->
+            </div>
+            </div>
+            <!--contain end-->
+<!--{template user/user_footer}-->            
+<!--{template footer}-->

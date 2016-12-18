@@ -1,0 +1,57 @@
+/*登录*/		
+.login_box{background:#fff;}
+.login_nav_item{color:#ccc; font-size:12px;  line-height:25px;}		
+	.login_nav_item a{color:#333; text-decoration:none; height:25px; line-height:25px; display:inline-block; padding:0 10px;}		
+	.login_nav_item a:hover{ text-decoration:underline;}
+	.login_nav_item .service_tel{color:#666;}
+.login_box_banner .banner{height:40px; line-height:40px; overflow:hidden; list-style:none; color:#666; font-size:14px; width:484px;}
+.login_box_banner .banner li{float:none;}
+.login_box_info{background:#f9f9f9; border:1px solid #D4D4D4; width:348px;}
+		.login_box_info dl{padding:15px 22px;}	
+			.login_box_info dl dd label.txt{font-size:12px; display:inline-block;  margin-left:5px;margin-right:5px; line-height:30px;}
+				.login_box_info .tips_on .auto_login,
+				.winbody .tips_on  .auto_login{border:1px solid #c7c7c7; position:relative; z-index:1; padding:1px 0 0; border-bottom:none; background:#fff;}
+				.login_box_info dl dd .tips{padding-left:60px; color:#999;}
+				.login_box_info dl dd .tips_word,
+				.winbody .tips_word{ position:absolute; color:#FF5A00; padding:0 5px; line-height:20px; top:21px; left:30px; background:#fff; border:1px solid #c7c7c7;}	
+					.login_box_info dl dd .auto_login,
+					.winbody .auto_login {padding:2px 1px 0px; float:left; height:20px; line-height: 20px; display:inline-block; vertical-align: middle;}
+					/*.login_box_info dl dd .auto_login input,
+					.winbody .auto_login input{ margin-top:-5px; }*/
+						#ie7 .login_box_info dl dd .auto_login input{ position:relative; top:-4px;}
+						.login_box_info dl dd .help_login{background:url(../img/help_login.gif) no-repeat; height:13px; width:13px; cursor:pointer; margin:5px 10px 0; float:left; }
+						.login_box_info .word_login{background:url(../img/style/login_box1.gif) repeat-x; border-top:1px solid #e9e9e9; height:98px;}
+						.word_login_inner{background:url(../img/login_box1.gif) no-repeat -328px bottom; }
+						.word_login p{color:#666;}
+						.word_login dl{padding:0;}
+						.word_login dl dt{background:url(../img/style/slogin.png) no-repeat; display:block; float:left; height:16px; margin-bottom:10px; width:16px;}
+						.word_login dl dd{float:left; height:16px; line-height:16px; margin-bottom:10px; margin-left:5px; margin-right:10px;}
+						.reflect{margin-top:1px;}
+#ie6 #login_password_msg{display:inline-block; position:absolute; left:65px; bottom:0;}
+
+.tipsy-inner {  _width:200px;}
+
+.button_box {padding-left: 66px;}
+.button_box .submit,.button_box a.button{ font-size:14px;}
+.button_box .submit{ width: 100px;height:28px; line-height:16px;}
+
+.button_box a.button{line-height:16px; height: 16px; width: 80px; text-align:center;}
+
+
+.winbody .button_box,.winbody .tips_box{ padding-left:50px; background:#fff;}
+.winbody .left_side{ width:280px; padding-left:20px; float:left;}
+.winbody .word_login { float:left; width:190px; padding-left:15px; border-left:1px solid #eee; overflow:hidden;}
+.winbody .word_login dl dd{ margin-right:20px; width:50px;}
+
+.error_box{position:absolute;right:10px;top:22px;background:#FFE6C6; color:#333;}
+.error_box dl{border:1px solid #FFC67C;background:#FFFCE4;position:relative;top:-1px;left:-1px;padding:10px 15px 0;z-index:7;}
+.error_box dt i,.l_box .error p i{display:inline-block;width:16px;height:16px;background:url(../img/style/error.gif) no-repeat 0 center ;margin-right:5px;vertical-align:-3px;*vertical-align:-1px;}
+.error_box dt strong{font-size:14px;color:#BF3A00;}
+.error_box dd{margin-bottom:18px;}
+.error_box dd a{text-decoration:underline;}
+.error_box .close{display:block;width:11px;height:10px;overflow:hidden;background:url(../img/style/error_ico.png) no-repeat 0 1px;position:absolute;right:12px;top:12px;z-index:9;}
+.error_box .close:hover{background-position:0 -9px;}
+.error_box .arrowr{display:block;position:absolute;right:-13px;top:50%;width:15px;height:29px;margin-top:-15px;background:url(../img/style/error_ico.png) no-repeat 0 -20px;z-index:8;}
+
+.submit{ padding:5px 20px; line-height:25px;}
+.valid_error span{ display: inline-block; vertical-align:middle; width: 260px; overflow: hidden;}

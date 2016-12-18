@@ -1,0 +1,384 @@
+<!--{template header}-->
+<!--首页样式--> 
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/prom.css" rel="stylesheet"/>
+<header class="clearfix page_header">
+    <div class="container_24">
+        <!--所在位置  start-->
+    		<div class="breadcrumbs clearfix">
+    			<span class="site">你的位置：</span>
+				<a href="{$_K['siteurl']}/index.php">IT帮手网首页</a>
+				<span class="font_simsun">&gt;</span>
+				<a href="{$_K['siteurl']}/index.php?do=prom">推广员频道</a>
+    		</div>
+		<!--所在位置 end-->
+    </div>
+</header>
+<!--内容区 satrt-->
+<div class="wrapper clearfix">
+	<div class="container_24 clearfix"> 
+			
+			
+			<div class="promot_step_pic mt_10 mb_10"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/prom/promot_step.gif"></div>
+			<div class="dodier clearfix">
+				<!--左边部分  start-->
+				<div class="main fl_l">
+					<!--推广工具箱  start-->
+					<div class="promot_box clearfix">
+						<div class="mbox fl_l">
+							<div class="title pad10">
+								<b>推广工具箱</b>
+								<p>选择适合你的推广方式</p>
+							</div>
+							<ul class="pad5 clearfix">
+								<li class="selected" ><a style="background-position:0px -42px;" href="{$_K['siteurl']}/index.php?do=prom&view=link">链接推广</a></li>
+								<li><a style="background-position:0px -81px;" href="{$_K['siteurl']}/index.php?do=prom&view=pic_list">图片推广</a></li>
+							</ul>
+						</div>
+						
+					
+						<div class="adszone fl_l">
+								<div id="jcarousel" class="jcarousel">
+								    <ul class="scroll">
+								    	<!--{ad_show(PROM_TOP_SLIDE,1)}-->	
+								    </ul>
+								</div>
+								<div class="jcarousel-pagination">
+								</div>
+						</div>
+						
+					</div>		
+					<!--推广工具箱  end-->
+					
+					<!--佣金提成方式  start-->
+					<div class="commission mt_10 clearfix">
+						<dl class="clearfix">
+							<dt class=" pl_10 pr_10 clearfix">
+								<b class="fl_l tl_boac">佣金提成方式</b>
+								<span><a href="#" style="display:none;">更多&gt;</a></span>
+							</dt>
+							<dd class="pad10 clearfix">
+								<div class="nav_lists_nav clearfix">
+									<ul class="clearfix fl_l ">
+										<li id="clearfix_li_1" >
+											<a href="javascript:clearfix_a(1);" class="selected"onmouseover="swaptab('clearfix','selected','',3,1)" id='tab_clearfix_1'>推广会员发布任务</a></li>
+										<li id="clearfix_li_2" >
+											<a href="javascript:clearfix_a(2);" onmouseover="swaptab('clearfix','selected','',3,2)" id='tab_clearfix_2'>推广会员中标任务</a></li>
+										<li id="clearfix_li_3">
+											<a href="javascript:clearfix_a(3);" onmouseover="swaptab('clearfix','selected','',3,3)" id='tab_clearfix_3'>推广注册成为会员</a></li>							
+									</ul>				
+								</div>								
+								<div class="pt_20 clearfix" id="div_clearfix_1">
+									<div class="reward pr_20"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/prom/reward.gif"></div>
+									<div class="reward_detail fl_l">						
+										<p class="font12b">成功推荐会员注册并发布悬赏任务，获得发布任务实际消费金额10%提成</p>
+										<p class="font14b cf60">你的收益＝悬赏金额×10%</p>	
+										<p class="c666 pt_10">指用户通过推广链接\代码注册成为IT帮手网会员，从该会员注册的时间开始，在未来1年之内发布悬赏任务，推广员就能获得该会员发布悬赏任务实际消费金额10%的提成。在有效时间内，会员发布多少次有效悬赏任务，推广员就有多少次提成且提成没有最高上限限制。</p>								
+										<p class="pt_10"><span class="font12b">比如：</span>悬赏金额10000元，成功完成你能获得提成1000元！</p>
+									</div>
+								</div>
+								<div class="pt_20 clearfix" id="div_clearfix_2" style="display:none;">
+									<div class="reward pr_20"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/prom/reward.gif"></div>
+									<div class="reward_detail fl_l">						
+										<p class="font12b">成功推荐会员注册在IT帮手上做任务并成功中标单人任务，获得有效任务金额2%提成</p>
+										<p class="font14b cf60">你的收益＝悬赏金额×2%</p>	
+										<p class="c666 pt_10">指用户通过推广链接\代码注册成为IT帮手网会员，从该会员注册的时间开始，在未来1年之内参与悬赏任务单人中标，推广员能获得任务金额2%的提成。在有效时间内，会员参与多少次悬赏任务单人中标，推广员就有多少次提成且没有最高上限限制。</p>								
+										<p class="pt_10"><span class="font12b">比如：</span>比如：悬赏金额10000元，你能获得现金提成200元！</p>
+									</div>
+								</div>
+								<div class="pt_20 clearfix" id="div_clearfix_3" style="display:none;">
+									<div class="reward pr_20"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/prom/reward.gif"></div>
+									<div class="reward_detail fl_l">						
+										<p class="font12b">成功推荐会员注册并通过实名认证和手机认证，获得1元提成</p>
+										<p class="font14b cf60">你的收益＝注册会员数×1</p>	
+										<p class="c666 pt_10">用户通过推广链接\代码注册成为IT帮手网会员，并通过实名认证和手机认证，推广员就能获得1元的提成。</p>								
+										<p class="pt_10"><span class="font12b">比如：</span>推荐100名会员注册并通过实名认证和手机认证，您能获得现金提成100元！</p>
+									</div>
+								</div>
+							</dd>
+						</dl>
+					</div>
+					<!--佣金提成方式  end-->
+					
+					<!--推荐热图推广  start-->
+					<div class="commission mt_10 clearfix">
+						<dl class="clearfix">
+							<dt class=" pl_10 pr_10 clearfix">
+								<b class="fl_l tl_boac">推荐热图推广</b>
+								<span><a href="{$_K['siteurl']}/index.php?do=prom&view=pic_list">更多&gt;</a></span>
+							</dt>
+							<dd class="pad10 clearfix">
+								<ul class="hot_pic clearfix">
+								  {loop $prom_style_recommend_arr $val}
+									 <li>
+									 	<a href="{$_K['siteurl']}/index.php?do=prom&view=pic_info&s_id={$val['s_id']}"><img class="big_pic" src="{$val['s_img6']}"></a>
+										<a href="{$_K['siteurl']}/index.php?do=prom&view=pic_info&s_id={$val['s_id']}">{$val['s_title']}</a>
+									 </li>
+								  {/loop}
+								</ul>								
+							</dd>
+						</dl>
+					</div>
+					<!--推荐热图推广   end-->						
+				</div>
+				<!--左边部分  end-->
+				
+				<!--右边部分 start-->
+				<div class="aside fl_l">
+					<!--我是推广员部分 start-->
+					<div class="promot_people pad10 clearfix">
+						<b>我是推广员</b>
+					  {if $uid}
+					    <ul class="income clearfix pt_20 pb_10">
+							<li class="income_pic">
+								<a href="{$_K['siteurl']}/index.php?do=user&view=index"><!--{userpic($user_info['uid'],'small')}--></a>
+							</li>
+							<li class="income_detail pl_10">
+								<p>欢迎您！<a href="{$_K['siteurl']}/index.php?do=user&view=index">{$user_info['username']}</a></p>
+								<p>本月推广收入： <span>￥{$income} </span>元</p>
+								<a class="pr_5" href="{$_K['siteurl']}/index.php?do=user&view=finance&op=detail">收支明细</a>
+								<a class="pl_5" href="{$_K['siteurl']}/index.php?do=user&view=finance&op=withdraw" rel="nofollow">我要提现</a>
+							</li>
+						 </ul>
+						<div class="link clearfix">
+							<p>默认推广链接：<span>推广注册</span></p>
+							<input id="copy_url_text" class="c999 txt_input" type="text" value="{$_K[siteurl]}/index.php?do=prom&epi={$user_info['uid']}" original-title="">
+							<button class="button mt_5 fl_l" type="button" onclick="javascript:CopyTxt('copy_url_text');">复制代码</button>
+							<div class="pt_5 look_link clearfix">
+								<a class="pl_10" href="{$_K['siteurl']}/index.php?do=prom&view=link">查看其他推广链接</a>
+								<!-- <a class="line"></a> -->
+							</div>	
+						</div>
+					  {else}
+						<div id="message_tip" class="messages m_error mr_20 mb_10 border_n"><span id="span_msg_tip"></span></div>
+							<form action="{$_K['siteurl']}/index.php?do=login" method="post" id="login_frm" name="login_frm">
+							<div class="rowElem clearfix">
+								<label class=" txt">
+                                	  账　号：
+                                </label>
+                                    <input class="txt_input c999" style="width:180px;"  type="text"  size="20"  tmp="login_account1" autocomplete="off" name="txt_account" onclick="$(this).removeClass('c999')" id="txt_account1" caseon="submit" limit="required:true" msg="用户名不得为空" value="用户名/手机号/邮箱"  msgArea="span_msg_tip" />
+							</div>
+							<div class="clear"></div>
+							<div class="rowElem clearfix po_re ov_hide" >
+								<label class=" txt">
+                                	  密　码：
+                                </label>
+                                <input class="txt_input c999" style="width:180px;" type="text" name="txt_password" id="txt_password" value="密码长度应为6-20位"/><input class="txt_input c000 hidden" style="width:180px;" type="password"  tmp="login_password1" name="pwd_password" id="pwd_password" maxlength="20" caseon="submit" limit="required:true;len:6-20" msg="密码长度应为6-20位"  msgArea="span_msg_tip" />	
+							</div>
+							<div class="clearfix tips_box ">
+								<span class="tips mr_10">
+									<label class="auto_login">
+										<input type="checkbox">
+									</label>
+									记住密码
+								</span>
+								<div class="tips_word hidden">为了账户安全，请勿在公用电脑上勾选此项</div>	
+								
+							</div>
+							<div class="clearfix mt_10 button_box">
+								<button class="primary mr_5 submit" type="button" onclick="return user_login();" style=" ">登　录</button>
+								
+							</div>
+							<div class="clearfix mt_10 pl_5">
+								还没有推广员帐号？<a href="{$_K['siteurl']}/index.php?do=register" class="ml_10">立即免费注册一个</a>
+							</div>
+							</form>
+					  {/if}
+					</div>
+					<!--我是推广员部分end-->
+					
+					<!--频道公告start-->
+					<div class="box default notice clearfix mt_10">
+						<div class="inner">
+							<div class="head pl_10 pr_10 clearfix po_re">
+								<h2 class="title fl_l">频道公告</h2>
+								<span class="fl_r"><a href="{$_K['siteurl']}/index.php?do=help&view=list&art_cat_id=613">更多&gt;</a></span>
+							</div>
+							<article class="box_detail">
+								<ul>
+								{loop $announcement_arr $v}
+									<li><a href="{$_K['siteurl']}/index.php?do=help&view=info&art_cat_id={$v['art_cat_id']}&art_id={$v['art_id']}" class="fl_l">{$v['art_title']}</a></li>
+								{/loop}
+								</ul>
+							</article>
+						</div>
+					</div>
+					<!--频道公告end-->
+					
+					<!--最新推广动态start-->
+					<div class="box default clearfix mt_10 ep_box">
+						<div class="inner">
+							<div class="head pl_10 pr_10 clearfix po_re">
+								<h2 class="title fl_l">任务动态</h2>
+							</div>
+							<article class="box_detail">
+								<ul>
+									{loop $feed_list $v}
+                                        <li>
+                                        	<!--{eval $info = unserialize($v['title']);}-->
+                                            <div>
+                                                <!--{date('Y-m-d H:i:s',$v['feed_time'])}-->：
+                                            </div>
+											<div>
+                                               	<p><span class="cf60">恭喜！</span>会员{$info['feed_username']['content']}，邀请注册的会员完成了任务,立即获得<span class="cf60">{$info['action']['cash']}元</span>提成...</p>
+											</div>
+                                        </li>
+									{/loop}
+								</ul>
+								
+							</article>
+						</div>
+					</div>
+					<!--最新推广动态end-->
+					
+				</div>
+				<!--右边部分 end-->
+			</div>
+			
+											
+			
+			<div class="box clearfix default mt_10 teamwork">
+				<div class="inner">
+					<header class="box_title clearfix">
+						<h2 class="c333 fl_l">合作链接</h2>
+						<div class="fl_r clearfix">
+							<!-- <a href="javascript:void(0);" onclick="showWindow('message', '{$_K['siteurl']}/index.php?do=ajax&view=link&ac=add');" class="fl_l font12 font_normal">我要出现在这</a> -->
+							
+								<button class="button primary c090" style="padding:2px 10px;_margin-top:4px;" type="button" onclick="link_box(3)" >申请友情链接</button>
+							
+						</div>
+					</header>
+					<article class="pad10 clearfix">
+						<ul>
+							{loop $link_arr $v}
+							<li><a href="{$v['link_url']}" target="_blank">{$v['link_name']}</a></li>
+							{/loop}
+						</ul>
+					</article>
+				</div>
+			</div>
+			
+	
+			
+	</div>
+</div>
+<!--内容区 end-->
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.autoscroll.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.pagination.js"></script>
+<script type="text/javascript">
+	var uid = parseInt('{$uid}')+0; //判断是否登录
+	
+	function clearfix_a(id){
+		for(i=1;i<=3;i++){
+			$('#clearfix_a_'+i).removeClass();
+		}
+		$('#clearfix_a_'+id).addClass('selected');
+	}
+	
+	$('#jcarousel').jcarousel({
+    wrap: 'circular',
+	 animation: 200
+	}).jcarouselAutoscroll({
+	   interval:  3000
+	});
+	$('.jcarousel-pagination').jcarouselPagination({
+	   perpage: 1
+	});
+	
+	$(".promot_people .auto_login").hover(
+		function(){
+			$(".tips_box").addClass("tips_on");
+			$(".tips_word").removeClass("hidden");
+			},
+		function(){
+			$(".tips_box").removeClass("tips_on");
+			$(".tips_word").addClass("hidden");
+			}
+	);
+	In('form');
+    //登录
+    function user_login(){
+        var txt_account = $("#txt_account1").val();
+        var pwd_password = $("#pwd_password").val();
+        var hdn_refer = $("#hdn_refer").val();
+        var formhash = $("#formhash").val();
+		var autologin = $(":checkbox[name='autologin']").is(':checked');
+		if ((txt_account=="" || txt_account=="用户名/手机号/邮箱") && pwd_password=="") {
+			$("#span_msg_tip").attr("class", "valid_error");
+            $("#span_msg_tip").html('<span>请输入您的账号和密码</span>');
+			return false;
+		}else if (txt_account==""){
+			$("#span_msg_tip").attr("class", "valid_error");
+            $("#span_msg_tip").html('<span>请输入您账号</span>');
+			return false;
+		}else if (pwd_password==""){
+			$("#span_msg_tip").attr("class", "valid_error");
+            $("#span_msg_tip").html('<span>请输入您的密码</span>');
+			return false;
+		}
+        if (checkForm(document.getElementById("login_frm"), false)) {
+            $.post("{$_K['siteurl']}/index.php?do=login", {
+                formhash: formhash,
+                txt_account: txt_account,
+                pwd_password: pwd_password,
+                login_type: 3,
+				ckb_cookie:autologin==true?1:0,
+                hdn_refer: hdn_refer
+            }, function(json){
+                if (json.status == 1) {
+                    $("#span_msg_tip").attr("class", "");
+                    $("#span_msg_tip").html("");
+                    $("#error_box").attr("class", "error_box hidden");
+					if(json.data.sys){
+						$.get(json.data.sys,function(){
+                	  	  window.location.href = json.data.syn;
+						});
+					}else{
+                	    window.location.href = json.data.syn;
+					}
+                }
+                else {
+                    $("#span_msg_tip").attr("class", "valid_error");
+                    $("#span_msg_tip").html('<span>' + json.msg + '</span>');
+                    $("#error_box").attr("class", "error_box");
+                }
+            }, 'json')
+        }
+    }
+	
+	$("#txt_password").focus(function(){
+		$(this).addClass('hidden');
+		$("#pwd_password").removeClass('hidden');
+//		$("#message_tip").hide();
+		$("#pwd_password")[0].focus();
+		
+	})
+	$("#pwd_password").blur(function(){
+		if($(this).val()==''){
+			$(this).addClass('hidden');
+			$("#txt_password").removeClass('hidden');
+		}
+	})
+	
+	$("#txt_account1").focus(function(){
+        var content = $(this).val();
+        if (content == "用户名/手机号/邮箱") {
+            $(this).val("");
+        }
+    }).blur(function(e){
+        var content = $(this).val();
+        if (!content) {
+            $(this).val("用户名/手机号/邮箱").addClass('c999');
+        }
+    });
+	
+	
+	$('.tips_box').hover(function(){
+		$(this).addClass('po_re');
+		$('.auto_login').css({'position':'relative','z-index':'2'});},
+		function(){
+			$(this).removeClass('po_re');
+			$('.auto_login').css({'position':'','z-index':''});
+	})
+</script>
+<!--{template footer}-->

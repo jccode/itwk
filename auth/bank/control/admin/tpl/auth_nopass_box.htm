@@ -1,0 +1,55 @@
+<!--{template control/admin/tpl/admin_header}-->
+ {if $close == '1'}
+	<script type="text/javascript">
+	 	$(document).ready(function(){
+			var win = art.dialog.open.origin;
+			art.dialog.open.api.close();
+			win.location.reload();
+		});
+	</script>
+ {elseif $ac == 'notpass_view'}
+	<div class="box quick_link">
+	  <form id="form_nopass_box" name="form_nopass_box" action="index.php?do={$do}&view={$view}&auth_code={$auth_code}&ac=not_pass" method="post">
+	    <div class="box link">        	
+			<div class="title"><strong>发送标题：</strong></div>
+	    	<div class="detail pad10">
+	    		<select id="mes_title" name="mes_title" onchange="switch_mes()">
+	    			<option value="">请选择信息标题</option>
+	    		<!--{eval $i=1;}-->
+	    		{loop $auth_blank_error_arr $k $v}
+					<option value="{$i}">{$k}</option>
+					<!--{eval $i++;}-->
+				{/loop}
+	    		</select>
+			</div>
+			<div class="title"><strong>发送内容：</strong></div>
+	    	<div class="detail pad10">
+	    		<textarea id="mes_content" name="mes_content" style="width:450px;height:100px;"></textarea>
+				<button class="positive pill primary button" type="submit" value="{$_lang['submit']}" >
+					<span class="check icon"></span>{$_lang['submit']}</button>        		
+			</div>
+
+		</div>
+		<input name="bank_a_id" type="hidden" value="{$bank_a_id}" />
+		<input name="obj" type="hidden" value="{$obj}" />		
+	  </form>
+	</div>  
+<script type="text/javascript"> 	
+	function switch_mes(){ 
+		var i = $("#mes_title").val();
+		var mes_arr = new Array();
+	<!--{eval $i=1;}-->
+	{loop $auth_blank_error_arr $k $v}
+		mes_arr['{$i}title'] = '{$k}';
+		mes_arr['{$i}content'] = '{$v}';
+		<!--{eval $i++;}-->
+	{/loop}			
+		if(i){
+			$('#mes_content').val(mes_arr[i+'content']); 	
+		}else{
+			$('#mes_content').val(' ');
+		}
+	}
+</script>
+ {/if}
+<!--{template control/admin/tpl/admin_footer}-->

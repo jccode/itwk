@@ -1,0 +1,262 @@
+<!--{template header_top}-->
+<!--{template header_shop}-->
+<link href="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/horizontal.css" rel="stylesheet" type="text/css" charset="utf-8">
+<link href="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/vertical.css" rel="stylesheet" type="text/css" charset="utf-8">
+<div class="wrapper clearfix">
+	<div class="container_24 clearfix">
+		<div class="grid_24 clearfix">
+			<div class="nav_lists_shop clearfix mt_20">
+				<!--头部导航-->
+			<!--{template shop/section_nav}-->
+			<!--end 头部导航-->
+			</div>
+			<!--内容主体-->
+			<div class="shop_content clearfix mt_10">
+				
+				<!--左内容-->
+				<div class="shop_left clearfix grid_5 alpha ">
+					<div  class="box default clearfix shop_info_boxs mb_10">
+						<div class="inner">
+							<div class="shop_user_img">
+								<!--{userpic($shop_info['uid'],larger)}-->
+							</div>
+							<div class="clearfix shop_info_one">
+								<ul>
+									<li class="clearfix">
+										<div class="fl_l">认证状况：</div>
+										<span class="ml_5 fl_l">
+											<!--{eval echo(keke_glob_class::get_auth_ico($shop_info['auth_realname'],$shop_info['auth_mobile'],$shop_info['auth_email'],$shop_info['auth_bank']));}-->
+										</span>
+									</li>
+									<li class="clearfix">
+										<div class="fl_l">诚信状况：</div>
+										<span class="ml_5 fl_l">
+											<img alt="" src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/credibility_of.jpg">
+										</span>
+									</li>
+									{if $shop_integrity}
+									<li class="clearfix">
+										<div class="fl_l">
+											托管保证金：
+										</div>
+										<span class="tg_totol ml_5 fl_l">￥{$shop_integrity['pay_cash']}元</span>
+									</li>
+									{/if}
+									{if $shop_info['user_type']==3}
+									<li class="clearfix">
+										<div class="fl_l">公司认证：</div>
+										<span class="ml_5 fl_l">
+											<img alt="" src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/cer_pass.jpg">
+										</span>
+									</li>
+									{/if}							
+								</ul>
+							</div>
+							<div class="clearfix match_kinds">
+								<dl class="clearfix t_c">
+									<dt>
+										<h2>同城速配基础服务</h2>
+									</dt>
+									{if $shop_info['city_match']=='1'}
+									<dd>
+										<p class="user_state mt_5">
+											开通使用中
+										</p>
+										<p class="mature_time">
+											<i class="block">服务到期时间为：</i>
+											<span class="block"><!--{date('Y年m月d日',$shop_info['vip_end_time'])}--></span>
+										</p>
+										<!--p>
+											<a href="#" class="button">我要续费</a>
+										</p-->
+									</dd>
+									{else}
+									<dd>
+										<p class="user_state mt_5">
+											未开通
+										</p>
+										<p>
+											<a href="{$_K['siteurl']}/index.php?do=shop&sid={$shop_info[shop_id]}&view=match_set&op=on" class="button">我要开通</a>
+										</p>
+									</dd>
+									{/if}
+								</dl>
+								{if $match_info}
+								<dl class="clearfix t_c pb_10">
+									<dt>
+										<h2>速配手机短信通知</h2>
+									</dt>
+									<dd>
+										<p class="user_state mt_5">
+											开通使用中
+										</p>
+										<p class="mature_time">
+											<i class="block">服务到期时间为：</i>
+											<span class="block">
+												{if $shop_info['shop_level']==3}
+													<!--{date('Y年m月d日',$shop_info['vip_end_time'])}-->
+												{else}
+													<!--{date('Y年m月d日',$match_info['end_time'])}-->
+												{/if}
+											</span>
+										</p>
+										{if $shop_info['shop_level']<3}
+											<p>
+												<a href="{$_K['siteurl']}/index.php?do=shop&sid={$sid}&view=match_set" class="button">我要续费</a>
+											</p>
+										{/if}
+									</dd>
+								</dl>
+								{/if}
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--左内容 end-->
+				
+				<!--右内容-->
+				<div class="shop_right clearfix grid_19 omega fl_r ">
+					<div class="box default clearfix firm_box match_task">
+						<div class="inner">
+							<div class="firm_left  fl_l">
+								<div class="clearfix pad20">
+									<div class="clearfix ">
+										<h2 class="font14b">速配任务分类：</h2>
+										<p class="pb_5 pt_5"><b>提示：</b>您设置的技能标签即是您速配的任务分类，修改速配分类对应着会修改您的技能标签</p>
+										{if $shop_info['skill_ids']}
+										<ul class="clearfix">
+											<!--{eval $skills=explode(',',$shop_info['skill_ids']);}-->
+											{loop $skills $v}
+											<li><span>$indus_c_arr[$v]['indus_name']</span></li>
+											{/loop}
+										</ul>
+										{else}
+											<div class="no_detail pad10">暂无</div>
+										{/if}
+									</div>
+									<div class="clearfix mt_10">
+										<a href="{$_K['siteurl']}/index.php?do=user&view=space&op=skill" target="_blank">修改速配任务分类</a>
+									</div>
+								</div>
+							</div>
+							<div class="firm_right fl_l">
+								<div class="pad10 clearfix">
+									<div class="pl_5 mt_5 pb_5"> 
+										<h2 >任务速配主体</h2>
+										<p>省市：{if $shop_info['residency']}{$area}{else}暂无{/if}</p>
+										<p>邮箱：{if $shop_info['email']}{$shop_info['email']}{else}暂无{/if}</p>
+										<p>手机：{if $shop_info['mobile']}{$shop_info['mobile']}{else}暂无{/if}</p>
+									</div>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=basic" target="_blank" class="button big mt_30">修改主体信息</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="box_shadow"></div>
+					<div class="box default clearfix mt_10 mb_10 match_list">
+						<div class="inner clearfix">
+							{if $shop_info['city_match']=='1'}
+							<header class="box_title box_header clearfix">
+								<nav class="box_nav clearfix">
+									<ul>
+										<li {if $op==1}class="selectedLava"{/if}>
+											<a href="{$_K['siteurl']}/index.php?do=shop&sid={$sid}&view=match_list&op=1">未参与的任务（{$w_c}）</a>
+										</li>
+										<li {if $op==2}class="selectedLava"{/if}>
+											<a href="{$_K['siteurl']}/index.php?do=shop&sid={$sid}&view=match_list&op=2">已参与的任务（{$y_c}）</a>
+										</li>
+										<li {if $op==3}class="selectedLava"{/if}>
+											<a href="{$_K['siteurl']}/index.php?do=shop&sid={$sid}&view=match_list&op=3">已中标的任务（{$b_c}）</a>
+										</li>
+									</ul>
+								</nav>
+							</header>
+							<article class="clearfix border_n">
+								<div class="list clearfix">
+									{if $task_arr}
+									<dl>
+										<dt>任务列表</dt>
+										<dd class="tags clearfix">
+											<ul class="clearfix">
+												<li class="w1 border_n">雇主</li>
+												<li class="w4">费用/任务标题</li>
+												<li class="w3">任务状态</li>
+												<li class="w2">发布时间/操作</li>
+											</ul>
+										</dd>
+										
+										{loop $task_arr $v}
+										<dd class="clearfix">
+											<ul>
+												<li class="w1"><a href="{$_K['siteurl']}/index.php?do=shop&u_id={$v[uid]}&view=index" target="_blank">{$v['username']}</a></li>
+												<li class="w4">
+													<a href="{$_K['siteurl']}/index.php?do=task&task_id={$v['task_id']}" target="_blank"><b>
+													{if $v['task_cash_coverage']} 
+														{$cash_cove_arr[$v['task_cash_coverage']]['cove_desc']} 
+													{else}
+														￥ {$v['task_cash']} 元
+													{/if}</b> {$v['task_title']}</a></li>
+												<li class="w3"><b>{$status_arr[$v['task_status']]}</b></li>
+												<li class="w2">
+													<p><!--{date('Y-m-d H:i:s',$v['start_time'])}--></p>
+													<p class="match_link">
+														<a href="javascript:;" onclick="sendMessage_task({$v['uid']},'{$v['username']}','{$v['task_id']}')" class="mr_5">联系雇主</a>|
+														<a href="{$_K['siteurl']}/index.php?do=task&task_id={$v['task_id']}" target="_blank" class="ml_5">报价</a>
+													</p>
+												</li>
+											</ul>
+										</dd>
+										{/loop}
+										
+									</dl>
+									
+									{else}
+										<div class="no_detail">没有找到相关任务</div>
+									{/if}
+								</div>
+							</article>
+							{else}
+							<div class="pad20">您还未开通同城速配服务。</div>
+							{/if}
+						</div>
+					</div>
+					<div class="clear"></div>
+					{if $pages['page']}
+					<div class="box default clearfix mb_20">
+						<div class="inner">
+							<div class="page_count fl_r mar10">
+							{$pages['page']}
+							</div>
+						</div>
+					</div>
+					{/if}
+				<!--右内容 end-->
+			</div>
+			<div class="clear"></div>
+			<!--内容主体 end-->
+		</div>
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+var uid = parseInt('{$uid}')+0; //判断是否登录
+
+/**
+ * 发送 站内信
+ * 
+ * @param int
+ * to_uid 接受方
+ */
+function sendMessage_task(to_uid,to_username,to_task_id) {
+if(check_user_login()){
+	if (uid == to_uid) {
+			showDialog('无法给自己发送站内短信', 'alert', '操作提示');
+			return false;
+		}
+		var url = encodeURI('/index.php?do=ajax&view=message&op=send&to_uid='+ to_uid+'&to_username='+to_username+'&to_task_id='+to_task_id);
+		showWindow('message',url);return false;
+}
+}
+</script>
+<!--{template shop/section_footer}-->
+<!--{template footer}-->

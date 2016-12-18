@@ -1,0 +1,178 @@
+  <!--{template control/admin/tpl/admin_header}-->
+<div class="page_title">
+    <h1>{$_lang['union_api_config_manage']}</h1>
+    <div class="tool">
+			 <a href="index.php?do=keke&view=account&op=apply" class="here">联盟api申请</a>
+       		 <a href="index.php?do=keke&view=account&op=config">{$_lang['union_api_config']}</a>
+    </div>
+</div>
+<div class="box post">
+    <div class="tabcon">
+        <div class="title">
+            <h2>联盟API申请</h2>
+        </div>
+        <div class="detail">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <form name="frm_apply_kekeapi" id="frm_apply_kekeapi" action="/union/apply.php" method="post" accept-charset="{$_K['charset']}">
+           		<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}" />
+				<input type="hidden" name="reg_ip" value="{$reg_ip}"/>
+                    <tbody id="qq">
+                        <tr>
+                            <th scope="row" width="130"> 账号：</th>
+                            <td>
+                                <input type="text" class="txt" autocomplete="off" name="username" id="txt_username" limit="required:true;len:2-20;type:string;general:true" msg="账号输入有误：2-10个字之间"  title="请输入注册账号"  msgArea="login_account_msg"/><span class="login_msg" id="login_account_msg">{$_lang['please_input_register_account']}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" width="130">真实姓名：</th>
+                            <td>
+                                <input type="text" class="txt" autocomplete="off" name="realname" id="txt_realname" limit="required:true;len:2-20" msg="真实姓名输入错误" title="真实姓名不得为空。2-20字符" msgArea="login_realname_msg"/><span class="login_msg" id="login_realname_msg">请输入您的真实姓名。</span>
+                            </td>
+                        </tr>
+                        <tr>
+                        	<th scope="row" width="130">密码：</th>
+                        	<td>
+                        		<input type="password" class="txt" name="password" id="pwd_password" limit="required:true;len:6-20"
+								 msg="{$_lang['password_input_error']}" title="{$_lang['password_input_limit']}" msgArea="password_msg"/>
+							<span class="login_msg" id="password_msg">{$_lang['please_input_password']}</span>
+                        	</td>
+                        </tr>
+                        <tr>
+                        	<th scope="row" width="130">确认密码：</th>
+                        	<td>
+                        		<input type="password" class="txt" name="pwd_password2" id="pwd_password2" limit="required:true;equals:pwd_password"
+								 	msg="{$_lang['repeat_password_error']}" title="{$_lang['please_input_repeat_password']}" msgArea="password2_msg"/>
+							 	<span class="login_msg" id="password2_msg">{$_lang['please_input_password_again']}</span>
+                        	</td>
+                        </tr>
+                        <tr>
+                        	<th scope="row" width="130">Tel：</th>
+                        	<td>
+                        		<input autocomplete="off" class="txt" type="text" type="text" name="phone" id="txt_phone" limit="type:tel;required:true"
+								 msg="联系电话输入错误。" title="请填写联系电话。如027-6682671" msgArea="phone_msg"/>
+							<span class="login_msg" id="phone_msg">请填写您的联系电话。如010-6682671</span>
+                        	</td>
+                        </tr>
+                        <tr>
+                        	<th scope="row" width="130">QQ：</th>
+                        	<td>
+                        		<input  autocomplete="off" class="txt" type="text"  name="qq" id="txt_qq" limit="required:true;type:digit;len:5-20"
+								 msg="qq输入错误。" title="请填写qq号码" msgArea="qq_msg"/>
+							<span class="login_msg" id="qq_msg">请填写您的qq号码。如12345678</span>
+                        	</td>
+                        </tr>
+                        <tr>
+                        	<th scope="row" width="130">Email：</th>
+                        	<td>
+                        		<input autocomplete="off" class="txt" type="text" name="email" id="txt_email" limit="type:email;required:true;len:6-50"
+								msg="{$_lang['email_format_error']}" title="{$_lang['email_format']}user@qq.com"  msgArea="email_msg"/>
+								<span class="login_msg" id="email_msg">{$_lang['please_input_eamil']}，务必确认填写的为您常用邮箱，申请信息将发送到此邮箱。</span>
+                        	</td>
+                        </tr>
+                        <tr>
+                        	<th scope="row" width="130">站点名称：</th>
+                        	<td>
+                        		<input autocomplete="off" class="txt" type="text" name="sitename" id="txt_sitename" limit="required:true;len:2-50" msg="站点名称输入错误" title="输入您的站点名称。"  msgArea="sitrname_msg"/>
+							<span class="login_msg" id="sitrname_msg">请输入您的站点名称</span>
+                        	</td>
+                        </tr>
+                        <tr>
+                        	<th scope="row" width="130">网站描述：</th>
+                        	<td>
+                        		<textarea id="site_desc" name="site_desc"></textarea>
+							<span id="site_desc_msg"></span>
+                        	</td>
+                        </tr>
+                        <tr>
+                        	<th scope="row" width="130">备案信息：</th>
+                        	<td>
+                        		<input type="text"  class="txt" name="icp" id="txt_icp" limit="required:true" msg="备案信息不能为空" title="请输入备案信息"  msgArea="icp_msg"/>
+							<span id="icp_msg">请输入备案信息</span>
+                        	</td>
+                        </tr>
+                        <tr>
+                        	<th scope="row" width="130">站点链接：</th>
+                        	<td>
+                        		<input autocomplete="off" class="txt" type="text"  name="siteurl" id="siteurl" value="http://" id="txt_siteurl"limit="required:true"
+								 msg="站点链接输入错误。" title="请填写您的站点名称。如http://www.xxx.com" msgArea="siteurl_msg"/>
+							<span class="login_msg" id="siteurl_msg">请填写您的站点链接。如http://www.xxx.com</span>
+                        	</td>
+                        </tr>
+                        <tr>
+                        	<th scope="row" width="130">同步通知地址：</th>
+                        	<td>
+                        		<input type="text" id="return_url" class="txt" name="return_url" value="http://" limit="required:true"
+								 msg="系统消息通知地址输入错误。" title="请填写您的联盟系统消息同步通知地址。如http://www.xxx.com/return.php" msgArea="return_url_msg"/>
+							<span class="login_msg" id="return_url_msg">联盟系统消息同步通知地址。请谨慎填写。</br><span class="title">&nbsp;</span>如http://www.xxx.com/return.php</span>
+                        	</td>
+                        </tr>
+                        <tr>
+                        	<th scope="row" width="130">异步通知地址：</th>
+                        	<td>
+                        		<input type="text" id="notify_url" class="txt"  name="notify_url" value="http://" limit="required:true"
+								 msg="系统消息通知地址输入错误。" title="请填写您的联盟系统消息异步通知地址。如http://www.xxx.com/notify.php" msgArea="notify_url_msg"/>
+								<span class="login_msg" id="notify_url_msg">联盟系统消息异步通知地址。请谨慎填写。</br><span class="title">&nbsp;</span>如http://www.xxx.com/notify.php</span>
+                        	</td>
+                        </tr>
+						<!--
+                        <tr>
+                        	<th scope="row" width="0"></th>
+                        	<td>
+                        		<li>你想成为联盟合作者的身份：<span class="explain">（联盟通过支付宝担保交易更安全更快捷更稳定）</span></li>
+                    			<li>
+                        			<span><input type="radio" value="1" name="level_id" checked/>&nbsp;&nbsp;推广信息发布站</span>
+									<span><input type="radio" value="2" name="level_id"/>&nbsp;&nbsp;推广信息承接站</span>
+                    		   </li>
+                        	</td>
+                        </tr>
+                        -->
+                    </tbody>
+            </form>
+                    <th scope="row">&nbsp;
+                        
+                    </th>
+                    <td>
+                        <div class="clearfix padt10">
+                            <button class="positive pill primary button" type="submit" name='submit' value="{$_lang['submit']}" onclick="frm_submit();" >
+                                <span class="check icon"></span>{$_lang['submit']}
+                            </button>
+                            <button class="pill button" type="button" onclick="history.go(-1);" value="{$_lang['return']}">
+                                <span class="leftarrow icon"></span>{$_lang['return']}
+                            </button>
+                        </div>
+                    </td>
+                </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../../resource/js/system/form_and_validation.js"></script>
+<script type="text/javascript">
+	$("#site_desc").focus(function(){
+		$("site_desc_msg").html(' ');
+	})
+	function frm_submit(){
+		var i = checkForm(document.getElementById('frm_apply_kekeapi'));		
+		if(!i){
+			return false;
+		}
+		if($("#site_desc").val().length==0){
+			$("#site_desc_msg").html("网站描述不能为空");
+			return false;
+		}
+		var siteurl = $("#siteurl").val();		
+		if(siteurl=='http://'){			
+			$("#siteurl_msg").html($("#siteurl").attr("msg"));
+			$("#siteurl").focus();
+			return false;
+		}
+		var notify_url = $("#notify_url").val();		
+		if(notify_url=='http://'){
+			$("#notify_url_msg").html($("#notify_url").attr("msg"));
+			$("#notify_url").focus();
+			return false;
+		}
+		$("#frm_apply_kekeapi").submit();		
+			
+	}
+</script>
+<!--{template control/admin/tpl/admin_footer}-->

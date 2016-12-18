@@ -1,0 +1,472 @@
+<!--{template header}-->
+<!--{template header_nav_index}-->
+<!--首页样式--> 
+<link href="{$_K['siteurl']}/{SKIN_PATH}/css/index.css" rel="stylesheet"/>
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/index.css" rel="stylesheet"/> 
+<link href="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/horizontal.css" rel="stylesheet" type="text/css" charset="utf-8">
+<link href="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/vertical.css" rel="stylesheet" type="text/css" charset="utf-8">
+<!--玩转一品 开始-->
+<div id="wz_box" style="display:none;"></div>
+<div id="body_id" class="black_overlay" style="display:none;"></div>
+<script type="text/javascript" src="{$_K['siteurl']}/tpl/default/js/wz_ajax.js"></script>
+<!--玩转一品 结束-->
+<div class="container_24 site_info">
+	<div class="tool_bar clearfix">
+		<p class="fl_l">
+			<strong>网站指数：</strong>
+			<span class="mr_10">交易金额 <b>￥{$task_cash}</b></span>
+			<span class="mr_10">任务数量 <b>{$task_num}</b> 个</span>
+			<span class="mr_10">注册用户 <b>{$user_num}</b> 个</span>
+		</p>
+		<p class="fl_r">
+			<a href="{$_K['siteurl']}/index.php?do=article">新闻中心</a>
+			<a href="{$_K['siteurl']}/index.php?do=special&view=special_list">精彩专题</a>
+			<a href="{$_K['siteurl']}/index.php?do=help&view=service">客服中心</a>
+			<a href="http://e.weibo.com/epweikecom" target="_blank" class="border_n"><img src="{SKIN_PATH}/theme/{$_K['theme']}/img/index/btn_sina.png">官方微博</a>
+		</p>
+	</div>
+</div>
+
+ <!--内容区 satrt-->
+  <div class="wrapper clearfix">
+    <div class="container_24 clearfix"> 
+     <div class="pb_10"></div>
+       <div class="col_category mb_10">
+       	<div class="orange_box">
+       	<div class="box c_style  ">
+       		<div class="inner">
+	       		<div class="category">
+	       				
+				<!--分类 start-->
+	            <div id="category_box" class="category po_re">
+	              <!--分类切换 start-->
+	               <ul class="tab block" id="indus">
+	                  <li><a href="javascript:indusLinkInit('task_list');" class="selected" rel="task_list"  id="ul_indus_1" onclick="swaptab('indus','selected','purple',2,1);"><span>创意任务分类</span></a></li>
+	                  <li><a href="javascript:indusLinkInit('shop_list');" class="purple" rel="shop_list"  id="ul_indus_2" onclick="swaptab('indus','backLava','purple',2,2);"><span>劳务服务分类</span></a></li>
+	               </ul>
+	             <!--分类切换 end-->
+						 
+	                   <ul class="indus_list clearfix" id="div_indus_1">
+	                 	<!--{eval $is=0;$s=sizeof($indus_p_arr);$load=array();}-->
+		                 {loop $indus_p_arr $k $v}
+	                    	{if $is<8||($is==8&&$s==9)}
+		                       <li>
+		                         <a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v['indus_id']" target="_blank" >$v['indus_name']<em></em></a>
+	 							   <ul class="s_nav hidden">  
+	 								 {loop $indus_c_arr $k1 $v1}
+										{if $v['indus_id']==$v1['indus_pid']}
+											<li>
+												<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v1['indus_id']">$v1['indus_name']</a>
+											</li> 
+										 {/if}
+									 {/loop} 
+								   </ul> 
+		                      </li>
+							<!--{eval $is++;$load[$v['indus_id']]=1;}-->
+							{else}
+		                       <li class="s_all_li"><a href="{$_K['siteurl']}/index.php?do=indus" target="_blank">全部行业&gt;&gt;<em></em></a></li>
+							   <!--{eval break;}-->
+						   {/if} 
+						{/loop} 
+	                   </ul>
+
+
+	                   <ul class="indus_list clearfix hidden" id="div_indus_2">
+	                 	<!--{eval $is=0;$s=sizeof($service_indus_p_arr);$load=array();}-->
+		                 {loop $service_indus_p_arr $k $v}
+	                    	{if $is<8||($is==8&&$s==9)}
+		                       <li>
+		                         <a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v['indus_id']" target="_blank" >$v['indus_name']</a>
+	 							   <ul class="s_nav hidden">  
+	 								 {loop $service_indus_c_arr $k1 $v1}
+										{if $v['indus_id']==$v1['indus_pid']}
+											<li>
+												<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v1['indus_id']">$v1['indus_name']</a>
+											</li> 
+										 {/if}
+									 {/loop} 
+								   </ul> 
+		                      </li>
+							<!--{eval $is++;$load[$v['indus_id']]=1;}-->
+							{else}
+		                       <li class="s_all_li">
+		                          <a href="{$_K['siteurl']}/index.php?do=indus">全部行业&gt;&gt;</a>
+		                       </li>
+							   <!--{eval break;}-->
+						   {/if} 
+						{/loop} 
+	                   </ul>
+	       			</div>
+					
+					
+	       		</div>
+       	</div>
+		</div>
+		</div>
+        
+  </div>      
+<div class="col_banner mb_10">
+   <div class="box">
+     <div class="inner">
+      <!--切换广告 start-->
+       <div class="banner po_re">
+         <div id="slides">
+          <!--图片内容区域 start-->
+              <div class="slides_container">
+				     <!--{ad_show(HOME_TOP_SLIDE,1)}-->				
+              </div>
+          <!--图片内容区域 end-->
+      
+         </div>
+       </div>
+      <!--切换广告 end-->
+     </div>
+    </div>
+   <div class="clear"></div>
+</div>
+  <div class="col_right mb_10">
+	
+	<div class="site_link mb_10">
+		<a href="{$_K['siteurl']}/index.php?do=register">免费注册</a>
+		<span class="line"></span>
+		{if $uid}
+			{if $user_info[shop_id]}
+				<a href="{$_K['siteurl']}/index.php?do=shop&sid=$user_info[shop_id]">我的商铺</a>
+				{if $user_info[shop_level]<3}<!--1.2-->
+					<span class="line"></span>
+					<a href="{$_K['siteurl']}/index.php?do=vip">VIP专区<span class="icon_hot"></span></a>
+				{/if}
+			{else}
+				<a href="javascript:void(0);" onclick="showDialog('您还未开通店铺,请先前往用户中心开通店铺','confirm','操作提示',function(){
+					location.href='{$_K['siteurl']}/index.php?do=user&view=space';});">我的商铺</a>
+				<span class="line"></span>
+				<a href="javascript:void(0);" onclick="showDialog('您还未开通店铺,请先前往用户中心开通店铺','confirm','操作提示',function(){
+					location.href='{$_K['siteurl']}/index.php?do=user&view=space';});">VIP专区<span class="icon_hot"></span></a>
+			{/if}
+		{else}
+			<a href="javascript:void(0);" onclick="showDialog('您还未登录,无法访问店铺,点击确认前往登录页','confirm','操作提示',function(){
+					location.href='{$_K['siteurl']}/index.php?do=login&refer=shop';});">我的商铺</a>
+			<span class="line"></span>
+			<a href="{$_K['siteurl']}/index.php?do=vip" >VIP专区<span class="icon_hot"></span></a>
+		{/if}
+	</div>
+	
+	
+	<div class=" post clearfix mb_10">
+		<div class="inner">
+		<h1>买创意，卖创意，上一品</h1>
+		<button class="primary submit" type="button" onclick="location.href='{$_K[siteurl]}/index.php?do=release'">我有需求，发布任务</button>
+		</div>
+	</div>
+
+	
+   <div class="box  mb_10">
+    <div class="inner">
+      <!--公告 start-->
+        <div class="notice">
+         <!--公告头部 start-->
+         <header class="box_header clearfix">
+          	<nav class="box_nav">
+               <ul class="ov_hide block clearfix">
+                  <li id="ul_plac_1" onmouseover="swaptab('plac','selectedLava','',3,1)"><a href="javascript:void(0);" title="平台公告">平台公告</a></li>
+                  <li id="ul_plac_2" onmouseover="swaptab('plac','selectedLava','',3,2)"><a href="javascript:void(0);" title="媒体报道">媒体报道</a></li>
+                  <li id="ul_plac_3" onmouseover="swaptab('plac','selectedLava','',3,3)"><a href="javascript:void(0);" title="中标公告">中标公告</a></li>
+               </ul>
+            </nav>
+            <div class="clear"></div>
+         </header>
+        <!--公告头部 end-->
+        <!--公告detail内容 start-->
+         <article class="box_detail" id="div_plac_1">
+           <ul>
+              {loop $bulletin $v}
+				<li><a href="{$_K['siteurl']}/index.php?do=article&view=info&art_cat_id={$v['art_cat_id']}&art_id={$v['art_id']}">{$v['art_title']}</a></li>
+			 {/loop}
+           </ul>
+         </article>
+        <article class="box_detail hidden" id="div_plac_2">
+        	 <ul>
+               {loop $media $v}
+				<li><a href="{$_K['siteurl']}/index.php?do=article&view=info&art_cat_id={$v['art_cat_id']}&art_id={$v['art_id']}">{$v['art_title']}</a></li>
+			 {/loop}
+			 </ul>
+        </article>
+        <article class="box_detail hidden" id="div_plac_3">
+               <ul>
+               {loop $bid $v}
+				<li><a href="{$_K['siteurl']}/index.php?do=task&task_id={$v['task_id']}">{$v['username']}成功中标{$v['task_id']}号[<!--{eval echo kekezu::cutstr($model_list[$v[model_id]][model_name],4)}-->]任务</a></li>
+			 {/loop}
+			 </ul>
+        </article>
+ 
+       <!--公告detail内容 end-->                    
+        
+      </div>
+    </div>
+  </div>
+    <div class="clear"></div>
+  </div>      
+  <div class="clear"></div>
+  
+  <div class="box default clearfix heavily fl_l">
+  	<div class="inner">
+  		<div class="clearfix recd_talent  po_re">
+				<div id="jcarousel" class="jcarousel" >
+					<ul>
+						{loop $heavily $v}
+						<li class="clearfix">
+							<a href="{$_K['siteurl']}/index.php?do=task&task_id=$v['task_id']">
+								<h1>￥{$v['task_cash']}</h1>
+								<span class="ml_5 block">{$v['task_title']}</span>
+							</a>
+						</li>
+						{/loop}
+					</ul>
+				</div>
+				<a href="#" class="left_arrow arrow ml_5" onclick="$('#jcarousel').jcarousel('scroll', '-=1'); return false;">Prev (1)</a>
+				<a href="#" class="right_arrow arrow mr_5"  onclick="$('#jcarousel').jcarousel('scroll', '+=1'); return false;">Next (1)</a>
+				<img src="{SKIN_PATH}/theme/{$_K['theme']}/img/style/heavily_title.gif" alt=""> 
+		</div>
+  	</div>
+  </div>
+  
+  <div class=" box default clearfix case_watch po_re">
+  		<div class="inner">
+  			<header class="clearfix">
+  				<h2 class="box_header font12">精彩案例赏析</h2>
+				<div class="clearfix arrow_box">
+					<a href="#" class="left_arrow arrow " onclick="$('#jcarousel2').jcarousel('scroll', '-=1'); return false;">Prev (1)</a>
+					<a href="#" class="right_arrow arrow"  onclick="$('#jcarousel2').jcarousel('scroll', '+=1'); return false;">Next (1)</a>
+				</div>
+  			</header>
+			<article class="pad10">
+				<div id="jcarousel2" class="jcarousel" >
+					<ul>
+						{loop $case $v}
+						<li>
+							<a href="{if $v['jump_link']}{$v['jump_link']}{else}{$_K['siteurl']}/index.php?do=task&task_id={$v['task_id']}{/if}">
+								<img  src="{$v['art_pic']}" alt="{$v['art_title']}">
+							</a>
+						</li>
+						{/loop}
+					</ul>
+				</div>
+			</article>
+  		</div>
+  </div>	
+   
+   <p>
+	<!--{ad_show(HOME_CENTER_TOP_BANNER_LEFT,首页-中上部两栏左边)}-->	 
+	<!--{ad_show(HOME_CENTER_TOP_BANNER_RIGHT,首页-中上部两栏右边)}-->	 
+	</p>
+	
+  <div class="clear"></div>
+      <div class=" mb_10 mt_10">
+        <div class="box model blue">
+          <!--任务列表 start-->
+           <div class="task">
+            <!--头部 start-->
+             <header class="box_header clearfix">
+               <div class="grid_2 alpha mt_5">
+                 <!--标题 start-->
+                  <h1 class="box_title"><span>{$_lang['task']}</span></h1>
+                 <!--标题 end-->
+               </div>
+               <div class="grid_17 omega">
+               <!--导航区域 start-->
+                 <nav class="box_nav clearfix">
+                   <ul class="clearfix">
+                      <li id="ul_task_1" onmouseover="swaptab('task','selectedLava','',4,1);"><a href="javascript:void(0);" title="推荐任务">推荐任务</a></li>
+                      <li id="ul_task_2" onmouseover="swaptab('task','selectedLava','',4,2,{ajax:1,url:'{$_K['siteurl']}/index.php?ajax=task&op=1'});"><a href="javascript:void(0);" title="最新任务">最新任务</a></li>
+					  <li id="ul_task_3" onmouseover="swaptab('task','selectedLava','',4,3,{ajax:1,url:'{$_K['siteurl']}/index.php?ajax=task&op=2'});"><a href="javascript:void(0);" title="直接雇佣">直接雇佣</a></li>
+					  <li id="ul_task_4" onmouseover="swaptab('task','selectedLava','',4,4,{ajax:1,url:'{$_K['siteurl']}/index.php?ajax=task&op=3'});"><a href="javascript:void(0);" title="悬赏任务">悬赏任务</a></li>
+                   </ul>
+                 </nav>
+                 <!--导航区域 end-->
+               </div>
+               <div class="grid_6 omega fl_r">
+                 <!--按钮区域 start-->
+                   <div class="btns">
+                      <a href="http://list.qq.com/cgi-bin/qf_invite?id=25ebb84ac217adb3bfb0b457fb9058a1c37e55930bc97920" target="_blank" class="button primary c090">任务周报订阅</a>
+                      <a href="{$_K['siteurl']}/index.php?do=task_list" class="button">进入任务大厅</a>
+                   </div>
+                 <!--按钮区域 end-->
+               </div>
+              <div class="clear"></div>
+            </header>
+          <!--头部 end-->
+          <!--任务推荐-->
+		<div id="div_task_1">
+          
+                        
+      <!--detail内容 start-->
+       <article class="box_detail no_bottom clearfix">
+         <!--列表内容 33条 start-->
+           <ul class="small_list clearfix">
+             {loop $task_recomm $v}
+             <li class=" grid_12 omega alpha pl_10 pr_10 clearfix">
+             <!--单条内容 start-->
+                <div class="item clearfix">
+                	<a href="{$_K['siteurl']}/index.php?do=task&task_id={$v['task_id']}"  target="_blank">
+				   <!--任务标题 start-->
+                   <strong class="ea5e00 money pr_10">
+                  		{$_lang['currency']}
+						{if $v['task_cash_coverage']}
+						{$cash_cove_arr[$v['task_cash_coverage']]['cove_desc']} 
+						{else}
+							{$v['task_cash']}
+						{/if}
+                  </strong>
+				  <!--任务金额 start-->
+                  {$v['task_title']}
+                  <!--任务金额 end-->
+				  
+                   <!--任务标题 end-->
+				   </a>
+                   <!--任务统计 start-->
+                   <span class="task_status" title="{$_lang['view']} {$v['view_num']} | {$_lang['submit_work']} {$v['work_num']} ">( {$v['view_num']} |  {$v['work_num']} )</span>
+                   <!--任务统计 start-->
+                 </div>
+            <!--单条内容 end-->
+            </li>
+		{/loop}
+        </ul>
+       <!--列表内容 33条 end-->
+      <div class="clear"></div>
+    </article>
+	</div>
+	<!--任务推荐 end-->
+	
+	<!--任务最新-->
+	<div id="div_task_2" class="hidden"></div>
+   <!--任务列表 end-->
+   
+   	<!--直接雇佣-->
+	<div id="div_task_3" class="hidden"></div>
+   <!--任务列表 end-->
+   
+   	<!--悬赏任务-->
+	<div id="div_task_4" class="hidden"></div>
+   <!--任务列表 end-->
+   </div>
+  </div>
+ </div>
+
+  <div class="clear"></div>
+   <!--{ad_show(HOME_CEMYER_BANNER,首页-中部三栏)}-->
+  <div class="clear"></div>
+  
+  
+  	<div class=" mb_10">
+       <div class="box model orange_shop talent">
+       <!--商城内容 start-->
+         <div class="shop">
+           <!--头部 satrt-->
+             <header class="box_header clearfix">
+               <div class="grid_2 alpha mt_5">
+                 <!--商城标题 start-->
+                  <h1 class="box_title"><span>人才</span></h1>
+                 <!--商城标题 end-->
+               </div>
+               <div class="grid_16 omega">
+                  <!--商城导航 start-->
+                    <nav class="box_nav clearfix">
+                       <ul>
+                           <li id="ul_service_1" onmouseover="swaptab('service','backLava','',3,1);"><a href="javascript:void(0);" title="推荐的商铺">推荐的商铺</a></li>
+                           <li id="ul_service_2" onmouseover="swaptab('service','backLava','',3,2,{ajax:1,url:'{$_K['siteurl']}/index.php?ajax=shop'});"><a href="javascript:void(0);" title="最新的商铺">最新的商铺</a></li>
+                           <!--li id="ul_service_3" onmouseover="swaptab('service','backLava','',3,3,{ajax:1,url:'{$_K['siteurl']}/index.php?ajax=integrity_shop'});"><a href="javascript:void(0);" title="诚信商铺">诚信商铺</a></li-->
+                       </ul>
+                     </nav>
+                  <!--商城导航 end-->
+                </div>
+                <div class="grid_7 omega fl_r">
+                <!--商城按钮 start-->
+                    <div class="btns">
+                      <a href="{$_K['siteurl']}/index.php?do=vip" class="button primary c090">我要出现在这里</a>
+                      <a href="{$_K['siteurl']}/index.php?do=talent" class="button ">更多商铺 &gt;</a>
+                    </div>
+                <!--商城按钮 end-->
+                </div>
+               <div class="clear"></div>
+          </header>
+          <!--头部 end-->
+                          
+         <!--detail内容 start-->
+           <article class="box_detail no_bottom clearfix" id="div_service_1">
+              <!--商城列表 26条 start-->
+                 <ul class="small_list clearfix">
+					{loop $shop_recomm $k $v}
+                       <li class="item clearfix">
+                             <a href="{$_K['siteurl']}/index.php?do=shop&sid={$v['shop_id']}" title="{$v['shop_title']}">
+                             	<!--{userpic($v['uid'],middle)}-->
+                             </a>
+						</li>
+					{/loop}
+                   </ul>
+                 <div class="clear"></div>
+                <!--商城列表 26条 end-->
+             
+             </article>
+			 
+			<article class="box_detail clearfix hidden" id="div_service_2"></article>
+			<article class="box_detail clearfix hidden" id="div_service_3"></article>
+           <!--detail内容 end-->
+          </div>
+        <!--商城内容 end-->
+     </div>
+    <div class="clear"></div>
+  </div>
+  
+  		<div class="box clearfix model mt_10 teamwork">
+				<div class="inner">
+					<header class="box_header clearfix">
+						<h1 class="box_title fl_l mt_5">友情链接</h1>
+						<div class="fl_r clearfix   btns">
+							<a href="javascript:void(0);" onclick="link_box(1)" class="button primary c090">申请友情链接</a>
+						
+						</div>
+					</header>
+					<article class="pad10 clearfix">
+						<ul class="clearfix">
+							{loop $link_arr $v}
+							<li><a href="{$v['link_url']}" target="_blank">$v['link_name']</a></li>
+							{/loop}
+						</ul>
+					</article>
+				</div>
+			</div>
+ 
+ <!--{template footer_help}-->
+ 
+  <div class="clear mb_10"></div>
+  	<!--{ad_show(HOME_BUTTOM_BANNER)}-->
+	
+	
+	 <div class="mt_10">
+		<img src="{SKIN_PATH}/img/style/icon_talk.gif" class="mr_5"/>我对新版一品威客网有意见或建议，去 <strong><a href="{$_K['siteurl']}/index.php?do=review">一句话点评 </a></strong>说说 
+		</div> 
+		
+		
+   </div>	
+ </div>
+
+
+
+<!--内容区 end-->
+
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.autoscroll.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.pagination.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/easySlider1.5.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/slides.min.jquery.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/{$style_path}/js/index.js"></script>
+<script type="text/javascript">
+ //友情链接
+var uid = parseInt('{$uid}')+0;
+In.add('lazy',{path:"{$_K['siteurl']}/resource/js/system/lazy.js",type:'js'});
+In('lazy',function(){
+	loadPics();
+});
+</script>
+
+<!--{template footer}-->

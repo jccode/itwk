@@ -1,0 +1,201 @@
+<!--{template header}-->
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/login.css"  rel="stylesheet">
+<style type="text/css">
+	.winbody{ height:240px;}
+	.winbody td{ padding:5px 0;}
+	.valid_error { margin-left:5px;}
+	.valid_error span{ display:inline-block; width:145px;}
+</style>
+<div class="winbody  {$_K['theme']}_style">
+ <div class="">
+ <!--main content-->
+   <div class="clearfix">
+    <!--from表单 start-->
+  		
+    	<div class="clearfix pt_20 pb_20" id="upload_tip">
+  
+			<div id="login">
+			  <form action="/index.php?do=login" method="post" id="login_frm" name="login_frm">
+                    <input type="hidden" name="formhash" id="formhash" value="<!--{eval echo kekezu::formhash();}-->">
+					<input type="hidden" name="handlekey" value="login_frm1">
+					<input type="hidden" name="hdn_refer" id="hdn_refer" value="{$_K['refer']}">
+					<input type="hidden" name="logins" id="logins" value='0'>
+				<div id="message_tip" class="messages m_error mr_20 mb_10 border_n"><label id="span_msg_tip"></label></div>
+				<div class="clear"></div>
+				<div class="left_side">	
+					
+					
+					<div class="rowElem clearfix">
+						<label class=" txt">
+                        	  账　号：
+                        </label>
+                            <input class="txt_input c999" style="width:200px;"  type="text"  size="20"  tmp="login_account1" autocomplete="off" name="txt_account" onclick="$(this).removeClass('c999')" id="txt_account1" caseon="submit" limit="required:true" msg="用户名不得为空" value="用户名/手机号/邮箱"  msgArea="span_msg_tip" />
+					</div>
+					<div class="clear"></div>
+					<div class="rowElem clearfix po_re ov_hide" >
+						<label class=" txt">
+                        	  密　码：
+                        </label>
+                        <input class="txt_input c999" style="width:200px;" type="text" name="txt_password" id="txt_password" value="密码长度应为6-20位"/><input class="txt_input c000 hidden" style="width:200px;" type="password"  tmp="login_password1" name="pwd_password" id="pwd_password" maxlength="20" caseon="submit" limit="required:true;len:2-20" msg="密码长度应为6-20位"  msgArea="span_msg_tip" />	
+					</div>
+					<div class="clearfix tips_box" onmouseover="$(this).addClass('po_re')" onmouseout="$(this).removeClass('po_re')">
+						<span class="fl_l tips mr_10">
+							<label class="auto_login">
+								<input type="checkbox">
+							</label>
+							一周内自动登录
+						</span>
+						<div class="tips_word hidden">为了账户安全，请勿在公用电脑上勾选此项</div>	
+						<!--img src="{$_K['siteurl']}/tpl/orange/img/help_login.gif" class="help_login"-->	
+						<a href="{$_K['siteurl']}/index.php?do=help&view=get_password" target="_blank" class="c009 fl_l">忘记密码？</a>
+					</div>
+					<div class="clearfix mt_10 button_box">
+						<button class="primary mr_5 submit" type="button" onclick="return user_login();" style=" ">登　录</button>
+						<a class="button bwhite" href="{$_K['siteurl']}/index.php?do=register">免费注册</a>
+					</div>
+				</div>
+                  
+				<div class="word_login clearfix  c333">
+					<p>您也可以使用合作网站账号登录:</p>
+					<div class="mt_10">
+						<dl class="clearfix">
+					<dt style="background-position:0 0;"></dt>
+							<dd><a href="{$_K['siteurl']}/index.php?do=oauth_login&type=qq" target="_blank">QQ</a></dd>
+							<dt style="background-position:0 -16px;"></dt>
+							<dd><a href="{$_K['siteurl']}/index.php?do=oauth_login&type=sina">新浪微博</a></dd>
+							<dt style="background-position:0 -32px;"></dt>
+							<dd><a href="{$_K['siteurl']}/index.php?do=oauth_login&type=renren">人人网</a></dd>
+							<dt style="background-position:0 -48px;"></dt>
+							<dd><a href="{$_K['siteurl']}/index.php?do=oauth_login&type=netease">网易</a></dd>
+							<dt style="background-position:0 -64px;"></dt>
+							<dd><a href="{$_K['siteurl']}/index.php?do=oauth_login&type=taobao">淘宝</a></dd>
+							<dt style="background-position:0 -80px;"></dt>
+							<dd><a href="{$_K['siteurl']}/index.php?do=oauth_login&type=baidu">百度</a></dd>
+							<dt style="background-position:0 -96px;"></dt>
+							<dd><a href="{$_K['siteurl']}/index.php?do=oauth_login&type=douban">豆瓣</a></dd>
+							<dt style="background-position:0 -112px;"></dt>
+							<dd><a href="{$_K['siteurl']}/index.php?do=oauth_login&type=msn">MSN</a></dd>
+						</dl>
+					</div>
+				</div>																									                        
+            </form>	
+		 </div>
+      </div>
+
+  <!--from表单 end-->
+  </div>
+ 
+
+ </div>
+</div>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.autoscroll.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.pagination.js"></script>
+<script src="{$_K['siteurl']}/resource/js/jquery.bgiframe.pack.js"></script>
+<script>
+	In('form');
+	$('#new_login').jcarousel({
+		 wrap: 'circular',
+		 animation: 200
+	}).jcarouselAutoscroll({
+	   interval:  2000
+	});
+	$(".auto_login").hover(
+		function(){
+			$(".tips_box").addClass("tips_on");
+			$(".tips_word").removeClass("hidden");
+			},
+		function(){
+			$(".tips_box").removeClass("tips_on");
+			$(".tips_word").addClass("hidden");
+			}
+	);
+	
+		$(".close").click(function(){
+					$("#error_box").hide();
+				})
+
+  
+    $("#txt_account1").focus(function(){
+        var content = $(this).val();
+        if (content == "用户名/手机号/邮箱") {
+            $(this).val("");
+        }
+    }).blur(function(e){
+        var content = $(this).val();
+        if (!content) {
+            $(this).val("用户名/手机号/邮箱").addClass('c999');
+        }
+    });
+    
+	//回车执行登录
+	$("body").bind('keyup',function(event) {  
+	if(event.keyCode==13){  
+		user_login();  
+	}});   
+    //登录
+    function user_login(){
+        var txt_account = $("#txt_account1").val();
+        var pwd_password = $("#pwd_password").val();
+        var hdn_refer = $("#hdn_refer").val();
+        var formhash = $("#formhash").val();
+		if ((txt_account=="" || txt_account=="用户名/手机号/邮箱") && pwd_password=="") {
+			$("#span_msg_tip").attr("class", "valid_error");
+            $("#span_msg_tip").html('<span>请输入您的账号和密码</span>');
+			return false;
+		}else if (txt_account==""){
+			$("#span_msg_tip").attr("class", "valid_error");
+            $("#span_msg_tip").html('<span>请输入您账号</span>');
+			return false;
+		}else if (pwd_password==""){
+			$("#span_msg_tip").attr("class", "valid_error");
+            $("#span_msg_tip").html('<span>请输入您的密码</span>');
+			return false;
+		}
+        if (checkForm(document.getElementById("login_frm"), false)) {
+            $.post("/index.php?do=login", {
+                //formhash: formhash,
+                txt_account: txt_account,
+                pwd_password: pwd_password,
+                login_type: 3,
+                hdn_refer: hdn_refer
+            }, function(json){
+                if (json.status == 1) {
+                    $("#span_msg_tip").attr("class", "");
+                    $("#span_msg_tip").html("");
+                    $("#error_box").attr("class", "error_box hidden");
+					if(typeof stepCheck=='function'){
+						stepCheck();
+					}else{
+						location.reload();
+					}
+                }
+                else {
+                    $("#span_msg_tip").attr("class", "valid_error");
+                    $("#span_msg_tip").html('<span>' + json.msg + '</span>');
+                    $("#error_box").attr("class", "error_box");
+                }
+            }, 'json')
+        }
+    }
+	
+	$("#txt_password").focus(function(){
+		$(this).addClass('hidden');
+		$("#pwd_password").removeClass('hidden');
+//		$("#message_tip").hide();
+		$("#pwd_password")[0].focus();
+		
+	})
+	$("#pwd_password").blur(function(){
+		if($(this).val()==''){
+			$(this).addClass('hidden');
+			$("#txt_password").removeClass('hidden');
+		}
+	})
+	
+	$('div.fwinmask').bgiframe();
+	
+</script>
+
+
+<!--{template footer}-->

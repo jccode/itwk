@@ -1,0 +1,268 @@
+<!--{template control/admin/tpl/admin_header}-->
+<script type="text/javascript" src="../../resource/js/system/keke.js"></script>
+ <script type="text/javascript" src="../../resource/js/system/ajaxfileupload.js"></script>
+<div class="page_title">
+    	<h1>视频管理</h1>
+        <div class="tool">
+        	<a href="index.php?do={$do}&view=video">视频列表</a>
+            <a href="index.php?do={$do}&view={$view}" class="here">视频{if $indus_id}{$_lang['edit']}{else}{$_lang['add']}{/if}</a> 
+        </div>
+</div>
+
+<div class="box post">
+    <div class="tabcon">
+        	<div class="title"><h2>视频{if $indus_id}{$_lang['edit']}{else}{$_lang['add']}{/if}</h2></div>       	
+            <div class="detail">
+                <form method="POST" action="index.php?do={$do}&view={$view}" id="frm_this" enctype="multipart/form-data" >
+                <input type="hidden" name="pk[v_id]" value="$video_info[v_id]">  
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <th scope="row" width="130">视频分类{$_lang['zh_mh']}</th>
+                        <td> 
+							<select name="fields[v_cat]"id="v_cat" style=" width:270px;"
+                         			 limit = "required:true;type:int" 
+                                     msg ="请选择视频分类"
+                                     title="请选择视频分类"
+                                     msgArea="msg_v_cat">
+	                        {loop $video_cat $k $v}
+	                         	<option value="$k" {if $video_info[v_cat]==$k}selected=selected{/if}>$v</option>
+	                        {/loop}
+	                    	</select>
+							 <span id="msg_v_cat" style="color:red;"></span> 
+                        </td>
+                      </tr>
+					  
+                      <tr>
+                        <th scope="row">视频标题{$_lang['zh_mh']}</th>
+                        <td><input type="text" maxlength="100"  class="txt" style=" width:260px;"
+						name="fields[v_title]" 
+						value="{$video_info['v_title']}"
+                        			 limit = "required:false" 
+                                     msg ="请输入视频标题"
+                                     title="请输入视频标题" 
+                                     msgArea="msg_v_title"/><span id="msg_v_title"></span>
+                       </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">上传图片:</th>
+                        <td id="t_pic" class=" p_relative"> 
+                        	<!--<input type="file" name="img"  id="img" size="50" onchange="isExtName(this,1)" ext=".jpg,.png,.gif,.jpeg,.bmp">-->
+							
+							<input type="file" id="img" class="file" name="img"  size="20" ext=".jpg,.png,.gif,.jpeg,.bmp" >
+							<input type="button" id="btn_updata" onclick="pic_upload('img');" value="{$_lang['upload']}">
+							<input type="hidden" id="fid" value="<!--{eval echo get_fid($video_info['img'])}-->"/>
+                        	<input type="hidden" name="fields[img]"  value="$video_info['img']" id="hdn_art_pic">
+						
+							<span id="file_span"> 
+								{if $video_info['img']}
+								<img src="../../$video_info['img']" height="80" alt=''/> 
+								<a title="{$_lang['delete']}" href="javascript:void(0);" onclick="del_file('$video_info['img']');">
+								<strong>{$_lang['delete']}×</strong>
+								</a>{/if}
+							</span>
+							
+                            <div class="padt10 direct">
+                            <p>允许上传.jpg,.png,.gif,.jpeg,.bmp格式，文件大小不超过4M</p>
+                            </div>
+                        </td>
+                      </tr> 		  
+ <script>
+//图片上传	  	
+	function pic_upload(id){
+		var o  = document.getElementById(id);
+		if(!isExtName(o)){
+			art.dialog.alert("{$_lang['file_format_error']}");
+			return false;
+		}else{
+			var art_id = '$art_id';
+        $.ajaxFileUpload({
+            url: '../../index.php?do=ajax&view=upload&file_name='+id+'&file_type=att&obj_id='+art_id,
+            fileElementId: id,
+            dataType: 'json',
+            success: function(json){ 
+                if (json.err) {
+                    art.dialog.alert("{$_lang['upload_fail_file_too_large']}"+ json.err);
+                }else {
+                    var hf = $("#hdn_"+id);
+                   $("#hdn_art_pic").val(json.msg.up_file+"?fid="+json.fid);
+                   $("#fid").val(json.fid);
+					$("#file_span").html("<span id=\"file_"+json.fid+"\" > <img src='../../"+json.msg.up_file+"' height=\"80\" /> <a title=\"{$_lang['delete']}\" href=\"javascript:void(0);\" onclick=\"del_file('"+json.msg.up_file+"');\"><strong>{$_lang['delete']}×</strong></a></span>");
+                }
+            },
+            error: function(json, status, e){
+                if(e){
+					art.dialog.alert(e);	
+				}
+            }
+        });
+		}
+    }
+						
+	//图片删除 
+
+		function del_file(file_path){
+			var value = file_path.split("?")['0'];
+			var fid=$("#fid").val();
+			var url  = '../../index.php?do=ajax&view=file&ajax=del&filepath='+value+"&fid="+fid;
+			$.post(url,function(json){
+				if(json.status==1){ 
+					 $("#file_span").children().remove();
+					 $("#hdn_art_pic").val("");
+				}
+				
+			},'json');
+		}
+				
+				
+	</script>
+					  <tr>
+                        <th scope="row">视频地址{$_lang['zh_mh']}</th>
+                        <td>                	
+						<input type="radio" name="showMode" value="1" id="showMode1" {if $mode==1}checked{/if}>视频地址
+                		<input type="radio" name="showMode" value="2" id="showMode2" {if $mode==2}checked{/if}>视频上传
+				  
+				  <div id="mode1" {if $mode!=1}style="display:none"{/if}>
+                    <input type="text" class="txt" name="fields[v_path]" value="{$video_info['v_path']}" maxlength="100"/>
+               	  </div>
+				  <div id="mode2" {if $mode!=2}style="display:none"{/if}>
+                    <input type="file" name="fields[v_file]" ext=".swf" onchange="isExtName(this,1)"/>
+				  </div>
+				  <div>{if $video_info['v_path']}
+						<object width="300" height="240" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param value="$video_info['v_path']" name="movie"><param value="high" name="quality"><param value="Transparent" name="wmode"><embed width="300" height="240" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" wmode="transparent" quality="high" src="$video_info['v_path']"></object>
+					{/if}</div>
+                       </td>
+                      </tr>
+                      </tr>
+					  <tr>
+                        <th scope="row">{$_lang['is_recommend']}{$_lang['zh_mh']}</th>
+                        <td>
+                          <p>
+                              <label><input type="checkbox" name="fields[is_recommend]" value="1"  {if $video_info['is_recommend']==1} checked="checked" {/if}/>&nbsp;{$_lang['yes']}</label> <br />
+                          </p>
+                        </td>
+                      </tr>
+					  <tr>
+                        <th scope="row">是否使用{$_lang['zh_mh']}</th>
+                        <td>
+                          <p>
+                              <label><input type="checkbox" name="fields[v_status]" value="1"  {if $video_info['v_status']==1} checked="checked" {/if}/>&nbsp;{$_lang['yes']}</label> <br />
+                          </p>
+                        </td>
+                      </tr>
+					  
+					 <tr>
+                        <th scope="row">seo标题：</th>
+                        <td>
+                          <p>
+                              <label>
+                              	<input type="text" class="txt" name="fields[seo_title]" value="$video_info['seo_title']" />
+							  </label> 
+								<br />
+                          </p>
+                        </td>
+                      </tr>
+					  
+					  <tr>
+                        <th scope="row">seo关键词：</th>
+                        <td>
+                          <p>
+                              <label>
+                              	<input type="text" class="txt" name="fields[seo_keywords]" value="$video_info['seo_keywords']" />
+							  </label> 
+								<br />
+                          </p>
+                        </td>
+                      </tr>
+
+					<tr>
+                        <th scope="row">seo描述：</th>
+                        <td>
+                          <p>
+                              	<textarea name="fields[seo_desc]" cols="40" rows="7" >$video_info[seo_desc]</textarea> 
+								<br />
+                          </p>
+                        </td>
+                      </tr>
+
+						<th scope="row">&nbsp;</th>
+						<td>
+						<button name="sbt_edit" value="1" onclick="return checkForm(document.getElementById('frm_this'),false)" class="positive primary pill button" type="submit">
+						<span class="check icon"></span>{$_lang['submit']}</button>
+						 <button class="pill button" type="button" onclick="to_back();" value={$_lang['return']}><span class="uparrow icon"></span>{$_lang['return']}</button>
+						</td>
+					</tr>
+                    </table>
+                </form>
+              </div>
+			
+       </div>           
+</div>
+ <script type="text/javascript">
+ 	    function upload(id){
+		var o  = document.getElementById(id);
+		if(!isExtName(o)){
+			art.dialog.alert("{$_lang['file_format_error']}");
+			return false;
+		}else{
+        $.ajaxFileUpload({
+            url: '../../index.php?do=ajax&view=upload&file_name='+id,
+            fileElementId: id,
+            dataType: 'json',
+            success: function(json){ 
+				alert(ssssss);
+			
+                if (json.err) {
+                    art.dialog.alert("{$_lang['upload_fail_file_too_large']}"+ json.err);
+                }else {
+                    var hf = $("#hdn_"+id);
+                    var hf_fid = $("#hdn_"+id+"_fid");
+                    $(hf).val(json.msg.up_file+"?fid="+json.fid);
+                    $(hf_fid).val(json.fid);
+					$("#span_"+id).html("<img src='../../"+json.msg.up_file+"' onload='resize(this)' />").append("<a href=';' onclick='return del(\"hdn_"+id+"\",\"span_"+id+"\")'>{$_lang['delete']}</a>");
+					
+                }
+            },
+            error: function(json, status, e){
+                if(e){
+					art.dialog.alert(e);	
+				}
+            }
+        });
+		}
+    }
+    function resize(img){
+    	var h=img.height, w=img.width;
+    	if(h>20){
+    		img.height=80;
+    	}
+    	if(w>70){
+    		img.width=80;
+    	}
+    }
+    function del(str,span){
+		var value = $("#"+str).val().split("?")['0'];
+		var fid=$("#"+str+"_fid").val();
+		var url  = '../../index.php?do=ajax&view=file&ajax=del&filepath='+value+"&fid="+fid;
+				$.post(url,function(json){
+					if(json.status==1){ 
+						 $("#"+str).val("");
+						 $("#"+span).children().remove();
+					}
+					
+				},'json');
+		return false;
+	}
+  
+ 	$(function(){
+		$("#showMode1").click(function(){
+			$("#mode1").show();
+			$("#mode2").hide();
+		})
+		$("#showMode2").click(function(){
+			$("#mode2").show();
+			$("#mode1").hide();
+		})
+	})
+</script>
+<!--主体结束-->
+<!--{template control/admin/tpl/admin_footer}-->

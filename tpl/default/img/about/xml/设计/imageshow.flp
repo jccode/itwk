@@ -1,0 +1,6 @@
+<flash_project name="~imageshow" version="1">
+    <project_file path="./~imageshow.fla" filetype="fla" profile="" />
+    <project_file path="./.\mx\transitions\OnEnterFrameBeacon.as" filetype="as" />
+    <project_file path="./.\mx\transitions\BroadcasterMX.as" filetype="as" />
+    <project_file path="./.\mx\transitions\Tween.as" filetype="as" />
+</flash_project>

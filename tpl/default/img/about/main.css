@@ -1,0 +1,221 @@
+body {font-family:宋体;}
+a { color:#333;}
+a:focus {outline:none;} 
+.pagingbar { clear:left; margin:10px 0px; padding:5px 0px; margin-left:10px; }
+    .pagingbar a { margin-left:10px; font-size:14px;}
+        .pagingbar strong { font-size:16px;}
+
+div.topNav, div.footer, div.bodier, div.wbox { width:1000px; margin:0px auto;}
+.wrapper{background:#efefef;}
+.location{background:#fff;}
+.introduct{width:650px; float:left;}
+.introduct_right{width:340px; float:left;}
+.introduct_right ul li p{background:url(dot.png) no-repeat; width:10px height:10px; padding-left:15px; color:#999;}
+.introduct_right ul li a{padding-left:10px; font-size:14px;}
+.introduct_right dd{padding:10px; line-height:20px; border-bottom:1px solid #dfdfdf;}
+.introduct_right dd h1{height:25px; line-height:25px; position:relative;}
+.introduct_right dd h1 a{font-size:14px; text-overflow:ellipsis; width:300px; display:inline-block; white-space:nowrap; overflow:hidden; height:25px; line-height:25px; position:relative; z-index:0}
+.introduct_right dd h1 a:hover{width:auto; overflow:visible; position:absolute; z-index:3;}
+.introduct_right dd p{color:#999;}
+.introduct_right dd p a{color:#f60;}
+.aboutZone ul{background:#fff;}
+.aboutZone ul.ep_box li{padding:9px 0;}
+.wrapper .footer{background:#f9f9f9; border:1px solid #dfdfdf;}
+.homeabout_Zone{background:#fff; border-right: 1px solid #DFDFDF; border-top: 1px solid #DFDFDF;}
+.homeabout_Zone td{border-bottom: 1px solid #DFDFDF; border-left: 1px solid #DFDFDF; color: #666666; padding:10px;}
+.aboutZone li.pic{float:left; width:115px;}
+.aboutZone li.article{width:500px; float:left;}
+.homeabout_Zone .process_pic{width:80px;}
+.homeabout_Zone .process{width:210px; padding-left:10px;}
+.homeabout_Zone .process h1{font-size:20px; color:#333;}
+.homeabout_Zone .process p{color:#999; line-height:20px;}
+.aboutZone .pic_middle{background:#fff; padding:5px; border:1px solid #DFDFDF; width:100px; height:70px;}
+div.about_header{}
+.hd td.h1 { font-size:14px; font-weight:bold; color:#666; padding-left:10px;}
+.hd td.more { text-align:right;}
+.hd td.more a { text-decoration:underline; padding-right:10px;}
+.iconPrice { display:inline-block; width:33px; height:34px; font-size:30px; font-weight:bold; color:#FFF; text-align:center; font-family:Arial; background-image:url(/Skin/2/bgPriceRed33.gif);}
+.price2 .iconPrice { display:inline-block; width:22px; height:24px; font-size:12px; font-weight:bold; color:#FFF; text-align:center; font-family:Arial; background-image:url(/Skin/2/bgPrice22.png);}
+
+/*_topNav__
+------------------------------------------------------------------------------------------------------------------------*/
+.topNav  { height:35px; line-height:35px; background-image:url(/Skin/2/bgTopNav35y.gif); margin-bottom:10px; border-left:#e9e9e9 1px solid; border-right:#e9e9e9 1px solid;}
+.topNav .loginNav { width:450px; float:left; padding-left:10px; overflow:hidden;}
+        .topNav .loginNav a { color:#F00; margin-left:10px;}
+    .topNav div.siteQuicknav { width:425px; _width:425px; float:right; margin-top:11px; margin-right:3px; line-height:16px; height:16px; }
+        .topNav .siteQuicknav ul li { background-image:url(/Skin/2/iconArrowdown13.png); background-repeat:no-repeat; line-height:14px; text-indent:18px; float:left; margin-left:15px; position:relative; _margin-left:10px; z-index:999;}
+        .topNav .siteQuicknav ul li.nobg { background-image:none; text-indent:0px;}
+        .topNav .siteQuicknav ul li ul { display:none; border:solid 1px #CCC; background-color:#FFF; padding:3px 10px; position:absolute;}
+            .topNav .siteQuicknav ul li ul li { background:none; line-height:21px; text-indent:0px; float:none; margin-left:0px; width:120px;}
+            .topNav .siteQuicknav ul li.sfhover ul { display:block !important; display:block;}
+            
+            .topNav .siteQuicknav ul li ul.navSearch { margin-left:-100px !important; _margin-left:-120px;}
+            .topNav .siteQuicknav ul li ul.navSearch li { width:140px;}
+                .navSearch .textbox { border:solid 1px #CCC; height:21px; line-height:21px; width:90px; }
+                .navSearch .submit { border:solid 1px #FFF; background-color:#C00; color:#FFF; height:25px; line-height:25px; width:45px; margin-top:-1px;}
+
+/*_top 顶部通栏样式
+-------------------------------------------------------------------------------------------------------------------------------*/
+.top { background:#F4F4F4; display:block; width:100%; height:30px; border-bottom:1px solid #E9E9E9; margin:0; padding:0; vertical-align:middle; line-height:15px; font-size:12px;}
+    .top .topcon{ margin:0 auto; width:960px; height:25px; line-height:20px; padding-top:5px; vertical-align:middle; color:#666666;}
+        .top .topcon a{ color:#0066cc; text-decoration:none;}
+        .top .topcon .left{ float:left; margin-left:5px; width:450px;}
+        .top .topcon .left a{ color:#EA5E00; margin-left:10px;}
+        .top .topcon .right{ float:right; margin-right:5px; overflow:hidden;}
+        
+        .topcon div.siteQuicknav { width:455px; _width:425px; float:right; margin-top:3px; margin-right:3px; line-height:16px; height:16px; }
+            .topcon div.siteQuicknav #nav { float:right; }
+            .topcon .siteQuicknav ul li { background-repeat:no-repeat; line-height:14px; float:left; margin-left:15px; position:relative; _margin-left:10px; z-index:999;}
+                .topcon .siteQuicknav ul li a {color:#666666;}
+            .topcon .siteQuicknav ul li.nobg { background-image:none; text-indent:0px;}
+            .topcon .siteQuicknav ul li ul { display:none; border:solid 1px #CCC; background-color:#FFF; padding:3px 10px; position:absolute;}
+                .topcon .siteQuicknav ul li ul li { background:none; line-height:21px; text-indent:0px; float:none; margin-left:0px; width:120px;}
+                .topcon .siteQuicknav ul li.sfhover ul { display:block !important; display:block;}
+                
+                .topcon .siteQuicknav ul li ul.navSearch { margin-left:-100px !important; _margin-left:-120px;}
+                .topcon .siteQuicknav ul li ul.navSearch li { width:140px;}
+                    .navSearch .textbox { border:solid 1px #CCC; height:21px; line-height:21px; width:90px; }
+                    .navSearch .submit { border:solid 1px #FFF; background-color:#C00; color:#FFF; height:25px; line-height:25px; width:45px; margin-top:-1px;}
+
+/*_logo__
+--------------------------------------------------------------------------------------------------------------------------*/
+.logo { float:left; width:216px;}
+.logoPart { width:328px; float:left; background-image:url(/Skin/2/bgLogoPart328.png); height:60px; margin-top:20px; overflow:hidden;}
+    .logoPart h3 { font-size:16px; font-family:Arial Black; margin:5px 0px; color:#666;}
+    .logoPart p { color:#666;}
+        .logoPart p a { color:#1A69DE;}
+.hotlink { float:right; width:400px; color:#666; margin-top:10px; overflow:hidden; }
+    .hotlink img { vertical-align:middle; margin-right:5px;}
+    .hotlink .row1 { font-size:16px; height:28px;}
+    .hotlink .row1 a { font-weight:bold; padding:0px 5px; font-size:12px; color:#666;}
+.about_header .infoPanel { width:350px; float:right; margin-top:10px;}
+    .about_header .infoPanel div { margin-top:5px;}
+    .about_header .infoPanel strong { color:#C00; font-size:18px; margin-right:5px; font-family:Arial;}
+
+/* 新版首页样式 */
+.about_header .infosearch { width:475px; float:right; margin-top:15px; position:relative; overflow:auto;}
+    .about_header .infosearch .searchmenu {width:475px; float:left; padding-top:10px;}
+        .about_header .infosearch .searchmenu .smenu {width:70px; height:25px; cursor:pointer; color:#666666; line-height:24px; text-align:center; float:left; border:solid 1px #FFFFFF;}
+        .about_header .infosearch .searchmenu .shover {border:solid 1px #DFDFDF; border-bottom:none; background-color:#E9E9E9;}
+        .about_header .infosearch .searchmenu .freephone {float:right; color:#666666; margin-top:-8px; position:relative;}
+            .about_header .infosearch .searchmenu .freephone span {font-size:20px; color:#EA5E00; font-weight:bold;}
+    .about_header .infosearch .sbd {width:475px; height:38px; float:left; margin-top:-1px;}
+        .about_header .infosearch .sbd .searchZ {width:400px; height:38px; float:left; background-image:url(/skin/2/IndexNew/bg_search.png);}
+            .about_header .infosearch .sbd .searchZ input {width:350px; border:none; border-width:0px; margin:12px 0 0 35px; color:#999999;}
+        .about_header .infosearch .sbd .btn1 {float:left; margin-left:5px;}
+        .about_header .infosearch .sbd .txt1 {float:left; line-height:19px; margin-left:5px; width:60px; text-align:center;}
+            .about_header .infosearch .sbd .txt1 a {color:#666666;}
+/* 新版头部通栏菜单 */
+.Nmenu {width:100%; height:45px; background-color:#CC0000; margin:20px 0 0 0; vertical-align:middle; font-size:14px;}
+    .Nmenu .menulist {width:960px; height:45px; line-height:45px; vertical-align:middle; color:#FFFFFF; margin:0 auto;}
+        .Nmenu .menulist li {height:45px; line-height:45px; float:left;}
+        .Nmenu .menulist li.menu {width:110px; text-align:center; font-weight:bold;}
+            .Nmenu .menulist li.menu a {display:block; width:110px; height:45px; color:#FFFFFF; text-decoration:none;}
+            .Nmenu .menulist li.menu a:hover {background-color:#990000;}
+            .Nmenu .menulist li.menu a:focus {outline:none;}
+        .Nmenu .menulist li.current {background-color:#990000;}
+        .Nmenu .menulist li.line {border-left:solid 1px #990000; border-right:solid 1px #D63333; width:0px;}
+        .Nmenu .menulist li.rl {width:176px; background-image:url(/skin/2/IndexNew/bg_toplogin.png);}
+            .Nmenu .menulist li.rl div {float:left; height:30px; line-height:30px; font-weight:bold; padding:0 15px; margin-top:9px; *margin-top:10px; cursor:pointer;}
+/* 新版首页指数头部 */
+.topindex {width:960px; height:40px; margin:0 auto; border:solid 1px #DFDFDF; border-top:none; background-image:url(/skin/2/IndexNew/bg_color.png);}
+    .topindex .point {float:left; margin-top:14px;}
+        .topindex .point span {padding-left:20px; color:#666666;}
+        .topindex .point span.s1 {font-weight:bold;}
+    .topindex .toplink {float:right; margin-top:14px;}
+        .topindex .toplink span {padding:0 15px; border-right:solid 1px #666666; display:block; float:left; position:relative;}
+            .topindex .toplink span a {color:#666666;}
+            .topindex .toplink span img {position:absolute; top:-2px; left:15px;}
+
+.topfoot {width:960px; height:14px; margin:0 auto; margin-bottom:10px;}
+
+    
+/*_headMenu__
+----------------------------------------------------------------------------------------------------------------------------*/
+.headMenu { width:auto; float:left; margin-top:15px; }
+    .headMenu li { height:33px; line-height:33px; width:90px; *windth:90px;text-align:center; background-image:url(/Skin/2/bgHeadMenu102.png); float:left; margin-right:5px;}
+    .headMenu a { font-size:14px; color:#666;}
+    .headMenu li.current { background-image:url(/Skin/2/bgHeadMenuCurrent102.png); width:102px;}
+    .headMenu li.current a { color:#FFF; font-weight:bold;}
+
+.hotTel { /*width:250px;*/ float:left; margin-top:30px; overflow:hidden; }
+    .hotTel a { color:#F00;}
+#ExMenu { position:relative; _padding-top:10px; _height:23px;}
+    #ExMenu div { position:absolute; background-color:#FFF; border:solid 1px #CCC; padding:10px 0px; display:none;}
+    #ExMenu li { background:none; float:none; line-height:21px; height:21px; width:80px;}
+        #ExMenu li a {  font-size:12px;}
+
+
+
+/*_searchZone__
+-----------------------------------------------------------------------------------------------------------------------------*/
+.searchZone { background-image:url(/Skin/2/bgSearchZone40y.png); height:40px;}
+    .searchZone .col1,.sumPointZone .col1 { width:200px; float:left;}
+    .searchZone .col1 { position:relative; z-index:1; }
+    .searchZone .col2 { width:480px; float:left; margin:3px 0px 0px 10px;}
+    .searchZone .col3 { width:260px; float:left;}
+/*_sumPointZone__
+-----------------------------------------------------------------------------------------------------------------------------*/
+.sumPointZone { background-image:url(/Skin/2/bgSumPointZone40y.png); height:40px; border-right:#e9e9e9 1px solid;}
+    .sumPointZone .col2 { width:470px; float:left; margin-top:12px; color:#666;}
+        .sumPointZone .col2 strong { padding-left:10px;}
+        .sumPointZone .col2 span { padding-right:10px;}   
+        .sumPointZone .col3 { width:290px; float:left; font-size:16px; margin-top:10px;}
+			.sumPointZone .col3 img{ vertical-align:middle;padding:0px 3px 0 0;}
+            .sumPointZone .col3 a { font-size:12px; padding:0px 5px;}
+    
+/*_searchBar__
+------------------------------------------------------------------------------------------------------------------------------*/
+.searchBar .ddl, .searchBar .tb, .searchBar .btn { height:35px; float:left;}
+.searchBar .ddl { background-image:url(/Skin/2/bgSearchBarDDL103.png); width:103px;}
+.searchBar .tb { background-image:url(/Skin/2/bgSearchBarTB270.png); width:270px;}
+.searchBar .btn { width:101px;}
+    .searchBar .ddl input { width:90px; padding-top:5px; margin-left:5px; border:none; }
+    #a_divSelecttaskSearchMode { margin-top:8px; margin-left:5px;}
+        #c_divSelecttaskSearchMode { margin-top:6px; }
+    .searchBar .tb input { margin-top:10px; margin-left:10px; border:none;  width:250px; }
+    
+/*_spcar__
+------------------------------------------------------------------------------------------------------------------------------*/
+.spcar .hd { float:left; width:76px;}
+.spcar .bd { float:left; height:30px; width:182px; background-image:url(/Skin/2/bgShoppingcar182.png); line-height:30px; text-align:center; margin-top:4px;}
+
+
+    
+    /*_taskCatalog__
+    -------------------------------------------------------------------------*/
+    .taskCatalogCom { background-image:url(/Skin/2/bgTaskCatalog200.gif); background-color:#FFF; position:absolute; z-index:1; left:5px; top:36px; border-bottom:solid 1px #EACAC4; width:200px; color:#666;}
+    .taskCatalogCom a { color:#666;}
+    .taskCatalogCom li { position:relative; width:150px; background-image:url(/Skin/2/iconArrowRRed6.gif); background-position:150px 11px; background-repeat:no-repeat; height:30px; line-height:30px; margin-left:10px; padding-left:30px; z-index:9999; }
+    .taskCatalogCom div.wrap { position:absolute; left:160px; top:-2px; width:350px; display:none; color:#666; background-color:#FFF; z-index:999;}
+    .taskCatalogCom div.hover { display:block;}
+        .taskCatalogCom div.wrap .hd { height:27px;  border:solid 2px #CCC; border-bottom:none; border-left:none; padding-left:30px; padding-top:3px; font-weight:bold;}
+        .taskCatalogCom div.wrap .bd { border:solid 2px #CCC; border-top:none; padding-left:30px; background-color:#FFF;}
+        .taskCatalogCom div.wrap table { width:100%;}
+        .taskCatalogCom div.wrap td { height:28px; background-color:#FFF;}
+    .taskCatalogCom li.hover { border:solid 2px #CCC; background-color:#FFF; background-image:none;display:block; }
+
+    /*_eventZone__
+    ----------------------------------------------------------------------------*/
+    .eventZone { border:solid 1px #CCC; margin:10px 0px;}
+        .eventZone .hd { border-bottom:solid 1px #CCC;}
+        .eventZone .bd .item { padding:10px 0px 10px 10px; border-bottom:dotted 1px #CCC; line-height:18px;}
+        .eventZone .ft { padding:20px 0px; text-align:center;}    
+    
+/*_footer__
+-------------------------------------------------------------------------------------------------------------------------------------*/
+.footer { margin:10px 0px;}
+    /*_footMenu__
+    -------------------------------------------------------------------------*/
+    .footMenu { background-image:url(bgFooterMenu28y.gif); padding-top:5px; height:23px; line-height:21px; text-align:center;}
+        .footMenu a { color:#FFF; padding:0px 15px; border-right:solid 1px #FFF;}
+    /*_copyright__
+    -------------------------------------------------------------------------*/
+    .copyright { text-align:center; color:#666; line-height:24px;}
+        .copyright a { color:#27507F;}
+        
+.links { width:960px; margin:0px auto; border:solid 1px #DFDFDF; margin-bottom:10px;}
+    .links .hd { background-color:#f2f2f2; height:30px; line-height:30px;}
+    .links .bd {margin:20px; height:45px; overflow:hidden;}
+        .links .bd a {color:#666666;}
+    .links .bd .item { margin-left:10px; float:left; width:120px; margin-top:10px;}

@@ -1,0 +1,51 @@
+<div class="clear"></div>
+<footer class="clearfix footer_box mt_20">
+	<div class="footer_nav clearfix mb_10">
+			<a href="{$ac_url}">公司首页</a>|
+			<a href="{$ac_url}&view=about">关于我们</a>|
+			<a href="{$ac_url}&view=news_list">新闻资讯</a>|
+			<a href="{$ac_url}&view=service_list">产品中心</a>|
+			<a href="{$ac_url}&view=case_list">案例展示</a>|
+			<a href="{$ac_url}&view=job_list">人才招聘</a>|
+			<a href="{$ac_url}&view=mark">交易记录</a>|
+			<a href="{$ac_url}&view=about&art=5">联系方式</a>
+	</div>
+	<p>IT帮手网（）<a href="#">VIP商铺旗舰版服务</a> 服务热线：4006-999-467</p>
+	<p>Copyright © 2012 <b>{$shop_info['shop_name']}</b> 版权所有 </p>
+</footer>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jquery.masonry.min.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.autoscroll.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/jquery.jcarousel.pagination.js"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/adshow.js"></script>
+<script type="text/javascript">
+
+$('document').ready(function(){
+		$('#jcarousel').jcarousel({
+		    wrap: 'circular',
+			 animation: 200
+		}).jcarouselAutoscroll({
+		   interval:  3000
+		});
+		
+		$('#ajaxwaitid').show();
+	
+	    window.onload=function(){
+			$('#ajaxwaitid').hide();
+			$('.case_show').removeClass('hidden');
+	
+	        $('#container').masonry({
+			  itemSelector: '.item'
+			});	
+	    }
+	})
+
+		 //图片编辑
+		var uid = parseInt('{$uid}')+0;
+		function shop_diy_banner(type){
+			if(check_user_login()){
+				showWindow('shopdiybanner', "/index.php?do=ajax&view=shop_diy&sid={$sid}&ac=banner&type="+type);
+			}
+		}
+	
+</script>

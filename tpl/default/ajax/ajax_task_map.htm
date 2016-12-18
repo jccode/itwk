@@ -1,0 +1,143 @@
+<!--{template header}-->
+
+<div id="div_map" style="width:820px; height:469px; overflow:auto;">
+
+		<div class="rowElem clearfix mt_5 mb_5">	
+		  {if !$area }		
+			<form  method="post">
+	      		<label class="fl_l pl_10"><strong>选择区域：</strong></label>
+	      		<div id="show_area" class="fl_l mr_5">
+	      			<select name="province" id="province"></select>
+					<select name="city" id="city"></select>
+					<select name="area" id="area"></select>
+				</div>
+				<label class="fl_l"><strong></strong></label>
+				<input class="fl_l" type="text" name="address" size="25" id="address" value="{$address}">
+				<button id="map_search"  type="button" class="fl_l ml_5"><span class="icon magnifier"></span>{$_lang['search']}</button> 
+	    		<button id="sbt_map" type="button" name="sbt_map"  style="margin-left:5px; float:left;"><span class="icon check"></span>确定</button>	
+			</form>	
+		   {/if}
+		</div>
+		
+		<div class="clear"></div>
+		<div id="container" style="width:100%;height:420px"></div>
+		<div class="clear"></div>
+		<!--{eval $aa = explode(",",$release_info['province'])}-->	
+	</div>
+		<!--{eval $local = $area?$area:$user_info['residency'];}-->
+		<!--{eval $local = explode(',',$local);}-->
+
+<script type="text/javascript">	
+$(".flbc,#sbt_map").click(function(){
+	$(".geograph").show();
+});		
+
+In('pcas',function(){new PCAS("province","city","area","{$local['0']}","{$local['1']}","{$local['2']}");});
+
+var area = '{$area}';
+var residency = "{$user_info['residency']}";
+var myOptions = {center: new google.maps.LatLng(39.14103180238839,116.20136260986328),	zoom: 6,mapTypeId: google.maps.MapTypeId.ROADMAP};
+var map = new google.maps.Map(document.getElementById('container'),myOptions); 
+var marker = [];
+ google.maps.event.addListener(map, 'click', function(event) {
+	clearOverlays();	
+	$("#px").val(event.latLng.lat());
+	$("#py").val( event.latLng.lng());	
+	$("#point").val($("#px").val()+","+$("#py").val());
+	marker.push(new google.maps.Marker({map: map,position:  event.latLng	}));
+ });
+
+
+//地图搜索，传入参数为一个详细地址的字符串
+function local_search(address){ 
+	 geocoder = new google.maps.Geocoder();
+	 geocoder.geocode( { 'address': address}, function(results,status){
+	 	if (status == google.maps.GeocoderStatus.OK) {
+			clearOverlays();
+	 		map.setCenter(results['0'].geometry.location);
+			$("#px").val(results['0'].geometry.location.lat());
+			$("#py").val(results['0'].geometry.location.lng());	
+			$("#point").val($("#px").val()+","+$("#py").val());
+			marker.push(new google.maps.Marker({map: map,position: results['0'].geometry.location	}));
+	 	}
+	 });
+}
+
+
+function clearOverlays() {
+  if (marker) {
+    for (var i=0;i<marker.length;i++) {
+      marker[i].setMap(null);
+    }
+  }
+}
+
+if(residency&&!area){ 
+	local_search($("#province").val()+','+$("#city").val()+','+$("#area").val()+','+$("#address").val());
+}
+if(area){
+	local_search(area);
+}
+
+//搜索地址
+$("#map_search").click(function(){
+		if($("#province").val().length<=0){
+				showDialog("{$_lang['please_choose_search_province']}",'alert',"操作提示","$('#province').focus()",0);return false;
+		}else if($("#city").val().length<=0){
+			showDialog("{$_lang['please_choose_search_city']}",'alert',"操作提示","$('#city').focus()",0);return false;					
+		}else{
+			 local_search($("#province").val()+','+$("#city").val()+','+$("#address").val());
+			 $("#point").val($("#px").val()+","+$("#py").val());
+		}
+	}
+)
+
+/* 地图搜索 */
+$("#map_search").click(function(){
+		if($("#province").val().length<=0){
+				showDialog("{$_lang['please_choose_search_province']}",'alert',"操作提示","$('#province').focus()",0);return false;
+		}else if($("#city").val().length<=0){
+			showDialog("{$_lang['please_choose_search_city']}",'alert',"操作提示","$('#city').focus()",0);return false;					
+		}else{
+			 local_search($("#province").val()+','+$("#city").val()+','+$("#address").val());
+			 $("#point").val($("#px").val()+","+$("#py").val());
+		}
+	}
+)
+
+/* 选择区域时搜索 */
+$("#province,#city,#area").change(function(){
+		if($("#province").val().length<=0){
+				showDialog("请选择搜索省份",'alert',"操作提示","$('#province').focus()",0);return false;
+		}else if($("#city").val().length<=0){
+			showDialog("{$_lang['please_choose_search_city']}",'alert',"操作提示","$('#city').focus()",0);return false;					
+		}else{
+			 local_search($("#province").val()+','+$("#city").val()+','+$("#address").val());
+			 $("#point").val($("#px").val()+","+$("#py").val());
+		}
+	}
+)
+
+
+
+//确定坐标
+$("#sbt_map").click(function(){ 
+	 $("#point").val($("#px").val()+","+$("#py").val()); 
+	 if($("#point").val().length<=0){
+	 	showDialog("{$_lang['please_choose_search_province']}",'alert',"操作提示","$('#province').focus()",0);return false;
+	 }else{
+	 	$("#loca").val($("#province").val()+","+$("#city").val()+","+$("#area").val()+','+$("#address").val()); 
+	 	$("#set_map").html("标注地图成功："+$("#province").val()+","+$("#city").val()+","+$("#area").val()); /
+	 
+	 	showDialog("地图标识完成！",'right',"操作提示","hideWindow('map')");
+	 }
+});
+
+</script>
+<script src="{$_K['siteurl']}/resource/js/jquery.bgiframe.pack.js"></script>
+<script>
+	$(function(){
+		$('div.fwinmask').bgiframe();;
+	})
+</script>
+<!--{template footer}-->

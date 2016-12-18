@@ -1,0 +1,124 @@
+<!--{template header}--><!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+        <!--{template user/user_nav}-->
+		<!--main start-->
+        <section class="clearfix section">
+            <!--{template user/user_side}-->
+            <div class="show_panel ">
+		        <div class="">
+		            <div class="">
+		                <!--main content-->
+		                <div class=" clearfix box default">
+                            <!--header内容头部 start-->
+                            <header class="clearfix box_header">
+                                <h2 class="box_title">{$_lang['cate_manage']}</h2>
+                                <div class="">
+                                    <nav class="box_nav">
+                                        <ul>
+                                        	<li {if $show=='list'}class="selectedLava"{/if}>
+				                                <a href="{$ac_url}&show=list#userCenter" title="{$_lang['view_cate']}">{$_lang['view_cate']}</a>
+				                            </li>  
+											<li {if $show=='add' || $show=='edit'}class="selectedLava"{/if}>
+				                                <a href="{$ac_url}&show=add#userCenter" title="{if $show=='edit'}{$_lang['edit_spase_cate']}{else}{$_lang['add_cate']}{/if}">{if $show=='edit'}{$_lang['edit_spase_cate']}{else}{$_lang['add_cate']}{/if}</a>
+				                            </li> 
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <div class="clear"></div>
+                            </header>
+                          <!--header内容头部 end-->
+                            <!--messages消息 start-->
+							{if $show=='list'}
+                             <article class="box_detail" id="messages">                                     
+                                    <!--date_table数据表格 start-->
+                                    <div class="data_list">
+                                        <table cellpadding="0" cellspacing="0" class="data_table" border="1">
+                                            <thead>
+                                                <tr>
+                                                    <th width="50">编号</th>
+                                                    <th>分类名称</th>
+                                                    <th width="80">操作</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+		                                        {loop $cate_list $v}
+		                                          <tr>
+		                                              <td>{$v['cate_id']}</td>
+		                                              <td>{$v['cate_name']}</td>
+		                                              <td>
+		                                              	<a href="{$ac_url}&show=edit&cate_id={$v['cate_id']}" title="{$_lang['edit']}">{$_lang['edit']}</a>&nbsp;
+														|&nbsp;&nbsp;
+														<a href="{$ac_url}&show=list&ac=del&cate_id={$v[cate_id]}',1,false);" onclick="return del(this);" title="{$_lang['delete']}">{$_lang['delete']}</a>
+													  </td>
+		                                           </tr>
+												 {/loop}
+                                            </tbody>
+											<tfoot>
+                                                <tr>
+                                                    <td colspan="2"></td>
+                                                    <td>共: {$count} 条 </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+										<div class="page">
+		                                  <p>{$pages['page']}</p>
+		                                </div> 
+								     </div>
+ 									<!--date_table数据表格 end-->
+                            </article>
+                            <!--messages消息 end-->
+                             {else}
+                            <div class="prefix_1 suffix_1">
+                                <!--案例列表start-->
+                                 <!--from表单 start-->
+								 <h3 class="mt_10 mb_10">{if $cate_info}{$_lang['edit_spase_cate']}{else}{$_lang['add_spase_cate']}{/if}</h3>
+                                    <form action="{$ac_url}&show=add" method="post" id="frm" name="frm">
+                                       <input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+									    <div class="rowElem clearfix">
+                                        								
+                                            <label class="grid_2 t_r">{$_lang['cate_name']}{$_lang['zh_mh']}</label>											
+                                            <div class="grid_15">
+                                                <input name="conf[cate_name]" size="28" type="text" title={$_lang['cate_name_as']} id="case_name" value="{$cate_info['cate_name']}" 
+												limit="required:true;len:2-20" msg={$_lang['entet_corrent_cate_name']} msgArea="span_cate_name"/>
+												<span id="span_cate_name"></span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="rowElem clearfix form_button t_c">
+                                            <button type="button" class="submit" name="sbt_action" id="sbt_action" value="{if !$cate_info}{$_lang['add']}{else}{$_lang['edit']}{/if}{$_lang['cate']}"  onclick="siteSub('frm',2,true);">
+                                                <span class="check icon"></span>{if !$cate_info}{$_lang['add']}{else}{$_lang['edit']}{/if}{$_lang['cate']}
+                                            </button>
+                                        </div>
+										{if $cate_info}
+											<input name="show" type="hidden" value="edit"/>
+											<input name="cate_id" type="hidden" value="{$cate_info['cate_id']}"/>
+										{/if}
+                                    </form>
+                                    <!--from表单 end-->
+                                </div>
+								{/if}
+                                <!--个人经历end-->
+                            </div>
+                            <!--detail内容 end-->
+                        </div>
+                        <!--main content end-->
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+        </section>
+        <!--main end-->
+<!--contain end-->
+<script type="text/javascript">
+	In('form'); 
+	function del(obj){
+		var url = obj.href;
+		showDialog("{$_lang['confirm_delete']}",'confirm',"{$_lang['operate_notice']}",function(){
+			  siteSub(url,1,false);
+		});return false;
+	}
+</script>
+<!--main end-->
+<!--{template user/user_footer}-->
+<!--{template footer}-->

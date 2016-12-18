@@ -1,0 +1,217 @@
+<!--{template header}--><!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+        <!--{template user/user_nav}-->
+		<!--main start-->
+        <section class="clearfix section">
+        <!--{template user/user_side}-->
+            <div class="show_panel ">
+		        <div class="clearfix">
+		                <!--main content-->
+		                <div class=" clearfix box default">
+                    <!--header内容头部 start-->
+                    <header class="clearfix box_header">
+                        <h2 class=" box_title">交易评价管理</h2>
+                    </header>
+					      <!--header内容头部 end--><!--detail内容 start-->
+                    <article class="box_detail"><!--dynamic_rat-->
+						<h2 class="c333">交易动态评分</h2>
+						<div class="box default clearfix  "><!--dynamic_list-->
+							<!--{eval $i=3}--><!--辅助评价start-->
+								{loop $buyer_aid $k $v}
+                                <div class="border_b_c  c666 font14  clearfix">
+                                    <div class="pad10 clearfix">
+                                        <div class=" grid_4">
+                                            <strong class="c666 font14 ">{$v['aid_name']}</strong>
+                                            <b class="cf60 ml_20 font14 ">
+                                                {$v['avg']}
+                                            {$_lang['fen']}
+											</b>
+                                        </div>
+                                        
+                                        <div class="grid_3 alpha">
+                                            <div class="stars ">
+                                                <!--{eval echo keke_user_mark_class::gen_star2($v['avg'],false);}-->
+                                            </div>
+                                        </div>
+                                        <div class="fl_r">
+                                            {$_lang['total']}{$v['count']}{$_lang['people']}
+                                        </div>
+                                    </div>
+                                </div>
+                                {/loop}<!--辅助评价end-->
+								
+						</div>
+					</article>
+					<header class="clearfix box_header">
+                    <nav class="box_nav">
+                        <ul>
+                            <li {if $role_type=='1'} class="selectedLava" {/if}>
+                                <a href="{$url}&role_type=1#userCenter" original-title="{$_lang['system_msg']}">来自雇主的评价</a>
+                            </li>
+                            <li {if $role_type=='2'}  class="selectedLava" {/if}>
+                                <a href="{$url}&role_type=2#userCenter" original-title="{$_lang['private_message']}">我给雇主的评价</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="clear"></div>
+                    </header>
+                    <!--header内容头部 end--><!--detail内容 start-->
+                 	<div class="evaluation box_detail">
+                                    <div class="clearfix ">
+                                        
+                                        <form action="{$url}#userCenter" method="post" id="frm" onchange="document.getElementById('frm').submit();">
+                                            <input type="hidden" name="page" value="{$page}">
+                                            <div class="clearfix pad10 employer_ev mt_10">
+                                            	 <div class="mr_20 fl_l"> 
+                                                    <label class="t_l fl_l">
+                                                        <strong>筛选数据{$_lang['zh_mh']}</strong>
+                                                    </label>
+													<div  class="employer_list fl_l">
+                                                 	所有<a href="{$url}&mark_status=n#userCenter"><!--{eval echo intval($mark_count['1']['count']+$mark_count['2']['count']+$mark_count['3']['count']+$mark_count['0']['count'])}--></a>|&nbsp;&nbsp;
+													好评<a href="{$url}&mark_status=1#userCenter"><!--{eval echo intval($mark_count['1']['count'])}--></a>|&nbsp;&nbsp;
+													中评<a href="{$url}&mark_status=2#userCenter"><!--{eval echo intval($mark_count['2']['count'])}--></a>|&nbsp;&nbsp;
+													差评<a href="{$url}&mark_status=3#userCenter"><!--{eval echo intval($mark_count['3']['count'])}--></a>
+													</div>
+                                                </div>
+                                                <div class="fl_r">
+                                                    <label class="t_l fl_l">
+                                                      <strong> 选择时间{$_lang['zh_mh']}</strong>
+                                                    </label>
+                                                 	<select class="fl_l" name="mark_date" style="width:140px">
+                                                        <option value="" {if !$mark_date}selected{/if}>{$_lang['all']}</option>
+                                                        {loop $mark_date_arr $k $v}
+														<option value="$k" {if $k==$mark_date}selected="selected"{/if}>{$v['0']} </option>
+                                                        {/loop}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </form>
+										<div class="data_list mt_10">
+                                             <table cellpadding="0" cellspacing="0" class="data_table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" width="25%">
+                                                           成长事件
+                                                        </th>
+                                                        <th scope="col" width="30%">
+                                                            标题
+                                                        </th>
+                                                        <th scope="col" width="15%">
+                                                            金额
+                                                        </th>
+                                                        <th scope="col" width="13%">
+                                                          日期
+                                                        </th>
+                                                        <th scope="col">
+                                                            获得评价
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                	{if $mark_list}
+                                                    {loop $mark_list $v}
+                                                    <tr>
+                                                        <td colspan="5" class="clearfix">
+                                                        	<div class="clearfix fl_l">
+                                                        		{if $role_type==1}
+														   			<!--{userpic($v['by_uid'],'small')}-->
+																{else}
+														   			<!--{userpic($v['uid'],'small')}-->
+																{/if}
+                                                        	</div>
+															<div class="list fl_l clearfix">
+																<dl>
+																	<dd class="clearfix">
+																		<ul class="clearfix">
+																			<li class="w2 t_l"><a href="#" class="pl_20"> {if $role_type==1}{$v[by_username]}{else}{$v[username]}{/if}</a></li>
+			                                                        		<li class="w4 t_l">
+					                                                            <a href="{$_K['siteurl']}/index.php?do=task&task_id={$v['origin_id']}">
+					                                                            	<span style="color:#FF6600">
+					                                                            		[{$model_name_arr[$v['model_code']]['model_name']}]
+																					</span>{$v['task_title']}
+					                                                            </a>
+																			</li>
+																			<li class="t_l"><span>￥</span>$v['obj_cash']</li>
+																			<li class="w2"><span class="c666"><!--{date('Y-m-d H:i',$v['mark_time'])}--></span></li>
+			                                                           		<li> <b class="cf60"> {if $v['mark_status']=='1'}{$_lang['praise']}{elseif $v['mark_status']=='2'}{$_lang['the_assessment']}{elseif $v['mark_status']=='3'}{$_lang['negative_feedback']}{else}{$_lang['didnot_respond_to_evaluation']}{/if}</b></li>
+			                                                           </ul>
+																   	</dd>
+																</dl>
+															   <div class="evaluation_con ml_10 mt_5 clearfix">
+															   		<div class="left_arrow fl_l po_re">
+															   			<img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/style/yellow_larrow.gif">
+															   		</div>
+															   		<div class="right_coninfo fl_l ws_break">$v['mark_content']</siv>
+															   </div>
+														   </div>
+                                                      		</div>
+														</td>
+                                                    </tr>
+                                                    {/loop}
+													{else}
+													<tr>	
+														<td colspan="5" class="t_c">
+																	{$_lang['norecord']}
+                                                        </td> 
+													</tr>
+													{/if} 
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td colspan="4">
+                                                        </td>
+                                                        <td>
+                                                            {$_lang['total']}:{$count}{$_lang['tiao']}
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+										   <div class="page clearfix">
+                                            <p>
+                                                {$pages['page']}
+                                            </p>
+                                        </div>
+                    </div>
+                </div>
+                </article>
+                <!--detail内容 end-->
+            </div>
+            <!--main content end -->
+            <div class="clear">
+            </div>
+
+    </div>
+    </section>
+    <!--main end-->
+</div>
+</div>
+<!--contain end-->
+<link href="resource/js/jqplugins/starrating/jquery.rating.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="resource/js/jqplugins/starrating/jquery.rating.js"></script>
+<script type="text/javascript" src="resource/js/jqplugins/starrating/jquery.MetaData.js"></script>
+<script type="text/javascript">
+
+    $(function(){
+                //自定义显示星级评定
+                $('.hover-star').rating({
+                    focus: function(value, link){
+                        var tip = $('#hover-test');
+                        tip['0'].data = tip['0'].data || tip.html();
+                        tip.html(link.title || 'value: ' + value);
+                    },
+                    blur: function(value, link){
+                        var tip = $('#hover-test');
+                        $('#hover-test').html(tip['0'].data || '');
+                    }
+                });
+    })
+function loadMarkAid(obj){
+	ajaxmenu(obj, 250,'1','2','43');
+	return false;
+}
+
+</script>
+<!--{template user/user_footer}-->
+<!--{template footer}-->

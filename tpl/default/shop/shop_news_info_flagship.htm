@@ -1,0 +1,38 @@
+<!--{template header_top}-->
+<!--{template header_shop_flagship}-->
+<div class="container_24 clearfix">
+	<section class="fla_content clearfix">
+	<!--{template shop/section_nav_flagship}-->
+	<div class="fla_banner clearfix  po_re mt_5">
+		{if $vip_topimg['ban_2']}
+		<img src="{$_K['siteurl']}/{$vip_topimg['ban_2']}" alt="">
+		{else}
+		<img src="{$_K[siteurl]}/{$style_path}/theme/simple/img/shop/news_info_banner.png" alt="">
+		{/if}
+	</div>
+	<div class="breadcrumbs">
+		您当前的位置：<a href="{$ac_url}">公司首页</a><span class="font_simsun">></span><a href="{$ac_url}&view=news_list">新闻资讯</a><span class="font_simsun">></span><a href="{$ac_url}&view=news_list&art_type={$art_info[art_type]}">{if $art_info[art_type]==1}公司新闻{else}行业动态{/if}</a><span class="font_simsun">></span><a href="#" class="c666">{$art_info['art_title']}</a>
+	</div>
+	<!--{template shop/section_slide_flagship}-->
+	<div class="fla_right_con clearfix fl_r">
+		<div class="box default clearfix">			<div class="inner clearfix">
+				<header class="box_title">
+					<h3>{if $art_info[type]==1}公司新闻{else}行业动态{/if}</h3>
+				</header>
+				<article class="clearfix news_info_box">
+					<h1>{$art_info['art_title']}</h1>
+					<div class="news_info_staute mb_20">
+						<span>发布：<!--{eval echo date('Y年m月d日',$art_info['pub_time'])}--></span><span>来源：{$art_info['from']}</span><span>作者：{$art_info['author']}</span><span>浏览：{$art_info[views]}</span>
+					</div>
+					<p><!--{eval echo htmlspecialchars_decode($art_info['content'])}--></p>
+				<div class="news_prev_next clearfix mt_30 pt_20">
+					<span class="fl_l"><b>上一篇：</b>{if $art_up_info}<a href="index.php?do={$do}&view={$view}&sid={$sid}&art_id={$art_up_info[art_id]}">{$art_up_info['art_title']}</a>{else}没有了{/if}</span>
+					<span class="fl_r"><b>下一篇：</b>{if $art_down_info}<a href="index.php?do={$do}&view={$view}&sid={$sid}&art_id={$art_down_info[art_id]}">{$art_down_info['art_title']}</a>{else}没有了{/if}</span>
+				</div>
+				
+				</article>
+			</div>		</div>
+	</div>
+	<!--{template shop/section_footer_flagship}-->
+	</section>
+</div>

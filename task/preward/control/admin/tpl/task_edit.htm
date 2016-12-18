@@ -1,0 +1,307 @@
+<!--{template control/admin/tpl/admin_header}-->
+ <div class="page_title">
+    	<h1>{$model_info['model_name']}{$_lang['manage']}</h1>
+        <div class="tool">
+        	<a href="index.php?do=$do&model_id=$model_id&view=list">{$_lang['task_list']}</a>
+			<a href="index.php?do=$do&model_id={$model_id}&view=edit&task_id={$task_id}" class="here">{$_lang['task']}{if $task_id}{$_lang['edit']}{else}{$_lang['add']}{/if}</a>
+			<a href="index.php?do=$do&model_id={$model_id}&view=track&task_id={$task_id}">任务跟踪</a>
+        </div>
+		
+</div>
+<!--页头结束-->    
+<div class="box post">
+    <div class="tabcon">
+    	
+		{if $frost_info}
+		<div class="title"><h2>冻结操作栏</h2></div>
+		<div class="detail">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+            	<td colspan=2>
+            		<h3 style="color:red">
+            			该任务于<!--{date('Y-m-d H:i:s',$frost_info['frost_time'])}-->
+						由<span >{if $frost_info['frost_key']=='admin'}$frost_info[admin_username]{else}系统自动{/if}</span>冻结
+					</h3>
+					
+					冻结前，任务的状态为<span style="color:red"> {$status_arr[$frost_info[frost_status]]} </span><br>
+					冻结原因:
+					<span style="color:red;">
+						{if $frost_info[frost_reason]}$frost_info[frost_reason]{else}操作者并没有输入冻结原因{/if}
+					</span>
+					
+					{if $frost_info['frost_key']}
+						{if $frost_info['frost_key']=='reward_return'}
+						<div>
+							推荐操作: 
+							<a href="index.php?do=model&model_id=$task_info['model_id']&view=edit&task_id=$task_info['task_id']&sbt_act=returncash" onclick="return confirm('全额退款将退还 {$task_info[task_cash]} 元给雇主，并关闭任务,是否确定')" class="button dbl_target"><span class="pen icon"></span>全额退款并结束任务</a>
+							&nbsp;&nbsp; 
+						</div>
+						{elseif $frost_info['frost_key']=='reward_lottery'}
+						<div>	
+							推荐操作: 
+							<a href="index.php?do=model&model_id=$task_info['model_id']&task_id=$task_info['task_id']&view=lottery" class="button dbl_target"><span class="pen icon"></span>摇奖</a>
+							&nbsp;&nbsp; 
+						</div>
+						{elseif $frost_info['frost_key']=='preward_overtime'}
+						<div>
+							推荐操作: 
+							<a href="index.php?do=model&model_id=$task_info['model_id']&view=edit&task_id=$task_info['task_id']&sbt_act=returncash" onclick="return confirm('未结算的余额将退还给雇主，任务成功,是否确定')" class="button dbl_target"><span class="pen icon"></span>余额退款并结束任务</a>
+							&nbsp;&nbsp; 
+						</div>
+						{/if}
+					{/if}
+					
+					<div>
+						可选操作：
+						
+						<a href="index.php?do=model&model_id=$task_info['model_id']&view=edit&task_id=$task_info['task_id']&sbt_act=tochoosestatus" onclick="return confirm('该操作将任务重设到待选稿状态，时间延到1天后，是否确定？')" class="button dbl_target"><span class="pen icon"></span>延长选稿</a>
+						
+						{if $frost_info['frost_key']=='admin'}
+							<a href="index.php?do=model&model_id=$task_info['model_id']&view=edit&task_id=$task_info['task_id']&sbt_act=unfreeze" onclick="return confirm('确认要解冻吗')" class="button dbl_target"><span class="pen icon"></span>解冻</a>
+						{/if}
+						<a href="index.php?do=model&model_id=$task_info['model_id']&view=edit&task_id=$task_info['task_id']&sbt_act=close" onclick="return confirm('确认要关闭吗')" class="button dbl_target"><span class="pen icon"></span>关闭任务</a>
+					</div>
+					
+            	</td>
+            </tr>
+			</table>
+		</div>
+		{elseif $task_info['task_status']==4}
+		<div class="title"><h2>该任务摇奖中</h2></div>
+		<div class="detail">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+            	<td colspan=2>
+            		<h3 style="color:red">
+            			该任务于<!--{date('Y-m-d H:i:s',$lottery_config['lottery_time'])}-->
+						开启(编辑)摇奖
+					</h3>
+					
+					本次摇奖的原因为：<span style="color:red">{$lottery_config[lottery_reason]}</span><br>
+					中标者共计 <span style="color:red">$lottery_config[main_count]</span>人<br> 
+					摇奖金额为 <span style="color:red">$lottery_config[real_cash]</span>元<br>
+					
+					<div>
+						可选操作：
+						<a href="index.php?do=model&model_id=$task_info['model_id']&task_id=$task_info['task_id']&view=lottery" class="button dbl_target"><span class="pen icon"></span>编辑摇奖配置</a>
+					</div>
+					
+            	</td>
+            </tr>
+			</table>
+		</div>
+		{/if}
+		<br>
+        	<div class="title"><h2>{if $task_id}{$_lang['edit']}{else}{$_lang['add']}{/if}{$model_info['model_name']}{$_lang['task']}</h2></div>       	
+            <div class="detail">
+            	
+                <form method="post" action="index.php?do=$do&model_id={$model_id}&view=edit&task_id={$task_id}" id="frm_art_edit" name="frm_art_edit" enctype="multipart/form-data">
+                <input type="hidden" name="task_id" value="$task_info['task_id']">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <th scope="row" width="130">{$_lang['task_title']}{$_lang['zh_mh']}</th>
+                        <td>
+	                         <input type="text" class="txt" name="task_title" value="$task_info['task_title']" size="80" id="task_title" msgArea="span_task_title"
+							 limit="required:true;len:5-50" msg="{$_lang['task_title_msg']}" title="{$_lang['task_title_msg']}"><span id="span_task_title"></span>
+							&nbsp;&nbsp;&nbsp;<input type="checkbox" name="recommend" {if $task_info['is_top']}checked{/if}><font color="red">{$_lang['if_recommend_task']}</font>
+						<span>{$_lang['recommended_task_msg']}</span>
+						</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">{$_lang['pub_name']}{$_lang['zh_mh']}</th>
+                        <td><b>{$task_info['username']}</b></td>
+					  </tr>
+					  <tr>
+                        <th scope="row">{$_lang['show_time']}{$_lang['zh_mh']}</th>
+                        <td>
+                        	<b>{$_lang['start_time']}:</b><!--{date('Y-m-d H:i:s',$task_info['start_time'])}-->&nbsp;&nbsp;
+							<b>{$_lang['contribution_end_time']}:</b><!--{date('Y-m-d H:i:s',$task_info['sub_time'])}-->&nbsp;&nbsp;
+							<b>{$_lang['choose_end_time']}:</b><!--{date('Y-m-d H:i:s',$task_info['end_time'])}-->
+						</td>
+					  </tr>
+					  {if $task_info['task_status']==2||$task_info['task_status']==3}
+					  <tr>
+                        <th scope="row">投稿截止时间</th>
+                        <td>
+                        	<input type="text" class="txt"  name="txt_sub_time" onclick="showcalendar(event,this,1)" value="<!--{date('Y-m-d H:i:s',$task_info['sub_time'])}-->" size="20" id="txt_sub_time" msgArea="span_sub_time" title="投稿期结束后任务不可再投稿">
+							请谨慎修改。
+							<span id="span_sub_time"></span>
+						</td>
+                      </tr>
+					  {/if}
+					  {if $task_info['task_status']==2||$task_info['task_status']==3}
+					  <tr>
+                        <th scope="row">选稿截止时间</th>
+                        <td>
+                        	<input type="text" class="txt"  name="txt_end_time" onclick="showcalendar(event,this,0)" value="<!--{date('Y-m-d H:i:s',$task_info['end_time'])}-->" size="20" id="txt_end_time" msgArea="span_end_time" title="选稿期是投稿截至后给雇主选稿的时间">
+							请谨慎修改，选稿截止时间必须大于投稿截止时间
+							<span id="span_end_time"></span>
+						</td>
+                      </tr>
+					  {/if}
+					  {if $task_info['task_status']==5}
+					  <tr>
+                        <th scope="row">公示截止时间</th>
+                        <td>
+                        	<input type="text" class="txt"  name="txt_sp_end_time" onclick="showcalendar(event,this,1)" value="<!--{date('Y-m-d H:i:s',$task_info['sp_end_time'])}-->" size="20" id="txt_sp_end_time" msgArea="span_sp_end_time" title="公示结束后才会结算中标金额">
+							请谨慎修改，公示结束时间
+							<span id="span_sp_end_time"></span>
+						</td>
+                      </tr>
+					  {/if}
+					  {if $task_info['task_status']==4}
+					  <tr>
+                        <th scope="row">摇奖截止时间</th>
+                        <td>
+                        	<input type="text" class="txt"  name="txt_exec_time" onclick="showcalendar(event,this,1)" value="<!--{date('Y-m-d H:i:s',$task_info['exec_time'])}-->" size="20" id="txt_exec_time" msgArea="span_exec_time" title="摇奖期最长持续时间">
+							<span id="span_exec_time"></span>
+						</td>
+                      </tr>
+					  {/if}
+                      <tr>
+                        <th scope="row">{$_lang['task_status']}{$_lang['zh_mh']}</th>
+                        <td><span class="fl_l">{$status_arr[$task_info['task_status']]}</span>
+							<ul class="pay_item" style="">
+								<li>
+									<b>任务增值服务</b>：
+								</li>
+								<li>
+									<!--{eval echo keke_task_config::payitem_operate($task_info['model_id'],$task_id,$task_info['pay_item']);}-->
+								</li>
+							</ul>
+						</td>
+                      </tr>
+					 
+					  
+					  <tr>
+                        <th scope="row">是否保证选稿{$_lang['zh_mh']}</th>
+                        <td>
+                        	<input type="radio" name="rdo_must_choosework" {if $task_info['must_choosework']}checked=checked{/if} value="1">是
+							<input type="radio" name="rdo_must_choosework" {if !$task_info['must_choosework']}checked=checked{/if} value="1">否
+						</td>
+                      </tr>
+					  
+                      <tr>
+                        <th scope="row">{$_lang['industry']}{$_lang['zh_mh']}</th>
+                        <td> <select name="slt_indus_id">
+					        	<option value="0">{$_lang['top']}</option>
+								{loop $indus_option_arr $v}
+								 {$v}
+								{/loop}
+							</select>　
+                        </td>
+                      </tr>
+					<tr>
+                        <th scope="row">{$_lang['add_service']}{$_lang['zh_mh']}</th>
+                        <td>
+                        	<b>{$_lang['count']}:</b>$task_info['att_cash']{$_lang['yuan']}<br>
+							{loop $payitem_list $v}
+								{if strpos($task_info['pay_item'],$v['item_id'])!==FALSE}
+									　　　　<b>{$v['item_name']}</b>:<font color="red">{$v['item_cash']}</font>{$_lang['yuan']}<br>
+								{/if}
+							{/loop}
+						</td>
+                    </tr>
+                      <tr>
+                        <th scope="row">{$_lang['update_pic']}:</th>
+                        <td>
+                        	<input type="file" name="fle_task_pic" size="50" class="txt">
+        					{if $task_info['task_pic']}
+							<input type="hidden" name="task_pic_path" value="{$task_info['task_pic']}">
+							<br><img src="{$_K['siteurl']}/$task_info['task_pic']" alt=''>
+							{/if}
+                        </td>
+                      </tr>
+                     <tr>
+                        <th scope="row">{$_lang['task_attachment']}{$_lang['zh_mh']}</th>
+					    <td><!--{eval echo keke_task_config::task_file_edit($task_id,$task_info['task_file']);}-->
+					   </td>
+					</tr>
+					<tr>
+                        <th scope="row">{$_lang['task_cash']}{$_lang['zh_mh']}</th>
+                        <td>
+                        	<input type="text" name="task_cash" id="task_cash" value="{$task_info['task_cash']}" class="txt" limit="required:true;type:float;between:{$task_info['task_cash']}-"
+							 msg="{$_lang['txt_task_cash_msg']}" title="{$_lang['txt_task_cash_msg']}" msgArea="span_task_cash"><span id="span_task_cash"></span>
+						</td>
+                    </tr> 
+					
+					
+					
+					
+					<tr>
+                        <th scope="row">稿件列表显示方式{$_lang['zh_mh']}</th>
+                        <td>
+                        	<label><input type="radio" name="worklist_viewtype" {if $task_info['worklist_viewtype']!='icon'}checked=checked{/if} value="list">竖排列表</label>
+							<label><input type="radio" name="worklist_viewtype" {if $task_info['worklist_viewtype']=='icon'}checked=checked{/if} value="icon">缩略图列表</label>
+						</td>
+                    </tr> 
+					
+					 <tr>
+                        <th scope="row">{$_lang['task_description']}{$_lang['zh_mh']}</th>
+                        <td>
+                         <textarea rows="18" name="task_desc" style="width:75%;" id="tar_content"  class="xheditor {urlBase:'$_K['siteurl']/',tools:'mfull',admin:'../../',html5Upload:false,upImgUrl:'../../index.php?do=ajax&view=upload&file_type=att'}" cols="70">{$task_info['task_desc']}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">描述补充{$_lang['zh_mh']}</th>
+						<td>
+							<textarea name="ext_desc" id="ext_desc" rows="7" cols="90" msgArea="span_ext">{$task_info['ext_desc']}</textarea><br />
+							<span id="span_ext"></span>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">描述补充是否显示{$_lang['zh_mh']}</th>
+						<td>
+							<select name="ext_status" id="ext_status">
+								<option value="0" {if $task_info['ext_status']==0||!$task_info['ext_status']}selected{/if}>不显示</option>
+								<option value="1" {if $task_info['ext_status']==1}selected{/if}>显示</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">任务联系方式:</th>
+						<td>
+							<ul style="float:left;width:220px" class="pay_item">
+							{loop unserialize($task_info[contact]) $k $v}
+								<li><span style="width:50px;display:block;float:left;">$k: </span><input type="text" name="contact[{$k}]" value="{$v}" /></li>
+							{/loop}
+							</ul>
+						</td>
+					</tr>
+                    <tr>
+                        <th scope="row">&nbsp;</th>
+                    	<td>
+                    	<button name="sbt_edit" value="1" class="positive primary  button" type="submit" onclick="return frmCheck()">
+                    		<span class="check icon"></span>{$_lang['submit']}</button>
+							{loop $process_arr $k $v}
+								<button type="submit" name="sbt_act" class="positive primary button"  value="{$k}" onclick="return confirm('{$_lang['confirm']}{$v}?')"><span class="lock icon"></span>{$v}</button>
+							{/loop}
+							{if in_array($task_info['task_status'],array(2,3,4,5))}<a href="javascript:;" onclick="return show_freeze('index.php?do=model&model_id=$model_id&view=edit&task_id=$task_id&sbt_act=freeze')" class="button"><span class="lock icon"></span>{$_lang['freeze']}</a>{/if}
+						
+                    	<button type="button"  name="rst_edit" class="pill button"  onclick="history.go(-1)"/><span class="uparrow icon"></span>{$_lang['return']}</button>
+                    	</td>
+                    </tr>
+                    </table>
+                </form>
+              </div>
+       </div>           
+</div>
+<!--主体结束-->
+ <script>
+	function show_freeze(url){ 
+		art.dialog.open(url,{title:"任务冻结",height:400,width:700});
+		return false;
+	}	
+	
+	function frmCheck(){
+		if(checkForm(document.getElementById('frm_art_edit'))){
+			return true;
+		}else{
+			return false;
+		}
+	}
+</script>
+
+
+
+<!--{template control/admin/tpl/admin_footer}-->

@@ -1,0 +1,113 @@
+<!--{template control/admin/tpl/admin_header}-->
+ <div class="page_title">
+    	<h1>{$model_info['model_name']}{$_lang['manage']}</h1>
+        <div class="tool">
+        	<a href="index.php?do=$do&model_id=$model_id&view=list">{$_lang['task_list']}</a>
+			<a href="index.php?do=$do&model_id={$model_id}&view=edit&task_id={$task_id}">{$_lang['task']}{if $task_id}{$_lang['edit']}{else}{$_lang['add']}{/if}</a>
+			<a href="index.php?do=$do&model_id={$model_id}&view=track&task_id={$task_id}" class="here">任务跟踪</a>
+        </div>
+		
+</div>
+<!--页头结束-->    
+<div class="box post">
+    <div class="tabcon">
+    	
+		<div class="title"><h2></h2></div>
+		<div class="detail">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+            	<td colspan=4>
+            		
+            		<h3 style="color:red">
+            			{if $track_info}
+						上一次跟踪记录产生于 <!--{date('Y-m-d H:i:s',$track_info['dateline'])}-->，
+						最后跟踪者为  <span>$track_info['t_username']</span>
+						{else}
+						该任务尚未产生跟踪记录
+						{/if}
+					</h3>
+					
+            	</td>
+            </tr>
+			<tr>
+				<th>任务标题:</th>
+				<td colspan=3>$task_info['task_title']</td>
+			</tr>
+			<tr>
+				<th>任务金额:</th>
+				<td>$task_info['task_cash']</td>
+				<th>雇主:</th>
+				<td>$task_info['username']</td>
+			</tr>
+			<tr>
+				<th>开始时间:</th>
+				<td><!--{date('Y-m-d H:i:s',$task_info['start_time'])}--></td>
+				<th>结束时间:</th>
+				<td><!--{date('Y-m-d H:i:s',$task_info['end_time'])}--></td>
+			</tr>
+			<tr>
+				<th>任务状态:</th>
+				<td>$task_status[$task_info['task_status']]</td>
+				<th>跟踪状态:</th>
+				<td>$track_status[$track_info['t_status']]</td>
+			</tr>
+			</table>
+			
+			{if $track_list}
+			<table width="100%" border="0" cellspacing="0" cellpadding="0"  style="color:#A30000;">
+			<tr>
+				<th colspan=4><h3 style="color:red">历史跟踪记录</h3></th>
+			</tr>
+			<tr><th>跟踪时间</th><th>跟踪状态</th><th>跟踪人</th><th>跟踪情况</th></tr>
+			{loop $track_list $k $v}
+			<tr>
+				<td><!--{date('Y-m-d H:i:s',$v['dateline'])}--></td>
+				<td>$track_status[$v['t_status']]</td>
+				<td>$v[t_username]</td>
+				<td>$v[t_content]</td>
+			</tr>
+			{/loop}
+			</table>
+			{/if}
+			
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<th colspan=4><h3 style="color:red">{if $track_info}更新跟踪记录{else}创建跟踪记录{/if}</h3></th>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<form action="index.php?do=$do&model_id=$model_id&view=$view&task_id=$task_id&btn_sbt=1" method="post">
+					跟踪该任务的客服为:
+					<select id="slt_t_uid" name="slt_t_uid">
+						{loop $custom_list $u $c}
+						<option value="$u" {if $track_info['t_uid']==$u}selected=selected{/if} >$c[username]</option>
+						{/loop}
+					</select>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					 跟踪状态修改为:
+					<select id="slt_t_status" name="slt_t_status">
+						{loop $track_status $k $v}
+						<option value="$k" {if $track_info['t_status']==$k}selected=selected{/if} >$v</option>
+						{/loop}
+					</select>
+					<br>
+					跟踪情况:<br>
+					<textarea id="tar_t_content" style="width:380px;height:160px" name="tar_t_content">$track_info['t_content']</textarea>
+					<br><br>
+					<button type="submit"  name="rst_edit" class="pill button"/><span class="uparrow icon"></span>提交</button>
+					
+					</form>
+				</td>
+			</tr>
+			</table>
+		</div>
+		
+		
+		<br>
+        	
+       </div>           
+</div>
+
+
+
+<!--{template control/admin/tpl/admin_footer}-->

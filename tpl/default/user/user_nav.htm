@@ -1,0 +1,64 @@
+<link rel="stylesheet" href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/user_center.css">
+<link rel="stylesheet" href="{$_K['siteurl']}/{SKIN_PATH}/css/user_center.css">
+<header class="page_title clearfix hidden  Anchor">
+    <div class="grid_17">
+        <h2 class="title">{$_lang['user_center']}</h2>
+    </div>
+    <div class="grid_7 ">
+        <div class="user_info">
+            <div class="fl_l mr_10">
+                <p>
+                    <!--{userpic($uid,small)}-->
+                </p>
+            </div>
+            <ul class="intor">
+                <li>
+                    {$_lang['welcome']}{$username}
+                </li>
+                <li>
+                    <strong class="cf60">{$_lang['currency']}{$user_info['balance']}</strong>
+                  {$_lang['cash']} | <strong><a href="{$_K['siteurl']}/index.php?do=user&view=message">{$messagecount} {$_lang['tiao_news']}</a></strong>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+<div class="pb_10">
+<nav class="primary_nav box clearfix">
+    <a name="userCenter"></a>
+    <ul>
+		<li>
+			<a href="{$_K['siteurl']}/index.php?do=user&view=setting" {if $view=="setting"||$view=="payitem"||$view=="trans"}class="selected"{/if}><span class="icon32 cog">账号设置</span><em>账号设置</em></a>
+		</li>
+		<li>
+			<a href="{$_K['siteurl']}/index.php?do=user&view=employer" {if $view=="employer"}class="selected"{/if}><span class="icon32 buyer">我是雇主</span><em>我是雇主</em></a>
+		</li>
+		<li>
+			<a href="{$_K['siteurl']}/index.php?do=user&view=witkey" {if $view=="witkey"}class="selected"{/if}><span class="icon32 seller">我是威客</span><em>我是威客</em></a>
+		</li>
+		<li>
+			<a href="{$_K['siteurl']}/index.php?do=user&view=message" {if $view=="message"}class="selected"{/if}><span class="icon32 sound-high">消息管理</span><em>消息管理</em>{if $messagecount}<strong class="badge">{$messagecount}</strong>{/if}</a>
+		</li>
+		<li class="fl_r">
+			<a href="{$_K['siteurl']}/index.php?do=user&view=finance" {if $view=="finance"}class="selected"{/if}><span class="icon32 chart-line2">我的账本</span><em>我的账本</em></a>
+		</li>
+		<li  class="fl_r">
+			<a href="{$_K['siteurl']}/index.php?do=user&view=space" rel="nofollow" {if $view=="space"}class="selected"{/if}><span class="icon32 ">商铺管理</span><em>商铺管理</em></a>
+		</li>
+		<li class="fl_r">
+			<a href="{$_K['siteurl']}/index.php?do=release"><span class="icon32 ">发布任务</span><em>发布任务</em></a>
+		</li>
+    </ul>
+</nav>
+
+<div class="shortcut clearfix">
+	<ul>
+      <li> 快捷操作：<a {if $user_info['shop_id']} href="{$_K['siteurl']}/index.php?do=user&view=space&op=skill"{else}onclick="showDialog('您还没有开通商铺，点击确定立即开通？','confirm','操作提示',function(){location.href='index.php?do=user&view=space'});return false;"{/if}> 设置我的技能标签</a> </li>
+      <li> <a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=basic"> 完善我的个人资料</a> </li>
+      <li> <a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth"> 完成我的账号认证</a> </li>
+      <li> <a href="{$_K['siteurl']}/index.php?do=vip&view=open"> 升级商铺，获得更多特权</a> </li>
+    </ul>
+</div>	
+
+</div>
+<div class="clear"></div>

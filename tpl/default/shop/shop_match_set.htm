@@ -1,0 +1,185 @@
+<!--{template header_top}-->
+<!--{template header_shop}-->
+
+<div class="wrapper clearfix">
+	<div class="container_24 clearfix">
+		<div class="grid_24 clearfix">
+			<div class="nav_lists_shop clearfix mt_20">
+			<!--头部导航-->
+			<!--{template shop/section_nav}-->
+			<!--end 头部导航-->
+			</div>
+		
+
+
+			<!--内容主体-->
+			<div class="shop_content clearfix mt_10">
+				
+				<!--左内容-->
+				<div class="shop_left clearfix grid_5 alpha ">
+					<div  class="box default clearfix shop_info_boxs mb_10">
+						<div class="inner">
+							<div class="shop_user_img">
+								<!--{userpic($shop_info['uid'],larger)}-->
+							</div>
+							<div class="clearfix shop_info_one">
+								<ul>
+									<li class="clearfix">
+										<div class="fl_l">认证状况：</div>
+										<span class="ml_5 fl_l">
+											<!--{eval echo(keke_glob_class::get_auth_ico($shop_info['auth_realname'],$shop_info['auth_mobile'],$shop_info['auth_email'],$shop_info['auth_bank']));}-->
+										</span>
+									</li>
+									<li class="clearfix">
+										<div class="fl_l">诚信状况：</div>
+										<span class="ml_5 fl_l">
+											<img alt="" src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/credibility_of.jpg">
+										</span>
+									</li>
+									{if $shop_integrity}
+									<li class="clearfix">
+										<div class="fl_l">
+											托管保证金：
+										</div>
+										<span class="tg_totol ml_5 fl_l">￥{$shop_integrity['pay_cash']}元</span>
+									</li>
+									{/if}
+									{if $shop_info['user_type']==3}
+									<li class="clearfix">
+										<div class="fl_l">公司认证：</div>
+										<span class="ml_5 fl_l">
+											<img alt="" src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/cer_pass.jpg">
+										</span>
+									</li>
+									{/if}							
+								</ul>
+							</div>
+							<div class="clearfix match_kinds">
+								<dl class="clearfix t_c">
+									<dt>
+										<h2>同城速配基础服务</h2>
+									</dt>
+									{if $shop_info['city_match']=='1'}
+									<dd>
+										<p class="user_state mt_5">
+											开通使用中
+										</p>
+										<p class="mature_time">
+											<i class="block">服务到期时间为：</i>
+											<span class="block"><!--{date('Y年m月d日',$shop_info['vip_end_time'])}--></span>
+										</p>
+										<p>
+											<a href="#" class="button">我要续费</a>
+										</p>
+									</dd>
+									{else}
+									<dd>
+										<p class="user_state mt_5">
+											未开通
+										</p>
+										<p>
+											<a href="{$_K['siteurl']}/index.php?do=shop&sid={$shop_info[shop_id]}&view=match_set&op=on" class="button">我要开通</a>
+										</p>
+									</dd>
+									{/if}
+								</dl>
+								{if $match_info}
+								<dl class="clearfix t_c pb_10">
+									<dt>
+										<h2>速配手机短信通知</h2>
+									</dt>
+									<dd>
+										<p class="user_state mt_5">
+											开通使用中
+										</p>
+										<p class="mature_time">
+											<i class="block">服务到期时间为：</i>
+											<span class="block"><!--{date('Y年m月d日',$match_info['end_time'])}--></span>
+										</p>
+										<p>
+											<a href="#" class="button">我要续费</a>
+										</p>
+									</dd>
+								</dl>
+								{/if}
+							</div>
+						
+						</div>
+					</div>
+				</div>
+				<!--左内容 end-->
+				
+				<!--右内容-->
+				<div class="shop_right clearfix grid_19 omega fl_r ">
+					<div class="box default clearfix firm_box match_task">
+						<div class="inner">
+							<div class="firm_left  fl_l">
+								<div class="clearfix pad20">
+									<div class="clearfix ">
+										<h2 class="font14b">速配任务分类：</h2>
+										<p class="pb_5 pt_5"><b>提示：</b>您设置的技能标签即是您速配的任务分类，修改速配分类对应着会修改您的技能标签</p>
+										{if $shop_info['skill_ids']}
+										<ul class="clearfix">
+											{if $shop_info['skill_ids']}
+											<!--{eval $skills=explode(',',$shop_info['skill_ids']);}-->
+											{loop $skills $v}
+											<li><span>$indus_c_arr[$v]['indus_name']</span></li>
+											{/loop}
+											
+										</ul>
+										{else}
+											<div class="no_detail pad10">暂无</div>
+										{/if}
+									</div>
+									<div class="clearfix mt_10">
+										<a href="{$_K['siteurl']}/index.php?do=user&view=space&op=skill">修改速配任务分类</a>
+									</div>
+								</div>
+							</div>
+							<div class="firm_right fl_l">
+								<div class="pad10 clearfix">
+									<div class="pl_5 mt_5 pb_5"> 
+										<h2 >任务速配主体</h2>
+										<p>省市：{if $shop_info['residency']}{$shop_info['residency']}{else}暂无{/if}</p>
+										<p>邮箱：{if $shop_info['email']}{$shop_info['email']}{else}暂无{/if}</p>
+										<p>手机：{if $shop_info['mobile']}{$shop_info['mobile']}{else}暂无{/if}</p>
+									</div>
+									<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=basic" class="button big mt_30">修改主体信息</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="box_shadow"></div>
+					<div class="box default clearfix mt_10 mb_10">
+						<div class="inner clearfix">
+							<header class="box_title clearfix">
+								<h2>速配手机短信通知续费</h2>
+							</header>
+							<article class="clearfix border_n">
+								<form name="frm" method="post" action="index.php?do=shop&sid={$sid}&view=match_set&op=goon">
+								<div class="msg_money clearfix">
+									<input type="hidden" name="frm_submit" value="1">
+									<p class="c333">您的VIP速配服务剩余时间为：<b>{$mobile_end['vip_left']}</b>，手机短信服务可以续费的最长时间为<b> {$mobile_end['day']} </b>天</p>
+									<h2>选择您续费的时间</h2>
+									<label><input type="radio" name="amount" checked="checked" value="{$mobile_end['day']}">{$mobile_end['month']}（{$mobile_end['day']}元）</label>
+									<label><input type="radio" name="amount" value="30">1个月（30元）</label>
+								</div>
+								<div class="t_c pad20">
+									<button type="submit" class="button big">下一步</button>
+								</div>
+							
+							</form>
+							</article>
+						</div>
+					</div>
+				</div>
+				<!--右内容 end-->
+				
+				<div class="clear"></div>
+			</div>
+			<!--内容主体 end-->
+		</div>
+	</div>
+</div>
+<!--{template shop/section_footer}-->
+<!--{template footer}-->

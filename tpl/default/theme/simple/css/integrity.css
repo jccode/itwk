@@ -1,0 +1,64 @@
+
+/* 联系方式 */
+.int_contact{ background:url(../img/style/int_bg_img.gif) no-repeat 0 -300px; width:370px; height:64px; overflow:hidden;}
+/* 全局 */
+.int_box{background:#efefef url(../img/style/int_bg.png) repeat-x 0 0;}
+h1{ font-family:"微软雅黑"; color:#060; font-size:30px; line-height:30px; font-weight:600px; letter-spacing:-2px; }
+.grih1 {display:block; font-family:"微软雅黑"; color:#060; font-size:30px; line-height:30px; font-weight:600px; letter-spacing:-2px; }
+/* 主内容头部 */
+.int_header{background:url(../img/style/int_header_bg.png) no-repeat top center; margin:0 auto;}
+	.int_banner{width:1000px; height:270px; display:block; margin:0 auto;}
+	/* 步骤列表 */
+	.int_list_step li{border:1px solid #86c25d; background:#75af4c; float:left; height:78px;}
+		.int_list_step li.i_frist{border-right:none; }
+		.int_list_step li.i_middle{border-right:none; border-left:none;}
+		.int_list_step li.i_last{border-left:none;}
+		.int_list_step li.i_bg{border:none; background:url(../img/style/int_bg_img.gif) no-repeat -310px -150px; width:42px; height:80px;}
+			.i_icon{background:url(../img/style/int_bg_img.gif) no-repeat 0 0; width:38px; height:45px; overflow:hidden; margin:16px 15px 16px 7px; _margin:16px 15px 16px 4px; float:left;}
+				.i_frist_icon{ margin:16px 15px; _margin:16px 15px 16px 8px;}
+				.i_middle_icon{ background-position:-38px 0;}
+				.i_last_icon{ background-position:-76px 0;}
+			.int_list_con{float:left; color:#fff; width:235px; line-height:18px; padding:12px 0 0 0;}	
+				.int_list_step li.i_last .int_list_con{padding:12px 20px 0 0;_padding:12px 18px 0 0;}
+	/* 主内容 */
+	.int_content{border:1px solid #3d8918; background:#5BB61F;}
+		.int_content .inner{border:1px solid #6DD825; padding:3px;}
+			.int_main_con{border:1px solid #4dac1e; background:#fff; padding:30px; position:relative;}
+				/* 三角提示 */
+				.int_tip{background:url(../img/style/int_bg_img.gif) no-repeat -114px 0; width:70px; height:70px; overflow:hidden; position:absolute; right:0; top:0;}		
+				/* 导航 */
+				.int_list_step_two li{ background:#D3F1B8; border-radius:5px; width:240px; height:60px; padding:15px; float:left; color:#060;  font-size:14px;font-family:"微软雅黑";  }
+					.int_list_step_two li.int_arrow{ background:url(../img/style/int_bg_img.gif) no-repeat -190px 0 !important; width:36px; height:27px; padding:0; margin:10px; overflow:hidden;}
+
+	.ps dl{ float:left; display:inline; width:296px; }
+	.ps .grih1 { display:block; width:410px; height:70px; overflow:hidden; text-indent:-999em; background:url(../img/style/int_bg_img.gif) no-repeat 0 -70px ;}
+		.ps dl dt{ background:#f4f4f4; padding:30px 15px 15px; line-height:20px; border:1px solid #dfdfdf;}
+		.ps dl dt .cl{ color:#060; margin-top:10px;}
+		.ps dl dt h2{ width:155px; height:45px; margin-bottom:10px; background:url(../img/style/int_bg_img.gif) no-repeat 0 bottom; overflow:hidden; text-indent:-999em;}
+		.ps dl dt h2.cl_1{ background-position:0 bottom;}
+		.ps dl dt h2.cl_2{ background-position:-155px bottom;}
+		.ps dl dt h2.cl_3{ background-position:-310px bottom;}
+		.ps dl dd{border:1px solid #eee; border-top:none; border-bottom:1px dashed #dfdfdf; padding:5px 10px; height:25px;}
+		.ps dl dd span{ display:inline-block; float:right; width:21px; height:20px;background:url(../img/style/int_bg_img.gif) no-repeat  1px -45px; overflow:hidden;}
+		.ps dl dd.point{ border-bottom:none; border-color:#58bc3a; background:#58BC3A; color:#fff; font-size:14px; font-weight:bolder;}
+		.ps dl dd.last{ background:#fff;border-bottom:1px solid #dfdfdf;}
+		.ps dl dd.last span{ background-position:-21px -45px;}
+		.cf30{ color:#f30;}
+		
+		.img_show .show_info{ font-size:14px; color:#060;}
+		.img_show .banner_1,.img_show .banner_2{ position:relative; z-index:1; width:450px; height:417px; float:left; display:inline; }
+		.img_show .img_info{ position:absolute; z-index:1; width:215px; overflow:hidden;}
+		.img_show .img_info p{ font-size:14px;}
+		.img_show .img_info a{ text-decoration:underline;}
+		.img_show .banner_1{ background:url(../img/style/int_banner_one.png) no-repeat; }
+		.img_show .banner_1 .img_info{ top:250px; right:30px;}
+		.img_show .banner_2{ background:url(../img/style/int_banner_two.png) no-repeat; margin-left:20px;}
+		.img_show .banner_2 .img_info{ top:280px; right:40px;}
+		.epcl{ color:#060;}
+			.epcl p{ letter-spacing:1px;}
+		.int_content img.block{width:990px; overflow:hidden;}
+		
+
+a.int_btn{width:308px; height:70px; display:block; overflow:hidden; text-indent:-999em; margin:35px auto; cursor:pointer; }
+a.int_btn.int_btn_before{background:url(../img/style/int_bg_img.gif) no-repeat 0 -149px; }	
+a.int_btn.int_btn_after{background:url(../img/style/int_bg_img.gif) no-repeat 0 -226px;}

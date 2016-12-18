@@ -1,0 +1,117 @@
+<!--{template header}-->
+<div class="winbody" >
+
+ <!--main content-->
+   <div class="pad10 clearfix">
+    <!--from表单 start-->
+		<div class="messages m_warn">
+		<strong>友情提醒</strong> 点评内容字数为300字之内。
+	</div>
+       <form action="" method="post" id="frm_review" name="frm_review">
+       	
+    	    <div class="rowElem clearfix">
+    	    	
+				<label class="fl_l t_r"><strong>留下昵称{$_lang[zh_mh]}</strong></label>
+				<div class="fl_l">
+					<div>
+						<input type="text" class="txt_input" size="40" class="text" name="txt_comment_name" id="txt_comment_name" value="{$username}"
+					limit="required:true;len:2-20" msg="昵称不得为空,2-20字" msgArea="span_comment_name">
+					</div>
+					<div id="span_comment_name"></div>
+				</div>
+			</div>
+		    <div class="rowElem clearfix">
+				<label class="fl_l t_r"><strong>内容点评{$_lang[zh_mh]}</strong></label>
+				<div class="fl_l">
+					<div>
+						<textarea name="txt_comment_content" id="txt_comment_content" onkeyup="checkInner(this,300,event);" onkeydown="checkInner(this,300,event)" style="width:350px;height:140px;"></textarea> 
+					</div>
+					<div class="c999"  id="length_msg_show">内容字数为5-300，<span id="length_show"></span></div>
+					<!-- <div id="span_comment_content"></div> -->
+				</div>
+			</div>
+			 <div class="rowElem clearfix">
+				<label class="fl_l t_r"><strong>验&nbsp;&nbsp;证&nbsp;&nbsp;码{$_lang[zh_mh]}</strong></label>
+				<div class="fl_l">
+					
+					<input style="width:65px;" class="fl_l txt_input" name="txt_code" type="text" size="8" id="txt_code" limit="required:true;len:4" msg="请输入验证码" msgArea="secode_msg"ajax="{$_K['siteurl']}/index.php?do=ajax&view=code&txt_code=" >
+					&nbsp;&nbsp;<img id="secode_img" src="secode_show.php?sid=" onclick="document.getElementById('secode_img').src='secode_show.php?sid='+Math.random(); return false;" style="width:100px;">
+					<a class="font14" href="#" onclick="document.getElementById('secode_img').src='secode_show.php?sid='+Math.random(); return false;">换一组</a>
+					<a id="show_secode" href='{$_K['siteurl']}/index.php?do=ajax&view=menu&ajax=show_secode'></a>
+		
+					<span id="secode_msg"></span>
+				</div>
+			</div>
+			<input name="sbt_action" type="hidden" value="1" />
+   </form>
+  <!--from表单 end-->
+  </div>
+  
+  <div class="messages" style="line-height:20px;">
+      <p>
+          <b>IT帮手网“一句点评”声明{$_lang[zh_mh]}</b>
+      </p>
+      <p>
+          您发布的留言即表示同意遵守以下条款{$_lang[zh_mh]}
+      </p>
+      <p>
+          一、不得利用本站危害国家安全、泄露国家机密，不得侵犯国家、社会、集体和公民的合法权益；
+      </p>
+      <p>
+          二、不得发布国家法律、法规明令禁止的内容；互相尊重，不得发布谩骂、人身攻击、侮辱性语言；
+      </p>
+      <p>
+          三、本站对您发布内容拥有处置权。
+      </p>
+  </div>
+  
+  <div class="rowElem clearfix form_button mar0">
+      <button type="button" class="submit mr_5" value="确认提交" onclick="comment_add_submit();">
+          确认提交
+      </button>
+      <button type="button" class="button bwhite" value="{$_lang['cancel']}" onclick="hideWindow('reviewbox')">
+          {$_lang['cancel']}
+      </button>      
+  </div>
+		   
+</div>
+<script src="{$_K['siteurl']}/resource/js/jquery.bgiframe.pack.js"></script>
+<script type="text/javascript">
+	In('form');
+	$(document).ready(function(){	 	
+	 	var val = $('#txt_comment_content').val(); 
+	 	checkInner(document.getElementById('txt_comment_content'),300,val);
+	})
+	
+	 //ajax 获取
+	function comment_add_submit(){		
+		var i = checkForm(document.getElementById('frm_review')); 
+		if( i ){
+			var cont_obj = document.getElementById('txt_comment_content');
+			var val = $.trim(cont_obj.value);
+			var len = val.length-1;
+			if(len > 300){ 
+				$("#length_msg_show").removeClass().addClass("cc00");
+				return false;	
+			}
+			
+			var data = $("#frm_review").serialize();	
+			var url = "{$_K['siteurl']}/index.php?do=ajax&view=review&"+data;
+		    $.getJSON(url, function(json){ 
+		        if (json.status == '1') {			
+					showDialog(json.msg,'right',"操作提示","window.top.location.reload()");
+					hideWindow('reviewbox');
+					return true;
+		        }
+		        else {
+					showDialog(json.msg,'alert',"操作提示");
+				    return false;
+		        }
+		    })
+		}
+	}
+	$(function(){
+		$('div.fwinmask').bgiframe();
+	})
+</script>
+<!--{template footer}-->

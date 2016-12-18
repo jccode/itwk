@@ -1,0 +1,150 @@
+<!--{template header}-->
+<!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+    	<!--{template user/user_nav}-->
+        <!--main start-->
+        <section class="clearfix section">
+            <!--{template user/user_side}-->
+            <div class="show_panel">
+                <div >
+                	<div >
+                        <!--main content-->
+           				<div class=" clearfix box default">
+                            <!--header内容头部 start-->
+                            <header class="clearfix box_header">
+                                <h2 class="box_title">{if $art_id}编辑{else}添加{/if}商铺文章</h2>
+                              
+                                <div class="clear">
+                                </div>
+                            </header>
+                            <!--header内容头部 end-->
+                            <div class="box_detail">
+                                <div class="clearfix">
+                                    <!--from表单 start-->
+                                    <form action="{$ac_url}" method="post" id="frm" name="frm">
+                                     	<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+										<input type="hidden" name="pk[art_id]" value="{$art_info['art_id']}" id='art_id'>
+                                        <div class="rowElem clearfix">
+                                            <label class="font14 c333 mark t_r">
+                                                                                                                          文章标题{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_9" >
+                                                <input class="txt_input fl_l" name="fields[art_title]" size="50" value="{$art_info['art_title']}" style="width:150px; color:#666;"  type="text" title="请输入文章标题"
+												 id="art_title" limit="required:true;len:2-50" msg="文章标题在10到50个字符之间" msgArea="span_title"/>          
+                                            	<span id="span_title" class="t_r"></span>
+											
+                                            </div>
+											
+                                        </div>
+										  <div class="rowElem clearfix">
+                                            <label class="font14 c333 mark t_r">
+                                                                                                                          作者{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_9" >
+                                                <input class="txt_input fl_l" name="fields[author]" size="50" value="{$art_info['author']}" style="width:150px; color:#666;"  type="text" title="请输入作者"
+												 id="author" limit="required:true;len:1-50" msg="请输入作者" msgArea="span_author"/>          
+                                            	<span id="span_author" class="t_r"></span>
+											
+                                            </div>
+											
+                                        </div>
+										  <div class="rowElem clearfix">
+                                            <label class="font14 c333 mark t_r">
+                                                                                                                          来源{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_9" >
+                                                <input class="txt_input fl_l" name="fields[from]" size="50" value="{$art_info['from']}" style="width:150px; color:#666;"  type="text" title="请输入来源"
+												 id="from" limit="required:true;len:2-50" msg="请输入文章来源" msgArea="span_from"/>          
+                                            	<span id="span_from" class="t_r"></span>
+											
+                                            </div>
+											
+                                        </div>
+										 <div class="rowElem clearfix">
+                                            <label class="font14 c333 mark t_r">
+                                                                                                                          文章类型{$_lang['zh_mh']}
+                                            </label>
+                                            <div class="grid_9" >                                             
+												 <select name="fields[art_type]" style="width:100px; float:left; margin-left:5px;">
+												 		<option {if !$art_info['art_type']||$art_info['art_type']==1}selected="selected"{/if} value=1>公司新闻</option>
+														<option {if $art_info['art_type']==2} selected="selected"{/if} value=2>行业资讯</option>							
+												 </select>											 
+                                           </div>
+											
+                                        </div>
+                                         <div class="rowElem clearfix" id="desc">
+					                            <label class="font14 c333 mark t_r">文章内容{$_lang['zh_mh']}</label>
+												<div class="grid_13">
+						                           <textarea cols="71" rows="15" name="fields[content]" id="content"
+												     class="xheditor {tools:'Bold,Fontface,FontSize,FontColor,Italic,Underline,Strikethrough,Align,List,Outdent,Indent,Table',skin:'nostyle',innerCheck:true,wordLimit:1500}">{$art_info['content']}</textarea>
+					                                <div class="c999 grid_6" id="length_show"></div>
+													<div class="clear"></div>
+													</div>
+					                   </div>
+									    <div class="rowElem clearfix">
+									    	 <label class="font14 c333 mark t_r">SEO标题{$_lang['zh_mh']}</label>
+					                       <div class="grid_13">
+					                       	<textarea cols="70" rows="2"  name="fields[seo_title]" value="{$art_info['seo_title']}">{$art_info['seo_title']}</textarea>
+											</div>
+					                     </div>
+					                     
+					                     <div class="rowElem clearfix">
+					                     <label class="font14 c333 mark t_r">SEO关键字{$_lang['zh_mh']}</label>		
+					                      <div class="grid_13">
+					                      	<textarea cols="70" rows="2"  name="fields[seo_keywords]" value="{$art_info['seo_keywords']}">{$art_info['seo_keywords']}</textarea>
+											</div>
+					                     </div>
+										 <div class="rowElem clearfix">
+					                     <label class="font14 c333 mark t_r">SEO描述{$_lang['zh_mh']}</label>		
+					                      <div class="grid_13">
+					                      	<textarea cols="70" rows="2"  name="fields[seo_descrip]" value="{$art_info['seo_descrip']}">{$art_info['seo_descrip']}</textarea>
+											</div>
+					                     </div>
+                                        <!--基本资料end-->
+                                        <div class="rowElem clearfix form_button">
+                                            <button name="sbt_edit" class="submit font14b" type="button" value="{$_lang['save']}" onclick="check_edit('frm')">
+                                                <span class="check icon"></span>提交{$_lang['save']}
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <!--from表单 end-->
+                                </div>
+                            </div>
+                            <!--detail内容 end-->
+                        </div>
+                        <!--main content end-->
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--main end-->
+    </div>
+</div>		
+<script type="text/javascript">
+	
+	In('form','custom','xheditor','pcas',function(){
+	    new PCAS("province","city","area","{$loca['0']}","{$loca['1']}","{$loca['2']}");
+	}) ;
+	var edit='';
+	$(function(){		
+		  editor = $("#content").xheditor({});
+		  editor.checkInner();	
+	})
+	/**
+* 表单提交 编辑文章
+* @param  obj
+*/
+function check_edit(obj){
+	var i = contentCheck('content',"文章内容",20,1500,1,'desc',editor);	
+	if(i){  
+        siteSub('frm',2,true);
+    }
+}
+</script>
+<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+<!--contain end-->
+<!--{template user/user_footer}-->
+<!--{template footer}-->

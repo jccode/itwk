@@ -1,0 +1,376 @@
+<!--{template header}--><!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+        <!--{template user/user_nav}-->
+		<!--main start-->
+        <section class="clearfix section">
+        <!--{template user/user_side}-->
+		<div class="show_panel clearfix ml_5">
+			<div class="box default clearfix">
+				<div class="witkey_info clearfix pad10">
+					<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=picture" class="witkey_info_left fl_l">
+						<div class="witkey_img">							
+							<!--{userpic($user_info['uid'],middle)}-->
+						</div>
+						<div  class="t_c">
+							更换头像
+						</div>
+					</a>
+					<div class="witkey_info_right fl_r ml_6 po_re">
+						<div class="clearfix welcome">
+							<div class="fl_l">欢迎您，<a href="{$_K['siteurl']}/index.php?do=user&view=index" class="font14b mr_20">{$username}</a>认证状况：</div>						
+							<div class="fl_l clearfix mt_5" style="width:100px;">
+								<!--{eval echo(keke_glob_class::get_auth_ico($user_info['auth_realname'],$user_info['auth_mobile'],$user_info['auth_email'],$user_info['auth_bank']));}-->
+						    </div>
+							<a href="javascript:void(0);" class="witkey_remind sethomepage {if $user_info['homepage']!='employer'}hidden{/if}"  id="nowitkey" onclick="set_homepage('{$_K['siteurl']}/index.php?do=user&view=employer&opp=ajax_homepage&tag=','')">-&nbsp;&nbsp;取消"我是雇主"为首页</a>
+							<a href="javascript:void(0);" class="witkey_remind sethomepage {if $user_info['homepage']=='employer'}hidden{/if}"  id="setwitkey" onclick="set_homepage('{$_K['siteurl']}/index.php?do=user&view=employer&opp=ajax_homepage&tag=employer','employer')">+&nbsp;&nbsp;设"我是雇主"为首页</a>
+						</div>
+						<div class="clear"></div>
+						<div class="clearfix mt_5 credt">
+							雇主信用：<!--{eval echo keke_glob_class::get_g_level_ico($user_info['e_level'])}-->  威客好评：<b class="red">{if $user_info[w_good_rate]}{$user_info[w_good_rate]}{else}100{/if}%</b>
+						</div>
+						<div class="witkey_remind clearfix mt_20">
+							雇主提醒：
+							{if $nopay_count}<a href="{$_K['siteurl']}/index.php?do=user&view=employer&op=n_task">待付款( <b class="red">$nopay_count</b> )</a>{else}待付款( 0 ){/if}
+							<span class="c999 ml_10 mr_10">|</span>
+							{if $needchoose_count}<a href="{$_K['siteurl']}/index.php?do=user&view=employer&op=taskneedchoose">待选稿( <b class="red">$needchoose_count</b> )</a>{else}待选稿 ( 0 ){/if}
+							<span class="c999 ml_10 mr_10">|</span>
+							{if $paywork_count}<a href="{$_K['siteurl']}/index.php?do=user&view=employer&op=taskneedpay">待确认打款( <b class="red">$paywork_count</b> ){else}待确认打款( 0 ){/if}
+							<span class="c999 ml_10 mr_10">|</span>
+							{if $workmark_count}<a href="{$_K['siteurl']}/index.php?do=user&view=employer&op=needmark">待评价( $workmark_count )</a>{else}待评价( 0 ){/if}
+							<span class="c999 ml_10 mr_10">|</span>
+							<a href="{$_K['siteurl']}/index.php?do=user&view=message" >站内短信( <b class="red">{if $messagecount}{$messagecount}{else}0{/if}</b> )</a>
+						</div>
+						<div class="clearfix witkey_funlink mt_10">
+							<span class="fl_l">可用金额：<b class="red">{$user_info[balance]}</b>元</span>
+							<a href="{$_K['siteurl']}/index.php?do=user&view=finance&op=recharge" rel="nofollow">账户充值</a>
+							<a href="{$_K['siteurl']}/index.php?do=user&view=finance&op=withdraw" rel="nofollow">提现</a>
+							<a href="{$_K['siteurl']}/index.php?do=user&view=finance&op=detail">收支明细</a>
+						</div>
+						<!-- <a href="#" class="button" ><span class="mr_5">+</span>设“我是雇主”为首页</a> -->
+					</div>
+				</div>
+			</div>
+			<div class="clearfix mt_10 newset">
+					<div class="my_witkey_lcon clearfix fl_l">
+						<div id="new_announcement" class="witkey_bulletin po_re clearfix mb_10">
+							<b class="fl_l">最新公告：</b>
+							<a href="{$_K['siteurl']}/index.php?do=article&view=info&art_cat_id={$bulletin[0]['art_cat_id']}&art_id={$bulletin[0]['art_id']}" class="grid_11 alpha omega">{$bulletin[0]['art_title']}</a>
+							<a href="javascript:;" class="close" onclick="$('#new_announcement').hide();" >关闭</a>
+						</div>
+						<div style="display:none;" class="clearfix box default top_recom mb_10 ">
+							<div class="inner">
+								<div class="top_recom_tab clearfix">
+									<ul class="fl_l">
+										<li class="selected">
+											<a href="#">
+												热门推荐
+											</a>
+										</li>
+									</ul>
+									<div class="fl_l ml_20 c999">
+										看看是不是您需要的？一键点击发布
+									</div>
+									<div class="top_arrow po_ab">
+										<a href="#">
+											<img src="{$style_path}/theme/simple/img/style/top_larrow.gif"  alt="">
+										</a>
+										<a href="#">
+											<img src="{$style_path}/theme/simple/img/style/top_rarrow.gif"  alt="">
+										</a>
+									</div>
+								</div>
+								<div class="top_recom_div pt_15 pb_15">
+									<ul class="clearfix">
+										<li class="clearfix">
+											<a href="#" class="fl_l">标志设计</a>
+											<span class="fl_l c999 ml_5">建议价格：<b>￥</b>600元起</span>
+											<a href="#" class="costom fl_l ml_5">定制</a>
+										</li>
+										<li class="clearfix">
+											<a href="#" class="fl_l">标志设计</a>
+											<span class="fl_l c999 ml_5">建议价格：<b>￥</b>600元起</span>
+											<a href="#" class="costom fl_l ml_5">定制</a>
+										</li>
+										<li class="clearfix">
+											<a href="#" class="fl_l">标志设计</a>
+											<span class="fl_l c999 ml_5">建议价格：<b>￥</b>600元起</span>
+											<a href="#" class="costom fl_l ml_5">定制</a>
+										</li>
+										<li class="clearfix">
+											<a href="#" class="fl_l">标志设计</a>
+											<span class="fl_l c999 ml_5">建议价格：<b>￥</b>600元起</span>
+											<a href="#" class="costom fl_l ml_5">定制</a>
+										</li>
+										<li class="clearfix">
+											<a href="#" class="fl_l">标志设计</a>
+											<span class="fl_l c999 ml_5">建议价格：<b>￥</b>600元起</span>
+											<a href="#" class="costom fl_l ml_5">定制</a>
+										</li>
+										<li class="clearfix">
+											<a href="#" class="fl_l">标志设计</a>
+											<span class="fl_l c999 ml_5">建议价格：<b>￥</b>600元起</span>
+											<a href="#" class="costom fl_l ml_5">定制</a>
+										</li>
+										<li class="clearfix">
+											<a href="#" class="fl_l">标志设计</a>
+											<span class="fl_l c999 ml_5">建议价格：<b>￥</b>600元起</span>
+											<a href="#" class="costom fl_l ml_5">定制</a>
+										</li>
+										<li class="clearfix">
+											<a href="#" class="fl_l">标志设计</a>
+											<span class="fl_l c999 ml_5">建议价格：<b>￥</b>600元起</span>
+											<a href="#" class="costom fl_l ml_5">定制</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="clearfix box default mb_10">
+							<div class="inner">
+								<header class="box_title clearfix">
+									<h2 class="fl_l">人才关注</h2>
+									<!-- <a href="#" class="fl_r">设置</a> -->
+								</header>
+								<article class="pad10">
+									<div class="attention_tab clearfix po_re mb_10">
+										<a href="{$_K['siteurl']}/index.php?do=talent" class="attention_more fl_r">查看更多</a>
+										<a href="javascript:;" onclick="$('#jcarousel').jcarousel('scroll', '-=1'); return false;" class="fl_l attention_arrow">
+											<img src="{$style_path}/theme/simple/img/style/in_left.gif" alt="">
+										</a>
+										<a href="javascript:;" onclick="$('#jcarousel').jcarousel('scroll', '+=1'); return false;" class="fl_l attention_arrow"  >
+											<img src="{$style_path}/theme/simple/img/style/in_right.gif" alt="">
+										</a>
+										<div id="jcarousel" class="jcarousel">
+										<ul id="attention_ul">
+										 <!--{eval $k_1 = 0;}-->
+									     {loop $talent_attention[name] $k $v}
+											<li id="attention_li_{$k}" {if $k_1==0}class="selected"{/if}>
+												<a href="javascript:;" onclick="attention_li_slide({$k})" {if $k_1==0}class="border_n"{elseif $k_1==1}{/if}>{$v}</a> <!--style="border:none;"-->
+											</li>
+											 <!--{eval $k_1++;}-->
+										 {/loop}
+										</ul>
+										</div>
+									</div>
+									<div id="attention_list" class="attention_div pad0 clearfix">
+											<!--{eval $k_2 = 0;}-->
+									 {loop $talent_attention[list] $k $v_1}
+										<ul id="attention_list_ul_{$k}" {if $k_2!=0}style="display:none;"{/if} class="attention_talent_div mt_20 clearfix">
+										  {loop $v_1 $v_2}
+											<li>
+												<a href="{$_K['siteurl']}/index.php?do=shop&u_id={$v_2['uid']}" target="_blank">
+													<div class="logo_design">
+														<!--{userpic($v_2['uid'],'small')}-->
+													</div>
+													{$v_2['username']}
+												</a>
+											</li>
+										  {/loop}	
+										</ul>
+										 <!--{eval $k_2++;}-->
+									  {/loop}
+									</div>
+								</article>
+							</div>
+						</div>
+						<div class="box clearfix default mb_10">
+							<div class="inner">
+								<header class="box_title clearfix">
+									<h2 class="fl_l">雇主帮助</h2>
+									<a href="{$_K['siteurl']}/index.php?do=help&view=list&art_cat_id=603" class="fl_r"><span class="font_simsun mr_5">></span>更多</a>
+								</header>
+								<article class="clearfix pad10">
+									<div class="witkey_help_step employer_help clearfix">
+										<div class="grid_3 omega alpha">
+											<div class="pad10 pl_20">
+												<p>购买产品/服务</p>
+												<p>发布任务</p>
+												<p>直接雇佣</p>
+											</div>
+										</div>
+										<div class="fl_l ml_5 mr_5">
+											<img src="{$style_path}/theme/simple/img/style/witkey_help_arrow.gif" class="" alt="">
+										</div>	
+										<div class="grid_2 omega alpha">
+											<div class="pad10 pl_20 pt_30 mt_5">
+												<p>托管赏金</p>
+											</div>	
+										</div>
+										<div class="fl_l ml_5 mr_5">
+											<img src="{$style_path}/theme/simple/img/style/witkey_help_arrow.gif" class="" alt="">
+										</div>	
+										<div class="grid_3 omega alpha">
+											<div class="pad10 pl_20 pt_30 mt_5">
+												<p>获得产品或服务</p>
+											</div>	
+										</div>
+										<div class="fl_l ml_5 mr_5">
+											<img src="{$style_path}/theme/simple/img/style/witkey_help_arrow.gif" class="" alt="">
+										</div>
+										<div class="grid_3 omega alpha">
+											<div class="pad10 pl_20 pt_30 mt_5">
+												<p>验收并确认付款</p>
+											</div>
+										</div>
+									</div>
+									<div class="pad10 clearfix witkey_help_con">
+										<ul>
+											{loop $art_help_arr $v}
+											<li class="ws_hide clearfix">
+												<a href="{$_K['siteurl']}/index.php?do=help&view=info&art_cat_id={$v['art_cat_id']}&art_id={$v['art_id']}" title="{$v['art_title']}"><span class="icon_link">·</span>{$v['art_title']}</a>
+											</li>
+											{/loop}										
+										</ul>
+									</div>
+								</article>
+							</div>
+						</div>
+					</div>
+					<div class="my_witkey_rcon clearfix fl_r">
+						<div class="clearfix box default">
+							<div class="inner">
+								<header class="clearfix box_title">
+									<h2 class="fl_l">成功雇主说</h2>
+									<a href="{$_K['siteurl']}/index.php?do=special&view=employer_list" class="fl_r"><span class="font_simsun mr_5">></span>更多</a>
+								</header>
+								<article class="pad10 clearfix">
+									<div class="witkey_say clearfix ">
+									 {loop $art_employer $v}									 	
+										 <a href="{$_K['siteurl']}/index.php?do=special&view=employer_info&art_cat_id={$v['art_cat_id']}&art_id={$v['art_id']}" class="witkey_photo mar0">
+											<img src="{$v['art_pic']}" alt="{$v['art_title']}">
+										 </a>
+									 {/loop}
+									</div>
+									<div class="witkey_say_con mt_10 clearfix">
+										<ul>
+										  {loop $art_employer $v}	
+											<li class="ws_hide clearfix">
+												<span class="icon_link">·</span>
+												<a href="{$_K['siteurl']}/index.php?do=special&view=employer_info&art_cat_id={$v['art_cat_id']}&art_id={$v['art_id']}">{$v['art_title']}</a>
+											</li>
+										  {/loop}
+										</ul>
+									</div>
+								</article>
+							</div>
+						</div>
+						<div class="box default clearfix  ep_box ep_email mt_10">
+							<div class="inner">
+								<article class="clearfix pad10 pb_5">
+								  <!--{eval $subscribe_email = keke_core_class::get_task_subscribe_email($uid)}-->
+									<div class="right_con">
+										<h2 class="c333">任务订阅</h2>
+										<span>每周五定时发送邮件</span>
+									</div>
+									<form method="post" target="_blank" action="http://list.qq.com/cgi-bin/qf_compose_send">
+										<input type="hidden" value="qf_booked_feedback" name="t" original-title="">
+										<input type="hidden" value="4c6d9ff6532b0eb719b276ad2837a19b94004ef4c626e0a3" name="id" original-title="">
+										<div class="your_email mt_5 mb_5 clearfix">
+											<input class="c999" type="text" id="email" name="to" value="{if $subscribe_email}{$subscribe_email}{else}您的邮箱{/if}" 
+												onfocus="if(this.value=='您的邮箱'){this.value=''}" onblur="if(this.value==''){this.value='您的邮箱'}">
+											<label>
+												<button class="button" id="btn_subscribe" type="submit">
+	                                               	订  阅
+	                                           </button>
+											</label>
+										</div>
+									</form>
+								</article>
+							</div>
+						</div>
+						<div class="clearfix box default mt_10">
+							<div class="inner">
+								<header class="box_title clearfix">
+									<h2 class="fl_l">交易安全</h2>
+									<a href="{$_K['siteurl']}/index.php?do=help&view=list&art_cat_id=617" class="fl_r"><span class="font_simsun mr_5">></span>更多</a>
+								</header>
+								<article class="clearfix pad10 tra_safe">
+									<ul class="clearfix">
+									  {loop $art_safe_arr $v}
+										<li class="clearfix  ws_hide">
+											<span class="icon_link">·</span>
+											<a href="{$_K['siteurl']}/index.php?do=help&view=info&art_cat_id={$v['art_cat_id']}&art_id={$v['art_id']}" title="{$v['art_title']}">{$v['art_title']}</a>
+										</li>
+									  {/loop}										
+									</ul>
+								</article>
+							</div>
+						</div>
+						<div class="clearfix box default mt_10">
+							<div class="inner">
+								<header class="box_title clearfix">
+									<h2>意见栏，给我们建议</h2>
+								</header>
+								<article class="pad10 clearfix">
+									<form id="frm_shop_comment" name="frm_shop_comment" action="" method="post">
+									<textarea name="shop_comment_tent" id="shop_comment_tent" cols="30" rows="4" class="c999" onfocus="if (this.value=='有话您说，我们在聆听') {this.value='';}" onblur="if (this.value=='') {this.value='有话您说，我们在聆听';}">有话您说，我们在聆听</textarea>									
+									<button type="button" class="button mt_10" onclick="sub_shou_comment();">提交</button>
+									</form>
+								</article>
+							</div>
+						</div>		
+					</div>
+				</div>
+		</div>
+    	</section>
+    	<!--main end-->
+	</div>
+</div>
+<script type="text/javascript" src="resource/js/jqplugins/jcarousel/jquery.jcarousel.js"></script>
+
+<script type="text/javascript">
+	var uid = parseInt('{$uid}')+0; //判断是否登录
+	
+	$(function(){
+		$('#jcarousel').jcarousel();
+	});
+if($('#attention_ul').length>0){
+	function attention_li_slide(id){ 
+		$('#attention_ul > li').removeClass();
+		$('#attention_li_'+id).addClass('selected'); 
+		
+		$('#attention_list > ul').addClass('hidden');	
+		$('#attention_list_ul_'+id).removeClass('hidden');
+	} 
+}
+function sub_shou_comment(){ 
+	var content = $('#shop_comment_tent').val();
+	if(!content || content == '有话您说，我们在聆听') return false;
+	
+	var data= $("#frm_shop_comment").serialize(); 
+	var url = "{$_K['siteurl']}/index.php?do=user&view=witkey&opp=ajax_content&"+data+"&sbt_edit=1"; 
+	$.post(url,
+	function(json){
+		if(json.status=='1'){
+			showDialog("感谢您提供宝贵意见。","notice","操作提示");return false; 
+			return false;
+		}else { 
+			showDialog("留言失败，请与管理员联系。","notice","操作提示");return false; 
+			return false;
+		}
+	},'json');
+} 
+function set_homepage(url,tag){
+	$.post(url,
+			function(json){
+				if(json.status=='1'){
+					if(tag!=''){
+						showDialog("设置‘我是雇主’为用户中心首页成功。","notice","操作提示");
+						$('#setwitkey').addClass("hidden");
+						$('#nowitkey').removeClass("hidden");
+					}else{
+						showDialog("取消将‘我是雇主’为用户中心首页成功。","notice","操作提示");
+						$('#nowitkey').addClass("hidden");
+						$('#setwitkey').removeClass("hidden");
+					}
+					return false;
+				}else { 
+					showDialog("设置失败，请与管理员联系。","notice","操作提示");
+					return false;
+				}
+			},'json');
+}
+</script>
+<!--{template user/user_footer}-->
+<!--{template footer}-->

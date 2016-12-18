@@ -1,0 +1,32 @@
+<!--{template header}-->
+ <div class="wrapper">
+	 <div style="line-height: 20px; background-color:#E9E9E9; padding: 20px; width:960px; margin:0 auto; ">
+	    <div style="background: #FFFFFF; padding: 30px; border: 1px solid #D4D4D4; margin-right: auto; margin-left: auto; width:800px;">
+	        <div style="padding-top: 20px; padding-bottom: 20px;"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/mess1_sure.png" /></div>
+	        <form name="book" id="frm_subscribe" action="index.php?do=subscribe&view=step2" method="post">
+	        <input type="hidden" name="formhash" id="formhash" value="{FORMHASH}">
+			<div style="margin:30px 10px;; line-height:30px;">
+				<input type="hidden" name="frm_submit" value="1">
+	            <table border="0" cellpadding="0" cellspacing="0">
+	                <tr><td style="color:#009900; padding-right:10px; font-weight:bold;">填写您的订阅邮箱地址：</td><td><input type="text" name="email" id="email" limit="type:email;required:true;len:6-50" msg="邮件格式错误" msgArea="span_email" value="" style="border:solid 1px #D4D4D4; width:400px; padding:5px 5px; color:#666666;" /><span id="span_email"></span></td></tr>
+	                <tr><td></td><td style="padding-top:10px;"><a href="javascript:void(0);" onclick="return subscribe();"><img src="{$_K['siteurl']}/tpl/default/theme/simple/img/style/btn_next.png" style="border:none;" alt="" /></a></td></tr>
+	            </table>
+	        </div>
+	        </form>
+	    </div>
+	</div>
+</div>
+
+<script type="text/javascript">
+   In('form');
+   
+   function subscribe(){
+		var i = checkForm(document.getElementById("frm_subscribe"));
+        if (i) {
+			 document.getElementById('frm_subscribe').submit();
+         }else{
+      		return false;
+		 }
+    }
+</script>
+<!--{template footer}-->

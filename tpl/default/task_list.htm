@@ -1,0 +1,341 @@
+<!--{template header2}-->
+<link rel="stylesheet" href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/task.css">
+<script type="text/javascript" src="{$_K['siteurl']}/{SKIN_PATH}/js/mainav_position_tasklist.js"></script>
+
+<div class=" clearfix" style="width:600px; display:block;">
+               <span>您的位置：</span> 
+			   <span><a href="{$_K['siteurl']}/index.php">IT帮手网首页</a>&nbsp;&gt;&nbsp;</span>
+			   <span><a href="{$_K['siteurl']}/index.php?do=task_list">全部任务</a></span>
+               
+               <!-- 
+			   {if $p=='1858' or $p=='1867' or $p=='1868' or $p=='1869' or $p=='1870'} ><span><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=1867">维护</a></span>{/if}
+			   {if $p=='1871' or $p=='1872' or $p=='1873'}<span> ><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=1872">开发</a></span>{/if}
+			   {if $p=='1874' or $p=='1875'} ><span><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=1875">测试</a></span>{/if}
+			   {if $p=='1880' or $p=='1881' or $p=='1882' or $p=='1883' or $p=='1884' or $p=='1877' or $p=='1878' or $p=='1879'} ><span><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=1880">租贷</a></span>{/if}
+			   {if $p=='1891' or $p=='1893' or $p=='1886' or $p=='1887' or $p=='1888' or $p=='1889' or $p=='1890' or $p=='1885'} ><span><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=1891">推广</a></span>{/if}	
+			   {if $p}  > <span><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$p">{$indus_p_arr[$p][indus_name]}</a></span>{/if}
+			   {if $c}  > <span><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$c">{$indus_c_arr[$c][indus_name]}</a></span>{/if}
+			   -->
+			   {loop $nav $indus}
+			    > <span><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$indus['indus_id']">{$indus[indus_name]}</a></span>
+			   {/loop}
+            </div>
+<div class="bang_cent">
+{if $_GET['page']!='10000000' }
+        		<div class="bang_cent_left">
+                	<!--热门推荐-->
+                    <div class="renmen">
+                    	<div class="renmen_top"><h2>热门推荐</h2></div>
+                        <div class="renmen_bottom">
+                        	<ul>
+                           {loop $task_new4 $v}
+						   <li><a href="index.php?do=task&task_id={$v['task_id']}" target="_blank"><span>￥{if $v['task_cash_coverage']} {$cash_cove_arr[$v['task_cash_coverage']]['cove_desc']} {else} {$v['task_cash']} {/if}</span>{$v['task_title']}</a><span>({$v['work_num']}|{$v['view_num']})</span></li>
+		               {/loop}    
+                            </ul>
+                        </div>
+                    </div>
+                    <!--维护-->
+                	 <div class="bang_weihu">
+ 
+
+ <div class="bang_weihu">
+
+  <div class="menuinfoff">
+   <ul>
+	<!--{eval $_i = 0;}-->
+	{loop $indus_p_arr $k $v}
+	<li {if $_i++ == 0}style="border-left:none;"{/if} {if $v["indus_id"] == $l1tid} class="menuoverff"{/if}>
+		<a href="index.php?do=indus&indus_id=$v['indus_id']">$v['indus_name']</a></li>
+	{/loop}
+   </ul>
+</div>
+
+<div class="showmenff flbj">
+   <ul>
+	<!--{eval $_i = 0;}-->
+	{loop $indus_p_arr $k $v}
+      <li style="display:none;">
+		{loop $indus_map[$k]["children"] $v1}
+		<dl style="float:left;">
+			<dt><a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v1['indus_id']"  {if $v1['indus_id']==$tid} style="background-color:#CCCCCC; padding:5px;"{/if}>$v1['indus_name']</a></dt>
+			{loop $v1["children"] $v2}
+			<dd {if $v2['indus_id']==$tid} style="background-color:#CCCCCC;"{/if}> <a href="{$_K['siteurl']}/index.php?do=indus&indus_id=$v2['indus_id']">$v2['indus_name']</a></dd>
+			{/loop}
+		</dl>
+		{/loop}
+      </li>
+	{/loop}
+   </ul>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	var idxShown = $(".menuinfoff ul li.menuoverff").index(".menuinfoff ul li");
+	if(idxShown == -1) idxShown = 0;
+	$(".showmenff ul li").eq(idxShown).css("display","block");
+    $(".menuinfoff > ul >li").mousemove(function(){
+		$(this).addClass("menuoverff").siblings(this).removeClass("menuoverff");	
+		$(".showmenff ul li").eq($(".menuinfoff > ul >li").index(this)).css("display","block").siblings().css("display","none");
+		
+		});
+	
+});
+</script>
+                     </div>
+ 
+ 
+                     </div>
+                </div>
+                <div class="bang_cent_right">
+                	<script type="text/javascript">
+$(document).ready(function() {
+	$(".showmenuaa ul li").first().css("display","block");
+    $(".menuinfoaa > ul >li").mousemove(function(){
+		$(this).addClass("menuoveraa").siblings(this).removeClass("menuoveraa");	
+		$(".showmenuaa ul li").eq($(".menuinfoaa > ul >li").index(this)).css("display","block").siblings().css("display","none");
+		
+		});
+	
+});
+</script>
+					<span class="xuqiu">有任务需求？</span>
+                    <a class="bang_fabu" href="{$_K['siteurl']}/index.php?do=release">马上发布任务</a>
+
+				    <div class="gonggao">
+              <div class="menuinfoaa">
+   <ul>
+    <li class="menuoveraa">平台公告</li>           
+    <li>媒体报道</li>
+    <li style="border-right:none;">中标公告</li>
+   </ul>
+</div>
+
+              <div class="showmenuaa">
+   <ul>
+	  <li>
+{loop $bulletin $v}
+			<a href="{$_K['siteurl']}/index.php?do=article&view=info&art_cat_id={$v['art_cat_id']}&art_id={$v['art_id']}">{$v['art_title']}</a>
+			 {/loop}  
+        </li>
+      <li>
+  {loop $media $v}
+				<a href="{$_K['siteurl']}/index.php?do=article&view=info&art_cat_id={$v['art_cat_id']}&art_id={$v['art_id']}">{$v['art_title']}</a>
+			 {/loop} 
+        </li>
+      <li>
+    {loop $bid $v}
+				<a href="{$_K['siteurl']}/index.php?do=task&task_id={$v['task_id']}">{$v['username']}成功中标{$v['task_id']}号[<!--{eval echo kekezu::cutstr($model_list[$v[model_id]][model_name],4)}-->]任务</a>
+			 {/loop}
+      </li>
+   </ul>
+</div>
+              </div>
+              		<div class="gonggao2">
+                    	<ul><a href="{$_K['siteurl']}/index.php?do=register">免费注册</a>|  
+                    	<a href="{$_K['siteurl']}/index.php?do=shop&sid=$user_info[shop_id]">我的商铺</a>|
+                        <a href="{$_K['siteurl']}/index.php?do=vip"> VIP专区</a>
+                        </ul>
+                    	<h2>要设计?求帮助？有需求？ </h2>
+                    		<a class="jinru" href="{$_K[siteurl]}/index.php?do=release">点击进入</a>
+                    </div>
+                
+                	<div class="bang_dian">
+                    	<img src="tpl/default/images/dianhua.gif" width="156" height="35" /><br />
+                    		<span>4006-999-467</span><br />
+                             &nbsp; 免长途客服服务热线
+                    </div>
+                </div>
+                {else}
+				<div class="bang_cent_left">
+				<div class="bang_weihu">
+
+
+
+                     </div>
+				</div>
+				<div class="bang_cent_right">
+				<div class="gonggao2">
+                    	<ul><a href="{$_K['siteurl']}/index.php?do=register">免费注册</a>|  
+                    	<a href="{$_K['siteurl']}/index.php?do=shop&sid=$user_info[shop_id]">我的商铺</a>|
+                        <a href="{$_K['siteurl']}/index.php?do=vip"> VIP专区</a>
+                        </ul>
+                    	<h2>要设计?求帮助？有需求？ </h2>
+                    		<a class="jinru" href="{$_K[siteurl]}/index.php?do=release">点击进入</a>
+                    </div>
+				
+				</div>
+				
+				
+				{/if}
+                 <!--发布任务-->
+<div class="nav_lists_nav" style=" clear:both; padding-bottom:41px; margin-top:15px;">
+                        <ul class="clearfix fl_l ">
+                            <li>
+                                <a class="selected" href="{$_K['siteurl']}/index.php?do=task_list">找任务</a>
+                            </li>
+                            <li>
+                                <a href="{$_K['siteurl']}/index.php?do=talent">找帮手</a>
+                            </li>
+                        </ul>
+						
+                    </div>
+
+
+<div class="showmenuakk">
+   <ul>
+      <li>
+      		<div class="showmenuakk_top">
+			<form action="$ac_url" method="post" id="form_task_search">
+			<input type="hidden" name="do" value="{$do}">
+            	<ul><a href="{$ac_url_list[o]}&o={if $o==1||!$o}2{else}1{/if}" rel="nofollow">剩余时间{if $o!=1}↑{else}↓{/if}</a>
+					<a href="{$ac_url_list[o]}&o={if $o==3||!$o}4{else}3{/if}" rel="nofollow">投稿数{if $o!=3}↑{else}↓{/if}</a>
+					<a href="{$ac_url_list[o]}&o={if $o==5||!$o}6{else}5{/if}" rel="nofollow">价格{if $o!=5}↑{else}↓{/if}</a></ul></form>
+            
+            </div>
+           <div class="showmenuakk_bottom">
+           		<div><span style="width:150px;">赏金</span> <span style="width:300px;">标题</span><span style="width:100px;"> 关注/参与 </span><span style="width:250px;">   模式/状态</span><span style="width:150px;"> 雇主操作</span></div>                                                                                                                                                          {if $task_arr}
+              {loop $task_arr $k $v}    
+                <ul><span style="width:150px; color:#e66408; font-weight:bold;">
+				                                    {if $v['task_cash_coverage']} 
+														￥ {$cash_cove_arr[$v['task_cash_coverage']]['cove_desc']} 
+													{else}
+														￥ {$v['task_cash']} 元
+													{/if}</span>
+                <span style="width:300px;color:#0554c1; overflow:hidden;"><a href="{$_K['siteurl']}/index.php?do=task&task_id={$v['task_id']}" title="{$v['task_title']}" class="font14" target="_blank">{$v['task_title']}</a></span> 
+                 <span style="width:100px;color:#0554c1">{$v['view_num']}/{$v['work_num']}</span>   
+                 <span style="width:250px;"> <span>{if $v['model_id']==1}单人悬赏{elseif $v['model_id']==2}多人悬赏{elseif $v['model_id']==3}计件悬赏{elseif $v['task_type']==3}直接雇佣{elseif $v['task_cash_coverage']}招标任务{else}雇佣任务{/if}</span><span style="color:#f57419"> {if $v['task_status']=='2'}
+														{if $v['sub_time']<time()}
+														投稿截止
+														{else}
+														<!--{eval  echo(kekezu::time_to_units ( $v['sub_time']));}-->后投稿截止
+														{/if}
+														{elseif $v['task_status']=='3'}
+														选稿中
+														{elseif $v['task_status']=='4'}
+															{if $v['model_id']=='1'||$v['model_id']==2}
+															摇奖中
+															{elseif $v['model_id']=='4'}
+																{if $v['cash_status']=='1'}
+																工作中
+																{else}
+																等待雇主付款
+																{/if}
+															{/if}
+														{elseif $v['task_status']=='5'}
+														公示中
+														{elseif $v['task_status']=='6'}
+														交付中
+														{elseif $v['task_status']=='8'}
+														圆满完成
+														{else}
+														投稿已截止
+														{/if}</span></span>
+                 <span class="caozuo"><a href="{$_K['siteurl']}/index.php?do=release&pub_mode=onekey&t_id=$v['task_id']">发布此类任务</a></span>
+                   </ul>
+				   {/loop} 
+			      {else}
+				  <ul>暂时没有找到您想要的结果，<a href="{$_K['siteurl']}/index.php?do=task_list">点击这里查看更多</a></ul>
+				  {/if}
+                   
+                    <div class="fanye">
+                	{$pages['page']}               
+                </div>
+                   
+           
+           
+           </div>
+      </li>
+   
+     
+   </ul>
+</div>
+                 
+        
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+	
+//页面加载，判断搜索条件是现实还是隐藏
+    $(function(){
+        var show_cookie = getcookie('show_cookie',1);
+        if (show_cookie == 1) {
+            $("#condition_list").show();
+            $("#tool_hide").show();
+            $("#tool_show").hide();
+        }
+
+        $('#change_list').find('li').not('.group0').addClass('hidden');
+		var i = 0;
+		
+        $('.task_list_foot #change_op').click(function(){
+        	page=Math.ceil($('#change_list').find('li').length/8)-1;
+            $('#change_list').find('li').addClass('hidden'); 
+            ++i;
+            if(i<=page){
+                $('#change_list').find('li.group'+i).removeClass('hidden');
+                //alert('li.group'+i); 
+            }
+            else{
+                i=0;
+                 $('#change_list').find('li.group'+i).removeClass('hidden')
+                //alert('li.group'+i);
+            }
+        })
+
+    });
+	
+    //搜索条件现实 /隐藏
+    function show_hide(){
+        $("#condition_list").toggle(0, function(){
+            if ($("#tool_show").is(":hidden")) {
+                setcookie('show_cookie', '');
+                $("#tool_show").show();
+                $("#tool_hide").hide();
+            }
+            else {
+                setcookie('show_cookie', 1,3600);
+                $("#tool_hide").show();
+                $("#tool_show").hide();
+            }
+        });
+    }
+	
+	 
+</script>
+<script type="text/javascript">
+ 	var uid 		= parseInt('{$uid}')+0;
+    In.config('serial', true);
+    In.add('ui_core', {
+        path: "{$_K['siteurl']}/resource/js/others/ui.core.js",
+        type: 'js'
+    });
+    In.add('ui_slider', {
+        path: "{$_K['siteurl']}/resource/js/others/ui.slider.js",
+        type: 'js',
+        rely: ['ui_core']
+    });
+    In.add('search', {
+        path: "{$_K['siteurl']}/{$style_path}/js/search.js",
+        type: 'js'
+    });
+    In('search', 'ui_slider');
+</script>
+<!--{template footer}-->

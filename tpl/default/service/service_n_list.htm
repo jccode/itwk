@@ -1,0 +1,189 @@
+<!--{template header_service}-->
+<!--{template header_service_nav}-->
+<div class="wrapper clearfix">
+	<!--页面头部-->
+		 <header class="clearfix page_header">
+			  <div class="container_24 clearfix"> 
+			   <!--页面导航-->
+			    <div class="breadcrumbs clearfix po_re">
+			    	你的位置：
+			    	   <a href="{$_K['siteurl']}/index.php">IT帮手网首页</a>
+					   <span class="font_simsun"> > </span>
+					   <a href= "{$_K['siteurl']}/index.php?do=service&view=index&province={$province}&city={$city}">劳务大厅</a>
+					   <span class="font_simsun"> > </span>
+					   <a href="{$_K['siteurl']}/index.php?do=indus&view=n_list&indus_id=$p">{$service_indus_p_arr[$p]['indus_name']}</a>
+					   <span class="font_simsun"> > </span> 
+					   <a href="{$_K['siteurl']}/index.php?do=indus&view=n_list&indus_id=$c">{$service_indus_c_arr[$c]['indus_name']}</a>
+					   
+						<span class="po_ab">
+				    	  <a href="{$_K['siteurl']}/index.php?do=article">新闻中心</a>|
+						   <a href="{$_K['siteurl']}/index.php?do=special&view=special_list">精彩专题</a>|
+						   <a href="{$_K['siteurl']}/index.php?do=help&view=service">客服中心</a>|
+						   <a href="http://e.weibo.com/epweikecom" rel="nofollow">官方微博</a>
+					   </span>
+				</div>
+			   <!--end 页面导航-->  
+			 </div>
+		</header> 
+	 <!--end 页面标题-->
+	 <section class="clearfix">
+	 	<div class="container_24">
+	 		<div class="clearfix condition_list_con">
+		 		<div class="condition_list_arrow">&diams; </div>
+		 		<div class="box default clearfix condition_list">
+		 			<div class="inner clearfix">
+		 				<dl class="border_n clearfix">
+		 					<dt>分类：</dt>
+							<dd>
+								<a href= "{$_K['siteurl']}/index.php?do=indus&indus_id=$p&view=n_list&{$ac_url_list[indus_id]}" {if !$c}class="selected"{/if}>不限</a>
+								{loop $service_son_indus_arr $v}
+									<a href= "{$_K['siteurl']}/index.php?do=indus&indus_id=$v[indus_id]&view=n_list{$ac_url_list[indus_id]}" {if $c == $v['indus_id']}class="selected"{/if}>
+										{$v['indus_name']}</a>
+								{/loop}							
+							</dd>
+		 				</dl>
+						<dl class="clearfix">
+		 					<dt>区域：</dt>
+							<dd>
+								<a href= "{$ac_url_list[area]}&area=all" {if !$area||$area=='all'}class="selected"{/if}>不限</a>
+								{loop $area_arr $v}
+								{if $v!='市辖区'&&$v!='市辖县'}
+								<a href= "{$ac_url_list[area]}&area=<!--{eval echo urlencode($v)}-->" {if $v==$area}class="selected"{/if}>{$v}</a>
+								{/if}
+								{/loop}							
+							</dd>
+		 				</dl>
+		 			</div>
+		 		</div>
+			</div>
+			<div class="clearfix service_con mt_10">
+				<div class="service_lcon clearfix">
+					<div class="lists_tab  clearfix">
+						<nav class="box_nav clearfix">
+							   <ul class="ov_hide block clearfix fl_l">
+				                  <li id="tab_plac_1"><a href="{$_K['siteurl']}/index.php?do=indus&indus_id={$p}&view=s_list" title="所有服务列表">所有服务列表</a></li>
+				                  <li id="tab_plac_2" class="selectedLava"><a href="javascript:void(0);" title="所有需求列表">所有需求列表</a></li>
+				               </ul>
+							   <div class="fl_r service_page">
+							   		<span>每页显示条数：</span>
+									<a href= "{$ac_url_list[page_size]}&page_size=12" {if $page_size == 12}class="selected"{/if}>12</a>
+										<a href= "{$ac_url_list[page_size]}&page_size=24" {if $page_size == 24}class="selected"{/if}>24</a>
+										<a href= "{$ac_url_list[page_size]}&page_size=48" {if $page_size == 48}class="selected"{/if}>48</a>
+							   </div>
+						</nav>
+					</div>
+					<div class="lists_div box default clearfix">
+						  <div class="inner">
+						   		<header class="box_header clearfix">
+						   			<div class="fl_l">
+						   				共找到<b> {$count} </b>条服务信息
+						   			</div>
+									<div class="fl_r">
+										<b>排序：</b>
+										 <a href= "{$ac_url_list[o]}&o={if $o==1||!$o}2{else}1{/if}" {if !$o||$o==1||$o==2}class="service_ybtns mr_5"{else}class="service_wbtns mr_5"{/if}>发布时间<b> {if $o!=1}↑{else}↓{/if}</b></a>
+										<a href= "{$ac_url_list[o]}&o={if $o==3||!$o}4{else}3{/if}" {if $o==3||$o==4}class="service_ybtns"{else}class="service_wbtns"{/if}>价格大小<b> {if $o!=3}↑{else}↓{/if}</b></a>
+									</div>
+						   		</header>
+								<article class="clearfix pt_5 pb_5 c999">
+									<span class="grid_3 alpha omega t_c">服务配图</span>
+									<span class="grid_10 alpha omega pl_20 ">报价/标题/联系方式/服务简介</span>
+									<span class="fl_r mr_30 pr_10">操作</span>
+								</article>
+						  </div>
+					</div>
+					<div class="service_list_cons clearfix">
+						<dl class="clearfix">
+							<dt class="hidden">所有需求列表</dt>
+							{if $service_arr}
+							{loop $service_arr $k $v}
+							<dd class=" clearfix">
+								<ul class="clearfix">
+									<li class="grid_4 alpha omega">
+										<div class="time_rem po_re t_c clearfix">
+											<div class="time_rem_top">
+												{if $v['task_status']=='2'}
+												还剩<!--{eval  echo(kekezu::time_to_units ( $v['sub_time']));}-->
+												{else}
+												投稿已截止
+												{/if}
+											</div>
+											<div class="time_arrow po_ab">&diams; </div>
+											<div class="time_rem_bottom">
+												<b>￥{$v[task_cash]}</b>/{$price_unit[$v[unite_price]]}
+											</div>
+										</div>
+									</li>
+									<li class="grid_13 omega pl_20 alpha">
+										<p class="ws_hide">
+											<a href="{$_K['siteurl']}/index.php?do=task&task_id={$v[task_id]}" target="_blank">{$v[task_title]}</a>
+										</p>
+										<p class="service_user">
+											<a href="{$_K['siteurl']}/index.php?do=shop&u_id={$v[uid]}">{$v[username]}</a>发布于 <!--{date('Y-m-d H:i:s',$v['start_time'])}-->
+										</p>
+										<p class="text_con">
+											<!--{eval echo kekezu::cutstr($v[task_desc],130)}-->
+										</p>
+									</li>
+									<li class="mr_10 fl_r s_btn money_p t_c clearfix">
+										<b>{$v[work_num]}</b>
+										<p class="c999">人已报价</p>
+										<p class="s_lists_btn">
+											<a class="button" href="{$_K['siteurl']}/index.php?do=task&task_id={$v[task_id]}" target="_blank">我要报价</a>
+										</p>
+									</li>
+								</ul>
+							</dd>
+							{/loop}
+							{else}
+							暂时没有找到相关信息。
+							{/if}
+						</dl>
+					</div>
+				</div>
+				<div class="service_rcon clearfix">
+					<div class="box default clearfix recommend_s">
+						<div class="inner">
+							<header class="box_header">
+								推荐需求
+							</header>
+							<article class="clearfix pt_5 pb_5 pl_10 pr_10">
+								<a href="#" class="fl_r">我想出现在下面的推荐区</a>
+							</article>
+						</div>
+					</div>
+					{if $service_rec_arr}
+					{loop $service_rec_arr $v}
+					<div class="box default clearfix mt_20">
+						<div class="inner">
+							<div class="others_service">								
+								<p><b>￥{$v[task_cash]}元/{$price_unit[$v[unite_price]]}</b></p>
+								<a href="{$_K['siteurl']}/index.php?do=task&task_id={$v[task_id]}" target="_blank">{$v[task_title]}</a>
+								<p><!--{eval echo kekezu::cutstr($v[task_desc],80)}--></p>
+								<p class="s_lists_btn mt_10">
+									<a class="button" href="{$_K['siteurl']}/index.php?do=task&task_id={$v[task_id]}" target="_blank">我要报价</a>
+								</p>
+							</div>
+						</div>
+					</div>
+					{/loop}
+					{/if}
+				</div>
+			</div>
+			{if $pages[page]}
+			<div class="box clearfix default mt_20 ">
+				<div class="inner">
+					<div class="service_page_box clearfix">
+						<!--b class="fl_l font14 c333 ml_10">1/15</b-->
+						<div class="page_count fl_r">
+							{$pages[page]}
+                        </div>
+					</div>
+				</div>
+			</div>
+			{/if}
+		</div>
+	 </section>
+</div>
+
+<!--{template service/service_city_box}-->
+<!--{template footer}-->

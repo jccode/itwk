@@ -1,0 +1,100 @@
+<!--{template header_top}-->
+<!--{template header_shop}-->
+
+<div class="wrapper clearfix">
+	<div class="container_24 clearfix">
+		<div class="grid_24 clearfix">
+			<div class="nav_lists_shop clearfix mt_20">
+			<!--头部导航-->
+			<!--{template shop/section_nav}-->
+			<!--end 头部导航-->
+			</div>
+			
+			{if $shop_info[shop_level]>1}
+			<!--{template shop/section_slide}-->
+			{/if}
+			
+			
+			<div class="shop_content clearfix mt_10">
+				
+				<!--左内容-->
+				<div class="shop_left clearfix grid_5 alpha">
+					<div  class="box default clearfix shop_info_boxs mb_10">
+						<!--用户头像-->
+						<!--{template shop/section_user}-->
+						<!--end 用户头像-->
+					</div>
+				</div>
+				<!--左内容 end-->
+				
+				<!--右内容-->
+				<div class="shop_right clearfix grid_19 omega fl_r ">
+					<div class="box default clearfix firm_box">
+							<!--用户资料-->
+						<!--{template shop/section_info}-->
+						<!--end 用户资料-->
+					</div>
+					<div class="box_shadow"></div>
+					<div class="box default clearfix mt_10 return_list">
+						<div class="inner clearfix">
+							<header class="box_title clearfix">
+								<h2  class="fl_l">商铺出售服务</h2>
+								
+							</header>
+							<article class="box_title clearfix border_n">
+								<select name="service_type" style="width:150px;" class="t_l" onchange="location.href=this.value">
+									<option value="{$_K['siteurl']}/index.php?do=shop&sid={$sid}&view=service_list" {if !$service_type}selected="selected"{/if}>所有服务</option>
+									<option value="{$_K['siteurl']}/index.php?do=shop&sid={$sid}&view=service_list&service_type=1" {if $service_type == 1}selected="selected"{/if}>劳务服务</option>
+									<option value="{$_K['siteurl']}/index.php?do=shop&sid={$sid}&view=service_list&service_type=2" {if $service_type == 2}selected="selected"{/if}>创意服务</option>
+								</select>
+							</article>
+						</div>
+					</div>
+					{if $service_arr}
+					<div class=" sale_ser clearfix mt_10">
+						<ul class="service_list">
+						{loop $service_arr $v}
+							<li>
+								<a href="{$_K['siteurl']}/index.php?do=shop&sid={$v['shop_id']}&view=service_info&service_id={$v['service_id']}&service_type={$v['service_type']}">
+									<img class="block" src="{$_K['siteurl']}/{$v['pic']}" alt="{$v['title']}">
+									<p class="ws_hide">【{if $v[service_type]==1}劳务{else}创意{/if}】{$v['title']}</p>
+									<p><b><span>￥{$v['price']}</span> 元/$price_unit[$v['unite_price']]</b></p>
+								</a>
+								{if $v['is_top'] == 1}
+									<img class="block ltop" src="{$_K['siteurl']}/{$style_path}/theme/simple/img/style/service_list_ltop.gif" alt="{$v['title']}">
+								{/if}
+							</li>
+						{/loop}	
+						</ul>
+
+					</div>
+
+					<div class="clear"></div>
+					{if $pages['page']}
+					<div class="box default clearfix mb_20">
+						<div class="inner">
+							<div class="page_count fl_r mar10">
+								{$pages['page']}
+							</div>	
+						</div>
+					</div>
+					{/if}
+
+					{else}
+					
+						<div class="box default clearfix no_detail mb_10">暂时没有出售服务。 </div>
+						<div class="clear"></div>
+					{/if}
+				</div>
+				<!--右内容 end-->
+				
+				<div class="clear"></div>
+			</div>
+			<!--内容主体 end-->
+		</div>
+	</div>
+</div>
+
+
+<!--{template shop/section_footer}-->
+<!--{template footer}-->

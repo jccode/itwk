@@ -1,0 +1,274 @@
+<!--{template control/admin/tpl/admin_header}-->
+<script type="text/javascript" src="../../resource/js/system/script_calendar.js"></script>
+<!--{template control/admin/tpl/admin_user_track_nav}-->
+<div class="box post">
+    <div class="title">
+        <h2>客户资料</h2>
+    </div>
+    <div class="detail">
+        <form action="index.php?do={$do}&view={$view}" method="post" >
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+           <tr>
+                 <th scope="row" width="70">
+                    <span class="bg1 t_r"> {$_lang['username']}{$_lang['zh_mh']} </span>
+                 </th>
+                 <td>
+                 	<input type="text" name="fds[username]" id="username" value="{$space_info['username']}" style="width:260px;" class="txt">
+					<b style="color:red"> *</b>				 
+				  	<button type="button" onclick="track_user_search()">查询</button>
+				 </td>
+				 <th>姓名/性别</th>
+				 <td>{if $space_info['truename']}{$space_info['truename']}{else}暂无{/if}/{if $space_info['sex']}{$space_info['sex']}{else}暂无{/if}</td>
+             </tr>
+			 <tr>
+                <th  scope="row" width="70">
+                   {$_lang['user']}ID{$_lang['zh_mh']}
+                </th>
+                <td>
+                	<input type="text" name="fds[uid]" value="{$space_info['uid']}"  id="uid"  style="width:260px;" class="txt"><b style="color:red"> *</b>
+                </td>
+				  <th  scope="row">
+                    {$_lang['contact_tel']}{$_lang['zh_mh']}
+                </th>
+                <td>
+                    <input type="text" name="fds[mobile]"  id="mobile" style="width:260px;"  value="{$space_info['mobile']}"readonly="readonly" class="txt" limit="type:tel" msg="{$_lang['format_error']}" title="{$_lang['please_input_right_phone']}" msgArea="txt_phone_msg"><span id="txt_phone_msg"></span>
+				</td>
+            </tr>
+			<tr>
+                <th  scope="row">
+                    E-mail{$_lang['zh_mh']}
+                </th>
+                <td>
+                	<input type="text" class="txt" style="width:260px;" name="email" id="email"limit="type:email" readonly="readonly" value="{$space_info['email']}" msg="{$_lang['format_error']}" title="{$_lang['please_input_right_email']}" msgArea="txt_email_msg" /><span id="txt_email_msg"></span>    
+                </td>
+				   <th  scope="row">
+                   QQ{$_lang['zh_mh']}
+                </th>
+                <td>
+					<input type="text" name="qq" id="qq" style="width:260px;" value="{$space_info['qq']}" readonly="readonly" class="txt">
+                </td>
+            </tr>
+			<tr>
+                <th  scope="row">
+                   	 所在地区{$_lang['zh_mh']}
+                </th>
+                <td>
+                	<input type="text" class="txt" style="width:260px;" name="residency" id="residency" readonly="readonly" value="{$space_info['residency']}"  /><span id="txt_email_msg"></span>    
+                </td>
+				   <th  scope="row">
+                  	 认证情况{$_lang['zh_mh']}
+                </th>
+                <td>
+					<!--{eval echo keke_glob_class::get_single_ico(1,$space_info['auth_realname'])}-->
+					<a href="javascript:void(0);" onclick="showDetail('auth_realname','{$space_info[uid]}');" title="实名认证">{if $space_info['auth_realname']}已通过{else}未通过{/if}</a>
+					<!--{eval echo keke_glob_class::get_single_ico(4,$space_info['auth_bank'])}-->
+					<a href="javascript:void(0);" onclick="showDetail('auth_bank','{$space_info[uid]}');" title="银行认证">{if $space_info['auth_bank']}已通过{else}未通过{/if}</a>
+					<!--{eval echo keke_glob_class::get_single_ico(2,$space_info['auth_mobile'])}-->
+					<a href="javascript:void(0);" onclick="showDetail('auth_mobile','{$space_info[uid]}');" title="手机认证">{if $space_info['auth_mobile']}已通过{else}未通过{/if}</a>
+					<!--{eval echo keke_glob_class::get_single_ico(3,$space_info['auth_email'])}-->
+							<a href="javascript:void(0);" onclick="showDetail('auth_email','{$space_info[uid]}');" title="邮箱认证">{if $space_info['auth_email']}已通过{else}未通过{/if}</a>		
+                </td>
+            </tr>
+			<tr>
+                <th  scope="row">
+                   	 财务明细{$_lang['zh_mh']}
+                </th>
+                <td>                	
+                	<a href="javascript:void(0);" onclick="showDetail_3({$space_info['uid']});">[点击此处查看财务明细]</a>   
+					<a href="javascript:void(0);" onclick="showDetail_2();">[点击此处查看用户动态]</a>
+                </td>
+				   <th  scope="row">
+                  	 最后登陆时间{$_lang['zh_mh']}
+                </th>
+                <td>
+					{if $space_info['last_login_time']}
+					<!--{date('Y-m-d H:i:s',$space_info['last_login_time'])}-->
+					{else}<!--{date('Y-m-d H:i:s',$space_info['reg_time'])}-->{/if}
+                </td>
+            </tr>
+		 </table>
+	</div>
+</div>
+ 
+ <div class="box post">
+	   <div class="title">
+    	  <h2>添加跟踪记录</h2>
+       </div>
+	  <div class="detail">
+	   <table border="0" cellspacing="0" cellpadding="0">
+			<tr>
+                <th style="width:50px;">
+                   	客户类型{$_lang['zh_mh']}
+                </th>
+                <td>
+					<select name="slt_track_type">
+						<option value="">请选择客户类型</option>
+						{loop $track_type $k $v}
+						<option value="{$k}" {if $space_info[track_type]==$k}selected="selected"{/if}>$v</option>
+						{/loop}
+					</select>
+                </td>
+				 <th>
+                   	下次跟踪时间{$_lang['zh_mh']}
+                </th>
+                <td>
+					<input  type="text" name="txt_reserve_time" onclick="showcalendar(event, this, 1)"  class="txt">
+                </td>
+            </tr>
+			<tr>
+                <th>
+                   	跟踪记录{$_lang['zh_mh']}
+                </th>
+                <td>
+					<textarea name="txt_t_content" cols="40" rows="7" ></textarea> 
+                </td>
+				 <th>
+                   	下次跟踪要点{$_lang['zh_mh']}
+                </th>
+                <td>
+					<textarea name="txt_t_reserve" cols="40" rows="7" ></textarea> 
+                </td>
+            </tr>
+			 <tr>
+                <th>
+                    &nbsp;
+                </th>
+                <td >
+                    <div class="clearfix padt10">
+                    	<input type="hidden" name="is_submit" value="1"/>
+						{if $space_info['track_uid'] && $admin_info['uid'] != $space_info['track_uid']}
+							<button class="positive primary pill button" name="sbt_edit" value="{$_lang['submit']}" type="button">
+                           	 <span class="check icon"></span>{$_lang['submit']}
+                       	    </button>
+						{else}
+							<button class="positive primary pill button" name="sbt_edit" value="{$_lang['submit']}" type="submit">
+                           	 <span class="check icon"></span>{$_lang['submit']}
+                       	    </button>
+						{/if}
+                        <button class="pill button" onclick="to_back();" name="rst_edit" type="button">
+                            <span class="uparrow icon"></span>{$_lang['return']}
+                        </button>
+						{if $space_info['track_uid'] && $admin_info['uid'] != $space_info['track_uid']}<fonr color="red">此用户已被{$space_info['track_username']}跟踪</font>{/if}
+                    </div>
+                </td>
+                </tr>
+            </table>
+			<input name="page" type="hidden" value="{$page}">
+			<input name="op" type="hidden" value="{$op}">
+        </form>
+    </div>
+</div>
+
+
+<div class="box post">
+		<div class="title">
+    	    <h2>跟踪记录（业务员：
+			{if $space_info['track_uid']}
+			 {$space_info['track_username']}
+			{else}
+				暂无
+			{/if}
+			)
+			</h2>
+			<!-- {if $space_info['track_username']}{$space_info['track_username']}{else}暂无{/if}） -->
+    	</div>
+		<div class="detail">
+			   <table border="0" cellspacing="0" cellpadding="0">
+			   	<tr>   
+		            <td width="160">
+		            	<strong>跟踪时间</strong>
+					</td>
+					<td width="400">
+		            	<strong>跟踪记录</strong>
+					</td>
+					<td width="160">
+		            	<strong>预约时间</strong>
+					</td>
+					<td>
+		            	<strong>预约记录</strong>
+					</td>
+					<td>
+		            	<strong>跟踪员</strong>
+					</td>
+				</tr>
+			   	{loop $track_arr $k $v}
+					<tr>   
+		                <td>
+		                	<!--{date('Y-m-d H:i:s',$v['dateline'])}-->
+						</td>
+						<td>
+		                	{$v['t_content']}
+						</td>
+						<td>
+		                	<!--{date('Y-m-d H:i:s',$v['reserve_time'])}-->
+						</td>
+						<td>
+		                	{$v['t_reserve']}
+						</td>
+						<td>
+		                	{$v['t_username']}
+						</td>
+					</tr>
+			    {/loop}			
+	            </table>
+   		 </div>
+</div>
+<script type="text/javascript">
+ function get_info(){
+ 	uid  = document.getElementById("uid").value;
+	if(uid){
+		$.post("index.php?do={$do}&view=track_edit&ac=get_user_info&guid="+uid,function(json){
+			$("#username").val(json.data.username);
+			$("#phone").val(json.data.phone);
+			$("#email").val(json.data.email);
+			$("#qq").val(json.data.qq);
+		},'json');
+	}
+ }
+ 
+  //用户动态记录
+ function showDetail_2(){
+ 	var url = "index.php?do=user&view=track_feed&t_uid={$space_info['uid']}";
+	art.dialog.open(url,
+	{
+		title:'用户动态记录',
+		width:700,
+		height:500
+	}
+	);	
+ }
+ 
+ //用户财务明细
+function showDetail_3(){
+	var url = "index.php?do=user&view=detail&u_id={$space_info['uid']}&code=finance";
+	art.dialog.open(url,
+	{
+		title:'用户财务明细',
+		width:700,
+		height:500
+	}
+	);
+}
+
+function showDetail(code,uid){
+	var url = "index.php?do=user&view=detail&u_id="+uid+'&code='+code;
+		art.dialog.open(url,
+		{
+			title:'用户详情展示',
+			width:700
+		}
+	);
+}
+	
+ function track_user_search(){
+ 	var uid = $('#uid').val();
+	var username = $('#username').val();
+ 	if(!uid && !username){
+		return false;		
+	}
+
+ 	var url = 'index.php?do=user&view=track_edit&op=my&t_uid='+uid+'&t_username='+username; 
+	window.location.href = url;
+ }
+</script>
+<!--{template control/admin/tpl/admin_footer}-->

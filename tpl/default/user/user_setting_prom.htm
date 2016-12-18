@@ -1,0 +1,144 @@
+<!--{template header}--><!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+        <!--{template user/user_nav}--><!--main start-->
+        <section class="clearfix section">
+            <!--{template user/user_side}-->
+            <div class="show_panel ">
+		        <div class="">
+		            <div class="">
+		                <!--main content-->
+		                <div class=" clearfix box default">
+                            <!--header内容头部 start-->
+                            <header class="clearfix box_header">
+                                <h2 class="box_title">{$_lang['prom_make_money']}</h2>
+                                <div class=" ">
+                                    <nav class="box_nav">
+                                        <ul> 
+                                            <li class="selectedLava">
+                                                <a href="{$_K['siteurl']}/index.php?do={$do}&view={$view}&op={$op}#userCenter" title="{$_lang['prom_relation']}">{$_lang['prom_relation']}</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <div class="clear">
+                                </div>
+                            </header>
+                            <!--header内容头部 end--><!--detail内容 start-->
+                            <article class="box_detail">
+                                <!--messages消息 start-->
+                                <div class="messages m_warn clearfix">
+                                    <div class="grid_18">
+                                    <strong>友情提示：</strong>推广下线指您成功推广到IT帮手网注册的用户
+									</div>
+                                </div>
+                                <!--messages消息 end-->
+                                <div class="">
+                                    <div class="clearfix box pad10">
+                                 
+                                        <form action="{$url}#userCenter" method="post" id="frm">
+                                            <input type="hidden" name="page" value="{$page}">
+                                            <div class="rowElem tool_bar clearfix">
+                                                   <div class="mr_20 fl_l">
+                                                    <label class="t_l fl_l">
+                                                        <strong>推广状态{$_lang['zh_mh']}</strong>
+                                                    </label>
+                                                    <select class="fl_l" name="prom_status">
+                                                        {loop $status_arr $k $v}
+														<option value="$k" {if $k==$prom_status}selected="selected"{/if}>{$v} </option>
+                                                        {/loop}
+                                                    </select>
+                                                </div>
+                                               <div class="mr_20 fl_l">
+                                                    <label class="t_l fl_l">
+                                                      <strong>推广时间{$_lang['zh_mh']}</strong>
+                                                    </label>
+                                                 <input type="text" name="start_time" class="txt" value="{$start_time}" size="12" onclick="showcalendar(event, this, 0)"> - <input type="text" name="end_time" value="$end_time" class="txt" size="12" onclick="showcalendar(event, this, 0)">
+                                                </div>
+                                               <div class="fl_r">
+                                                    <button class="block" type="submit" name="sbt_search" value="{$_lang['search']}"><span class="icon magnifier"></span>{$_lang['search']}</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <!--from表单 end--><!--date_table数据表格 start--><!--推广关系-->
+                                        <div class="data_list">
+                                            <table cellpadding="0" cellspacing="0" class="data_table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">
+                                                            {$_lang['prom_downline']}
+                                                        </th>
+                                                        <th scope="col">
+                                                            {$_lang['prom_time']}
+                                                        </th>
+                                                        <th scope="col">
+                                                            {$_lang['relation_status']}
+                                                        </th>
+														<th scope="col">
+															认证状态
+														</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                	{if $relation_arr}
+                                                    {loop $relation_arr $v}
+                                                    <tr>
+                                                        <td>
+                                                            $v['username']
+                                                        </td>
+                                                        <td>
+                                                            <!--{date('Y-m-d H:i',$v['on_time'])}-->
+                                                        </td>
+                                                        <td>
+                                                            {$status_arr[$v['relation_status']]}
+                                                        </td>
+														<td>
+															<!--{eval $sql='select * from keke_witkey_space where uid='.$v['uid'];}-->
+															<!--{eval $relation_info=db_factory::query($sql);}-->
+															<!--{eval echo(keke_glob_class::get_auth_ico($relation_info[0]['auth_realname'],$relation_info[0]['auth_mobile'],$relation_info[0]['auth_email'],$relation_info[0]['auth_bank']));}-->
+														</td>
+                                                    </tr>
+                                                    {/loop}
+													{else}
+													<tr>
+													    <td colspan="8" class="t_c">
+                                                            {$_lang['norecord']}
+                                                        </td>
+                                                    </tr>
+													
+													{/if}
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td colspan="3"></td>
+                                                        <td>
+                                                            {$_lang['total']}:{$count}{$_lang['tiao']}
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                        <!--data_table数据表格 end-->
+                                   
+                                        <div class="page clearfix">
+                                            <p>
+                                                {$pages['page']}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                            <!--detail内容 end-->
+                        </div>
+                        <!--main content end -->
+                        <div class="clear">
+                        </div>
+                    </div>
+                </div>
+                </section>
+                <!--main end-->
+            </div>
+            </div>
+            <!--contain end-->
+            <!--{template user/user_footer}-->
+<!--{template footer}-->

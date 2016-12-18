@@ -1,0 +1,46 @@
+<!--{template header}-->
+<!--{template header_nav_lottery}-->
+<header class="clearfix page_header">
+    <div class="container_24">
+        <!--页面导航-->
+        <div class="breadcrumbs clearfix">
+            你的位置：<a href="{$_K['siteurl']}/index.php">IT帮手网首页</a>
+            <span class="font_simsun">&gt;</span>
+            <a href="{$_K['siteurl']}/index.php?do=lottery">公开摇奖</a>
+        </div>
+        <!--end 页面导航-->
+    </div>
+</header>
+
+<section class="clearfix content">
+    <div class="container_24">
+	   <div class="lottery_content">
+	   		<h1>已结束的往期摇奖任务</h1>
+			<div class="content_detail clearfix pt_10">
+				<ul>
+					{loop $task_list $k $v}
+					<!--{eval $v[lottery_config] and $vc = unserialize($v['lottery_config']) }-->
+					<li>
+						<div class="lottery_descrip pl_20 pr_20 pb_10 pt_10">
+							<div class="clearfix"><span class="c333 fl_l">第 {$v[task_id]} 号项目</span><span class="c999 fl_r ">摇奖原因：{$vc[lottery_reason]}</span></div>
+							<div class="clearfix">
+								<p class="ea5e00 font12b">{$vc[real_cash]}元</p>
+								<a href="{$_K['siteurl']}/index.php?do=lottery&view=info&task_id=$v[task_id]">{$indus_arr[$task_info[indus_id]][indus_name]}-$v[task_title]</a>
+								<p>本次摇奖产生 {$vc[main_count]}名中标者</p>
+								<p class="c999">摇奖公示剩余时间：</p>
+								<p><span class="ea5e00"><!--{eval echo kekezu::time_to_units($v[exec_time])}--></span></p>
+								<a href="{$_K['siteurl']}/index.php?do=lottery&view=info&task_id=$v[task_id]" class="button mt_10 pt_10 pb_10">查看摇奖</a>
+							</div>
+						</div>
+					</li>
+					{/loop}
+				</ul>
+			</div>
+			<div class="page mt_20" style="background:none;">
+					$pages[page]
+				</div>	
+	   </div>
+    </div>
+</section>
+<!--{template footer}-->
+

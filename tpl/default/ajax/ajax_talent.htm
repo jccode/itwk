@@ -1,0 +1,18 @@
+<!--detail内容 start-->
+<ul>
+	{if $service_info}
+	{loop $service_info $v}
+	<li class="clearfix">
+		<a href="{$_K['siteurl']}/index.php?do=shop&sid={$v[shop_id]}&view=service_info&service_id={$v[service_id]}" class="block clearfix t_c">
+			<div class="re_ser_img clearfix">
+				<img  src="{$v[pic]}" alt="{$v[title]}">
+			</div>
+			<!--{eval echo kekezu::cutstr($v[title],8)}-->
+		</a>
+	</li>
+	{/loop}
+	{else}
+	<li>暂时没有出售服务。</li>
+	{/if}
+</ul>
+<!--detail内容 end-->

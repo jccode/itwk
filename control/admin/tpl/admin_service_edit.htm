@@ -1,0 +1,170 @@
+<!--{template control/admin/tpl/admin_header}-->
+<script type="text/javascript" src="../../resource/js/system/keke.js"></script>
+ <script type="text/javascript" src="../../resource/js/system/ajaxfileupload.js"></script>
+ <div class="page_title">
+    	<h1>服务编辑</h1>
+        <div class="tool">
+        	<a href="index.php?do={$do}&view=list" class="here" >{$_lang['service_list']}</a>
+        </div>
+</div>
+<!--页头结束-->    
+<div class="box post">
+    <div class="tabcon">
+        	<div class="title"><h2>{$_lang['edit']}{$model_info['model_name']}</h2></div>       	
+            <div class="detail">
+                <form method="post" action="index.php?do=$do&model_id={$model_id}&view=edit&service_id={$service_id}" id="frm_art_edit" name="frm_art_edit" enctype="multipart/form-data">
+                <input type="hidden" name="service_id" value="$service_info[service_id]">
+				<input type="hidden" name="hdn_act" value="1">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <th scope="row">{$_lang['shopkeeper']}店主{$_lang['zh_mh']}</th>
+                        <td><b>{$service_info[username]}</b></td>
+					  </tr>
+					   <tr>
+                        <th scope="row" width="130">分类：</th>
+                        <td>
+                        	<select style="width:280px;" name="service[indus_id]">
+                        	  {loop $industry_arr $v}
+								   <option value="{$v['indus_id']}">{$v['indus_name']}</option>
+								   {if $v['_child']}
+									   {loop $v['_child'] $v_1}
+									   	 <option value="{$v_1['indus_id']}" {if $v_1['indus_id'] == $service_info['indus_id']}selected{/if}>﹂{$v_1['indus_name']}</option>
+									   {/loop}
+								   {/if}	
+								{/loop}
+                        	</select>
+                        </td>
+                      </tr> 
+                      <tr>
+                        <th scope="row" width="130">{$_lang['service_name']}{$_lang['zh_mh']}</th>
+                        <td>
+	                         <input type="text" class="txt" name="service[title]" size="45" value="$service_info[title]" id="service_title" msgArea="span_service_title"
+							 limit="required:true;len:5-50" msg="{$_lang['title_not_null']}" title="{$_lang['title_not_null']}">
+							  &nbsp;&nbsp;&nbsp;<input type="checkbox" name="service[is_top]" value="1" {if $service_info[is_top]}checked = checked{/if}><font color="red"> 是否置顶</font><span id="span_service_title"></span>
+                        </td>
+                      </tr>					       
+					  <tr>
+                        <th scope="row">{$_lang['quotation']}{$_lang['zh_mh']}</th>
+                        <td><input type="text" class="txt" size="5" name="service[price]" value="$service_info[price]" id="service_price" msgArea="span_service_price" 
+							limit="required:true;type:float" msg="{$_lang['quotation_not_null']}" title="{$_lang['quotation_ending_decimal_notice']}s">{$_lang['yuan']}<span id="span_service_price"></span>
+							<select name="service[price]">
+								{loop  $price_unit $k $v}
+									<option value="$v">$k</option>
+								{/loop}
+							</select>
+						</td>
+					  </tr>
+                  
+  					  <tr>
+                        <th scope="row">{$_lang['pub_time']}{$_lang['zh_mh']}</th>
+                        <td>
+							<!--{eval echo date("Y-m-d H:i:s",$service_info[on_time])}-->
+						</td>
+					  </tr>
+					   <tr>
+                        <th scope="row">{$_lang['service_desc']}</th>
+                        <td>
+							<textarea name="service[content]" rows="8" cols="80" >{$service_info[content]}</textarea>
+						</td>
+					  </tr>
+					  <tr>
+                        <th scope="row">地理位置{$_lang['zh_mh']}</th>
+                        <td>
+							{$service_info[city]}{$service_info[address]}
+						</td>
+					  </tr>
+					  <tr>
+                        <th scope="row">联系方式{$_lang['zh_mh']}</th>
+                        <td>
+                        	<!--{eval $service_info[contact] = unserialize($service_info[contact]);}-->
+							{if $service_info[contact]['qq']}QQ号码{$_lang['zh_mh']}{$service_info[contact]['qq']}<br/>{/if}
+							{if $service_info[contact]['mobile']}手机号码{$_lang['zh_mh']}{$service_info[contact]['mobile']}<br/>{/if}
+							{if $service_info[contact]['email']}邮箱地址{$_lang['zh_mh']}{$service_info[contact]['email']}<br/>{/if}
+							{if $service_info[contact]['msn']}MSN地址{$_lang['zh_mh']}{$service_info[contact]['msn']}<br/>{/if}
+						</td>
+					  </tr>
+					  <tr>
+                        <th scope="row">图片配图:</th>
+						<td id="t_pic" class=" p_relative"> 
+							<input type="file" id="art_pic" class="file" name="art_pic"  size="50" ext=".jpg,.png,.gif,.jpeg,.bmp" >
+							<input type="button" id="btn_updata" onclick="pic_upload('art_pic');" value="{$_lang['upload']}">
+							<input type="hidden" id="fid" value="<!--{eval echo get_fid($service_info[pic])}-->"/>
+                        	<input type="hidden" name="service[pic]"  value="{$service_info[pic]}" id="hdn_art_pic">						
+							<span id="file_span"> 
+								{if $service_info[pic]}
+								<img src="../../{$service_info[pic]}" height="80" alt=''/> 
+								<a title="{$_lang['delete']}" href="javascript:void(0);" onclick="del_file('{$service_info[pic]}');">
+								<strong>{$_lang['delete']}×</strong>
+								</a>
+								{/if}
+							</span>
+							
+                            <div class="padt10 direct">
+                            <p>{$_lang['allowed_to_be_uploaded']}{$basic_config['max_size']}M</p>
+                            </div>
+                        </td>
+                      </tr> 
+                    <tr>
+                        <th scope="row">&nbsp;</th>
+                    	<td>
+                    	<button name="sbt_edit" value="1" class="positive primary  button" type="submit" onclick="return checkForm(document.getElementById('frm_art_edit'))">
+                    		<span class="check icon"></span>{$_lang['submit']}</button>
+                    	<button type="button"  name="rst_edit" class="pill button"  onclick="history.go(-1)"/><span class="uparrow icon"></span>{$_lang['return']}</button>
+                    	</td>
+                    </tr>
+                    </table>
+                </form>
+              </div>
+       </div>           
+</div>
+<!--主体结束-->
+<script>
+	//图片上传	  	
+	function pic_upload(id){
+		var o  = document.getElementById(id);
+		if(!isExtName(o)){
+			art.dialog.alert("{$_lang['file_format_error']}");
+			return false;
+		}else{
+			var art_id = '$art_id';
+        $.ajaxFileUpload({
+            url: '../../index.php?do=ajax&view=upload&file_name='+id+'&file_type=att&obj_id='+art_id,
+            fileElementId: id,
+            dataType: 'json',
+            success: function(json){ 
+                if (json.err) {
+                    art.dialog.alert("{$_lang['upload_fail_file_too_large']}"+ json.err);
+                }else {
+                    var hf = $("#hdn_"+id);
+                   $("#hdn_art_pic").val(json.msg.up_file+"?fid="+json.fid);
+                   $("#fid").val(json.fid);
+					$("#file_span").html("<span id=\"file_"+json.fid+"\" > <img src='../../"+json.msg.up_file+"' height=\"80\" /> <a title=\"{$_lang['delete']}\" href=\"javascript:void(0);\" onclick=\"del_file('"+json.msg.up_file+"');\"><strong>{$_lang['delete']}×</strong></a></span>");
+                }
+            },
+            error: function(json, status, e){
+                if(e){
+					art.dialog.alert(e);	
+				}
+            }
+        });
+		}
+    }
+						
+	//图片删除 
+
+		function del_file(file_path){
+			var value = file_path.split("?")['0'];
+			var fid=$("#fid").val();
+			var url  = '../../index.php?do=ajax&view=file&ajax=del&filepath='+value+"&fid="+fid;
+			$.post(url,function(json){
+				if(json.status==1){ 
+					 $("#file_span").children().remove();
+					 $("#hdn_art_pic").val("");
+				}
+				
+			},'json');
+		}
+				
+				
+	</script>	
+<!--{template control/admin/tpl/admin_footer}-->

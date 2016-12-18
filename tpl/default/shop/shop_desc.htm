@@ -1,0 +1,146 @@
+<!--{template header_top}-->
+<!--{template header_shop}-->
+
+<div class="wrapper clearfix">
+	<div class="container_24 clearfix">
+		<div class="grid_24 clearfix">
+			<div class="nav_lists_shop clearfix mt_20">
+				<!--头部导航-->
+			<!--{template shop/section_nav}-->
+			<!--end 头部导航-->
+			</div>
+			
+			{if $shop_info[shop_level]>1}
+			<!--{template shop/section_slide}-->
+			{/if}
+			
+			<!--内容主体-->
+			<div class="shop_content clearfix mt_10">
+				
+				<!--左内容-->
+				<div class="shop_left clearfix grid_5 alpha">
+					<div  class="box default clearfix shop_info_boxs mb_10">
+							<!--用户头像-->
+						<!--{template shop/section_user}-->
+						<!--end 用户头像-->
+					</div>
+				</div>
+				<!--左内容 end-->
+				
+				<!--右内容-->
+				<div class="shop_right clearfix grid_19 omega fl_r ">
+					<div class="box default clearfix firm_box">
+						<div class="inner clearfix">
+							<div class="firm_left fl_l">
+								<div class="clearfix pad20">
+									<div class="clearfix mt_5">
+										<h2 class="fl_l">能力标签：</h2>
+										{if $shop_info['skill_ids']}
+										<ul class="fl_l ">
+											<!--{eval $skills=explode(',',$shop_info['skill_ids']);}-->
+											{loop $skills $v}
+											<li><span>$indus_c_arr[$v]['indus_name']</span></li>
+											{/loop}
+										</ul>
+										{else}
+											<div class="no_detail fl_l">暂无</div>
+										{/if}
+									</div>
+									<div class="clearfix mt_10">
+										<b class="c333">	{if $shop_info['user_type']==1}
+											个人
+											{elseif $shop_info['user_type']==2}
+											工作室
+											{elseif $shop_info['user_type']==3}
+											企业
+											{/if}介绍：</b>
+										<!--{eval $shop_info[shop_desc] and $shop_info[shop_desc] = strip_tags($shop_info[shop_desc]);}-->
+										<!--{eval $shop_info[shop_desc] = htmlspecialchars_decode($shop_info[shop_desc])}-->
+										<!--{eval echo $shop_info[shop_desc];}-->
+										
+									</div>
+								</div>
+							</div>
+							<div class="firm_right fl_l">
+								<div class="pad10 clearfix">
+									<div class="clearfix pl_10 pr_10 mb_10">
+										<h2><a href="$ac_url">{$shop_info['shop_name']}</a></h2>
+										<p>{if $shop_info['residency']}{$shop_info['residency']}{else}暂无{/if}</p>
+										<p class="clearfix"><span class="fl_l">$user_type_arr[$shop_info['user_type']]商铺</span>
+										<!--{eval echo(keke_glob_class::get_shop_level_ico($shop_info['shop_level']));}-->
+										</p>
+									</div>
+									 <div class="shop_hire clearfix">
+									 	<h1><a href="{$_K['siteurl']}/index.php?do=hiretask&tuid={$shop_info['uid']}">我要雇佣TA</a></h1>
+										<div class="shop_hire_link clearfix">
+												<a href="javascript:;" onclick="talent_invite({$shop_info['uid']})" class="border_n">邀请投标</a>
+											<a href="javascript:;" onclick="favor('shop_id','shop','shop','{$shop_info[uid]}','{$shop_info[shop_id]}','{$shop_info[shop_name]}','{$shop_info[shop_id]}')">收藏TA</a>
+											<a href="javascript:;" onclick="sendMessage({$shop_info['uid']},'{$shop_info['username']}')">站内信</a>
+										</div>
+									 </div>
+									 <div class="clearfix pl_10 pr_10 mb_10 mt_20">
+										<h2 class="c06c">联系方式</h2>
+										<p>姓名：
+										{if $shop_info['truename']}
+										{if $sect_info['truename']['v1']!=1}
+										{$shop_info['truename']}
+										{else}
+										保密
+										{/if}
+										{else}
+										暂无
+										{/if}
+										</p>
+										<p>
+										手机：
+										{if $shop_info['mobile']}
+										{if $sect_info['mobile']['v1']!=1}
+										{$shop_info['mobile']}
+										{else}
+										保密
+										{/if}
+										{else}
+										暂无
+										{/if}
+										</p>
+										<p>QQ：
+										{if $shop_info['qq']}
+										{if $sect_info['qq']['v1']!=1}
+										{$shop_info['qq']}
+										{else}
+										保密
+										{/if}
+										{else}
+										暂无
+										{/if}
+										</p>
+										<p>邮箱：
+										{if $shop_info['email']}
+										{if $sect_info['email']['v1']!=1}
+										{$shop_info['email']}
+										{else}
+										保密
+										{/if}
+										{else}
+										暂无
+										{/if}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+						<div  class="box_shadow"></dir>
+					
+				</div>
+				<!--右内容 end-->
+				
+				<div class="clear"></div>
+			</div>
+			<!--内容主体 end-->
+		</div>
+	</div>
+</div>
+</div>
+<!--{template shop/section_footer}-->
+<!--{template footer}-->

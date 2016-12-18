@@ -1,0 +1,140 @@
+<!--{template header}-->
+<!--{template header_nav_about}-->
+<div class="wrapper">
+	<div class="page_header">
+		<div class="container_24">
+			<div class="breadcrumbs clearfix">
+				你的位置：
+				<a href="{$_K['siteurl']}/index.php" style="color:#333;">IT帮手首页</a> &gt;
+				<a href="{$_K['siteurl']}/index.php?do=about&view=index" style="color:#333;"> 关于我们</a> &gt; 
+				支付方式
+			</div>
+		</div>
+	</div>
+<div class="container_24 pt_20 clearfix">
+ 	
+	<div class="aside clearfix">
+   		<div class="aboutCatalog" id="aboutCatalog">
+         	<ul>
+            	<li class="title" style="color:#333; font-size:22px;"><strong>支付方式</strong></li>
+            	{loop $nav_list $k $v}
+					<li><img src="{$_K['siteurl']}/{SKIN_PATH}/img/about/iconArrow4.png">
+								<a {if $op==$k} class="current"{/if} href="{$_K['siteurl']}/index.php?do=about&view=$view&op=$k" {$menu_style['index']}> 
+										$v
+								</a></li>
+				
+				
+				{/loop}
+				
+				
+			</ul>           
+    	</div>
+	</div>
+	<div class="main bor2">
+	<div class="commission">
+		<dl>
+			<dt><div class="aboutZoneHD">线下汇款转账</div></dt> 
+			<dd class="pad20">      
+		<div class="payTop">
+			<div class=""><strong>IT帮手网友情提醒：</strong>为识别汇款人，汇款时请多汇或者少汇几分钱，比如发布500元任务，可以汇500.01、500.02，并在附言上注明您的用户名或任务名称，汇款后请在第一时间内联系我们。电话：4006-999-467 或者致电　0592-6301975</div>
+		</div>
+
+		<table cellpadding="0" cellspacing="0" border="0" width="100%" class="payZone">
+			<tbody><tr>
+				<th colspan="4" style="background:#f4f4f4; color:#333; font-weight:bold;">企业账户汇款</th>
+			</tr>
+			<tr>
+				<th>开户行：</th>
+				<td colspan="3">中国工商银行股份有限公司厦门软件园支行</td>
+			</tr>
+			<tr>
+				<th>开户名：</th>
+				<td>厦门IT帮手网络科技有限公司</td>
+				<th>账  号：</th>
+				<td class="txtorange">4100200109200028434</td>
+			</tr>
+		</tbody></table>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="payZone">
+          <tbody><tr>
+			<th colspan="3" style="background:#f4f4f4; font-weight:bold; color:#333">普通账户汇款转账</th>
+          </tr>
+          <tr>
+            <td>
+				<div class="bankl"><a href="https://ebs.boc.cn/BocnetClient/LoginFrame.do?_locale=zh_CN" target="_blank"><img src="{$_K['siteurl']}/{SKIN_PATH}/img/about/china.png" alt="中国银行"></a></div>
+				<div class="bankr">
+					<div><strong><a href="https://ebs.boc.cn/BocnetClient/LoginFrame.do?_locale=zh_CN" target="_blank">中国银行</a></strong></div>
+					<div>开户行：<a href="https://ebs.boc.cn/BocnetClient/LoginFrame.do?_locale=zh_CN" target="_blank">中国银行厦门前埔支行</a></div>
+					<div>账&nbsp;&nbsp;&nbsp;&nbsp;号：6013 8217 0061 1523 399</div>
+					<div>户&nbsp;&nbsp;&nbsp;&nbsp;名：黄国华</div>
+				</div>
+			</td>
+            <td>
+				<div class="bankl"><a href="https://pbsz.ebank.cmbchina.com/CmbBank_GenShell/UI/GenShellPC/Login/Login.aspx" target="_blank"><img src="{$_K['siteurl']}/{SKIN_PATH}/img/about/zhaoshang.png" alt="招商银行"></a></div>
+				<div class="bankr">
+					<div><strong><a href="https://pbsz.ebank.cmbchina.com/CmbBank_GenShell/UI/GenShellPC/Login/Login.aspx" target="_blank">招商银行</a></strong></div>
+					<div>开户行：<a href="https://pbsz.ebank.cmbchina.com/CmbBank_GenShell/UI/GenShellPC/Login/Login.aspx" target="_blank">招商银行厦门莲前支行</a></div>
+					<div>账&nbsp;&nbsp;&nbsp;&nbsp;号：6225 8859 2616 1308</div>
+					<div>户&nbsp;&nbsp;&nbsp;&nbsp;名：黄国华</div>
+				</div>
+			</td>
+			<td>
+				<div class="bankl"><a href="https://easyabc.95599.cn/SlfRegPer/netBank/zh_CN/entrance/logon.aspx" target="_blank"><img src="{$_K['siteurl']}/{SKIN_PATH}/img/about/abc.png" alt="农业银行"></a></div>
+				<div class="bankr">
+					<div><strong><a href="https://easyabc.95599.cn/SlfRegPer/netBank/zh_CN/entrance/logon.aspx" target="_blank">农业银行</a></strong></div>
+					<div>开户行：<a href="https://easyabc.95599.cn/SlfRegPer/netBank/zh_CN/entrance/logon.aspx" target="_blank">农业银行厦门分行软件园支行</a></div>
+					<div>账&nbsp;&nbsp;&nbsp;&nbsp;号：622848 0070174 619810</div>
+					<div>户&nbsp;&nbsp;&nbsp;&nbsp;名：黄国华</div>
+				</div>
+			</td>
+          </tr>
+          <tr>      
+            <td>
+				<div class="bankl"><a href="https://ibsbjstar.ccb.com.cn/app/V5/CN/STY1/login.jsp" target="_blank"><img src="{$_K['siteurl']}/{SKIN_PATH}/img/about/ccb.png" alt="建设银行"></a></div>
+				<div class="bankr">
+					<div><strong><a href="https://ibsbjstar.ccb.com.cn/app/V5/CN/STY1/login.jsp" target="_blank">建设银行</a></strong></div>
+					<div>开户行：<a href="https://ibsbjstar.ccb.com.cn/app/V5/CN/STY1/login.jsp" target="_blank">建设银行厦门分行洪山柄支行</a></div>
+					<div>账&nbsp;&nbsp;&nbsp;&nbsp;号：6227 0019 3512 0437 859</div>
+					<div>户&nbsp;&nbsp;&nbsp;&nbsp;名：黄国华</div>
+				</div>
+			</td>
+			<td>
+				<div class="bankl"><a href="https://mybank.icbc.com.cn/icbc/perbank/index.jsp" target="_blank"><img src="{$_K['siteurl']}/{SKIN_PATH}/img/about/icbc.png" alt="工商银行"></a></div>
+				<div class="bankr">
+					<div><strong><a href="https://mybank.icbc.com.cn/icbc/perbank/index.jsp" target="_blank">工商银行</a></strong></div>
+					<div>开户行：<a href="https://mybank.icbc.com.cn/icbc/perbank/index.jsp" target="_blank">工商银行厦门分行软件园支行</a></div>
+					<div>账&nbsp;&nbsp;&nbsp;&nbsp;号：6222 0241 0001 2177 857</div>
+					<div>户&nbsp;&nbsp;&nbsp;&nbsp;名：黄国华</div>
+				</div>
+			</td>
+			<td>
+				<div class="bankl"><a href="https://pbank.95559.com.cn/personbank/common_logon.jsp" target="_blank"><img src="{$_K['siteurl']}/{SKIN_PATH}/img/about/jiaotong.png" alt="交通银行"></a></div>
+				<div class="bankr">
+					<div><strong><a href="https://pbank.95559.com.cn/personbank/common_logon.jsp" target="_blank">交通银行</a></strong></div>
+					<div>开户行：<a href="https://pbank.95559.com.cn/personbank/common_logon.jsp" target="_blank">交通银行厦门前埔支行</a></div>
+					<div>账&nbsp;&nbsp;号：6222 6007 9000 2826 240</div>
+					<div>户&nbsp;&nbsp;名：黄国华</div>
+				</div>
+			</td>
+          </tr>
+          <tr>
+            <td>
+				<div class="bankl"><a href="https://www.cib.com.cn/index.jsp" target="_blank"><img src="{$_K['siteurl']}/{SKIN_PATH}/img/about/xingye.png" alt="兴业银行"></a></div>
+				<div class="bankr">
+					<div><strong><a href="https://www.cib.com.cn/index.jsp" target="_blank">兴业银行</a></strong></div>
+					<div>开户行：<a href="https://www.cib.com.cn/index.jsp" target="_blank">兴业银行厦门分行东区支行</a></div>
+					<div>账&nbsp;&nbsp;&nbsp;&nbsp;号：622909 126589 070115</div>
+					<div>户&nbsp;&nbsp;&nbsp;&nbsp;名：黄国华</div>
+				</div>
+			</td>
+            <td>&nbsp;</td>
+			<td>&nbsp;</td>
+          </tr>
+        </tbody></table>
+		
+		</dd>
+		</dl>
+	</div>
+	</div>
+</div>
+<!--{template footer}-->
+</div>

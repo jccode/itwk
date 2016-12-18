@@ -1,0 +1,10 @@
+<!--{template header}-->
+<!--{template header_nav_index}-->
+<div class="container_24 t_c pt_20">
+<img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/system/{$status}.jpg" width="500" height="450" border="0" usemap="#Map" />
+<map name="Map" id="Map">
+  <area shape="rect" coords="175,360,486,400" href="http://www.epweike.com/review.html" />
+<area shape="rect" coords="15,360,165,400" href="http://www.epweike.com/" />
+</map>
+</div>
+<!--{template footer}-->

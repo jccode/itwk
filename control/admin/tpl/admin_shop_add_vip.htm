@@ -1,0 +1,235 @@
+<!--{template control/admin/tpl/admin_header}-->
+<script type="text/javascript" src="../../resource/js/system/script_calendar.js"></script>
+<div class="page_title">
+   	<h1>升级VIP商铺</h1>
+     <div class="tool"> 
+         <a href="index.php?do=$do&view=vip_list">商铺列表</a>
+		 <a class="here" href="index.php?do=$do&view=add_vip">升级商铺VIP</a>
+	</div>
+</div>
+<div class="box post">
+    <div class="title">
+        <h2>商铺资料</h2>
+    </div>
+    <div class="detail">
+        <form action="index.php?do={$do}&view={$view}" method="post" >
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+           <tr>
+                 <th scope="row" width="70">
+                   {$_lang['username']}{$_lang['zh_mh']}
+                 </th>
+                 <td>
+                 	 <input type="text" value="{$shop_info['username']}" id="username" style="width:260px;" class="txt"><b style="color:red"> *</b>
+				  <button type="button" onclick="track_user_search()">查询</button>
+				 </td>
+				 <td></td>
+				 <td></td>
+             </tr>
+			 <tr>
+                <th scope="row" width="70">
+                	 <span class="bg1 t_r">{$_lang['user']}ID{$_lang['zh_mh']}</span>
+                    
+                </th>
+                <td>
+                	<input type="text" name="fds[uid]" value="{$shop_info['uid']}" id="uid"  style="width:260px;" class="txt">
+					<b style="color:red"> *</b>                   
+                </td>
+				  <th scope="row">
+                   	商铺名称{$_lang['zh_mh']}
+                </th>
+                <td>
+                    <input type="text" style="width:260px;" value="{$shop_info[shop_name]}" readonly="readonly" class="txt">
+				</td>
+            </tr>
+			<tr>
+                <th  scope="row">
+                 	   商铺简介{$_lang['zh_mh']}
+                </th>
+                <td>
+                	<textarea class="txt" readonly="readonly"  cols="40" rows="7" id="shop_desc">{$shop_info['shop_desc']}</textarea>    
+                </td>
+				   <th  scope="row">
+                   	 其它信息{$_lang['zh_mh']}
+                </th>
+                <td>
+					{if $shop_info['shop_info']} 
+						{if in_array($shop_info['shop_type'],array(1,2))}<!-- 个人、工作室 -->						 
+								所在地区{$_lang['zh_mh']}{$shop_info['shop_info']['zone']} </br>
+								真实姓名{$_lang['zh_mh']}{$shop_info['shop_info']['realname']} </br>
+								身份证号{$_lang['zh_mh']}{$shop_info['shop_info']['id_card']} </br>
+								身份证正面{$_lang['zh_mh']}<a href="../../{$shop_info['shop_info']['id_pic']}" title="点击查看原图" target="_blank"><img src="../../{$shop_info['shop_info']['id_pic']}" height="50"></a> </br>
+								身份证反面{$_lang['zh_mh']}<a href="../../{$shop_info['shop_info']['id_pic']}" title="点击查看原图" target="_blank"><img src="../../{$shop_info['shop_info']['id_pic_back']}" height="50"></a> </br>						
+						{elseif $shop_info['shop_type'] == 3}<!-- 公司 -->
+								公司名称{$_lang['zh_mh']}{$shop_info['shop_info']['name']} </br>
+								营业执照编号{$_lang['zh_mh']} {$shop_info['shop_info']['card_id']}</br>
+								营业执照图片{$_lang['zh_mh']}<a href="../../{$shop_info['shop_info']['company_card_pic']}" title="点击查看原图" target="_blank"><img src="../../{$shop_info['shop_info']['company_card_pic']}" height="50"></a></br>
+						{/if}
+					{/if}
+                </td>
+            </tr>
+		 </table>
+	</div>
+</div>
+ 
+ <div class="box post">
+	   <div class="title">
+    	  <h2>升级成为VIP商铺</h2>
+       </div>
+	  <div class="detail">
+	   <table border="0" cellspacing="0" cellpadding="0">
+			<tr>
+                <th style="width:50px;">
+                   	商铺类型{$_lang['zh_mh']}
+                </th>
+                <td>
+					<select name="fds[shop_level]" style="width:250px;">
+					  <option value="">请选择商铺类型</option>
+					  {loop $vip_level_arr $k $v}
+						<option value="{$v['level_id']}" >{$v['level_name']}</option>
+					  {/loop}
+					</select>
+                </td>				
+            </tr>
+			<tr>
+			 <th>
+                   	客户充值的金额{$_lang['zh_mh']}
+              </th>
+              <td>            
+                  <input type="text" name="fds[cash_cost]"  style="width:260px;" class="txt" value="输入要充值的金额，比如：2000"
+				   onfocus="if(this.value=='输入要充值的金额，比如：2000'){this.value=''}" onblur="if(this.value==''){this.value='输入要充值的金额，比如：2000'}">
+              </td>
+			</tr>	
+			<tr>
+                <th>
+                   	VIP有效期限{$_lang['zh_mh']}
+                </th>
+                <td>
+					<input type="text" name="fds[day]"  style="width:260px;" class="txt" value="输入天数，比如：365"
+					 onfocus="if(this.value=='输入天数，比如：365'){this.value=''}" onblur="if(this.value==''){this.value='输入天数，比如：365'}">
+                </td>
+            </tr>
+			<tr>
+				<th>
+                   	操作规则{$_lang['zh_mh']}
+                </th>
+				<td>					
+					1、普通商铺->拓展或旗舰（升级），有效期：即刻起生效。</br>
+					2、已是拓展->拓展（续费），有效期：过期时间 + 续费时间。</br>
+					3、已是拓展->旗舰（升级），有效期：过期时间 + 升级时间。</br>
+					4、已是旗舰->旗舰（续费），有效期：过期时间 + 续费时间。</br>
+					5、VIP降级功能暂未开通（需求未确定）！</br>
+					<font color="red"><strong>注：请管理员谨慎操作，
+					{if $space_info['shop_id']}
+					    {if $space_info['shop_level']>1}
+							该用户目前是{$_lang['zh_mh']}{$vip_level_arr[$space_info['shop_level']]['level_name']}，有效期至{$_lang['zh_mh']}<!--{date('Y-m-d',$space_info['vip_end_time'])}-->
+						{else}
+							该用户目前是：普通商铺
+						{/if}
+					{else}
+						该用户目前尚未开通商铺，无法进行VIP升级！
+					{/if}</strong>
+					</font>
+				</td>				
+			</tr>
+			 <tr>
+                <th></th>
+                <td >
+                    <div class="clearfix padt10">
+                    	<input type="hidden" name="is_submit" value="1"/>
+						<button class="positive primary pill button" name="sbt_edit" value="升级为VIP商铺" type="submit">
+                       	 <span class="check icon"></span>升级为VIP商铺
+                   	    </button>                
+                    </div>
+                </td>
+                </tr>
+            </table>			
+        </form>
+    </div>
+</div>
+
+
+<div class="box post">
+		<div class="title">
+    	    <h2>此商铺的升级记录</h2>			
+    	</div>
+		<div class="detail">
+			   <table border="0" cellspacing="0" cellpadding="0">
+			   	<tr>   
+		            <td>
+		            	<strong>编号</strong>
+					</td>
+					<td >
+		            	<strong>用户名</strong>
+					</td>
+					<td>
+		            	<strong>使用期限</strong>
+					</td>
+					<td>
+		            	<strong>金额</strong>
+					</td>
+					<td>
+		            	<strong>升级类型</strong>
+					</td>
+					<td>
+		            	<strong>有效期</strong>
+					</td>
+					<td>
+		            	<strong>状态</strong>
+					</td>					
+				</tr>
+			   	{loop $vip_history_arr $v}
+					<tr>   
+		                <td>
+		                	{$v['h_id']}
+						</td>
+						<td>
+		                	{$v['username']}
+						</td>
+						<td>
+		                   {if $v['day'] == 185 }
+						   	半年（{$v['day']}）
+						   {elseif $v['day'] == 365 }
+						  	 一年（{$v['day']}）
+						   {elseif $v['day'] == 730 }
+						  	 二年（{$v['day']}）
+						   {elseif $v['day'] == 1095 }
+						  	 三年（{$v['day']}）
+						   {else}
+						   	{$v['day']}天
+						   {/if}
+						</td>
+						<td>
+		                	{$v['cash_cost']}元
+						</td>
+						<td>
+							{$vip_level_arr[$v['level_id']]['level_name']}
+						</td>						
+						<td>
+		            		<!--{date('Y-m-d H:i:s',$v['start_time'])}--> ~ <!--{date('Y-m-d H:i:s',$v['end_time'])}-->
+						</td>
+						<td>
+							{if $v['h_status']}
+	                                                                         购买完成
+							{else}
+								未付款
+							{/if}							
+						</td>
+					</tr>
+			    {/loop}			
+	            </table>
+   		 </div>
+</div>
+<script type="text/javascript">
+function track_user_search(){
+ 	var uid = $('#uid').val();
+	var username = $('#username').val();
+ 	if(!uid && !username){
+		return false;		
+	}
+
+ 	var url = 'index.php?do={$do}&view={$view}&t_uid='+uid+'&t_username='+username;
+	window.location.href = url;
+	
+ }
+</script>
+<!--{template control/admin/tpl/admin_footer}-->

@@ -1,0 +1,117 @@
+<!--{template control/admin/tpl/admin_header}-->
+<div class="page_title">	
+    	<h1>{$_lang['special_manage']}</h1>
+         <div class="tool">
+         	<a href="index.php?do={$do}&view=special" class="here">{$_lang['special_list']}</a>
+			<a href="index.php?do={$do}&view=special_edit">{$_lang['special_add']}</a>
+ 		 </div>
+		</div>
+
+<div class="box search p_relative">
+		<div class="title"><h2>{$_lang['search']}</h2></div>
+        <div class="detail" id="detail">
+			 <form action="index.php?do={$do}&view={$view}" method="post">
+				<input type="hidden" name="page" value="$page">
+				<table cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<th>{$_lang['id']}</th>
+							<td><input type="text" value="$w[sp_id]" name="w[sp_id]" class="txt"/></td>
+							<th>{$_lang['title']}</th>
+							<td><input type="text" value="$w[title]" name="w[title]" class="txt"/>*{$_lang['search_by_like']}</td>	
+							<th>专题分类</th>
+							<td>
+								<select name="w[cat_id]" class="ps vm">
+									<option value=''>{$_lang['all']}</option>
+									{loop $special_cat $k $v}
+										<option {if $w['cat_id']==$k}selected=selected{/if} value="{$k}">$v</option>
+									{/loop}
+         						 </select>
+							</td>
+						</tr>
+						<tr>
+					      <th>{$_lang['result_order']}</th>
+                 	     <td>
+                    	<select name="w[ord][]">
+                           <option value="sp_id" {if $w['ord']['0']=='sp_id' or !isset($w['ord']['0'])} selected="selected"{/if}>{$_lang['default']}{$_lang['order']}</option>
+                           <option value="dateline" {if $w['ord']['0']=='dateline' } selected="selected"{/if}>{$_lang['dateline']}{$_lang['order']}</option>
+                        </select>
+	                    <select name="w[ord][]">
+	                        <option {if $w['ord']['1']=='desc' or !isset($w['ord']['1'])}selected="selected" {/if} value="desc">{$_lang['desc']}</option>
+	                        <option {if $w['ord']['1']=='asc'}selected="selected" {/if} value="asc">{$_lang['asc']}</option>
+	                    </select>
+                 		  </td>
+            			  <th>{$_lang['list_result']}</th>
+                  		 <td colspan="3">
+                 			  <select name="w[page_size]">
+                         		  <option value="10" {if $w['page_size']=='10'}selected="selected"{/if}>{$_lang['page_size']}10</option>
+                          		  <option value="20" {if $w['page_size']=='20'}selected="selected"{/if}>{$_lang['page_size']}20</option>
+                         		  <option value="30" {if $w['page_size']=='30'}selected="selected"{/if}>{$_lang['page_size']}30</option>
+                    			  </select>
+								<button class="pill" type="submit" value={$_lang['search']} name="sbt_search">
+                            		<span class="icon magnifier">&nbsp;</span>{$_lang['search']}
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>	
+			</form>
+		</div>
+    </div>
+<!--{eval //print_r($special_arr);}-->
+    <div class="box list">
+    	<div class="title"><h2>{$_lang['special_list']}</h2></div>
+        <div class="detail">
+        	<form action="" id="frm_list" method="post">
+               <div id="ajax_dom"><input type="hidden" value="1" name="page">
+               <table cellpadding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th width="100">{$_lang['sp_id']}</th>
+                    <th width="300">{$_lang['title']}</th>
+					<th width="200">{$_lang['img']}</th>
+                    <th width="">{$_lang['seo_title']}</th>
+                    <th width="">{$_lang['seo_keywords']}</th>
+                    <th width="">{$_lang['dateline']}</th>
+					<th width="">{$_lang['operation']}</th>
+                  </tr>
+			   {loop $special_arr $val}
+                 <tr class="item">
+                 	<td class="td25"><input type="checkbox" name="ckb[]" class="checkbox" value="{$val['sp_id']}">{$val['sp_id']}</td>
+                    <td class="td28"><a href="{$val['url']}" target="_blank">{$val['title']}</a></td>
+                    <td><img src="{if $val['img']}../../{$val['img']}{/if}" style="height:40px;"/></td>
+                    <td>{$val['seo_title']}</td>
+                    <td>{$val['seo_keywords']}</td>
+                    <td><!--{eval echo date("Y-m-d",$val['dateline']);}--></td>
+                    <td>
+                      <a href="index.php?do={$do}&view=special_edit&sp_id={$val['sp_id']}" class="button dbl_target"><span class="pen icon"></span>{$_lang['edit']}</a>
+                   	  <a href="index.php?do={$do}&view={$view}&ac=del&sp_id={$val['sp_id']}" onclick="return cdel(this);" class="button">
+                      	<span class="trash icon"></span>{$_lang['delete']}</a>
+				    </td>
+                  </tr>
+				{/loop}
+                  <tr>
+                    <td colspan="7">
+                    <div class="page fl_right">
+                    	<!-- <div class="page"> -->
+                         {$pages['page']}
+                       <!--   </div> -->
+                    </div>
+                    
+                    <div class="clearfix">
+                  		<input type="checkbox" onclick="checkall();" id="checkbox" name="checkbox">
+                        <label for="checkbox">{$_lang['select_all']}</label>
+                        <input type="hidden" name="sbt_action" class="sbt_action">
+                        <!--button type="submit" value="{$_lang['mulit_delete']}" onclick="return batch_act(this,'frm_list');" class="pill negative">
+                        <span class="icon trash"></span>{$_lang['mulit_delete']}</button-->
+                    </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table></div>
+        	</form>
+        </div>       
+    </div>
+<!--主体结束-->
+
+<!--{template control/admin/tpl/admin_footer}-->

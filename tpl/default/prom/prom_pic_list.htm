@@ -1,0 +1,69 @@
+<!--{template header}-->
+<!--{template header_nav_prom}-->
+<!--首页样式--> 
+<!--内容区 satrt-->
+<header class="clearfix page_header">
+    <div class="container_24">
+        <!--页面导航-->
+        <div class="breadcrumbs clearfix">
+    		<span class="site">你的位置：</span>
+			<a href="{$_K['siteurl']}/index.php">IT帮手网首页</a>
+			<span class="font_simsun">&gt;</span>
+			<a href="{$_K['siteurl']}/index.php?do=prom">推广员频道</a>
+			<span class="font_simsun">&gt;</span>
+			<a href="{$_K['siteurl']}/index.php?do=prom&view=pic_list">图片推广</a>
+    	</div>
+        <!--end 页面导航-->
+    </div>
+</header>
+<div class="wrapper clearfix">
+	<div class="container_24 clearfix"> 
+
+		<div class="promot_step_pic mt_10 mb_10"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/prom/promot_step.gif"></div>
+		<div class="choose_box clearfix">
+			<div class="mbox fl_l">
+				<div class="title pad10">
+					<h1>推广工具箱</h1>
+					<p>选择适合你的推广方式</p>
+				</div>
+				<ul class="pad5 clearfix">
+					<li><a style="background-position:0px -42px;" href="{$_K['siteurl']}/index.php?do=prom&view=link">链接推广</a></li>
+					<li class="selected"><a style="background-position:0px -81px;" href="{$_K['siteurl']}/index.php?do=prom&view=pic_list">图片推广</a></li>
+				</ul>
+			</div>
+			<div class="fl_l promot_lists_box clearfix">
+				<div class="link_way commission fl_l clearfix">
+					<dl class="clearfix">
+						<dt class=" pl_10 pr_10 clearfix">
+							<h1>链接推广方式</h1>
+						</dt>
+						<dd class="pt_20 pb_20 pl_20 clearfix">
+							<p class="lineh_30"><strong class="cf60 fl_l">温馨提示：</strong>推广链接通常适用于在博客、论坛、聊天工具、网站这些地方使用。</p>						
+						</dd>
+					
+					</dl>
+				</div>
+				<div class="commission mt_10 fl_l clearfix" >
+					
+						<ul class="hot_pic promot_list clearfix">
+							<!--{eval $i=0;}-->
+							{loop $prom_info_list $k $v}
+							<!--{eval $i++;}-->
+								<li {if $i%4==0}style="padding-right:0;"{/if}>
+									<a href="{$_K['siteurl']}/index.php?do=prom&view=pic_info&s_id={$v['s_id']}">
+										<img class="big_pic190" src="{$v['s_img6']}"></a>
+										<a href="{$_K['siteurl']}/index.php?do=prom&view=pic_info&s_id={$v['s_id']}">{$v['s_title']}</a>
+								</li>
+							{/loop}							
+						</ul>	
+						<!--page 翻页 start-->					
+						<div class="page"><p class="clearfix">{$page}</p></div>
+						<!--page 翻页 end-->
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--内容区 end-->
+<!--{template footer}-->

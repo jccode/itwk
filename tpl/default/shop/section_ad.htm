@@ -1,0 +1,40 @@
+<div class="box_shadow"></div>
+	<div class="clearfix mt_5 shop_adv1">
+		{if $view=='diy' && $shop_info['shop_active']}
+		<div class="blue_editor">			
+			<a href="javascript:;" onclick="shop_diy_self()">编辑</a>
+		</div>
+		{/if}
+		<div id="div_self_active">
+		 {if $shop_info['shop_active']}
+		 	{$shop_info['shop_active']}
+	     {/if}
+		 	<!-- <a href="#" class="block"><img class="block" src="{$style_path}/theme/simple/img/style/shop_banner_two.jpg" alt=""></a>-->
+		
+		</div>
+	</div>
+	{if $view=='diy' && !$shop_info['shop_active']}
+	<div class="shop_add_adv po_re">
+	<div class="blue_editor "><a href="javascript:;" onclick="shop_diy_self()">添加</a></div>
+	</div>
+	{/if}
+	<!-- <div class="clearfix mt_10 shop_adv2" style="display:block;">
+		{if $view=='diy'}
+		<div class="blue_editor">
+			<a href="#">删除</a>
+			<a href="#">编辑</a>
+		</div>
+		{/if}
+		<a href="#" class="block">
+			<img class="block" src="{$style_path}/theme/simple/img/style/shop_banner_three.jpg" alt="">
+		</a>
+	</div> -->
+<script type="text/javascript">
+ //完全自定义区
+var uid = parseInt('{$uid}')+0;
+function shop_diy_self(){
+	if(check_user_login()){
+		showWindow('shopselfdiy', "/index.php?do=ajax&view=shop_diy&sid={$shop_info['shop_id']}&ac=self_diy");
+	}
+}
+</script>

@@ -1,0 +1,140 @@
+<!--{template control/admin/tpl/admin_header}-->
+<link type="text/css" rel="stylesheet" href="{$_K['siteurl']}/resource/css/base.css"/>
+<div class="page_title">
+    	<h1>{$_lang['coper']}</h1>
+        <div class="tool">         
+            <a href="index.php?do={$do}&view=coper" {if $view != 'edit_coper'}class="here"{/if}>{$_lang['coper_manage']}</a>
+			<a href="index.php?do={$do}&view=edit_coper" {if $view == 'edit_coper'}class="here"{/if}>{if $coper_id}{$_lang['copers_edit']}{else}{$_lang['copers_add']}{/if}</a>
+        </div>
+</div> 
+
+<div class="box post">
+    <div class="tabcon"></div>
+	<div class="title">
+		<h2>{$_lang['coper']}{if $coper_id}{$_lang['eidt']}{$_lang['edit']}{else}{$_lang['add']}{/if}</h2>
+	</div>	
+	<div class="detail">
+<form method="post" action="#" id="frm_coper_edit">
+  <input type="hidden" name="hdn_coper_id" value="{$coper_info['coper_id']}">
+        <table height="200" border="0" cellspacing="0" cellpadding="0"  >
+        <tr>
+                <th width="150" scope="row">
+                    {$_lang['coper_brand']}{$_lang['zh_mh']}
+                </th>
+                <td>{if $coper_info['brand']=='tw'}台湾馆{else}大陆{/if}  </td>
+            </tr>
+		    <tr>
+                <th width="150" scope="row">
+                    {$_lang['coper_name']}{$_lang['zh_mh']}
+                </th>
+                <td>
+                    <input type="text" class="txt" name="name" value="{$coper_info['name']}" maxlength="50" limit="required:true;len:1-50" msg={$_lang['name_msg']} msgArea="coper_name_msg" class="input_t"/><b style="color:red">*</b>
+                    <span id="coper_name_msg"></span>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    {$_lang['coper_email']}{$_lang['zh_mh']}
+                </th>
+                <td>
+                    <input type="text" class="txt" name="email" value="{$coper_info['email']}" maxlength="100" size="50" limit="required:true;type:email;len:3-100" msg={$_lang['email_msg']} msgArea="email_msg" class="input_t"/><b style="color:red">*</b>
+                    <span id="email_msg"></span>
+                </td>
+            </tr>	
+			    <tr>
+                <th scope="row">
+                    {$_lang['coper_mobile']}{$_lang['zh_mh']}
+                </th>
+                <td>
+                    <input type="text" class="txt" name="mobile" value="{$coper_info['mobile']}" maxlength="100" size="50" class="input_t"/>
+                </td>
+            </tr>
+                <tr>
+                <th scope="row">
+                    {$_lang['coper_telephone']}{$_lang['zh_mh']}
+                </th>
+                <td>
+                    <input type="text" class="txt" name="telephone" value="{$coper_info['telephone']}" maxlength="100" size="50"  class="input_t"/>
+                </td>
+            </tr>
+                <tr>
+                <th scope="row">
+                    {$_lang['coper_qq']}{$_lang['zh_mh']}
+                </th>
+                <td>
+                    <input type="text" class="txt" name="qq" value="{$coper_info['qq']}" maxlength="100" size="50"  class="input_t"/>
+                </td>
+            </tr>
+                <tr>
+                <th scope="row">
+                    {$_lang['coper_region']}{$_lang['zh_mh']}
+                </th>
+                <td>
+                    <input type="text" class="txt" name="region" value="{$coper_info['region']}" maxlength="100" size="30" limit="required:true;len:3-100" msg={$_lang['region_msg']} msgArea="region_msg" class="input_t"/><b style="color:red">*</b>
+                    <span id="region_msg"></span>
+                </td>
+            </tr>
+                <tr>
+                <th scope="row">
+                    {$_lang['coper_address']}{$_lang['zh_mh']}
+                </th>
+                <td>
+                    <input type="text" class="txt" name="address" value="{$coper_info['address']}" maxlength="100" size="80"  class="input_t"/>
+                </td>
+            </tr>
+                <tr>
+                <th scope="row">
+                    {$_lang['coper_type']}{$_lang['zh_mh']}
+                </th>
+                <td><select name="type" id="txt_type">
+                {loop $_lang['type_list'] $v}
+					<option value='{$v[0]}' {if $coper_info['type']==$v[0]}selected{/if}>{$v[0]}</option>
+                {/loop}
+						</select>					
+                </td>
+            </tr>
+              <tr>
+                <th scope="row">
+                    {$_lang['coper_description']}{$_lang['zh_mh']}
+                </th>
+                <td>
+                <textarea id='txt_description' name="description" original-title="{$_lang['description_ogn']}"
+					msgarea="description_msg" style="width:500px; height:150px;" msg="{$_lang['description_msg']}" limit="required:true;leng:20-800">
+				{$coper_info['description']}</textarea>
+                    <span id="description_msg"></span>
+                </td>
+            </tr>
+			<tr>
+                <th scope="row">
+                   {$_lang['coper_status']}{$_lang['zh_mh']}
+                </th>
+                <td>
+                    <input type="radio" name="status" value="1" id="coper_status1" {if $coper_info['status'] == 1}checked{/if}>{$_lang['status_1']}
+                	<input type="radio" name="status" value="0" id="coper_status0" {if $coper_info['status'] == 0 || empty($coper_info['status'])}checked{/if}>{$_lang['status_0']}
+                </td>
+            </tr>
+            <tr>
+                <th  scope="row">
+                    {$_lang['coper_on_time']}{$_lang['zh_mh']}
+                </th>
+                <td>
+                   <!--{eval echo date('Y-m-d H:i',$coper_info['on_time'])}-->
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                </th>
+                <td>
+                	<button type="submit" name="sbt_edit" class="positive primary pill button" value="1" value={$_lang['submit']}/>
+					<span class="check icon"></span>{$_lang['submit']}
+					</button>
+                    <button type="button" name="rst_edit" class="pill button" value={$_lang['return']} onclick="to_back();">
+					<span class="uparrow icon"></span>{$_lang['return']}
+					</button>
+                </td>
+            </tr>
+        </table>
+</form>
+ </div>
+ </div>
+<!--{template control/admin/tpl/admin_footer}-->

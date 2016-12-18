@@ -1,0 +1,297 @@
+<!--{template control/admin/tpl/admin_header}-->
+<div class="page_title">
+    <h1>{$_lang['financial_model']}</h1>
+    <div class="tool">
+	    <a href="index.php?do={$do}&view=recharge">{$_lang['recharge_audit']}</a>
+	   <a href="index.php?do={$do}&view=withdraw" class="here">{$_lang['withdraw_audit']}</a>
+    </div>
+</div>
+<div class="box tip clearfix p_relative" id="man_tips">
+    	<div class="control"><a title={$_lang['close']} href="javascript:void(0);"><b>×</b></a></div>
+        <div class="title"><h2>注意事项</h2></div>
+        <div class="detail pad10">
+            <ul>
+            	<li>提现产生的手续费计算可能会随实际情况而改变。所以列出的手续费可能并非实际费用</li>
+            	<li>支付宝提现  少于200(含) ==> 手续费1元；200-5000(含) ==> 手续费2%； 多于5000 ==>手续费25元</li>
+            	<li>线下银行提现  少于300(含) ==> 手续费1.5元；300-500(含) ==> 手续费3元；500-5000(含) ==> 手续费5元； 多于5000 ==>手续费10元</li>
+            </ul>
+        </div>
+</div>
+<div class="box tip clearfix p_relative">
+   <!--<div class="control"><a href="javascript:void(0);" title={$_lang['close']}><b>&times;</b></a></div>
+   <div class="title"><h2>{$_lang['tips']}</h2></div>
+   <div class="detail pad10">
+      <ul>
+         <li>{$_lang['system_info']}</li>
+      </ul>
+   </div>-->
+</div>
+<div class="box search p_relative">
+    <div class="title">
+        <h2>{$_lang['search']}</h2>
+    </div>
+    <div class="detail" id="detail">
+        <form action="index.php?do={$do}&view=withdraw" method="post" id=frm_user_search>
+        	<input type="hidden" value="{$page}" name="page">
+        	 <table cellspacing="0" cellpadding="0">
+        	 	
+                <tbody>
+                    <tr>
+                    	 <th>
+                            	提现编号
+                        </th>
+                        <td>
+                            <input type="text" value="{$w['withdraw_id']}" name="w[withdraw_id]" class="txt" onkeyup="clearstr(this);"/>
+                        </td>
+						 <th>
+                            {$_lang['username']}
+                        </th>
+                        <td>
+                            <input type="text" value="{$w['username']}" name="w[username]" class="txt"/>
+                        </td>
+						 <th>
+                         {$_lang['payment_account_type']}
+                        </th>
+                        <td>
+                            <select name="w[pay_type]">
+                            	<option value=''>{$_lang['all']}</option>
+								{loop $paytype_list $k $v}
+									<!--{eval $config = unserialize($v['config']);}-->
+									{if $config['pay_status']}
+										<option {if $w['pay_type']==$k}selected{/if} value="{$k}">{$k}</option>
+									{/if}
+                                {/loop}
+                            </select>
+                        </td>
+					   
+			</tr>
+			<tr>
+			                       <th>{$_lang['brand_list']}</th>
+                     <td><select name="w[brand]">
+                     <option value="">---{$_lang['please_choose']}---</option>
+                     {loop $_lang['brand_lists'] $k $v}
+                      {if strpos($_SESSION['brandType'],$k)!==false}
+                         <option value="{$k}" {if $w['brand']=='$k'}selected="selected"{/if}>{$v}</option>
+                         {/if}
+                     {/loop}
+                     </select></td>
+                        <th>
+                            {$_lang['result_order']}
+                        </th>
+                        <td>
+                      <select name="w[ord][]">
+                           <option value="withdraw_id" {if $w['ord']['0']=='withdraw_id' or !isset($w['ord']['0'])} selected="selected"{/if}>{$_lang['default']}{$_lang['order']}</option>
+                           <option value="applic_time" {if $w['ord']['0']=='applic_time' } selected="selected"{/if}>{$_lang['application_time']}</option>
+                           <option value="process_time" {if $w['ord']['0']=='process_time' } selected="selected"{/if}>{$_lang['processing_time']}</option>
+                      </select>
+                      <select name="w[ord][]">
+                            <option {if $w['ord']['1']=='desc' or !isset($w['ord']['1'])}selected="selected" {/if} value="desc">{$_lang['desc']}</option>
+                            <option {if $w['ord']['1']=='asc'}selected="selected" {/if} value="asc">{$_lang['asc']}</option>
+                      </select>
+                       </td>
+                        <th>
+                        {$_lang['list_result']}
+                         </th>
+                        <td>
+                            <select name="w[page_size]">
+                               <option value="10" {if $w['page_size']=='10'}selected="selected"{/if}>{$_lang['page_size']}10</option>
+                               <option value="20" {if $w['page_size']=='20'}selected="selected"{/if}>{$_lang['page_size']}20</option>
+                               <option value="30" {if $w['page_size']=='30'}selected="selected"{/if}>{$_lang['page_size']}30</option>
+                             </select>
+                             <button class="pill" type="submit" value={$_lang['search']} name="sbt_search">
+                                <span class="icon magnifier">&nbsp;</span>{$_lang['search']}
+                              </button>
+                           </td>
+                        </tr>
+                  </tbody>
+            </table>
+        </form>
+    </div>
+ </div>
+<!--搜索结束-->
+<div class="box list">
+    <div class="title">
+        <h2>{$_lang['statistical_info']}</h2>
+    </div>
+     <div class="detail">
+        <form action="index.php?do={$do}&view=withdraw" method="post" id='frm_art_action' >
+		 	<input type="hidden" value="{$page}" name="page">
+			<input type="hidden" name="w[page_size]" value="{$page_size}">
+			<div id="ajax_dom"><input type="hidden" value="{$page}" name="page">
+		  <table cellpadding="0" cellspacing="0">
+             <tbody>
+               <tr>
+               		<th width="15">
+               			
+               		</th>
+                    <th width="20">
+       				提现编号
+					</th>
+                    <th>
+                       	银行类型
+					</th>
+					<th>
+					用户名
+					</th>
+                    <th>
+                        {$_lang['withdraw_people']}
+                    </th>
+					<th>
+                                                               当前余额
+                    </th>
+                    <th>
+                       {$_lang['real_withdraw_amount']}
+                    </th>
+                    <th>
+                      	手续费 
+                    </th>
+					<th>
+                      	实际金额
+                    </th>
+                    <th>
+                        {$_lang['payment_accoun']}
+                    </th>
+                    <th>
+                        {$_lang['withdraw_state']}
+                    </th>
+                    <th>
+                   		 操作
+                    </th>
+                </tr>
+  				 {loop $withdraw_arr $key $v}
+                <tr class='item'>
+                    <td>
+                        <input type="checkbox" name="ckb[]" id="ckb_$v['withdraw_id']" class="checkbox" value="{$v['withdraw_id']}">
+                    </td>
+					<td>{$v['withdraw_id']}</td>
+                    <td>
+                    	{if $bank_arr[$v['pay_type']]}
+							{$bank_arr[$v['pay_type']]}
+						{else}
+							{$v['bank_address']}
+						{/if}									
+                    </td>
+                    <td>
+                        <a href="javascript:void(0);" onclick="showDetail('finance','{$v['uid']}');">{$v['username']}</a>
+                    </td>
+                    <td>
+                        {if $v['pay_username']}$v['pay_username']{else}暂未填写{/if}
+                    </td>
+					<td>
+						<!--{eval $user_space_info = kekezu::get_user_info( $v['uid'] );}-->
+						<font color="red">{$user_space_info[balance]}</font>
+					</td>
+                    <td>
+                        {$_lang['currency']}
+						{$v['withdraw_cash']}{$_lang['yuan']}
+                    </td>
+                    <td>
+                        <font color="red">
+                        	<!--{eval $v['shouxufei'] = keke_finance_class::get_to_cash($v['withdraw_cash'],$v['pay_type'])}-->
+							{$v['shouxufei']}
+						</font>
+                    </td>
+					<td>
+                        <font color="red">                        	
+							<!--{eval echo ($v['withdraw_cash']-$v['shouxufei'])}-->
+						</font>
+                    </td>
+                    <td>
+                        {if in_array($v['pay_type'],$k_arr)}
+								{$bank_arr[$v['pay_type']]}
+							 {elseif $v['pay_type']}
+							 	{$v['pay_type']}
+							{else}
+								提现方式缺失
+						{/if}
+                    </td>
+                    <td>
+                    	{$status_arr[$v['withdraw_status']]}
+                    </td>
+					  <td>
+                    	{if $v['withdraw_status']==1}
+						 <a href="javascript:void(0);" onclick="pass($v['withdraw_id']);" class="button"><span class="check  icon"></span>{$_lang['confirm_cash']}</a>
+						  <a href="javascript:void(0);" onclick="cancelpass($v['withdraw_id']);" class="button"><span class="book icon"></span>取消打款</a>
+                       {/if}
+					    <a href="index.php?do={$do}&view={$view}&ac=pass&withdraw_id={$v['withdraw_id']}&page={$page}" class="button dbl_target"><span class="book icon"></span>{$_lang['view']}</a>
+                    </td>
+                </tr>{/loop}
+                    <tr>
+                    <td colspan="7">
+                        <div class="clearfix">
+                           	<input type="checkbox" id="checkbox" onclick="checkall();" class="checkbox" >
+							 <input type="hidden" name="action_type" id="action_type" value="0" />
+							<label for="checkbox">{$_lang['select_all']}</label>　
+								 <input type="hidden" name="sbt_action" class="sbt_action"/>    
+								<!-- <button name="sbt_action" type="submit" value="{$_lang['mulit_delete']}" onclick="return batch_act(this,'frm_art_action');" class="pill negative button">
+                                      <span class="icon trash"></span>{$_lang['mulit_delete']}
+                                 </button>-->
+							<a href="index.php?do={$do}&view={$view}&show=export" class="button">数据导出</a>
+						</div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+			  <div class="page">{$pages['page']}</div>
+			  </div>
+        	</form>
+        </div>
+        
+    </div>
+<script type="text/javascript">
+	function batch_pay(withdraw_id){
+		var ids;
+		
+		if(withdraw_id){ 
+			$("#ckb_"+withdraw_id).attr("checked","checked");
+		}
+		
+		if($(":checkbox[name='ckb[]']:checked").length>0){
+			$(":checkbox[name='ckb[]']:checked").each(function(i,n){
+				i==0?ids=$(this).val():ids+=","+$(this).val();
+			})
+			if(ids&&typeof(ids)!=undefined){
+			$.post("index.php?do=finance&view=withdraw&type=batch&pay_type=alipayjs&ids="+ids,function(url){
+			art.dialog({
+				title:"{$_lang['confirm_payment']}",
+				content: "{$_lang['you_confirm_payment']}",
+   				yesFn: function(){
+					window.open(url);this.close();
+				},
+				noFn :function(){this.close();return false;}
+				});
+			},'text')
+			 }
+		}else{
+			art.dialog.alert("{$_lang['have_no_choice_play_money']}");
+		}
+	}
+	$(function(){
+		$(".control").add(".title").click(function(){
+			$(".tip").children().not($(".control,.title")).slideToggle('800');
+		});
+	})
+	function pass(id){
+		var url = 'index.php?do={$do}&view={$view}&show=add_audit&withdraw_id='+id+'&page={$page}';
+		art.dialog.open(url,{
+			title:'提现审核',
+			width:500
+		});
+	}
+	function cancelpass(id){
+		var url = 'index.php?do={$do}&view={$view}&show=cancel_audit&withdraw_id='+id+'&page={$page}';
+		art.dialog.open(url,{
+			title:'取消提现',
+			width:500
+		});
+	}
+	function showDetail(code,uid){
+		var url = "index.php?do=user&view=detail&u_id="+uid+'&code='+code;
+		art.dialog.open(url, {
+			title:'用户详情展示',
+			width:700
+		});
+	}
+</script>
+<!--{template control/admin/tpl/admin_footer}-->
+   

@@ -1,0 +1,83 @@
+<!--{template control/admin/tpl/admin_header}-->
+<!--{template control/admin/tpl/admin_talent_nav}-->
+
+<!--页头结束-->
+<link type="text/css" rel="stylesheet" href="../../resource/css/base.css" />
+
+<div class="box post">
+  <div class="tabcon">
+    <div class="title">
+      <h2>详细信息</h2>
+    </div>
+    <div class="detail">
+      <form name="frm_brand" id="frm_brand" action="" method="post" onsubmit="return checkFormData();">
+        <input type="hidden" name="ac" value="add">
+        <input type="hidden" name="tid" id="tid" value="{$link_info['tid']}">
+        <input type="hidden" name="txt_uid" id="txt_uid" value="{$user_info['uid']}">
+        <input type="hidden" name="txt_username" id="txt_username" value="{$user_info['username']}">
+        <input type="hidden" name="txt_shop_id" id="txt_shop_id" value="{$user_info['shop_id']}">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <th scope="row" width="80">人才: </th>
+            <td>
+			  <span id="span_user">{$user_info['username']}</span>
+			  <a class="button" href="javascript:void(0);" onclick='getUser();'><span class="user icon"></span>获取用户</a>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">栏目:</th>
+            <td>
+              <select id="txt_catid" name="txt_catid" style="width:150px;">
+                <option value="0">{$_lang['top']}</option>
+                {loop $indus_option_arr $v}{$v}{/loop}
+              </select>
+			</td>
+          </tr>
+          <tr>
+            <th scope="row">排序:</th>
+            <td><input class="txt" type="text" name="txt_level" id="txt_level" value="{$link_info['level']}"/></td>
+          </tr>
+          <tr>
+            <th scope="row">&nbsp;</th>
+            <td>
+			  <button class="positive primary pill button" type="submit" name="submit"><span class="check icon"></span>提交 </button>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+$(function() {
+	{if $link_info['catid']}
+	$('#txt_catid').val({$link_info['catid']});
+	{/if}
+});
+function checkFormData() {
+	var ret = true;
+	if ( ! $('#txt_uid').val() ) {
+		ret = false;
+		showDialog('请选择要推荐的人才', 'alert', '操作提示');
+	}
+
+	//showDialog('你还没有登录，是否现在登录？', 'confirm', '登录消息提示', 'ajax_login()', 0);
+	//showWindow('loginbox', '/index.php?do=ajax&view=login');
+	return ret;
+}
+function getUser(){
+	art.dialog.open('index.php?do=shop&view=brand_info&op=user', {
+			title: '可添加用户列表',
+			width: 650,
+			closeFn: function() {
+				$("#txt_uid").val(art.dialog.data('txt_uid'));
+				$("#txt_username").val(art.dialog.data('txt_username'));
+				$("#txt_shop_id").val(art.dialog.data('txt_shop_id'));
+				$("#span_user").text(art.dialog.data('span_user'));
+			}
+	})
+}
+</script>
+
+<!--主体结束-->
+<!--{template control/admin/tpl/admin_footer}-->

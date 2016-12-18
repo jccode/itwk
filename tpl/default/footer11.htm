@@ -1,0 +1,82 @@
+<!--{if !isset($inajax)}-->
+<!--页脚 satrt-->
+<div id='bubble'></div>
+<div class="clear"></div>
+<footer class="container_24 clearfix">
+	 
+     <section class="footer clearfix">
+     	
+     	 <!--footer链接 start-->
+           <a href="{$_K['siteurl']}/index.php?do=about&view=index">关于我们</a>
+				<a href="{$_K['siteurl']}/index.php?do=article">新闻中心</a>
+				<a href="{$_K['siteurl']}/index.php?do=about&view=pay">支付方式</a>
+				<a href="{$_K['siteurl']}/index.php?do=link">友情链接</a>
+				<a href="{$_K['siteurl']}/index.php?do=help&view=service">客服中心</a>
+				<a href="{$_K['siteurl']}/index.php?do=map" class="bor_n"> 网站地图</a>
+				
+		   
+		 <!--footer链接 end-->  
+     </section>
+     <dl class="clearfix pt_10">
+		<dt class="t_c">Copyright &copy 2012 epweike.com 版权所有 备案：闽ICP备12001463号</dt>
+		<dd class="t_c">服务热线：4006-999-467 地址：中国厦门软件园二期望海路10号二栋3层<a href="http://ditu.google.cn/maps?hl=zh-CN&tab=wl&q=福建省厦门湖里区观日路厦门软件园" rel="nofollow" target="_blank"  class="pl_5 mr_5">来访地图</a><script language="javascript" type="text/javascript" src="http://js.users.51.la/3952215.js"></script><noscript><a href="http://www.51.la/?3952215" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/3952215.asp" style="border:none" /></a></noscript></dd>
+		{if $do=='index'}
+		<dd class="t_c mt_10">
+			<a class="mr_10" href="http://www.xiamen.cyberpolice.cn/" rel="nofollow" title="厦门市网络警察" target="_blank"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/index/001.png"></a>
+			<a class="mr_10" href="http://www.fjaic.gov.cn/" rel="nofollow" title="福建省网络工商" target="_blank"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/index/002.png"></a>
+			<a class="mr_10" href="https://www.alipay.com" rel="nofollow" title="支付宝" target="_blank"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/index/003.png"></a>
+			<a class="mr_10" href="http://cn.unionpay.com/" rel="nofollow"  title="中国银联" target="_blank"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/index/004.png"></a>
+			<!--a class="mr_10" href="https://kxlogo.knet.cn/ seallogo.dll?sn=e12081735020034979308175&size=0" title="可信网站" target="_blank"><img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/index/005.jpg"></a-->
+			<!--可信网站图片LOGO安装开始-->
+			<script src="http://kxlogo.knet.cn/seallogo.dll?sn=e12081735020034979308175&size=0"></script>
+			<!--可信网站图片LOGO安装结束-->
+			<!--a href="http://trust.360.cn/search.php" target="_blank" title="360绿色网站"><img src="http://trust.360.cn/img.php?sn=1163&id=4" border="0" /></a-->
+		</dd>
+		{/if}
+     </dl>       
+            
+            <!--返回顶部 start-->
+			
+     <a class="top" href="#pageTop" title="返回顶部"><em>&diams;</em>Top</a></li>
+              
+            <!--返回顶部 end-->
+</footer>
+    <!--页脚 end-->
+{if $uid}
+	<!--{eval kekezu::update_oltime($uid,$username)}-->
+{/if}
+<script type="text/javascript">
+	var xyq = "<!--{eval echo $xyq = session_id();}-->";
+
+ //js异步加载
+	In('header_top','custom','tipsy','autoIMG','slides');;
+	if(INDEX=='index'||INDEX=='')
+	{	
+		In('lavalamp_index');
+	}else if(INDEX=='article'){
+		In('lavalamp_index');
+	}else if(INDEX=='user'){
+	}else{
+		In('lavalamp');
+	}
+	
+	$(function(){
+		$("img").error(function() {
+		    $(this).attr("src", SITEURL +"/resource/img/system/nopic200.jpg");
+		});
+	});
+
+</script>
+
+{if $exec_time_traver}
+<script>
+$.get(SITEURL+'/js.php?op=time');
+</script>
+{/if}
+
+<!--[if IE 6]></div><![endif]-->
+<!--[if IE 7]></div><![endif]-->
+<!--[if IE 8]></div><![endif]-->
+</body>
+</html>
+<!--{/if}-->

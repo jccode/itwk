@@ -1,0 +1,165 @@
+<?php
+/**
+ * @copyright keke-tech
+ * @author shangk
+ * @version v 2.0
+ * 2012-6-13 10:11
+ */
+defined ( 'IN_KEKE' ) or exit ( 'Access Denied' );
+
+//$page_title ="人才大厅" . '-' . $_K ['html_title'];
+
+if($ajax){
+	$service_info = db_factory::query(sprintf("select service_id,shop_id,pic,title from %switkey_service where uid=%d",TABLEPRE,$s_uid));
+	require keke_tpl_class::template ( "ajax/ajax_talent" );
+	die();
+}
+
+$ac_url = $_K['siteurl']."/index.php?do=talent";
+
+$sql = "select uid,username,user_type,reg_time,w_level,shop_level,isvip,qq,residency,skill_ids,auth_realname,auth_email,auth_mobile,auth_bank,integrity,take_num,accepted_num,shop_id,shop_name,w_good_rate  from " . TABLEPRE . "witkey_space  ";
+
+$where = " where  1= 1 and group_id<1  ";
+
+//人才大类
+if(isset($p)){
+	$ac_url.="&p=".intval($p);
+	$where.=sprintf ( " and  ( uid  in (select DISTINCT(uid) from ".TABLEPRE."witkey_member_skill where skill_id in (select indus_id from keke_witkey_industry where indus_pid=%d)))", intval($p) );
+}elseif(isset($c)){
+	$ac_url.="&c=".intval($c);
+	$where.=sprintf ( " and  ( uid  in (select DISTINCT(uid) from ".TABLEPRE."witkey_member_skill where skill_id =%d)))", intval($c) );
+
+}
+//人才类型
+if(isset($t)){
+	$ac_url.="&t=".intval($t);
+	$where.=sprintf ( " and   user_type = %d", intval($t) );
+}
+//人才能力
+if(isset($a)){
+	$ac_url.="&a=".intval($a);
+	$where.=sprintf ( " and   w_level = %d", intval($a) );
+}
+//人才状态
+if(isset($s)){
+	$ac_url.="&s=".intval($s);
+	switch (intval($s)) {
+		case 1:
+			$where.=sprintf ( " and   auth_realname = %d", 1 );
+		;
+		break;
+		case 2:
+			$where.=sprintf ( " and   auth_email = %d", 1 );
+			;
+		break;
+		case 3:
+			$where.=sprintf ( " and   auth_mobile = %d", 1 );
+		;
+		break;
+		case 4:
+			$where.=sprintf ( " and   auth_bank = %d", 1 );
+		;
+		break;
+		case 5:
+			$where.=sprintf ( " and   isvip = %d", 1 );
+			;
+		case 6:
+				$where .= " and integrity = 1";
+		break;
+	}
+}
+//所在地区
+if(isset($z)){
+	$z = kekezu::escape ( htmlspecialchars ( $z ));
+	$ac_url.="&z=".$z;
+	$where.= " and   residency like '%{$z}%'";
+}
+
+//关键字
+if(isset($k)&&trim($k)){
+	$k = kekezu::escape ( htmlspecialchars ( $k ));
+	$k_arr =  explode(' ', $k);
+	if(is_array($k_arr)){
+		$k_arr = array_unique($k_arr);
+		$k_arr = array_filter($k_arr);
+	}else{
+		$k_arr = array($k);
+	}
+
+	$where.= " and  ( ";
+	foreach($k_arr as $kk=>$vv){
+		$kk and $where .= " or ";
+		$where .= "shop_name like '%{$vv}%' or residency like '%{$vv}%' or username like '%{$vv}%'";
+
+		$search_ids = kekezu::search_word_format($vv);
+
+		$search_ids and $where .= " or   uid  in (select DISTINCT(uid) from ".TABLEPRE."witkey_member_skill where skill_id in ($search_ids))";
+	}
+	$where .= ")";
+
+	//$indus_id  = db_factory::query($sql);
+
+
+
+	$ac_url.="&k=".$k;
+}
+
+switch ($o) {
+	case 1 :
+		$order_by = " order by reg_time asc";
+		break;
+	case 2 :
+		$order_by = " order by reg_time desc";
+		break;
+	case 3 :
+		$order_by = " order by accepted_num desc";
+		break;
+	case 4 :
+		$order_by = " order by accepted_num asc";
+		break;
+	case 5 :
+			$order_by = " order by w_level desc";
+	break;
+	case 6 :
+		$order_by = " order by w_level asc";
+	break;
+	default:
+		$order_by = " order by shop_level desc,isvip desc,w_level desc,listorder desc";
+		break;
+}
+
+
+
+
+$where.=$order_by;
+$p_s = isset ( $p_s ) ? intval ( $p_s ) : 15;
+$count_sql = "select count(uid) from ".TABLEPRE."witkey_space ";
+$count = db_factory::get_count($count_sql . $where );
+$page = isset($page) ? $page : 1;
+$pages = $page_obj->getPages ( $count, $p_s, $page, $ac_url );
+$talent_arr = db_factory::query ( $sql . $where . $pages ['where'] );
+
+
+/**
+ * 推荐店铺
+ */
+$shop_recomm = db_factory::query ( sprintf ( "select shop_id,uid,shop_name,isvip,residency from %switkey_space where   istop = 1   order by istop desc,isvip desc,shop_id asc limit 0,20", TABLEPRE ), 1, 86400 );
+
+// 特殊处理
+if ( $p == 63) {
+	$t = db_factory::get_one( sprintf ( "select shop_id,uid,shop_name,isvip,residency from %switkey_space where shop_id = 20120613092406872", TABLEPRE ), 1, 86400 );
+	array_unshift($shop_recomm, $t);
+}
+
+//友情链接
+$link_tag = keke_core_class::link_make_tag( array(6=>1) );
+$link_arr = db_factory::query(sprintf("select link_id,link_name,link_url,link_status from %switkey_link where link_status=1 and (location & $link_tag=$link_tag) order by listorder limit 0,30", TABLEPRE ), 1, 86400 );
+
+//SEO
+$indus_c_arr[$c][indus_name] and $seo_title[1] = $indus_c_arr[$c][indus_name].' ';
+$indus_p_arr[$p][indus_name] and $seo_title[2] = $indus_p_arr[$p][indus_name].' ';
+$page_title = $seo_title[1].$seo_title[2].'人才宝库 最全威客人才、创意人才 一品拥有专业公司和高校人才是人才新干线_一品威客网';
+$page_keyword = '人才宝库，威客人才，创意人才，高校人才，人才新干线';
+$page_description ='一品威客网人才宝库，汇聚威客人才、创意人才、高校人才，最全的威客人才宝库。找威客人才、创意人才就到一品威客网人才宝库，一品拥有专业公司和高校人才打造人才新干线。';
+
+require keke_tpl_class::template ( $do );

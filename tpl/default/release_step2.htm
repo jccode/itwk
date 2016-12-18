@@ -1,0 +1,249 @@
+ <style type="text/css">
+ 	.valid_error span{ display:inline-block; width:180px;}
+ </style>
+ <!--左边部分-->
+<div class="">
+ <div class="pad10">
+  <!--提示信息-->
+	<script type="text/javascript" src="{$_K['siteurl']}/resource/js/system/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jquery.form.js"></script>
+   
+   
+  <!--end 提示信息-->
+  <!--from表单 start-->
+   <div class="form_box clearfix box border_n" style="display:none;"  id="model_box_reward" {if $release_info[model_id]>2} style="display:none"{/if}>
+      
+      <input id="hdn_model_id" name="hdn_model_id" type="hidden" value="{if $release_info[model_id]}{if $release_info[model_id]==2}1{else}$release_info[model_id]{/if}{else}$model_id{/if}">
+        <!--单人悬赏-single-->
+		
+      
+	  <form action="{$basic_url}" method="post" name="frm_step2" id="frm_step2_1">
+	  	<input type="hidden" name="min" value="$min" id="min">
+	  	<input type="hidden" name="formhash" value="{FORMHASH}">
+		<input name="model_id" type="hidden" value="{if $release_info[model_id]&&$release_info[model_id]<3}$release_info[model_id]{elseif $model_id&&$model_id<3}$model_id{else}1{/if}" id="reward_model_id">
+		
+       <div class="rowElem clearfix po_re">
+          <label class="grid_6"><strong>请设定您的任务赏金：</strong></label>
+           <div class="grid_10">
+              <input class="fl_l" name="txt_task_cash" size="10" value="{if $release_info['task_cash']}$release_info['task_cash']{/if}" type="text" id="txt_task_cash_1" title="任务预算高于线下市场行情二分之一为佳" msgArea="span_task_cash_1"  onkeyup="clearstr(this)"
+		    limit="required:true;type:float;between:{$sreward_config['min_cash']}-"   msg="{$_lang['mtask_cash_msg']}{$sreward_config['min_cash']}{$_lang['yuan']}"   />
+			<span class="ml_5 fl_l">{$_lang['yuan']}</span>
+			<div class="clear"></div>
+			<span id="span_task_cash_1"></span>
+			<div class="clear"></div>
+           </div>
+        </div>
+		
+		<div class="rowElem clearfix po_re">
+			<label class="grid_6"><strong>请设定赏金分配模式：</strong></label>
+			<div class="grid_12">(单人中标：只选一人中标 ； 多人中标：选择多人中标，使用不同奖项进行赏金分配 )</div>
+			<br class="clear">
+			<label class="grid_6">&nbsp;</label>
+			<div class="grid_10">
+				<ul class="winMode">
+					<li onclick="swaptab('rewardmode','current','',2,1);$('#reward_model_id').val(1);toggLimit(1);" id="tab_rewardmode_1" {if $release_info[model_id]!=2}class="current"{/if}><a href="javascript:;">单人悬赏</a></li>
+					<li onclick="swaptab('rewardmode','current','',2,2);$('#reward_model_id').val(2);toggLimit(2);" id="tab_rewardmode_2" {if $release_info[model_id]==2}class="current"{/if}><a href="javascript:;">多人悬赏</a></li>
+					
+				</ul>
+			</div>
+		</div>
+		
+		<div class="rowElem clearfix po_re">
+			<label class="grid_6"><strong>您希望威客用多长时间完成任务：</strong></label>
+			<div class="grid_10">
+				<input type="text" name="txt_task_period" id="txt_task_period_1" limit="required:true;between:1-60" msg="时间输入错误" msgArea="span_task_period_1" onkeyup="clearstr(this)" value="{if $release_info['task_day']}$release_info['task_day']{/if}">
+				天 
+				<div class="clear"></div>
+				<span id="span_task_period_1"></span>
+				<div class="clear"></div>
+			</div>
+			<input type="hidden" id="task_minday_1" name="task_minday_1" value="1">
+			<input type="hidden" id="task_maxday_1" name="task_maxday_1" value="10">
+			<input type="hidden" id="task_minday_2" name="task_minday_2">
+			<input type="hidden" id="task_maxday_2" name="task_maxday_2">
+		</div>
+		
+		<div id="div_rewardmode_2" class="rowElem clearfix po_re" {if $release_info[model_id]!=2}style="display:none"{/if}>
+			<label class="grid_6"><strong>我需要：</strong></label>
+			<div class="grid_10">
+				<input type="text" name="txt_prize_count" id="txt_prize_count" value="{if $release_info[work_count]}$release_info[work_count]{else}2{/if}" onkeyup="clearstr(this);task_prizeset_enter(this.value)" onblur="clearstr(this);task_prizeset(this.value)" msgArea="" size=4 >
+			人 中标 (最多只能5人)
+			</div>
+			<br class="clear">
+			<label class="grid_6">&nbsp;</label>
+			<ul id="multi_prize_c_ul" class="grid_10 prize_ul">
+				<li id="prize_1_li">第一名赏金:<input size="4" name="task_prize[1]" value="<!--{eval echo intVal($prize_list[1][prize_cash])}-->" onkeyup="clearstr(this);prize_valid()" id="task_prize_1"></li>
+				<li id="prize_2_li">第二名赏金:<input size="4" name="task_prize[2]" value="<!--{eval echo intVal($prize_list[2][prize_cash])}-->" onkeyup="clearstr(this);prize_valid()" id="task_prize_2"></li>
+				<li id="prize_3_li" {if $release_info[work_count]<3}style="display:none"{/if}>第三名赏金:<input size="4" name="task_prize[3]" value="<!--{eval echo intVal($prize_list[3][prize_cash])}-->" onkeyup="clearstr(this);prize_valid()" id="task_prize_3"></li>
+				<li id="prize_4_li" {if $release_info[work_count]<4}style="display:none"{/if}>第四名赏金:<input size="4" name="task_prize[4]" value="<!--{eval echo intVal($prize_list[4][prize_cash])}-->" onkeyup="clearstr(this);prize_valid()" id="task_prize_4"></li>
+				<li id="prize_5_li" {if $release_info[work_count]<5}style="display:none"{/if}>第五名赏金:<input size="4" name="task_prize[5]" value="<!--{eval echo intVal($prize_list[5][prize_cash])}-->" onkeyup="clearstr(this);prize_valid()" id="task_prize_5"></li>
+				<li id="msg_prize_valid" style="display:none" class="red"></li>
+			</ul>
+		</div>
+		
+		
+		<div class="rowElem clearfix po_re">
+			<label class="grid_6"><strong>设置入围名额：</strong></label>
+			<div class="grid_12">
+				<select name="slt_notice_count">
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+				</select>人   
+				<span style="color:gray">入围奖名额限定2-5人，平分10%赏金</span>
+				<br class="clear">(设置入围名额能够提高威客的积极性)
+			</div>
+		</div>
+		<!--<div class="rowElem clearfix po_re">
+			<label class="grid_6"><strong>保证选稿：</strong></label>
+			<div class="grid_12">
+				<label><input type="checkbox" name="chk_must_choosework" value=1 {if $release_info[must_choosework]}checked{/if}>
+				
+				保证选稿能提高威客任务参与热情，能为您提交更多可选稿件；不保证选稿时，作品不满意可申请全额退款。</label>
+			</div>
+		</div>-->
+     </form>
+    </div>
+	<div class="form_box border_n" id="model_box_pre" name="model_box_pre" {if 3!=$release_info[model_id]}style="display:none"{/if}>
+	  <form action="{$basic_url}" method="post" name="frm_step3" id="frm_step2_3">
+	  	<input type="hidden" name="min" value="$min" id="min">
+	  	<input type="hidden" name="formhash" value="{FORMHASH}">
+		<input name="model_id" type="hidden" value="3">
+			
+	        <!--计件悬赏-pre-->
+			 <div class="rowElem clearfix po_re">
+	          <label class="grid_6"><strong>请设定您的任务赏金：</strong></label>
+	           <div class="grid_10">
+	           		<input class="fl_l" name="txt_task_cash" size="10" value="{if $release_info['task_cash']}$release_info['task_cash']{/if}" type="text" id="txt_task_cash_3" msgArea="span_task_cash_3"  title="任务预算高于线下市场行情二分之一为佳" onkeyup="clearstr(this)"
+				    limit="required:true;type:float;between:{$preward_config['min_cash']}-" msg="{$_lang['mtask_cash_msg']}{$preward_config['min_cash']}{$_lang['yuan']}" onblur="getMaxDday(this.value,3)" />
+					<span class="ml_5 fl_l">{$_lang['yuan']}</span>
+					<div class="clear"></div>
+					<span id="span_task_cash_3"></span>
+					<div class="clear"></div>
+	           </div>
+	        </div>
+			
+			<div class="rowElem clearfix po_re">
+				<label class="grid_6"><strong>请设定赏金分配模式：</strong></label>
+				<div class="grid_15">(计件算报酬，只需向合格的稿件付钱，保证信息传达精准、到位；杜绝威客重复交稿或作弊，保障雇主利益 )</div>
+				<br class="clear">
+				<label class="grid_6">&nbsp;</label>
+				<div class="grid_10">
+					<ul class="winMode">
+						<li class="current" style="width:220px"><a href="javascript:;">计算稿件酬劳，合格一个算一个</a></li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="rowElem clearfix po_re">
+			<label class="grid_6"><strong>您希望威客用多长时间完成任务：</strong></label>
+			<div class="grid_10">
+				<input type="text" name="txt_task_period" id="txt_task_period_3"  msgArea="span_task_period_3" onkeyup="clearstr(this)" onblur="valid_task_day(3)" value="{if $release_info['task_day']}$release_info['task_day']{/if}">
+				天  
+				<div class="clear"></div>
+				<span id="span_task_period_1"></span>
+				<div class="clear"></div>
+			</div>
+			<input type="hidden" id="task_minday_3" name="task_minday_3">
+			<input type="hidden" id="task_maxday_3" name="task_maxday_3">
+			</div>
+			
+			<div class="rowElem clearfix ">
+				<div class=" prefix_6 grid_20">
+					
+						我想要
+						<input type="text" name="txt_work_count" size=3 id="txt_work_count" value="$release_info[work_count]" onkeyup="clearstr(this);" onblur="valid_single_price()" value="1">
+						个稿件，每个稿件支付
+						<input type="text" name="txt_single_price" size=3 id="txt_single_price"  value="$release_info[single_cash]" onblur="valid_single_price()">元
+						<span id="msg_single_price" class="valid_error"></span>
+					
+					
+				</div>
+			</div>
+			
+		
+			
+		
+     </form>
+    </div>
+
+	<div class="form_box border_n" style="display:block;" id="model_box_tender" {if 4!=$release_info[model_id]}style="display:none"{/if}>
+	  <form action="{$basic_url}" method="post" name="frm_step4" id="frm_step2_4">
+	  	<input type="hidden" name="min" value="$min" id="min">
+	  	<input type="hidden" name="formhash" value="{FORMHASH}">
+		<input name="model_id" type="hidden" value="4">
+			
+	        <!--招标任务-pre-->
+			<div class="rowElem clearfix ">
+				<label class="grid_6"><strong>请设定您的任务赏金预算：</strong></label>
+		        <div class="prefix_6 pad5">
+		          	<label>
+		          		<input type="radio" name="rdo_tender_set_price" value=1 {if !$release_info[task_cash_coverage]}checked{/if} onclick="if(this.value){$('#tend_set_price').show();$('#tend_choose_price').hide();}else{$('#tend_set_price').hide();$('#tend_choose_price').show();}">
+					我有具体的预算金额，直接填写赏金数目
+					</label>
+				</div>
+				 <div class="prefix_6 pad5">
+					<label>
+						<input type="radio" name="rdo_tender_set_price" value=0 {if $release_info[task_cash_coverage]}checked{/if} onclick="if(this.value){$('#tend_set_price').hide();$('#tend_choose_price').show();}else{$('#tend_set_price').show();$('#tend_choose_price').hide();}">
+					我没有具体的预算金额，选择价格区间
+					</label>
+				</div>	
+				
+	        </div>
+			
+			<div class="rowElem clearfix po_re" id="tend_set_price" {if $release_info[task_cash_coverage]}style="display:none"{/if}>
+	          <label class="grid_6"><strong>请设定您的任务赏金：</strong></label>
+	           <div class="grid_10">
+	           		<input class="fl_l" name="txt_task_cash" size="10" value="{if $release_info['task_cash']}$release_info['task_cash']{/if}" type="text" id="txt_task_cash_4" msgArea="span_task_cash_4"  title="任务预算高于线下市场行情二分之一为佳" onkeyup="clearstr(this)"
+				    limit="required:true;type:float;between:{$tender_config['min_cash']}-" msg="{$_lang['mtask_cash_msg']}{$tender_config['min_cash']}{$_lang['yuan']}" />
+					<span class="ml_5 fl_l">{$_lang['yuan']}</span>
+					<div class="clear"></div>
+					<span id="span_task_cash_4"></span>
+					<div class="clear"></div>
+	           </div>
+	        </div>
+			
+			<div class="rowElem clearfix po_re" id="tend_choose_price" {if !$release_info[task_cash_coverage]}style="display:none"{/if}>
+	          <label class="grid_6"><strong>请设定您的价格区间：</strong></label>
+	          <div class="grid_10">
+	          	<select name="slt_task_cash_coverage" id="slt_task_cash_coverage">
+	          		{loop $cash_cove $cash}
+					<option value="$cash[cash_rule_id]" {if $cash[cash_rule_id]==$task_info[task_cash_coverage]}selected=selected{/if}>$cash[dis_desc]($cash[cove_desc])</option>
+					{/loop}
+	          	</select>
+	          </div>
+	          
+	        </div>
+			
+			<div class="rowElem clearfix po_re">
+				<label class="grid_6"><strong>您希望威客花多长时间竞标：</strong></label>
+				<div class="grid_10">
+					<input type="text" name="txt_task_period" id="txt_task_period_4" limit="required:true;type:int;between:1-30" msg="竞标时间不能高于30天" msgArea="span_task_period_4" onkeyup="clearstr(this)"  value="{if $release_info['task_day']}$release_info['task_day']{/if}" >
+					天 <span class="ml_10" >任务最长周期为30天</span>
+					<div class="clear"></div>
+					<span id="span_task_period_4"></span>
+					<div class="clear"></div>
+				</div>
+				<input type="hidden" id="task_minday_4" name="task_minday_4">
+				<input type="hidden" id="task_maxday_4" name="task_maxday_4">
+			</div>
+     </form>
+    </div>
+
+    <!--from表单 end-->
+    <div class="form_button clearfix t_c" ><div class="clearfix"><button type="button" onclick="stepsave('','2','$task_id')" class="big submit mr_5">上一步</button> <button type="submit" name="is_submit" onclick="stepCheck();" class="big submit">{$_lang['next_step']}</button></div></div>
+   </div>
+ </div>
+<!--end 左边部分-->
+<!--右边部分--
+   <div class="grid_7 omega alpha">
+     <div class=" prefix_1 suffix_1 pt_20">
+       <h3 class="font14b">{$_lang['what']}{$model_info['model_name']}？ </h3>
+        <p><!--{eval echo htmlspecialchars_decode($model_info['model_desc'])}--</p>
+     </div>
+    </div>-->
+		<script type="text/javascript">
+			In('calendar');
+		</script>
+<!--end 右边部分-->

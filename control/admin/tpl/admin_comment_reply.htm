@@ -1,0 +1,46 @@
+<!--{template control/admin/tpl/admin_header}-->
+ {if $ac == 'reply_close'}
+	<script type="text/javascript">
+	 	$(document).ready(function(){
+			var win = art.dialog.open.origin;
+			art.dialog.open.api.close();
+		});
+	</script>
+ {elseif $ac == 'tpl_reply'}
+	<div class="box quick_link">
+	  <form id="form_reply" name="form_reply" action="index.php?do={$do}&view={$view}&ac=reply" method="post">
+	    <div class="box link">        	
+			<div class="title"><strong>{if $view == 'suggest'}{$_lang['suggest_content']}{else}{$_lang['wenda_comment']}{/if}：</strong></div>
+	    	<div class="detail pad10">
+	    		{$comment_parent[0]['content']}         		
+			</div>
+			<div class="title"><strong>{$_lang['wolai_comment']}：</strong></div>
+	    	<div class="detail pad10">
+	    		<textarea name="content" style="width:350px;height:100px;"></textarea>
+				<button class="positive pill primary button" type="submit" name="submit" value="{$_lang['submit']}"><span class="check icon"></span>{$_lang['submit']}</button>        		
+			</div>
+			<div class="title"><strong>{if $view == 'suggest'}{$_lang['huida_content']}{else}{$_lang['wolai_comment']}{/if}：</strong></div>
+	    	<div class="detail pad10">
+	    	   {loop $comment_child $val}
+			     <p id="hf_{$val['comment_id']}">
+				  <strong>{$val['username']}</strong>{$_lang['reply']}： {$val['content']} 
+				  <a href="javascript:del_comment({$val['comment_id']});">{$_lang['delete']}</a>
+				 </p>
+			   {/loop}
+			</div>
+		</div>
+		<input name="is_submit" type="hidden" value="1" />
+		<input name="comment_id" type="hidden" value="{$comment_parent[0]['comment_id']}" />
+	  </form>
+	</div>  
+	<script type="text/javascript">    
+		function del_comment(id){ 
+			var url = 'index.php?do={$do}&view={$view}&ac=del_child';		
+		 	var p_hf = $('#hf_'+id);		 	
+		    $.get(url,{comment_id:id},function(data){
+				p_hf.attr({style:'display:none;'});
+			})
+		}
+	</script>
+ {/if}
+<!--{template control/admin/tpl/admin_footer}-->

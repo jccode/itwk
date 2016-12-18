@@ -1,0 +1,159 @@
+{if $opp=='remote'}
+document.writeln("<style type=\"text/css\">.right_side li.item{ float:left; width:200px; height:150px; overflow:hidden;}</style>");
+document.writeln("<div class=\"right_side success \">");
+document.writeln("<ul>");
+{loop $art_arr $k $v}
+	document.writeln("<li class=\"item\">");
+	document.writeln("<div class='left'>");
+	document.writeln("<div class=\"right_side_detail\">");
+	document.writeln("<div class=\"pic\">");
+	document.writeln("<a href=\"{$_K['siteurl']}/index.php?do=article&art_cat_id=$v['art_cat_id']&art_id=$v['art_id']\" ><img src=\"{$_K['siteurl']}/{$v['art_pic']}\" alt=\"$v['art_title']\" width=\"200px;\" height=\"150px;\"></a>");
+	document.writeln("</div>");
+	document.writeln("</div>");
+	document.writeln("</div><div class=\"cl\"></div>");
+	document.writeln("</li>");
+{/loop}
+document.writeln("</ul>");
+document.writeln("</div>");
+{else}
+<!--{template header}-->
+<!--{template new_head_nav}-->
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/special.css" rel="stylesheet" />
+<header class="clearfix page_header">
+    <div class="container_24">
+        <!--页面导航-->
+        <div class="heidtile clearfix">
+            <span>你的位置：</span>
+			<span><a href="{$_K['siteurl']}">IT帮手网首页</a>&nbsp;&gt;&nbsp;</span>
+            <span><a href="{$_K['siteurl']}/index.php?do=special">特色专栏</a>&nbsp;&gt;&nbsp;</span>
+            <h1><a href="{$_K['siteurl']}/anli/">成功案例</a></h1>
+        </div>
+        <!--end 页面导航-->
+    </div>
+</header>
+
+
+<section class="clearfix content">
+    <div class="container_24 clearfix">
+        <div class="left_bar">
+        	<!--目录菜单-->
+			<div class="box category">
+				<div class="box_header">
+					<div class="box_title"><h2 class="title">案例分类</h2></div>
+				</div>
+				<div class="box_detail">
+					<menu class="sort">						
+						{loop $cate_arr $k $v}
+							{if $k!='637'}
+								<li><a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$v['art_cat_id']" {if $cate_id==$v['art_cat_id']}class="selected"{/if}><span>{$v['cat_name']}</span></a></li>
+							{/if}
+						{/loop}
+						<li><a href="{$_K['siteurl']}/index.php?do=special"  {if !$cate_id}class="selected"{/if}><span>优秀案例</span></a></li>
+					</menu>
+				</div>
+			</div>
+			<!--目录菜单 end-->
+			
+			<!--{template special/special_side}-->
+
+        </div>
+        <div class="right_side success clearfix">
+            <ul class="clearfix">
+					{if $art_arr}
+            		{loop $art_arr $k $v}
+					{if $art_cat_id>'631'}
+						<li class="clearfix only_txt">
+            		<div class="left">
+            			<div class="bigtitle"><a href="{$_K['siteurl']}/index.php?do=task&task_id=$v['task_id']" class="font14b">$v['task_title']</a></div>
+						<div class="pt_10 pb_10 clearfix">
+							<div class="detail_case clearfix">
+								<p>赏金：<span>￥{$v['task_cash']}元</span></p>
+								<p>关注：{$v['view_num']}人</p>
+								<p>收藏：{$v['focus_num']}人</p>
+								<p>方案：{$v['work_num']}个</p>
+								<p>中标：{if $v['w_username']}{$v['w_username']}{else}站内威客{/if}</p>
+								<a href="{$_K['siteurl']}/index.php?do=task&task_id={$v['task_id']}" target="_blank">查看任务</a>
+							</div>
+						</div>
+            		</div>
+            	</li>
+				
+					{elseif $art_cat_id==631&&$v['art_pic']}
+					<li class="clearfix only_img">
+            		<div class="left">
+            			<div class="bigtitle"><a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$v['art_cat_id']&art_id=$v['art_id']" class="font14b">$v['art_title']</a></div>
+            				<div class="pt_10 pb_10 clearfix">
+							<div class="pic clearfix">
+								<a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$v['art_cat_id']&art_id=$v['art_id']" ><img src="{$_K['siteurl']}/{$v['art_pic']}" alt="$v['art_title']" width="200px;" height="150px;"></a>
+							</div>
+							
+						</div>
+					</div>
+            	</li>
+					{elseif $v['art_pic']}
+				<li class="clearfix">
+            		<div class="left ">
+            			<div class="bigtitle"><a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$v['art_cat_id']&art_id=$v['art_id']" class="font14b">$v['art_title']</a></div>
+						<div class="pt_10 pb_10 clearfix">
+							<div class="pic clearfix">
+								<a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$v['art_cat_id']&art_id=$v['art_id']" ><img src="{$_K['siteurl']}/{$v['art_pic']}" alt="$v['art_title']" width="200px;" height="150px;"></a>
+							</div>
+							<div class="detail_task">
+								<p>赏金：<span>￥{$v['task_cash']}元</span></p>
+								<p>关注：{$v['view_num']}人</p>
+								<p>收藏：{$v['focus_num']}人</p>
+								<p>方案：{$v['work_num']}个</p>
+								<p>中标：{if $v['w_username']}{$v['w_username']}{else}站内威客{/if}</p>
+								<a href="{$_K['siteurl']}/index.php?do=task&task_id={$v['task_id']}" target="_blank">查看任务</a>
+							</div>
+						</div>
+            		</div>
+            	</li>
+					{/if}
+          
+				{/loop}
+					{else}
+					
+						<div class="box default no_detail pad10">暂无案例</div>
+					
+					
+					{/if}
+            </ul>
+			 {if $pages['page']}
+            <div class="page_box mr_10 clearfix">
+                <div class="page">
+                    {$pages['page']}
+                </div>
+            </div>
+            {/if}
+			
+			<!--{ad_show(SPECIAL_BUTTOM_BANNER,特色专栏-底部半通栏)}-->
+        </div>
+		<div class="clear"></div>
+	  {if $page < 2}
+		<div class="box clearfix default mt_10 teamwork">
+			<div class="inner">
+				<header class="box_title clearfix">
+					<h2 class="c333 fl_l">合作链接</h2>
+					<div class="fl_r clearfix">						
+							<button class="button primary c090" style="padding:2px 10px; _margin-top:4px" type="button" onclick="link_box(7)" >申请友情链接</button>
+					</div>
+				</header>
+				<article class="pad10 clearfix">
+					<ul>
+						{loop $link_arr $v}
+						<li><a href="{$v['link_url']}" target="_blank">{$v['link_name']}</a></li>
+						{/loop}
+					</ul>
+				</article>
+			</div>
+		</div>
+	  {/if}	
+	  
+    </div>
+</section>
+<!--{template footer}-->
+<script type="text/javascript">
+var uid = parseInt('{$uid}')+0;
+</script>
+{/if}

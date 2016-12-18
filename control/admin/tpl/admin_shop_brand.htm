@@ -1,0 +1,178 @@
+<!--{template control/admin/tpl/admin_header}-->
+<div class="page_title">
+    <h1>品牌馆</h1>
+    <div class="tool">
+        <a href="index.php?do={$do}&view=brand" class="here">品牌馆列表</a>
+        <a href="index.php?do={$do}&view=brand_info">添加品牌馆</a>
+    </div>
+</div>
+<form method="get" action="index.php" id="frm_art_search">
+<input type="hidden" name="do" value="{$do}"><input type="hidden" name="view" value="{$view}"><input type="hidden" name="page" value="{$page}">
+ <div class="box search p_relative">
+    <div class="title">
+        <h2>{$_lang['search']}</h2>
+    </div>
+    <div class="detail" id="detail">
+          <table cellspacing="0" cellpadding="0">
+                <tbody>
+                    <tr>
+                        <th>
+                            申请编号
+                        </th>
+                        <td>
+                            <input type="text" class="txt" size="12" name="txt_brand_id" onkeyup="clearstr(this);">
+                        </td>
+                        <th>
+                            申请用户
+                        </th>
+                        <td>
+                            <input type="text" class="txt" name="txt_username" id="txt_username">
+                        </td>
+                        <th>
+                            品牌馆
+                        </th>
+                        <td>
+                            <select name="brand">
+                                <option value='' {if !$brand}selected="selected"{/if}>--所有--  </option>
+                                {loop $brand_type $k $v}<option value="{$k}" {if $brand==$k}selected="selected"{/if}>{$v}  </option>
+                                {/loop}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            申请状态
+                        </th>
+                        <td>
+                            <select name="app_status">
+                                <option value='' {if !$app_status}selected="selected"{/if}>--所有--  </option>
+                                {loop $brand_status $k $v}<option value="{$k}" {if $app_status==$k}selected="selected"{/if}>{$v}  </option>
+                                {/loop}
+                            </select>
+                        </td>
+                        <th>
+                            {$_lang['result_order']}
+                        </th>
+                        <td>
+                            <select name="ord[]">
+                                <option value="brand_id" {if $ord['0']=='brand_id'  or !isset($ord['0'])}  selected="selected"{/if}>{$_lang['id']}  </option>
+                                <option value="" {if $ord['0']!='brand_id' }  selected="selected"{/if}>{$_lang['time']}  </option>
+                            </select>
+                            <select name="ord[]">
+                                <option {if $ord['1']=='desc'  or !isset($ord['1'])}selected="selected" {/if}  value="desc">{$_lang['desc']}  </option>
+                                <option {if $ord['1']=='asc'}selected="selected" {/if}  value="asc">{$_lang['asc']}  </option>
+                            </select>
+                        </td>
+                        <th>
+                            {$_lang['list_result']}
+                        </th>
+                        <td>
+                            <select name="slt_page_size">
+                                <option value="10" {if $slt_page_size=='10'}selected="selected"{/if}>{$_lang['page_size']}10  </option>
+                                <option value="20" {if $slt_page_size=='20'}selected="selected"{/if}>{$_lang['page_size']}20  </option>
+                                <option value="30" {if $slt_page_size=='30'}selected="selected"{/if}>{$_lang['page_size']}30  </option>
+                            </select>
+                            <button class="pill" type="submit" value={$_lang['search']}  name="sbt_search">
+                                <span class="icon magnifier">&nbsp;</span>{$_lang['search']}
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+</div>
+<div class="box list">
+    <div class="title">
+        <h2>{$_lang['link_list']}</h2>
+    </div>
+    <div class="detail">
+        <div id="ajax_dom">
+            <input type="hidden" name="page" value="{$page}">
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tr style="align-text:center;">
+                    <th width="80">
+                        {$_lang['id']}
+                    </th>
+                    <th width="200">
+                        用户名
+                    </th>
+                    <th class="motif">
+                        品牌馆
+                    </th>
+                    <th class="motif">
+                        处理状态
+                    </th>
+                    <th class="motif">
+                        荐
+                    </th>
+                    <th class="motif">
+                        申请时间
+                    </th>
+                    <th width="200">
+                        {$_lang['operate']}
+                    </th>
+                </tr>
+                {loop $brand_arr $v}
+                <tr class="item">
+                    <td>
+                        <input type="checkbox" name="ckb[]" value="{$v['brand_id']}" class="checkbox">{$v['brand_id']}
+                    </td>
+                    <td>
+                        {$v['username']}
+                    </td>
+                    <td>
+                        {$brand_type[$v['brand']]}
+                    </td>
+                    <td>
+                        {$brand_status[$v['app_status']]}
+                    </td>
+                    <td>
+                        {if $v['is_recommend']}
+                        <font color="red">
+                            是
+                        </font>{else}否{/if}
+                    </td>
+                    <td>
+                        <!--{date('Y-m-d H:i:s',$v['on_time'])}-->
+                    </td>
+                    <td>
+                        <a href="index.php?do=shop&view=brand_info&brand_id={$v['brand_id']}" class="button"><span class="book icon"></span>查看详情</a>
+                        {if $v['app_status']!=1}<a href="$url&ac=pass&brand_id={$v['brand_id']}" onclick="return cdel(this,'确定通过此条申请吗?');" class="button"><span class="check icon"></span>通过</a>
+                        {/if}
+                        {if $v['app_status']==1}
+                        	{if $v['is_recommend']&&$v['app_status']==1}
+								<a href="$url&ac=no_recomm&brand_id={$v['brand_id']}" onclick="return cdel(this,'确定取消推荐吗?');" class="button"><span class="move icon"></span>取消推荐</a>
+                        	{else}
+								<a href="$url&ac=is_recomm&brand_id={$v['brand_id']}" onclick="return cdel(this,'确定推荐吗?');" class="button"><span class="pin icon"></span>推荐</a>
+                        	{/if}
+							<a href="$url&ac=nopass&brand_id={$v['brand_id']}" onclick="return cdel(this,'确定不通过此条申请吗?');" class="button"><span class="cross icon"></span>不通过</a>
+                        {/if}
+						<a href="$url&ac=del&brand_id={$v['brand_id']}" onclick="return cdel(this);" class="button"><span class="cross icon"></span>删除</a>
+                   	 </td>
+                </tr>
+                {/loop}
+          <tfoot>
+                  <tr>
+                    <td colspan="7">
+	                    <div class="clearfix">
+	                  		<input type="checkbox" onclick="checkall(event);" id="checkbox" name="checkbox"/>
+	                        <label for="checkbox">{$_lang['select_all']}</label><!-- 全选 -->
+	                        <input type="hidden" name="sbt_action" class="sbt_action"/>
+							<!--button name="sbt_action" type="submit" value="{$_lang['mulit_delete']}" onclick="return batch_act(this,'frm_art_search');" class="pill negative"><span class="icon trash"></span>{$_lang['mulit_delete']}</button-->
+	                     	<button name="sbt_action" type="submit" value="批量通过" onclick="return batch_act(this,'frm_art_search');" class="pill negative"><span class="icon check"></span>批量通过</button>
+	                     	<button name="sbt_action" type="submit" value="批量不通过" onclick="return batch_act(this,'frm_art_search');" class="pill negative"><span class="icon cross"></span>批量不通过</button>
+	                     	<button name="sbt_action" type="submit" value="批量推荐" onclick="return batch_act(this,'frm_art_search');" class="pill negative"><span class="icon pin"></span>批量推荐</button>
+	                     	<button name="sbt_action" type="submit" value="批量取消推荐" onclick="return batch_act(this,'frm_art_search');" class="pill negative"><span class="icon move"></span>批量取消推荐</button>
+	                    </div>
+                    </td>
+                  </tr>
+                </tfoot>
+            </table>
+            <div class="page ">
+                {$pages['page']}
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<!--{template control/admin/tpl/admin_footer}-->

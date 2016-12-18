@@ -1,0 +1,181 @@
+<!--{template header}-->
+<!--{template new_head_nav}-->
+<link rel="stylesheet" href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/help.css">
+ <div class="wrapper">
+ <!--页面头部-->
+ <header class="clearfix page_header">
+  <div class="container_24"> 
+    <!--页面导航-->
+    <div class="heidtile clearfix">
+        <span>你的位置：</span>
+        <span><a href="{$_K['siteurl']}/index.php">IT帮手网首页</a></a>&nbsp;&gt;&nbsp;</span>
+        <span><a href="{$_K['siteurl']}/index.php?do=help">{$_lang['help_center']}</a>&nbsp;&gt;&nbsp;</span>
+        <h1>找回账号</h1>
+    </div>
+    <!--end 页面导航-->
+ </div>
+</header> 
+ <!--end 页面标题-->
+ <!--主内容-->
+  <section class="clearfix content">
+
+  <div class="container_24 clearfix pt_20">
+  	<!--左内容-->
+	<div class="left_con clearfix fl_l">
+  		 <div class="box default">
+		        <div class="inner">
+					<header class="box_header clearfix">
+		                <h2 class="box_title">账号安全操作</h2>
+					</header>
+		            <div class="box_detail">
+		                <nav class="minor_nav clearfix">
+		                	<ul class="clearfix">
+		                			<!--主菜单-->
+									<li><a href="{$_K['siteurl']}/index.php?do=help&view=get_username" title="{$v['cat_name']}"><div class="icon16 no_list">icon</div><strong>找回登录账号</strong></a></li>
+									<li><a href="{$_K['siteurl']}/index.php?do=help&view=get_password" title="{$v['cat_name']}"><div class="icon16 no_list">icon</div><strong>找回登录密码</strong></a></li>
+									<li><a href="{$_K['siteurl']}/index.php?do=help&view=get_securitycode" title="{$v['cat_name']}"><div class="icon16 no_list">icon</div><strong>找回安全密码</strong></a></li>
+							
+								<!--主菜单 end-->
+							</ul>		
+		                </nav>
+		            </div>
+		        </div>
+    	  </div>
+  		  <div class="mt_10  box default">
+  		  	<div class="inner">
+  		  		<div class="phone_zx">
+  		  			<div class="pt_30 pl_30 ml_5">
+  		  				<b class="pt_20">4006-999-467</b>
+						<span class="c999">免长途客服服务热线</span>
+  		  			</div>
+  		  		</div>
+  		  	</div>
+  		  </div>
+	</div>
+	<!--左内容 end-->
+	
+	<!--右内容-->
+	<div class="right_con fl_r">
+		<div class="box default">
+			<div class="inner">
+				<header class="box_header">
+					<span class="box_title block c333">找回登录账号</span>
+				</header>
+				<article class="pad10 pl_20 pr_20">
+					<div class="pt_10 pb_15">
+						<div class="clearfix">
+							<span class="icon_help32 login_pwd mr_10"></span>
+							<h2 class="clearfix c009">找回登录账号</h2>
+							<p class="mt_5 c999">忘记登录账号，请使用手机、邮箱或客服人工方式找回。</p>
+						</div>
+						<div class="mt_10 border_t_c">
+							<div class="form_box clearfix mt_10 border_n">
+	            			<form action="index.php?do=help&view=get_password" method="post" id="get_form" name="get_form" class="mb_30" onsubmit="return false;return checkForm(document.getElementById('get_form'),false);">
+	                			<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}"><input type="hidden" name="handlekey" value="get_form"><!--账号-->
+	                          
+	                            <div class="rowElem clearfix po_re" style=" z-index:2;">
+	                                <label class="grid_4">
+	                                  	找回方式{$_lang['zh_mh']}
+	                                </label>
+	                                <div class="grid_6" id="test">
+	                                    <select name="accout_type" onchange="change_accout();" id="accout_type" style="width:215px;">
+	                                        <option value="email">{$_lang['email']}</option>
+	                                        <option value="mobile">{$_lang['mobile']}</option>
+	                                    </select>
+	                                    <div class="mt_10">
+	                                        <span id="email"><input class="txt_input" style="width:200px;" size="13" type="text" limit="type:email;required:true" msg="{$_lang['your_input_email_format_error']}" title="{$_lang['please_input_email_address']}" msgarea="account_msg" name="txt_email" id="email_accout"></span>
+											<span style="display:none" id="mobile"><input style="width:200px;" size="13" type="text" limit="type:mobileCn;required:true" msg="{$_lang['you_input_phone_format_error']}" title="{$_lang['please_input_phone_number']}" msgarea="account_msg" name="txt_mobile" id="mobile_accout"></span>
+	                                    <span class="login_msg ml_5" id="account_msg"></span>
+										</div>
+	                                </div>
+	                            </div>
+							<!--验证码-->
+	                			<div class="rowElem clearfix po_re">
+	                    			<label class="grid_4">
+	                        			验证码{$_lang['zh_mh']}
+	                    			</label>
+	                    			<div class="grid_6 po_re">
+	                        			<input style="width:65px;" class="fl_l txt_input" name="txt_code" type="text" size="8" id="txt_code" limit="required:true;len:4" msg="{$_lang['auth_code_error']}"msgArea="secode_msg"ajax="{$_K['siteurl']}/index.php?do=ajax&view=code&txt_code=" >
+							 			<div id="show_secode_menu_content" class="secode_box">
+							 				<img id="secode_img" src="secode_show.php?sid=" onclick="document.getElementById('secode_img').src='secode_show.php?sid='+Math.random(); return false;">
+							 				<a class="font14" href="javascript:void(0);" onclick="document.getElementById('secode_img').src='secode_show.php?sid='+Math.random(); return false;">换一组</a>
+										</div>
+							 		<a id="show_secode" href='{$_K['siteurl']}/index.php?do=ajax&view=menu&ajax=show_secode'></a>
+	                    			</div>
+	                    			<span class="" id="secode_msg">{$_lang['please_input_auth_code']}</span>
+	                			</div>						
+	                        	<!--end 验证码-->
+	                            <div class="mt_20 prefix_4 ml_5">
+	                                <button type="submit"  class="button" id="user_login_btn" onclick="return get_pass();">
+	                                    <span class="key icon"></span>
+	                                   	找回账号
+	                                </button>
+	                            </div>
+		                    </form>
+			                </div>
+						</div>
+					</div>
+				</article>
+			</div>
+		</div>
+	</div>
+	<!--左内容 end-->
+  </div>
+  </section> 
+ <!--end 主内容--> 
+ </div>
+<script type="text/javascript">
+	In('form');
+	
+//阻止点击隐藏方法
+	$("#txt_code,#show_secode_menu_content").click(function (e) {
+		e.stopPropagation();
+	});
+
+var hidecode=function(){
+	if (!$("#show_secode_menu_content").is(".hidden")){
+		$("#show_secode_menu_content").addClass("hidden");
+	}
+}
+
+
+function change_accout(){
+    var accout_type = $("#accout_type").val();
+    if (accout_type == 'email') {
+        $("#email").show();
+        $("#mobile").hide();
+    } else {
+        $("#email").hide();
+        $("#mobile").show();
+    }
+}
+	//提交表单
+	function get_pass(){
+        var accout_type = $("#accout_type").val();
+		var txt_email = $("#email_accout").val();
+		var txt_mobile = $("#mobile_accout").val();
+        var formhash = $("#formhash").val();
+        if (checkForm(document.getElementById('get_form'), false)) {
+            $.post("{$_K['siteurl']}/index.php?do=help&view=get_username", {
+                formhash: formhash,
+				accout_type: accout_type,
+				txt_email: txt_email,
+				txt_mobile: txt_mobile
+            }, function(json){
+                if (json.status == 1) {
+					showDialog(json.msg,"alert","操作提示");
+                    //window.setTimeout("reload_url();",3000);
+                }
+                else {
+                    showDialog(json.msg,"alert","操作提示");
+                }
+            }, 'json')
+        }
+    }
+	
+	function reload_url(){
+		window.location.href = "{$_K['siteurl']}/index.php?do=login";
+	}
+</script>
+
+<!--{template footer}-->

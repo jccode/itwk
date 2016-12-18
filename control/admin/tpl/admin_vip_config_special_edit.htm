@@ -1,0 +1,80 @@
+<!--{template control/admin/tpl/admin_header}--> 
+<div class="page_title">
+    	<h1>{if $level_id}添加{else}编辑{/if}vip特权</h1>
+        <div class="tool">
+       		<a href="index.php?do=$do&view=$view">等级配置</a>
+        	<a href="index.php?do=$do&view=$view&type=special" class="here">特权配置</a>
+		</div>
+</div>
+<div class="box post">
+    <div class="tabcon">
+        	<div class="title"><h2>{if $special_id}编辑vip特权{else}添加vip特权{/if}</h2></div>       	
+            <div class="detail">
+                <form method="post" action="index.php?do={$do}&view={$view}&type=$type&op=$op&sp_id=$sp_id" id="frm_level_edit" enctype="multipart/form-data">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <th scope="row" width="130">特权名称：</th>
+                        <td> 
+							<input name="txt_sp_name"id="txt_sp_name" class="txt" style=" width:260px;"
+                         			 limit = "required:true" 
+                                     msg = "名称必填" 
+                                     title="vip特权"
+                                     msgArea="msg_sp_name"
+									 value="$sp_info[sp_name]">
+	                        
+	                    	</select>
+							 <span id="msg_sp_name" style="color:red;"></span> 
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">特权描述：</th>
+                        <td>
+                        	<textarea name="tar_sp_desc" id="tar_sp_desc">{$sp_info[sp_desc]}</textarea>
+                       </td>
+                      </tr>
+					 <tr>
+                        <th scope="row">特权标识：</th>
+                        <td>
+                        	<input name="txt_sp_key"id="txt_sp_key" onchange="valid_key()" class="txt" style=" width:260px;" value="$sp_info[sp_key]">
+	                    	</select>
+							<span id="msg_sp_key">程序实现所必须的标志，不可重复。</span> 
+							
+							<script>
+			  					function valid_key(){
+									var nowv = $('#txt_sp_key').val();
+									if(nowv!=''&&nowv!='{$sp_info[sp_key]}'){
+										$.get('index.php?do=$do&view=$view&type=$type&sp_id=$sp_id&op=valid_sp_key&sp_key='+nowv,function(data){
+											if(data==''){
+												$('#msg_sp_key').html('程序实现所必须的标志，不可重复。');
+												$('#msg_sp_key').css('color','');
+											}
+											else{
+												$('#msg_sp_key').html('该标识已存在');
+												$('#msg_sp_key').css('color','red');
+											}
+										});
+									}
+									else if(nowv==''){
+										$('#msg_sp_key').html('必填');
+										$('#msg_sp_key').css('color','red');
+									}
+								}
+						  </script>
+                       </td>
+                      </tr>
+					<tr>
+						<th scope="row">&nbsp;</th>
+						<td>
+						<button name="sbt_edit" value="1" onclick="return checkForm(document.getElementById('frm_level_edit'),false)" class="positive primary pill button" type="submit">
+						<span class="check icon"></span>提交</button>
+						 <button class="pill button" type="button" onclick="history.go(-1);" value={$_lang['return']}><span class="uparrow icon"></span>返回</button>
+						</td>
+						</tr>
+                    </table>
+                </form>
+              </div>
+       </div>           
+</div>
+<!--主体结束-->
+<!--{template control/admin/tpl/admin_footer}-->
+

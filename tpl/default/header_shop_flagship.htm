@@ -1,0 +1,48 @@
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/shop.css" rel="stylesheet">
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/shop_flagship.css" rel="stylesheet">
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/shop_vip.css" rel="stylesheet">
+<link href="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/horizontal.css" rel="stylesheet" type="text/css" charset="utf-8">
+<link href="{$_K['siteurl']}/resource/js/jqplugins/jcarousel/vertical.css" rel="stylesheet" type="text/css" charset="utf-8">
+<header class="header pb_20">
+	<div class="container_24 clearfix">
+		<hgroup class="logo flagship_logo po_re">
+			 {if $shop_info['logo']}
+			 <a href="{$_K['siteurl']}/index.php?do=shop&sid={$shop_info['shop_id']}" class="big_logo fl_l">
+				<img src="{$_K['siteurl']}/{$shop_info['logo']}" alt="loading"/>
+			 </a>
+		    {else}
+			 <a href="{$_K['siteurl']}/index.php?do=shop&sid={$shop_info['shop_id']}">
+			 <img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/style/shop_diy_logo_{$shop_info['shop_level']}_{$shop_info['shop_type']}.png" style="height:80px;">	
+			 </a>
+		   {/if}
+		   {if $view=='diy'}
+		   <div class="blue_editor" id="logo_diy">
+					<a href="javascript:;" onclick="shop_diy_logo()">编辑</a>
+		   </div>
+		   {/if}
+		   <script type="text/javascript">
+				 //logo编辑
+				var uid = parseInt('{$uid}')+0;
+				function shop_diy_logo(){
+					if(check_user_login()){
+						showWindow('shopdiylogo', "/index.php?do=ajax&view=shop_diy&sid={$sid}&ac=logo");
+					}
+				}
+				</script>
+			<!--<a href="#" class="fl_l pl_10"><h1>{$shop_info['shop_name']}</h1><h1 class="title">用五彩缤纷的设计让您的品牌炫彩斑斓<h1></a>-->
+		</hgroup>
+		<div class="contact fl_r clearfix hidden">
+			<span>公司咨询热线：</span>
+			<h1>{if $shop_info['mobile']}{$shop_info['mobile']}{else}暂无{/if}</h1>
+		</div>
+		<div class="clearfix match_boxs clearfix fl_r mt_10">
+			<span>公司咨询热线：<b>{if $shop_info['mobile']}{$shop_info['mobile']}{else}暂无{/if}</b></span>
+		    {if $uid==$shop_info['uid']}
+			<div class="match_btns mt_5 prefix_2">
+				<a href="index.php?do=shop&sid={$sid}&view=match_list" class="selected">同城速配</a>
+				<a href="index.php?do=user&view=space">商铺管理</a>
+			</div>
+			{/if}
+		</div>
+	</div>
+</header>

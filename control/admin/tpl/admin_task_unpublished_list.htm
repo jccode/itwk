@@ -1,0 +1,308 @@
+<!--{template control/admin/tpl/admin_header}-->
+
+	<div class="page_title">	
+    	<h1>{if $view=='all_list'}任务管理{else}尚未选择类型的任务{/if}</h1>
+         <div class="tool">
+            <!-- <a href="index.php?do=$do&view=list&type=$type" {if $view=='list'}class="here" {/if}>{if $type=='art'}{$_lang['article']}{elseif $type=='help'}{$_lang['help']}{elseif $type=='case'}案例{else}{$_lang['single_page']}{/if}{$_lang['list']}</a>
+            <a href="index.php?do=$do&view=edit&type=$type" {if $view=='edit'}class="here" {/if}>{if $type=='art'}{$_lang['article']}{elseif $type=='help'}{$_lang['help']}{elseif $type=='case'}案例{else}{$_lang['single_page']}{/if}{$_lang['add']}</a>
+    	    -->
+		</div>
+	</div>
+    <!--页头结束-->
+
+    <!--提示结束-->     
+        <div class="box search p_relative">
+    	<div class="title"><h2>{$_lang['search']}</h2></div>
+        <div class="detail" id="detail">
+		    <form action="#" method="get" name="s" id="sl">
+            	<input type="hidden" name="do" value="$do">
+				<input type="hidden" name="view" value="$view">
+				<input type="hidden" name="type" value="$type">
+				<input type="hidden" name="page" value="$page">	
+				<table cellspacing="0" cellpadding="0">
+					<tbody>
+                        <tr>
+                            <th>{$_lang['task_id']}</th>
+                            <td><input type="text" value="$task_id" name="task_id" class="txt" size=7/></td>
+							<th>雇主</th>
+                            <td><input type="text" value="$username" name="username" class="txt"/></td>
+							
+                            <th>{$_lang['task_title']}</th>
+                            <td>
+                            	<input type="text" value="$task_title" name="task_title" class="txt"/>
+								{$_lang['search_by_like']}
+							</td>
+							<th></th>
+							<td></td>
+					</tr>
+					<tr>
+						<th>任务分类</th>
+							<td>
+                            	<select class="ps vm" name="indus_id" id="indus_id">
+                                 <option value="" >请选择分类</option>
+                            	{loop $industry_arr $v}
+								   <option value="{$v['indus_id']}" >{$v['indus_name']}</option>
+								   {if $v['_child']}
+									   {loop $v['_child'] $v_1}
+									   	 <option value="{$v_1['indus_id']}" {if $v_1['indus_id'] == $indus_id}selected{/if}>﹂{$v_1['indus_name']}</option>
+									   {/loop}
+								   {/if}
+								{/loop}
+								</select>
+							</td>
+							<th>保证选稿</th>
+                            <td>
+                            	<select class="ps vm" name="must_choosework" id="catid">
+                            		<option value="all" {if !$must_choosework||$must_choosework!==0} selected="selected" {/if}>-不限-</option>
+                            		<option value="1" {if $must_choosework=='1'} selected="selected" {/if}>是</option>
+                            		<option value="0" {if $must_choosework=='0'} selected="selected" {/if}>否</option>
+                            	</select>
+							</td>
+							{if $view=='all_list'}
+							<th>赏金托管</th>
+                            <td>
+                            	<select class="ps vm" name="cash_status" id="catid">
+                            		<option value="all" {if $cash_status!==0||$cash_status=='all'} selected="selected" {/if}>-不限-</option>
+                            		<option value="1" {if $cash_status=='1'} selected="selected" {/if}>是</option>
+                            		<option value="0" {if $cash_status=='0'} selected="selected" {/if}>否</option>
+                            	</select>
+							</td>
+							<th>任务模型</th>
+							<td>
+								<select name="model_id">
+									<option value='' {if $model_id==''}selected="selected"{/if}>---不限---</option>
+									<option value=1 {if $model_id==1}selected="selected"{/if}>单人悬赏</option>
+									<option value=2 {if $model_id==2}selected="selected"{/if}>多人悬赏</option>
+									<option value=3 {if $model_id==3}selected="selected"{/if}>计件悬赏</option>
+									<option value=4 {if $model_id==4}selected="selected"{/if}>招标任务</option>
+									<option value=40 {if $model_id==40}selected="selected"{/if}> &nbsp; - 雇佣</option>
+									<option value=41 {if $model_id==41}selected="selected"{/if}> &nbsp; - 招标</option>
+									<option value=43 {if $model_id==43}selected="selected"{/if}> &nbsp; - 直接雇佣</option>
+									<option value=42 {if $model_id==42}selected="selected"{/if}> &nbsp; - 服务</option>
+								</select>
+							</td>
+							{else}
+							<th></th>
+							<td></td>
+							<th></th>
+							<td></td>
+							{/if}
+						 </tr>
+                        <tr>
+                        	<th>开始日期</th>
+                            <td>
+                            	<input type="text" name="start_time" class="txt" onclick="showcalendar(event, this, 0)" size="12"/>
+							</td>
+							<th>结束日期</th>
+                            <td>
+                            	<input type="text" name="end_time" class="txt" onclick="showcalendar(event, this, 0)" size="12"/>
+							</td>
+							<th>{$_lang['result_order']}</th>
+							<td>								
+								<select name="ord[]">
+                                <option value="task_id" {if $ord['0']=='task_id' or !isset($ord['0'])} selected="selected"{/if}>{$_lang['default_order']}</option>
+                                <option value="start_time" {if $ord['0']=='start_time' } selected="selected"{/if}>{$_lang['pub_time']}</option>
+                                </select>
+                                <select name="ord[]">
+                                <option {if $ord['1']=='desc' or !isset($ord['1'])}selected="selected" {/if} value="desc">{$_lang['desc']}</option>
+                                <option {if $ord['1']=='asc'}selected="selected" {/if} value="asc">{$_lang['asc']}</option>
+                                </select>
+							</td>							
+                            <th>{$_lang['list_result']}</th>
+                            <td><select name="page_size">
+									<option value="10" {if $page_size=='10'}selected="selected"{/if}>{$_lang['page_size']}10</option>
+									<option value="20" {if $page_size=='20'}selected="selected"{/if}>{$_lang['page_size']}20</option>
+									<option value="30" {if $page_size=='30'}selected="selected"{/if}>{$_lang['page_size']}30</option>
+								</select>
+							  	<button class="pill" type="submit" value="{$_lang['search']}" name="sbt_search">
+                            		<span class="magnifier icon">&nbsp;</span>{$_lang['search']}
+								</button>
+							</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+			
+        </div>
+    </div>
+    <!--搜索结束-->
+    
+    <div class="box list">
+    	<div class="title"><h2>未发布任务{$_lang['list']} ({$count})</h2></div>
+        <div class="detail">
+        	<form action="" id='frm_list' method="post">
+        		<div id="ajax_dom">
+        		<input type="hidden" name="page" value="{$page}">
+              <table cellpadding="0" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th width="80">{$_lang['id']}</th>
+				    <th width="100">分类</th>
+					<th>标题</th>
+                    <th width="100">雇主</th>
+					{if $view=='all_list'} <th width="150">任务类型（状态）</th>{/if}                   
+                    <th width="150">{$_lang['pub_time']}</th>
+                    <th width="100">跟踪人</th>
+                    <th width="200">{$_lang['operate']}</th>
+                  </tr>
+				  </thead>
+                  <tbody>
+                  {loop $task_arr $key $value} 
+                  <tr class="item">
+                  	<td><input type="checkbox" name="ckb[]" value="{$value['task_id']}" class="checkbox">{$value['task_id']}</td>
+                    <td>{$industry_name_arr[$value['indus_id']]}</td>
+					<td class="td28 wraphide">
+						<!-- {$value['task_title']} -->
+						<a href="../../index.php?do=task&task_id={$value['task_id']}" target="_blank">
+                    		<!--{eval echo(kekezu::cutstr($value[task_title],40));}--></a>
+							{if $value[is_recommend]==1}<font color="red">[荐]</font>{/if}
+					</td>
+                    <td class="wraphide">
+                    	<a href="index.php?do={$do}&view=unpublished_user&send_uid={$value['uid']}&send_tid={$value['task_id']}" >{$value['username']}</a>
+					</td>
+					{if $view=='all_list'}
+						<td>
+						{if $value[model_id]==1}单赏（{$sreward_status_arr[$value[task_status]]}）
+							{elseif $value[model_id]==2}多赏（{$mreward_status_arr[$value[task_status]]}）
+							{elseif $value[model_id]==3}计件（{$preward_status_arr[$value[task_status]]}）
+							{elseif $value[model_id]==4}
+								{if $value[task_type]==3}直接雇佣
+								{elseif $value[task_type]==2}服务
+								{elseif $value[task_cash_coverage]}招标
+								{else}雇佣
+								{/if}
+							（ {$tender_status_arr[$value[task_status]]}）
+						{else}
+							<span style="color:red">尚未选择</span>
+						{/if}
+						</td>
+					{/if}
+                    <td class="ws_break">
+                    	<!--{eval echo date('Y-m-d H:i',$value[start_time])}-->
+					</td>
+                    <td>
+                    	<!--{eval keke_task_class::get_task_track($value[task_id])}-->
+					</td>
+                    <td> 
+						{if $value[task_status]==1} <!-- 任务通过、不通过 -->
+						<a class="button" href="javascript:void(0);" onclick="return operat_confirm('pass',$value['task_id']);"><span class="check icon"></span>{$_lang['pass']}</a>
+						<a class="button" href="javascript:void(0);" onclick="return operat_confirm('nopass',$value['task_id']);"><span class="cross icon"></span>{$_lang['nopass']}</a>
+						{/if}
+						{if $value[is_recommend]!=1 && in_array($value[task_status],array('2','3'))} <!-- 推荐 -->
+						<a class="button" href="javascript:void(0);" onclick="return operat_confirm('recommend',$value['task_id']);"><span class="uparrow icon"></span>{$_lang['recommend']}</a>
+						{/if}
+						{if $value[is_recommend]==1} <!-- 取消推荐 -->
+						<a class="button" href="{$url}&ac=unrecommend&task_id={$value[task_id]}&page={$page}"><span class="check icon"></span>{$_lang['cancel_recommend']}</a>
+						{/if}
+						{if $value[task_status]==7&&keke_task_config::valid_frost_type($value['task_id'])} <!-- 解冻 -->
+						<a class="button" href="{$url}&task_id=$value[task_id]&ac=unfreeze&page={$page}"><span class="unlock icon"></span>
+						{$_lang['unfreeze']}</a>
+						{/if}								
+						<!--冻结 start -->
+						{if $value[model_id]=='2' && in_array($value[task_status],array(2,3,4,5))}
+						<!-- mreward(多赏) --><!-- 2投稿中、3任务选稿、4摇奖、5公示中(冻结) -->
+							<a href="javascript:;" onclick="return show_freeze(this,'index.php?do=model&model_id=$value[model_id]&view=edit&task_id=$value[task_id]&sbt_act=freeze')" class="button">
+								<span class="lock icon"></span>{$_lang['freeze']}</a>							
+						{elseif $value[model_id]=='3' && in_array($value[task_status],array('2','3'))}
+						<!-- preward(计件) --><!-- 2投稿中、3任务选稿(冻结) -->
+							<a href="javascript:;" onclick="return show_freeze(this,'index.php?do=model&model_id=$value[model_id]&view=edit&task_id=$value[task_id]&sbt_act=freeze')" class="button">
+								<span class="lock icon"></span>{$_lang['freeze']}</a>	
+						{elseif $value[model_id]=='1' && in_array($value['task_status'],array('2','3','4','5'))}
+						<!-- sreward(单赏) --><!-- 2投稿中、3任务选稿、4摇奖、5公示中(冻结) -->
+							<a href="javascript:;" onclick="return show_freeze(this,'index.php?do=model&model_id=$value[model_id]&view=edit&task_id=$value[task_id]&sbt_act=freeze')" class="button">
+								<span class="lock icon"></span>{$_lang['freeze']}</a>	
+						{elseif $value[model_id]=='4' && in_array($value[task_status],array('2','3','4','5'))}
+						<!-- tender(招标雇佣服务) --><!-- 2投标中、3选标中、4工作中、5交付中(冻结)-->
+							<a href="javascript:;" onclick="return show_freeze(this,'index.php?do=model&model_id=$value[model_id]&view=edit&task_id=$value[task_id]&sbt_act=freeze')" class="button">
+								<span class="lock icon"></span>{$_lang['freeze']}</a>	
+						{/if}
+						<!--冻结 end -->	
+						
+						<a href="{if !$value[model_id]}index.php?do={$do}&view=unpublished_edit&task_id={$value['task_id']}{else}index.php?do=model&model_id=$value[model_id]&view=edit&task_id=$value[task_id]&lk=$view&page=1{/if}" class="button dbl_target">
+							<span class="pen icon"></span>编辑</a>
+						{if $_SESSION['uid'] == 1}
+						<a href="$url&task_id=$value['task_id']&ac=del&page={$page}" onclick="return cdel(this);" class="button"><span class="trash icon"></span>{$_lang['delete']}</a>
+						{/if}
+						<a href="javascript:void(0);" onclick="return operat_confirm('close',$value['task_id']);" class="button">
+							<span class="book icon"></span>{$_lang['close']}</a> 
+						<a href="javascript:;" onclick="art.dialog.open('index.php?do={if $value['model_id']}model&model_id=$value[model_id]{else}task{/if}&view=track&task_id={$value['task_id']}',{width: 700, closeFn: function(){location.href=location.href;}})" class="button">
+							<span class="trash icon"></span>任务跟踪</a>
+					</td>
+                  </tr>
+                  {/loop}
+                  </tbody>
+				  <tfoot>
+                  <tr>
+                    <td colspan="{if $view=='all_list'}8{else}7{/if}">
+	                    <div class="clearfix">
+	                  		<input type="checkbox" onclick="checkall(event);" id="checkbox" name="checkbox"/>
+	                        <label for="checkbox">{$_lang['select_all']}</label>
+	                        <input type="hidden" name="sbt_action" class="sbt_action"/>
+							<!--button name="sbt_action" type="submit" value="{$_lang['mulit_delete']}" onclick="return batch_act(this,'frm_list');" class="pill negative"><span class="icon trash"></span>{$_lang['mulit_delete']}</button-->
+	                    </div>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+			  <div class="page">{$pages['page']}</div>
+			  </div>
+        	</form>
+        </div>       
+    </div>
+	<!--主体结束-->
+<script type="text/javascript">
+	function createHtml(writedir,filename){
+		var url = "index.php?do=static&view=update&sbt_edit=1&write_dir="+writedir+"&file_name="+filename;
+			ajaxDialog(url);
+	}
+ function ajaxDialog(url){
+ 	 art.dialog({
+			title: "{$_lang['static_file_update']}",
+			content: "{$_lang['start_update_static_file']}",
+			yesFn: function(){
+				var dia = this;
+				dia.content("{$_lang['static_file_update_not_operation']}").lock();
+						$.getJSON(url,function(json){
+							if(json.status==1){dia.close();
+								art.dialog({icon: 'succeed',content: json.msg,time:3});
+							}else{art.dialog.alert(json.msg);}
+							return false;
+						})
+						 return false;
+				},
+				noFn :function(){this.close();return false;}
+		})
+ }
+ 
+ function show_freeze(o,url){ 
+	art.dialog.open(url,{title:"任务冻结",height:400,width:700,noFn:function(){
+		$(o).show();
+	}});
+	$(o).hide();
+	return false;
+}	
+
+function operat_confirm(operat_type,task_id){
+	var str_content;
+	var ac=operat_type;
+	switch(operat_type){
+		case 'recommend':
+			str_content = '是否确定推荐此任务？';
+			break;
+		case 'pass':
+			str_content = '是否确定审核通过？';
+			break;
+		case 'nopass':
+			str_content = '是否确定审核失败？';
+			break;
+		case 'close':
+			str_content = '是否确定关闭任务？';
+			break;
+	}
+	art.dialog.confirm(str_content,function(){
+		url="{$url}&task_id="+ task_id +"&ac="+ ac;
+		location.href = url;
+	});
+}
+</script>
+<!--{template control/admin/tpl/admin_footer}-->

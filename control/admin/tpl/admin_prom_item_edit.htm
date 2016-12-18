@@ -1,0 +1,173 @@
+<!--{template control/admin/tpl/admin_header}-->
+	<div class="page_title">
+    	<h1>{if $s_id}{$_lang['edit_material']}{else}{$_lang['add_material']}{/if}</h1>
+        <div class="tool">
+            <a href="index.php?do={$do}&view=item&op={$op}">{$_lang['prom_material_manage']}</a>
+            <a href="index.php?do={$do}&view={$view}&op={$op}&s_id={$s_id}" class="here">{if $s_id}{$_lang['edit_material']}{else}{$_lang['add_material']}{/if}</a>
+    	</div>
+    </div>
+    
+    <div class="box post">
+        	<div class="title"><h2>{if $s_id}{$_lang['edit_material']}{else}{$_lang['add_material']}{/if}</h2></div>
+            <div class="detail">
+               <form method="post" action="index.php?do={$do}&view={$view}&op={$op}&s_id={$s_id}" id="frm_art_edit" name="frm_art_edit" enctype="multipart/form-data">
+                <input type="hidden" name="pk[s_id]" value="{$s_id}">
+				  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      {if $op!='site'}
+                      <tr>
+                        <th scope="row"><span class="bg1 t_r">{$_lang['material_type']}</span></th>
+                        <td>
+                          <select name="fds[s_type]"  class="ps vm" id="slt_type2" msgarea='msg_item_type' msg='{$_lang['please_choose_type']}' title='{$_lang['please_choose_type']}' limit="required:true" 
+						  onchange="$('#tbody_prom_text').hide();$('#tbody_prom_image').hide();$('#tbody_prom2_image').hide();$('#tbody_prom2_image').hide();$('#tbody_prom3_image').hide();$('#tbody_prom4_image').hide();$('#tbody_prom5_image').hide();$('#tbody_prom6_image').hide();$('#tbody_prom7_image').hide();$('#tbody_prom8_image').hide();$('#tbody_prom_'+this.value).show();$('#tbody_prom3_'+this.value).show();$('#tbody_prom4_'+this.value).show();$('#tbody_prom5_'+this.value).show();$('#tbody_prom6_'+this.value).show();$('#tbody_prom7_'+this.value).show();$('#tbody_prom8_'+this.value).show();">
+                            <option value="">{$_lang['choose_type']}</option>
+                            <option value="image"  {if $item_info['s_type']=='image'} selected="selected"{/if}>{$_lang['img']}</option>
+                            <option value="text" {if $item_info['s_type']=='text'}selected="selected"{/if}>{$_lang['text']}</option>
+                           </select>
+                        <span id="msg_item_type"></span>
+                        </td>
+                      </tr>
+                      {/if}
+                      <tr>
+                        <th scope="row"><span class="bg1 t_r">{$_lang['prom_name']}</span></th>
+                        <td>
+                        <input type="text" class="txt" size='55' msgarea='msg_item_name' msg='{$_lang['prom_name_can_not_null']}' title='{$_lang['prom_name_length_limit']}' limit=
+                        "required:true;len:2-50" name="fds[s_title]" id="txt_item_name" value="$item_info['s_title']">
+                         <span id="msg_item_name"></span>
+                        </td>
+                      </tr>
+					  
+                      <tr id="tbody_prom_image" {if $item_info['s_type']!='image'||$op=='tsite'}style="display:none;"{/if} >
+                        <th scope="row"><span class="bg1 t_r">{$_lang['prom_picture']}</span></th>
+                        <td>
+                         <input type="file" name="s_img1" id="s_img1" size="30" ext=".png,.jpeg,.gif,.bmp,.jpg" onchange="isExtName(this,1)">
+                        {if $item_info['s_img1']!=''}
+						 <a href="../../$item_info['s_img1']"  target="_blank"><img src="../../{$item_info['s_img1']}" width=45px height=45px />{$_lang['click_view']}</a>
+                        {/if}
+                        </td>
+                      </tr>
+					    <tr id="tbody_prom2_image" {if $item_info['s_type']!='image'||$op=='tsite'}style="display:none;"{/if} >
+                        <th scope="row"><span class="bg1 t_r">{$_lang['prom_picture2']}</span></th>
+                        <td>
+                         <input type="file" name="s_img2" id="s_img2" size="30" ext=".png,.jpeg,.gif,.bmp,.jpg" onchange="isExtName(this,1)">
+                        {if $item_info['s_img2']!=''}
+                        <a href="../../$item_info['s_img2']"  target="_blank"><img src="../../{$item_info['s_img2']}" width=45px height=45px />{$_lang['click_view']}</a>
+                        {/if}
+                        </td>
+                      </tr>
+					    <tr id="tbody_prom3_image" {if $item_info['s_type']!='image'||$op=='tsite'}style="display:none;"{/if} >
+                        <th scope="row"><span class="bg1 t_r">{$_lang['prom_picture3']}</span></th>
+                        <td>
+                         <input type="file" name="s_img3" id="s_img3" size="30" ext=".png,.jpeg,.gif,.bmp,.jpg" onchange="isExtName(this,1)">
+                        {if $item_info['s_img3']!=''}
+                         <a href="../../$item_info['s_img3']"  target="_blank"><img src="../../{$item_info['s_img3']}" width=45px height=45px />{$_lang['click_view']}</a>
+                        {/if}
+                        </td>
+                      </tr>  
+					    <tr id="tbody_prom4_image" {if $item_info['s_type']!='image'||$op=='tsite'}style="display:none;"{/if} >{$_lang['prom_picture4']}
+                        <th scope="row"><span class="bg1 t_r">{$_lang['prom_picture4']}</span></th>
+                        <td>
+                         <input type="file" name="s_img4" id="s_img4" size="30" ext=".png,.jpeg,.gif,.bmp,.jpg" onchange="isExtName(this,1)">
+                        {if $item_info['s_img4']!=''}
+                       <a href="../../$item_info['s_img4']"  target="_blank"><img src="../../{$item_info['s_img4']}" width=45px height=45px />{$_lang['click_view']}</a>
+                        {/if}
+                        </td>
+                      </tr> 
+					    <tr id="tbody_prom5_image" {if $item_info['s_type']!='image'||$op=='tsite'}style="display:none;"{/if} >
+                        <th scope="row"><span class="bg1 t_r">{$_lang['prom_picture5']}</span></th>
+                        <td>
+                         <input type="file" name="s_img5" id="s_img5" size="30" ext=".png,.jpeg,.gif,.bmp,.jpg" onchange="isExtName(this,1)">
+                        {if $item_info['s_img5']!=''}
+                        <a href="../../$item_info['s_img5']"  target="_blank"><img src="../../{$item_info['s_img5']}" width=45px height=45px />{$_lang['click_view']}</a>
+                        {/if}
+                        </td>
+                      </tr> 
+					    <tr id="tbody_prom6_image" {if $item_info['s_type']!='image'||$op=='tsite'}style="display:none;"{/if} >
+                        <th scope="row"><span class="bg1 t_r">{$_lang['prom_picture6']}</span></th>
+                        <td>
+                         <input type="file" name="s_img6" id="s_img6" size="30" ext=".png,.jpeg,.gif,.bmp,.jpg" onchange="isExtName(this,1)">
+                        {if $item_info['s_img6']!=''}
+                        <a href="../../$item_info['s_img6']"  target="_blank"><img src="../../{$item_info['s_img6']}" width=45px height=45px />{$_lang['click_view']}</a>
+                        {/if}
+                        </td>
+                      </tr> 
+					    <tr id="tbody_prom7_image" {if $item_info['s_type']!='image'||$op=='tsite'}style="display:none;"{/if} >
+                        <th scope="row"><span class="bg1 t_r">{$_lang['prom_picture7']}</span></th>
+                        <td>
+                         <input type="file" name="s_img7" id="s_img7" size="30" ext=".png,.jpeg,.gif,.bmp,.jpg" onchange="isExtName(this,1)">
+                        {if $item_info['s_img7']!=''}
+                        <a href="../../$item_info['s_img7']"  target="_blank"><img src="../../{$item_info['s_img7']}" width=45px height=45px />{$_lang['click_view']}</a>
+                        {/if}
+                        </td>
+                      </tr> 
+					    <tr id="tbody_prom8_image" {if $item_info['s_type']!='image'||$op=='tsite'}style="display:none;"{/if} >
+                        <th scope="row"><span class="bg1 t_r">{$_lang['prom_picture8']}</span></th>
+                        <td>
+                         <input type="file" name="s_img8" id="s_img8" size="30" ext=".png,.jpeg,.gif,.bmp,.jpg" onchange="isExtName(this,1)">
+                        {if $item_info['s_img8']!=''}
+                         <a href="../../$item_info['s_img8']"  target="_blank"><img src="../../{$item_info['s_img8']}" width=45px height=45px />{$_lang['click_view']}</a>
+                        {/if}
+                        </td>
+                      </tr>                        
+					  {if $op!='site'}
+                      <tr>
+                        <th scope="row"><span class="bg1 t_r">{$_lang['code_and_content']}</span></th>
+                        <td>
+                        	<textarea cols="80" rows="8" class="textarea" id="tar_item_content" name="fds[s_url]" value="{$item_info['item_content']}">
+                        		{$item_info['s_url']}
+								</textarea>
+							  <div class="padt10 direct">
+                            <p>
+                        		 {$_lang['prom_notice']}
+							</p>
+                        </div>
+                		</td>
+                      </tr>
+					  {else}
+					   <tr>
+                        <th scope="row"><span class="bg1 t_r">{$_lang['website']}url</span></th>
+                        <td>
+                        	<input type="text" class="txt" size='100' name="fds[s_url]" value="{$item_info['s_url']}">
+							 <div class="padt10 direct">
+                            <p>
+                        		{$_lang['prom_notice']}
+							</p>
+                        </div>
+                		</td>
+                      </tr>
+					  {/if}
+                      
+                       {if $item_info['on_time']}
+                      <tr>
+                        <th scope="row"><span class="bg1 t_r">{$_lang['last_modify']}</span></th>
+                        <td><!--{date('Y-m-d H:i:s',$item_info['on_time'])}--></td>
+                      </tr>
+                       {/if}
+                      <tr>
+                        <th scope="row">&nbsp;</th>
+                        <td>
+                            <div class="clearfix padt10">
+                                <button class="positive primary pill button" type="submit" name="sbt_edit" value="{$_lang['submit']}">{if $s_id}<span class="check icon"></span>{$_lang['submit']}{else}<span class="check icon"></span>{$_lang['add_prom_item']}{/if}</button>
+                                <button class="pill button" onclick="to_back();" name="rst_edit" type="button"><span class="uparrow icon"></span>{$_lang['return']}</button>
+                            </div>
+                        </td>
+                      </tr>
+                      
+                    </table>
+                </form>
+  		</div>   
+    </div>
+
+
+<script type="text/javascript">
+$(function(){
+$("#slt_type").change(function(){
+	if($("#slt_type").val()=='image'){
+		$("#tr_item_pic").show();
+	}else{
+		$("#tr_item_pic").hide();
+	}
+	})		   
+})
+</script>
+
+<!--{template control/admin/tpl/admin_footer}-->

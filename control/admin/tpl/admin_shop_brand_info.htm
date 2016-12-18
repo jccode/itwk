@@ -1,0 +1,241 @@
+<!--{template control/admin/tpl/admin_header}-->
+{if $op!='user'}
+ <div class="page_title">
+    	<h1>品牌馆详情</h1>
+        <div class="tool">
+        	<a href="index.php?do={$do}&view=brand">品牌馆列表</a>
+        	<a href="index.php?do={$do}&view=brand_info&brand_id=$brand_id" class="here" >{if $brand_id}查看{else}添加{/if}品牌馆</a>
+       		{if $brand_id}
+				<a href="index.php?do={$do}&view=brand_info">添加品牌馆</a>
+       		{/if}
+	    </div>
+</div>
+<!--页头结束-->    
+{if $brand_id}
+<div class="box post">
+    <div class="tabcon">
+        	<div class="title"><h2>详细信息</h2></div>       	
+            <div class="detail">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <th scope="row">申请用户{$_lang['zh_mh']}</th>
+                        <td><b>{$brand_info[username]}</b></td>
+					  </tr>
+					   <tr>
+                        <th scope="row" width="130">{$_lang['shop_name']}{$_lang['zh_mh']}</th>
+                        <td>
+                        	<a href="{$_K['siteurl']}/index.php?do=shop&sid={$brand_info['shop_id']}" target="_blank">{$brand_info['shop_name']}</a>
+						</td>
+                      </tr> 
+                      <tr>
+                        <th scope="row" width="130">品牌馆{$_lang['zh_mh']}</th>
+                        <td>
+                        	{$brand_type[$brand_info['brand']]}
+						</td>
+                      </tr>
+					  {if $file_list}
+                      <tr>
+                        <th scope="row" width="130">申请附件{$_lang['zh_mh']}</th>
+                        <td>
+                        	{loop $file_list $v}
+								<a href="<!--{eval echo kekezu::format_url($v[save_name])}-->">{$v['file_name']}</a>
+							{/loop}
+						</td>
+                      </tr>	
+					  {/if}
+                      <tr>
+                        <th scope="row" width="130">品牌自述{$_lang['zh_mh']}</th>
+                        <td>
+                        	{$brand_info['app_desc']}
+						</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" width="130">申请状态{$_lang['zh_mh']}</th>
+                        <td>
+                        	{$brand_status[$brand_info['app_status']]}
+						</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" width="130">是否推荐{$_lang['zh_mh']}</th>
+                        <td>
+                   		   {if $brand_info['is_recommend']}<font color="red">是</font>{else}否{/if}
+						</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" width="130">申请时间{$_lang['zh_mh']}</th>
+                        <td>
+                        	<!--{date('Y-m-d H:i:s',$brand_info['on_time'])}-->
+						</td>
+                      </tr>
+					<tr>
+					  <th scope="row">&nbsp;</th>
+					  <td>
+						{if $brand_info['app_status']!=1}
+                      		 <a href="index.php?do=shop&view=brand_info&brand_id={$brand_id}&ac=pass" onclick="return cdel(this,'确定通过此条申请吗?');" class="button"> 
+					   		<span class="check icon"></span>通过</a>
+						{/if}
+						{if $brand_info['app_status']==1}
+							{if $brand_info['is_recommend']}
+	                      		 <a href="index.php?do=shop&view=brand_info&brand_id={$brand_id}&ac=no_recomm" onclick="return cdel(this,'确定取消推荐吗?');" class="button"> 
+						   		<span class="move icon"></span>取消推荐</a>
+							{else}
+	                      		 <a href="index.php?do=shop&view=brand_info&brand_id={$brand_id}&ac=is_recomm" onclick="return cdel(this,'确定推荐吗?');" class="button"> 
+						   		<span class="pin icon"></span>推荐</a>
+							{/if}
+						<a href="index.php?do=shop&view=brand_info&brand_id={$brand_id}&ac=nopass" onclick="return cdel(this,'确定不通过此条申请吗?');" class="button"> 
+					   		<span class="cross icon"></span>不通过</a>
+						{/if}
+					  </td>
+					</tr>
+                    </table>
+              </div>
+       </div>           
+</div>
+{else}
+<div class="box post">
+    <div class="tabcon">
+        	<div class="title"><h2>详细信息</h2></div>       	
+            <div class="detail">
+            	<form name="frm_brand" id="frm_brand" action="index.php?do=shop&view=brand_info&sbt_edit=1" method="post">
+                    <input type="hidden" name="txt_uid" id="txt_uid">
+					 <input type="hidden" name="txt_username" id="txt_username">
+					 <input type="hidden" name="txt_shop_id" id="txt_shop_id">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <th scope="row">申请用户{$_lang['zh_mh']}</th>
+                        <td>
+                        	<span id="span_user"></span>
+                        	<a class="button" href="javascript:void(0);" onclick='getUser();'>
+								<span class="user icon"></span>
+								获取用户
+							</a>
+						</td>
+					  </tr>
+                      <tr>
+                        <th scope="row" width="130">品牌馆{$_lang['zh_mh']}</th>
+                        <td>
+                        	{loop $brand_type $k $v}
+								<input type="radio" name="brand" value="{$k}" {if $k=='hk'}checked="checked"{/if}>{$v}
+							{/loop}
+						</td>
+                      </tr>
+					<tr>
+					  <th scope="row">&nbsp;</th>
+					  <td>
+					  	<button class="positive primary pill button" type="submit" onclick="return checkForm(document.getElementById('frm_brand'),false)" value="1" name="sbt_edit">
+							<span class="check icon"></span>
+							提交
+						</button>
+					  </td>
+					</tr>
+                    </table>
+					</form>
+              </div>
+       </div>           
+</div>
+<script type="text/javascript">
+	function getUser(){
+		art.dialog.open('index.php?do=shop&view=brand_info&op=user',
+			{
+				title:'可添加用户列表',
+				width:650,
+				closeFn:function (){
+						$("#txt_uid").val(art.dialog.data('txt_uid'));
+						$("#txt_username").val(art.dialog.data('txt_username'));
+						$("#txt_shop_id").val(art.dialog.data('txt_shop_id'));
+						$("#span_user").text(art.dialog.data('span_user'));
+					}
+			}
+		)
+	}
+</script>
+{/if}
+{else}
+<div class="box search p_relative">
+    <div class="title">
+        <h2>{$_lang['search']}</h2>
+    </div>
+    <div class="detail" id="detail">
+        <form method="post" action="index.php?do=shop&view=brand_info&op=user" id="frm_art_search">
+			<input type="hidden" name="page" value="{$page}">
+            <table cellspacing="0" cellpadding="0">
+                <tbody>
+                    <tr>
+                        <th>
+                           用户编号
+                        </th>
+                        <td>
+                            <input type="text" class="txt" size="12" name="txt_uid" onkeyup="clearstr(this);">
+                        </td>
+                        <th>
+                            用户名称
+                        </th>
+                        <td>
+                            <input type="text" class="txt" name="txt_username" id="txt_username">
+                            <button class="pill" type="submit" value={$_lang['search']}  name="sbt_search">
+                                <span class="icon magnifier">&nbsp;</span>{$_lang['search']}
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+<div class="box list">
+        <div class="detail">
+			<table cellpadding="0" cellspacing="0">
+             <tbody>
+                 <tr>
+                 	 <th>
+          					UID
+                        </th>
+                        <th>
+                          用户名
+                        </th>
+                        <th>
+                           		  店铺名
+                        </th>
+                        <th>
+                            操作
+						</th>
+                    </tr>
+				 {if $list}
+  				 {loop $list $v}
+                    <tr class="item">
+                        <td>
+                            {$v['uid']}
+                        </td>
+                        <td>
+                           {$v['username']}
+                        </td>
+                        <td>
+                        	<a href="{$_K['siteurl']}/index.php?do=shop&sid={$v['shop_id']}" target="_blank">{$v['shop_name']}</a>
+                        </td>
+                        <td>
+                             <a href="javascript:void(0);" onclick="addUser('$v[uid]','$v[username]','$v[shop_id]');" class="button"> 
+						   		<span class="plus icon"></span>添加</a>
+                        </td>
+                    </tr>
+				{/loop}
+				{else}
+                    <tr><td colspan=4 align="center">暂无可添加用户数据</td>
+                  </tr>
+				{/if}
+                </tbody>
+              </table>
+			  <div class="page">{$pages['page']}</div>
+        </div>
+	</div>
+<script type="text/javascript">
+	function addUser(i,u,s){
+		art.dialog.data('txt_uid',i);
+		art.dialog.data('txt_username',u);
+		art.dialog.data('txt_shop_id',s);
+		art.dialog.data('span_user',u);
+	   	art.dialog.open.api.close();
+	}
+</script>
+{/if}
+<!--主体结束-->
+<!--{template control/admin/tpl/admin_footer}-->

@@ -1,0 +1,150 @@
+<!--{template header}-->
+<style type="text/css">
+	.form_button{margin-top: 0;} .valid_error span{ display:inline-block; width:180px;}
+	</style>
+
+<script src="{$_K['siteurl']}/resource/js/system/select_indus.js" type="text/javascript"></script>
+<!--{eval $indus_map_json = json_encode($indus_map);}-->
+<script type="text/javascript">
+	var indus_map = {$indus_map_json};
+	var task_info = <!--{eval echo json_encode($task_info);}-->;
+	
+	jQuery(function ($) {
+		var is = new SelectIndus(indus_map);
+        is.init();
+        if(task_info["indus_id"]) { 
+			is.initCheckState(task_info.indus_id, task_info.indus_pid);
+		}
+	});
+</script>	
+
+ <!--winbody content-->
+<div class="winbody {$_K['theme']}_style">
+ <div class="clearfix box pad20">
+     <!--from表单 start-->
+    <form method="post" id="frm_edit" name="frm_edit" action="">
+	  	<input type="hidden" name="step" value="step1">
+       <div class="rowElem clearfix" id="desc">
+       		<div class="rowElem clearfix">
+       			<lable class="t_r"><strong>{$_lang['indus_type']}</strong></lable>
+				<div class="">
+				
+					<!-- 
+					<select name="indus_pid" id="indus_pid" onchange="showIndus(this.value)" limit = "required:true;between:5-10" msg = "{$_lang['industry_no_choose']}" msgArea="span_indus">
+						<option value="">{$_lang['select_industry']}</option>
+						{loop $indus_p_arr $v}
+							 <option value="{$v['indus_id']}" {if $task_info['indus_pid']==$v['indus_id']}selected{/if}>{$v['indus_name']}</option>
+						{/loop} 
+					</select>
+					<select name="indus_id" id="indus_id"  limit = "required:true;between:5-10" msg="{$_lang['industry_z_no_choose']}" msgArea="span_indus">
+                        <option value="">{$_lang['choose_part']}</option>
+						{if $task_info['indus_id']}
+						{loop $indus_arr $k $v}
+							{if $v['indus_pid']==$task_info['indus_pid']}
+                       		<option value="{$v['indus_id']}" {if $task_info['indus_id']==$v['indus_id']}selected="selected"{/if}>{$v['indus_name']}</option>
+							{/if}
+						{/loop}
+						{/if}
+                    </select>
+					<span id="span_indus"></span>
+					 -->
+					 
+					<select name="indus_ids[]" id="selectp"  >
+						<option value="">{$_lang["select_industry"]}</option>
+                     	</select>
+                       <select name="indus_ids[]" id="indus_pid" title="{$_lang['select_industry']}"  caseon="submit" limit = "required:true;between:5-10" msg = '{$_lang['industry_no_choose']}' 1msgArea="span_indus">
+                       	<option value="">{$_lang["select_industry"]}</option>
+					</select>
+	                  <span id="reload_indus">
+     	            	<select name="indus_ids[]" id="indus_id" caseon="submit" title='{$_lang['choose_part']}' 1msgArea="span_indus"><span id="span_indus"></span>
+                        	<option value="">{$_lang["select_industry"]}</option>
+                      	</select>
+         		        	</span>
+					 
+				</div>
+				
+       		</div>
+			<div class="rowElem clearfix">
+				<label class=" t_r"><strong>{$_lang['task_title']}</strong></label>
+				<div class="">
+					<input name="txt_title" id="txt_title" type="text" value="{$task_info['task_title']}" title="{$_lang['txt_title']}" size="34" msgArea="span_title"
+					limit="required:true;len:5-50" msg="{$_lang['task_title_error']}" maxlength="50" style="width:440px"/>
+					<div class="clearfix"></div>
+					<div id="span_title"></div>
+				</div>
+			</div>
+			<div class="rowElem clearfix">
+				<label class=" t_r"><strong>{$_lang['task_desc']}</strong></label>
+				<div class="">
+					<textarea cols="54" rows="10" style="width:450px; height:180px;" name="tar_content" id="tar_content" msgArea="msg_content" onblur="contentCheck('tar_content','需求描述',10,1500,0,'msg_content',editor);" 
+					 class="tar_content xheditor {tools:'Bold,FontSize,Fontface,FontColor,Italic,Underline,Strikethrough,Align,List,Outdent,Indent,Table',skin:'nostyle',innerCheck:true,wordLimit:1500}"><!--{eval echo kekezu::escape($task_info['task_desc'])}--></textarea>
+	                <div class="clear"></div>
+	                <div class="c999" id="length_show"></div>
+					<div id="msg_content"></div>
+				</div>
+			</div>
+      </div>
+   </form>
+  <!--from表单 end-->
+ </div>
+ <div class="rowElem clearfix form_button">
+   	 	 <button type="button" class="submit" value="{$_lang['save']}" onclick="task_edit();">{$_lang['save']}</button>
+	 	 <button type="button" class="button bwhite" value="{$_lang['cancel']}" onclick="hideWindow('edit');">{$_lang['cancel']}</button>
+      </div>
+ 
+</div>
+<!--winbody content end-->
+	
+<script type="text/javascript">
+	/**
+	 * 需要提交textarea提交的操作用此方法.补充需求，
+	 */
+	In('form');
+	function task_edit(){
+		//var shtml = contentCheck('tar_content','{$title}',20,500,1,'desc');
+		var pass = false;
+		if(checkForm(document.getElementById('frm_edit'))){
+			if(contentCheck('tar_content','需求描述',10,1500,0,'',editor)){
+				pass = true;
+			}
+			if(pass){
+				//var indus_pid = $('#indus_pid').val();
+				//var indus_id = $('#indus_id').val();
+				
+				// set indus_id, indus_pid  取最后一个非空的id为indus_id, 倒数第二个非空为indus_pid
+				var indus_ids = [$("#selectp").val(), $("#indus_pid").val(), $("#indus_id").val()];
+				var i = indus_ids.length - 1;
+				while(i >= 0 && indus_ids[i] == "") {
+					i--;
+				}
+				var indus_id = (i >= 1) ? indus_ids[i] : 0;
+				var indus_pid = (i >= 1) ? indus_ids[i-1] : 0;
+				
+				
+				var task_title = $('#txt_title').val();
+				var task_desc = $('#tar_content').val();
+				$.post(basic_url+'&op={$op}',{sbt_edit:true,indus_pid:indus_pid,indus_id:indus_id,task_title:task_title,task_desc:task_desc,step:'step1'},
+				function(json){
+					if(json.status=='1'){
+						showDialog(json.data,'right',json.msg,'redirectUrl()');hideWindow('edit');
+					}
+					else{
+						showDialog(json.data,'alert',json.msg);
+					}
+				},'json');
+			}
+		}
+
+	}
+	
+	function redirectUrl(){
+		window.location.href=basic_url;
+	}
+</script>
+<script src="{$_K['siteurl']}/resource/js/jquery.bgiframe.pack.js"></script>
+<script>
+	$(function(){
+		$('div.fwinmask').bgiframe();;
+	})
+</script>
+<!--{template footer}-->

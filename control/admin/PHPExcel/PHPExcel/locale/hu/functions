@@ -1,0 +1,46 @@
+﻿##
+## PHPExcel
+##
+## Copyright (c) 2006 - 2011 PHPExcel
+##
+## This library is free software; you can redistribute it and/or
+## modify it under the terms of the GNU Lesser General Public
+## License as published by the Free Software Foundation; either
+## version 2.1 of the License, or (at your option) any later version.
+##
+## This library is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+## Lesser General Public License for more details.
+##
+## You should have received a copy of the GNU Lesser General Public
+## License along with this library; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+##
+## @category   PHPExcel
+## @package    PHPExcel_Calculation
+## @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
+## @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+## @version    1.7.7, 2012-05-19
+##
+## Data in this file derived from http://www.piuha.fi/excel-function-name-translation/
+##
+##
+
+
+##
+##	Add-in and Automation functions			Bővítmények és automatizálási függvények
+##
+GETPIVOTDATA		= KIMUTATÁSADATOT.VESZ		##	A kimutatásokban tárolt adatok visszaadására használható.
+
+
+##
+##	Cube functions Kockafüggvények   
+##
+CUBEKPIMEMBER		= KOCKA.FŐTELJMUT		##	Egy fő teljesítménymutató (KPI) nevét, tulajdonságát és mértékegységét adja eredményül, a nevet és a tulajdonságot megjeleníti a cellában. A KPI-k számszerűsíthető mérési lehetőséget jelentenek – ilyen mutató például a havi bruttó nyereség vagy az egy alkalmazottra jutó negyedéves forgalom –, egy szervezet teljesítményének nyomonkövetésére használhatók.
+CUBEMEMBER		= KOCKA.TAG			##	Kockahierachia tagját vagy rekordját adja eredményül. Ellenőrizhető vele, hogy szerepel-e a kockában az adott tag vagy rekord.
+CUBEMEMBERPROPERTY	= KOCKA.TAG.TUL			##	A kocka egyik tagtulajdonságának értékét adja eredményül. Használatával ellenőrizhető, hogy szerepel-e egy tagnév a kockában, eredménye pedig az erre a tagra vonatkozó, megadott tulajdonság.
+CUBERANKEDMEMBER	= KOCKA.HALM.ELEM		##	Egy halmaz rangsor szerinti n-edik tagját adja eredményül. Használatával egy halmaz egy vagy több elemét kaphatja meg, például a legnagyobb teljesítményű üzletkötőt vagy a 10 legjobb tanulót.
+CUBESET			= KOCKA.HALM			##	Számított tagok vagy rekordok halmazát adja eredményül, ehhez egy beállított kifejezést elküld a kiszolgálón található kockának, majd ezt a halmazt adja vissza a Microsoft Office Excel alkalmazásnak.
+CUBESETCOUNT		= KOCKA.HALM.DB			##	Egy halmaz elemszámát adja eredményül.
+CUBEVALUE		= KOCKA.ÉRTÉK			##	Kockából összesített

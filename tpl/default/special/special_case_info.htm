@@ -1,0 +1,112 @@
+<!--{template header}--><!--{template new_head_nav}-->
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/special.css" rel="stylesheet"/>
+<header class="clearfix page_header">
+    <div class="container_24">
+        <!--页面导航-->
+        <div class="heidtile clearfix">
+            <span>你的位置：</span>
+            <span><a href="{$_K['siteurl']}/index.php">IT帮手网首页</a>&nbsp;&gt;&nbsp;</span>
+            <span><a href="{$_K['siteurl']}/index.php?do=special">特色专栏</a>&nbsp;&gt;&nbsp;</span>
+            <span><a href="{$_K['siteurl']}/case/">成功案例</a>&nbsp;&gt;&nbsp;</span>
+			<h1><a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$art_info[art_cat_id]&art_id={$art_info[art_id]}">{$art_info[art_title]}</a></h1>
+        </div>
+        <!--end 页面导航-->
+    </div>
+</header>
+<section class="clearfix content">
+    <div class="container_24">
+        <div class="left_bar">
+            <!--目录菜单-->
+            <div class="box category">
+                <div class="go_home">
+                    <a href="{$_K['siteurl']}/case/" class="selected"><span class="font_simsun pr_5">&lt;</span>返回列表页面</a>
+                </div>
+                <div class="box_header">
+                    <div class="box_title">
+                        <h2 class="title">案例分类</h2>
+                    </div>
+                </div>
+                <div class="box_detail">
+                    <menu class="sort">
+                        <li>
+                            <a href="{$_K['siteurl']}/case/" {if !$art_info['art_cat_id']}class="selected"{/if}><span>优秀案例</span></a>
+                        </li>
+                        {loop $cate_arr $k $v}
+                        <li>
+                            <a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$v['art_cat_id']" {if $art_info['art_cat_id']==$v['art_cat_id']}class="selected"{/if}><span>{$v['cat_name']}</span></a>
+                        </li>
+                        {/loop}
+                    </menu>
+                </div>
+            </div>
+            <!--目录菜单 end--><!--雇佣任务-->
+        <!--{template special/special_side}-->
+        </div>
+        <div class="right_side">
+            <!--左边部分 start-->
+            <div class="main bor2">
+                <div class="aboutZone commission pad20" style="background:#fff;">
+                    <div class="article_title">
+                        <h1>{$art_info[art_title]}</h1>
+                        <p class="c999 t_c pt_10">
+                            发布时间：<!--{date('Y-m-d h:i:s',$art_info['pub_time'])}--> 阅读次数：{$art_info['views']}次 
+                            <div class="share_box">
+                                <span class="share_title">分享有奖：</span>
+                                <!-- Baidu Button BEGIN -->
+                                    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+                                        <a class="bds_qzone"></a>
+                                        <a class="bds_tsina"></a>
+                                        <a class="bds_tqq"></a>
+                                        <a class="bds_renren"></a>
+                                        <span class="bds_more"></span>
+                                    </div>
+                                    <script type="text/javascript" id="bdshare_js" data="type=tools&amp;mini=1&amp;uid=6457600" ></script>
+                                    <script type="text/javascript" id="bdshell_js"></script>
+                                    <script type="text/javascript">
+                                        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+                                    </script>
+                                <!-- Baidu Button END -->
+                            </div>
+                        </p>
+                    </div>
+                    <div class="article_detaile pl_20 pr_20 pb_20 clearfix">
+                        <!--{eval echo str_replace('src="data/uploads/', 'src="' . $_K['siteurl'] . '/data/uploads/', htmlspecialchars_decode($art_info['content']));}-->
+                    </div>
+                    <div class="pt_10 clearfix">
+                        <span class="fl_l">上一篇：{if $art_up_info}<a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$art_up_info[art_cat_id]&art_id=$art_up_info['art_id']">{$art_up_info['art_title']}</a>{else}没有了{/if}</span>
+                        <span class="fl_r">下一篇：{if $art_down_info}<a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$art_down_info[art_cat_id]&art_id=$art_down_info['art_id']">{$art_down_info['art_title']}</a>{else}没有了{/if}</span>
+                    </div>
+                </div>
+                <div class="related mt_10">
+                    <div class="aboutZone commission">
+                        <dl class="clearfix">
+                            <dt>
+                                <div class="aboutZoneHD">
+                                    相关案例
+                                </div>
+                                <a href="{$_K['siteurl']}/case/" class="fl_r c666">更多&gt;</a>
+                            </dt>
+                            <dd class="clearfix">
+                                <ul class="clearfix">
+                                    {if $about_info}
+                                    {loop $about_info $k $v}
+                                    <li>
+                                        <a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=$v[art_cat_id]&art_id={$v[art_id]}">{$v[art_title]}</a>
+                                    </li>
+                                    {/loop}
+                                    {else}
+                                    <li>
+                                        没有找到相关案例
+                                    </li>
+                                    {/if}
+                                </ul>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <!--左边部分 end-->
+        </div>
+    </div>
+</section>
+<!--{template footer}-->

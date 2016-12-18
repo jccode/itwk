@@ -1,0 +1,74 @@
+<!--{template header}-->
+<!--{template header_nav_about}-->
+<div class="wrapper">
+	<div class="page_header">
+		<div class="container_24">
+			<div class="breadcrumbs clearfix">
+					你的位置：
+				<a href="{$_K['siteurl']}/index.php" style="color:#333;">IT帮手首页</a> &gt;
+				<a href="{$_K['siteurl']}/index.php?do=about&view=index" style="color:#333;"> 关于我们</a> &gt; 
+				支付方式
+			</div>
+		</div>
+	</div>
+<div class="container_24 pt_20 clearfix">
+ 	
+	<div class="aside clearfix">
+   		<div class="aboutCatalog" id="aboutCatalog">
+         	<ul>
+            	<li class="title" style="color:#333; font-size:22px;"><strong>支付方式</strong></li>
+            	{loop $nav_list $k $v}
+					<li><img src="{$_K['siteurl']}/{SKIN_PATH}/img/about/iconArrow4.png">
+								<a {if $op==$k} class="current"{/if} href="{$_K['siteurl']}/index.php?do=about&view=$view&op=$k" {$menu_style['index']}> 
+										$v
+								</a></li>
+				
+				
+				{/loop}
+				
+				
+			</ul>           
+    	</div>
+	</div>
+	<div class="main bor2">
+	 		<div class="aboutZone commission clearfix">
+		
+		<dl>
+			<dt><div class="aboutZoneHD">在线支付方式</div></dt>
+		<dd>
+		<div class="ContactZone commission" style="border:none; padding-top:20px; padding-bottom:20px;">
+			<dl>
+				<dt style="border:1px solid #dfdfdf;"><div class="aboutZoneHD help">有什么可以帮助您的？</div></dt>
+				<dd>
+					<table class="homeabout_Zone" style="border-top:none;" width="100%" cellspacing="0" cellpadding="0" border="0">
+					<tbody>
+						<tr>
+							<td>
+								<div class="bankl t_c pt_10 pb_10 c333"><a href="javascript:void(0);"><img src="{$_K['siteurl']}/{SKIN_PATH}/img/about/zfb.gif" alt="支付宝"></a></div>
+								<div class="bankr c333">
+									<div>账户名：epweike@163.com</div>
+									<div>厦门IT帮手网络科技有限公司</div>
+								</div>
+							</td>
+							<td>
+								<div class="bankl t_c pt_10 pb_10 c333"><a href="javascript:void(0);"><img src="{$_K['siteurl']}/{SKIN_PATH}/img/about/gfb.png" alt="国付宝"></a></div>
+								<div class="bankr c333">
+									<div>账户名：emuzhi@163.com</div>
+									<div>厦门IT帮手网络科技有限公司</div>
+								</div>
+							</td>							
+							
+						</tr>
+						
+					</tbody>
+			</table>
+			</dd>
+			</dl>		
+		</div>
+		</dd>
+		</dl>
+	</div>
+	</div>
+</div>
+<!--{template footer}-->
+</div>

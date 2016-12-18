@@ -1,0 +1,59 @@
+<!--{template control/admin/tpl/admin_header}--> 
+<div class="page_title">
+	<h1>vip配置</h1>
+     <div class="tool"> 
+        <a href="index.php?do=$do&view=$view" class="here">等级配置</a>
+        <a href="index.php?do=$do&view=$view&type=special" >特权配置</a>
+	</div>
+</div>
+
+
+
+<div class="box list">
+    	<div class="title"><h2>vip等级列表</h2></div>
+        <div class="detail">
+			<form method="" action="" id="frm_user_search">
+		  		<table cellpadding="0" cellspacing="0">
+		  		  <tbody>
+		          <tr>
+		            <th>等级名称</th>
+		            <th>品牌馆</th>
+					<th>开放购买</th>
+					<th>排序</th>
+					<th>操作</th>
+					
+		          </tr>
+				{loop $level_list $key $value}
+		        <tr class="item">
+		            <td>{$value['level_name']}</td>
+		            <td>{if $value['brand']=='tw'}台湾馆{elseif $value['brand']=='hk'}香港馆{else}大陆{/if}</td>
+		            <td>{if $value[allow_buy]}允许{else}禁止{/if}</td>
+					<td>{$value['listorder']}</td>
+					<td>
+						<a class="button dbl_target" href="index.php?do={$do}&view={$view}&type={$type}&level_id={$value['level_id']}&op=edit"><span class="pen icon"></span>编辑</a>
+						<a class="button dbl_target" href="index.php?do={$do}&view={$view}&type={$type}&level_id={$value['level_id']}&op=delete"><span class="pen icon"></span>删除</a>
+					</td>
+					
+		          </tr>
+				 {/loop}
+		          <tr>
+		          	<td colspan="4">
+		          		<a class="button" name="sbt_add" value={$_lang['credit_rules']} class="positive pill" 
+						href="index.php?do=$do&view=$view&op=edit"/>
+						<span class="check icon"></span>添加配置</a>	
+		          	</td>
+		          </tr>
+				  </tbody>
+		        </table>
+			</form>
+        </div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		$(".control").add(".title").click(function(){
+			$(".tip").children().not($(".control,.title")).slideToggle('800');
+		});
+	})
+</script>
+<!--主体结束-->
+<!--{template control/admin/tpl/admin_footer}-->

@@ -1,0 +1,52 @@
+<!--{template header}-->
+
+<div id="share{$oid}_menu">
+<ol>
+	<li><a class="sina" title="{$_lang['share_sina_weibo']}" target="_blank" name="sina"
+	 onclick="share_to(this,{'key':'sina','url':document.location.href,'title':'{$title}','overview':'{$overview}'});" 
+	 href="javascript:void(0);"><img src="{$_K['siteurl']}/resource/img/ico/sina_t.gif" alt=''></a></li>
+	<li><a class="sina" title="{$_lang['share_ten_weibo']}" target="_blank" name="qq"
+	 onclick="share_to(this,{'key':'qq','url':document.location.href,'title':'{$title}','overview':'{$overview}'});" 
+	 href="javascript:void(0);"><img src="{$_K['siteurl']}/resource/img/ico/tencent_t.gif" alt=''></a></li>
+	<li><a class="sina" title="{$_lang['share_wy_weibo']}" target="_blank" name="wy163"
+	 onclick="share_to(this,{'key':'wy163','url':document.location.href,'title':'{$title}','overview':'{$title}'});" 
+	 href="javascript:void(0);"><img src="{$_K['siteurl']}/resource/img/ico/163_t.gif" alt=''></a></li>
+	<li><a class="souh" title="{$_lang['share_sohu_weibo']}" target="_blank" name="sohu"
+	 onclick="share_to(this,{'key':'sohu','url':document.location.href,
+	 'title':'{$title}','overview':'{$overview}'});" 
+	 href="javascript:void(0);"><img src="{$_K['siteurl']}/resource/img/ico/sohu_t.gif" alt=''></a></li>
+</ol>
+	 
+	 
+</div>
+<script src="{$_K['siteurl']}/resource/js/jquery.bgiframe.pack.js"></script>
+<script type="text/javascript">
+	function share_to(o,c){
+	if(!o || !c)return false;
+	 var linkArr = {
+	 rr:"http://share.renren.com/share/buttonshare.do?link={0}&title={1}{2}",
+	 qq:"http://v.t.qq.com/share/share.php?title={1}&url={0}&source={2}",
+	 qzone:"http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url={0}",
+	 hi:"http://apps.hi.baidu.com/share/?url={0}&title={1}&content={2}",
+	 kx:"http://www.kaixin001.com/repaste/share.php?rtitle={1}&rurl={0}&rcontent={2}",
+	 db:"http://www.douban.com/recommend/?url={0}&title={1}&comment={2}",
+	 bsh:"http://bai.sohu.com/appLogin.jsp?bru=/app/share/blank/add.do?link={0}&title={1}",
+	 sina:"http://v.t.sina.com.cn/share/share.php?sourceUrl={0}&title={1}&content={2}&appkey={$sina_app_id}",
+	 sohu:"http://t.sohu.com/third/post.jsp?url={0}&title={1}&content={2}&appkey={$sohu_app_id}",
+	 wy163:"http://t.163.com/article/user/checkLogin.do?link={0}&source={1}&info={2}&title={1}"
+	 }
+	 var _link = linkArr[c.key];
+	 if (c.key=='sohu'){
+	 	c.title = "{$utitle}";
+	 }
+	 o.href=_link.replace(/\{0}/g,c.url)
+	 .replace(/\{1}/g,encodeURIComponent(c.title))
+	 .replace(/\{2}/g,encodeURIComponent(c.overview));
+}
+	$(function(){
+		$('div.fwinmask').bgiframe();
+	})
+</script>
+<!--{template footer}-->
+
+

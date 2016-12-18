@@ -1,0 +1,24 @@
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/special.css" rel="stylesheet"/>
+<nav class="nav special_nav">
+	<div class="container_24 clearfix">
+		<div class="nav_right clearfix fl_r">			
+			<a href="{$_K['siteurl']}/index.php?do=article">新闻中心</a>
+			<span class="line"></span>
+			<a href="{$_K['siteurl']}/index.php?do=special&view=special_list">精彩专题</a>
+			<span class="line"></span>
+			<a href="{$_K['siteurl']}/index.php?do=help&view=service">客服中心</a>
+			<span class="line"></span>
+			<a href="http://e.weibo.com/epweikecom" rel="nofollow" target="_blank">官方微博</a>
+		</div>
+		<div class="nav_left clearfix fl_l">
+			<ul>
+				<li><a href="{$_K['siteurl']}/anli/" {if $view=='case_list'||$view=='case_info'||!$view} class="selected"{/if}>成功案例</a></li>
+				<li><a href="{$_K['siteurl']}/zt/"  {if $view=='special_list'||$view=='special_info'} class="selected"{/if}>精彩专题</a></li>
+				<li><a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=593" {if $view=='employer_list'||$view=='employer_info'} class="selected"{/if}>成功雇主</a></li>
+				<li><a href="{$_K['siteurl']}/index.php?do=article&art_cat_id=594" {if $view=='witkey_list'||$view=='witkey_info'} class="selected"{/if}>优秀威客</a></li>
+				<li><a href="{$_K['siteurl']}/index.php?do=special&view=video_list" {if $view=='video_list'||$view=='video_info'} class="selected"{/if}>特色视频</a></li>
+			</ul>
+		</div>
+		
+	</div>
+</nav>

@@ -1,0 +1,291 @@
+<!--{template header_service}-->
+<!--{template header_service_nav}-->
+<div class="wrapper clearfix">
+	<!--页面头部-->
+		 <header class="clearfix page_header">
+			  <div class="container_24 clearfix"> 
+			   <!--页面导航-->
+			    <div class="breadcrumbs clearfix po_re">
+			    	你的位置：
+			    	   <a href="{$_K['siteurl']}/index.php">IT帮手网首页</a><span class="font_simsun"> > </span>
+					   <a href="{$_K['siteurl']}/index.php?do=service">劳务大厅</a>
+				
+						<span class="po_ab">
+				    	  <a href="{$_K['siteurl']}/index.php?do=article">新闻中心</a>|
+						   <a href="{$_K['siteurl']}/index.php?do=special&view=special_list">精彩专题</a>|
+						   <a href="{$_K['siteurl']}/index.php?do=help&view=service">客服中心</a>|
+						   <a href="http://e.weibo.com/epweikecom" rel="nofollow">官方微博</a>
+					   </span>
+				</div>
+			   <!--end 页面导航-->  
+			 </div>
+		</header> 
+	 <!--end 页面标题-->
+	 <section class="clearfix">
+	     <div class="container_24 clearfix">
+	     	<div class="clearfix"> 
+				<div class="box default kinds_select fl_l clearfix">
+		     	 	<div class="inner">
+		     	 		<header class="box_title">
+		     	 			<h2 class="c333 pt_5 pb_5">服务分类选择</h2>
+		     	 		</header>
+						<article class="clearfix">
+							<ul>
+								<li  class="border_n">
+									<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=124" class="kinds_icon kinds_life">
+										生活服务
+									</a>
+								</li>
+								<li>
+									<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=125" class="kinds_icon kinds_business">
+									
+										商务服务
+									</a>
+								</li>
+								<li>
+									<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=126" class="kinds_icon kinds_people">
+										招聘找人
+									</a>
+								</li>
+								<li>
+									<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=127" class="kinds_icon kinds_internet">
+										网络钟点工
+									</a>
+								</li>
+								<li>
+									<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=128" class="kinds_icon kinds_tour">
+										旅游服务
+									</a>
+								</li>
+								<li>
+									<a href="{$_K['siteurl']}/index.php?do=indus&indus_id=129" class="kinds_icon kinds_other">
+										其他服务
+									</a>
+								</li>
+							</ul>
+						</article>
+		     	 	</div>
+		     	 </div>   
+		     	<div class="clearfix fl_l ml_10 service_banner">
+					<div class="col_banner">
+					   <div class="box">
+					     <div class="inner">
+					      <!--切换广告 start-->
+					       <div class="banner po_re">
+					         <div id="slides">
+					          <!--图片内容区域 start-->
+					              <div class="slides_container">
+									<!--{ad_show(SERVICE_TOP_SLIDE,1)}-->
+					              </div>
+					          <!--图片内容区域 end-->
+					         </div>
+					       </div>
+					      <!--切换广告 end-->
+					     </div>
+					    </div>
+					   <div class="clear"></div>
+					</div>
+					
+					<div class="banner_shadow"></div>
+				</div>
+				<div class="clearfix ml_10 fl_l top_right">
+					<div class="box clearfix box  default">
+						<div class="inner">
+							<div class="bnt_need t_c">
+								<h1>让同城的高手来帮忙</h1>
+								<button type="button" class="big button mt_5 submit" onclick="location.href='{$_K['siteurl']}/index.php?do=demand'">
+									免费发布需求
+								</button>
+							</div>
+							<div class="select_need clearfix">
+								<a>
+									满意后付款
+								</a>
+								<a class="select_need_two">
+									提供赏金托管
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="box default clearfix mt_10 tab_select">
+						<header class="box_header clearfix">
+							<nav class="box_nav">
+								 <ul class=" block clearfix">
+				                  <li id="tab_plac_1" onclick="swaptab('plac','selectedLava','',2,1)" ><a href="javascript:void(0);"   title="常见问题">常见问题</a></li>
+				                  <li id="tab_plac_2" onclick="swaptab('plac','selectedLava','',2,2)"><a href="javascript:void(0);" title="平台公告">平台公告</a></li>
+				               </ul>
+							</nav>
+						</header>
+						<article id="div_plac_1"  class="pad10 clearfix">
+							{if $help_answer}
+							<ul>
+							
+							{loop $help_answer $k $v}
+								<li class="ws_hide">
+									<a href="{$_K['siteurl']}/index.php?do=help&view=info&art_cat_id={$v['art_cat_id']}&art_id={$v[art_id]}"><span class="icon_link">·</span>{$v[art_title]}</a></li>
+							{/loop}
+							
+							</ul>
+							{else}
+							<div class="no_detail">暂无常见问题</div>
+							{/if}
+						</article>
+						<article id="div_plac_2"  class="pad10 clearfix hidden">
+							{if $bulletin}
+							<ul>
+							{loop $bulletin $k $v}
+								<li class="ws_hide">
+									<span class="icon_link"></span><a href="{$_K['siteurl']}/index.php?do=article&view=info&art_cat_id={$v['art_cat_id']}&art_id={$v['art_id']}">{$v['art_title']}</a></li>
+							{/loop}
+							</ul>
+							{else}
+							<div class="no_detail">暂无平台公告</div>
+							{/if}
+						</article>
+					</div>
+				</div> 
+			 </div>
+			 <div class="clear"></div>
+		 	<div class="money_step mt_5">
+		 		<div class="money_step_con">
+					<span>第一步：出售一个劳务服务</span>
+					<span class="m_s_two">第二步：雇主购买</span>	
+					<span class="m_s_three">第三步：赚钱百分百佣金</span>
+				</div>	 		
+		 	</div>
+		 	<div class="clearfix mt_10 he_sr_con">
+		 		<div class="he_s_service box default clearfix">
+		 			<div class="inner">
+		 				<h2>TA出售了服务</h2>
+						<div class="lists clearfix">
+							<dl>
+								<dt class="hidden">出售服务列表</dt>
+								
+								 <dd class="clearfix">
+								    <ul class="clearfix">								  		   	
+								    {loop $sale_service_arr $k $v}
+									  	 <!--{eval $k++; }-->
+										  <!-- 基数行 -->
+										   {if is_numeric($k)&($k&1) && $k != 1}
+											  </ul>
+											    </dd>
+											     <dd class="clearfix">
+										          <ul class="clearfix">
+										   	{/if}
+											<li {if is_numeric($k)&($k&1)}class="clearfix"{else}class="clearfix ml_10"{/if}>
+												<div class="fl_l s_b_img">
+													<a href="{$_K['siteurl']}/index.php?do=shop&sid={$v['shop_id']}&view=service_info&service_id={$v['service_id']}&service_type={$v['service_type']}">
+														<img src="{$_K['siteurl']}/{$v['pic']}" alt="{$v['title']}"></a>
+												</div>
+												<div class="sell_info">
+													<p>{$service_indus_p_arr[$v['indus_id']]['indus_name']}
+													<span class="font_simsun"> > </span>{$service_indus_c_arr[$v['indus_id']]['indus_name']}</p>
+													<p class="ws_hide grid_5 alpha omega">
+													  <a href="{$_K['siteurl']}/index.php?do=shop&sid={$v['shop_id']}&view=service_info&service_id={$v['service_id']}&service_type={$v['service_type']}">{$v['title']}</a>
+													</p>
+													<p><b>￥{$v['price']}元/{$price_unit_arr[$v['unite_price']]}</b></p>
+													<!-- <p class="c999">手机：12345678901</p>
+													<p class="c999">QQ：12345678 </p> -->
+												</div>
+											</li>
+										 {/loop}
+									   </ul>
+								    </dd>								
+							</dl>
+							<div class="clearfix pad10 mt_5">
+								<div class="fl_l sale_tips">
+									<p class="c999 ml_5">不懂设计，不会编程，没关系！如果您有时间和劳务能力</p>
+									<h2>在这里都可以换取真金白银，赶快点击吧 ></h2>
+								</div>
+								<div class="fl_l po_re s_arrow">
+									<div class="s_arrow_img"></div>
+								</div>
+								<a href="{$_K['siteurl']}/index.php?do=shelves" class="button ml_10 clearfix">
+									<h2>我要出售一个服务</h2>
+									<p class="c999">免费开通精美商铺进行展示</p>
+								</a>
+							</div>
+						</div>
+		 			</div>
+		 		</div>
+				<div class="he_r_service box default clearfix">
+					<div class="inner">
+						<h2>TA发布了需求</h2>
+						<div class="lists clearfix">
+							<dl>
+								 {loop $demand_arr $k $v}
+									<dd class="clearfix">
+										<ul class="clearfix">
+											<li  class="clearfix po_re">
+												<div class="s_b_img">
+													<a href="{$_K['siteurl']}/index.php?do=task&task_id={$v['task_id']}" ><img src="{$_K['siteurl']}/{$v['pic']}" alt="{$v['task_title']}"></a>
+												</div>
+												<div class="ml_10 clearfix">
+													<p class="ws_hide grid_5 alpha omega">
+														<a href="{$_K['siteurl']}/index.php?do=task&task_id={$v['task_id']}">{$v['task_title']}</a>
+													</p>
+													<div class="clear"></div>
+													<p><b>￥{$v['task_cash']}元/{$price_unit_arr[$v['unite_price']]}</b></p>
+													<p class="c999">
+														需求发布时间：<!--{date('Y-m-d',$v[on_time])}-->
+													</p>
+												</div>
+											  </li>
+										  </ul>
+									   </dd>
+								    {/loop}
+								</dl>
+								<div class="mt_10 t_c">
+										<a href="{$_K['siteurl']}/index.php?do=demand" class="button">我也要发布一个需求</a>
+								</div>
+							</div>				
+					</div>
+				</div>
+		 	</div>
+		 	<div class="box clearfix default mt_10 teamwork">
+				<div class="inner">
+					<header class="box_title clearfix">
+						<h2 class="c333 fl_l">合作链接</h2>
+						<div class="fl_r clearfix">
+							<!-- <a href="javascript:void(0);" onclick="showWindow('message', '{$_K['siteurl']}/index.php?do=ajax&view=link&ac=add');" class="fl_l font12 font_normal">我要出现在这</a> -->
+							<div class="fl_l ml_20">
+								<button class="button primary c090" style="padding:2px 10px;_margin-top:4px;" type="button" onclick="link_box(9)" >申请友情链接</button>
+							</div>
+						</div>
+					</header>
+					<article class="pad10 clearfix">
+						<ul>
+							{loop $link_arr $v}
+							<li><a href="{$v['link_url']}" target="_blank">{$v['link_name']}</a></li>
+							{/loop}
+						</ul>
+					</article>
+				</div>
+			</div>
+		 </div>
+	 </section>
+</div>
+
+
+
+
+<!--{template footer}-->
+<script type="text/javascript" >
+	var uid = parseInt('{$uid}')+0;
+	
+	In.add('easySlider',{path:"{$_K['siteurl']}/resource/js/jqplugins/easySlider1.5.js",type:'js'});
+	In.add('index',{path:"{$_K['siteurl']}/{$style_path}/js/index.js",type:'js',rely:['easySlider']});
+	
+ 	In.add('lazy',{path:"{$_K['siteurl']}/resource/js/system/lazy.js",type:'js'});
+ 
+	In('easySlider','index','lazy',function(){
+		loadPics();
+	});
+</script>	
+
+<!--
+<a href="{$_K['siteurl']}/index.php?do=service&view=index">服务首页</a>
+<a href="{$_K['siteurl']}/index.php?do=service&view=s_list">服务列表</a>
+<a href="{$_K['siteurl']}/index.php?do=service&view=n_list">需求列表</a>
+<a href="{$_K['siteurl']}/index.php?do=service&view=info">需求详细</a>
+-->

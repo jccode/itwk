@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title> </title>
+<!--首页样式--> 
+<link href="{$_K['siteurl']}/{SKIN_PATH}/css/index.css" rel="stylesheet"/>
+<link href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/index.css" rel="stylesheet"/> 
+<link href="{$_K['siteurl']}/resource/css/reset.css" rel="stylesheet">
+<!--公用样式-->
+<link href="{$_K['siteurl']}/resource/css/base.css" rel="stylesheet">
+<!--box样式-->
+<link href="{$_K['siteurl']}/resource/css/box.css" rel="stylesheet">
+<!--布局样式-->
+<link href="{$_K['siteurl']}/resource/css/layout/layout.css" rel="stylesheet">
+<link href="{$_K['siteurl']}/{SKIN_PATH}/css/common.css" rel="stylesheet">
+<link href="{$_K['siteurl']}/tpl/default/theme/simple/css/simple_style.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+	<link href="{$_K['siteurl']}/resource/css/layout/960.min.css" rel="stylesheet">
+	<script src="{$_K['siteurl']}/resource/js/system/html5.js" type="text/javascript"></script>
+<![endif]-->
+</head>
+<body>
+<div class="simple_style" id="wrapper">
+<div class="container_24 site_info">
+	<div class="tool_bar clearfix">
+		<p class="fl_l">
+			<strong>网站指数：</strong>
+			<span class="mr_10">交易金额 <b>￥{$task_cash}</b></span>
+			<span class="mr_10">任务数量 <b>{$task_num}</b> 个</span>
+			<span class="mr_10">注册用户 <b>{$user_num}</b> 个</span>
+		</p>
+	</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+{if $shop_info['shop_level']>1} 
+	<div class="banner clearfix mt_10 po_re">
+		<div id="trend">
+		<div id="trendNum" class="clearfix">
+		 {if $slide_arr}  
+			{loop $slide_arr $k $v}
+			  <span aid="<!--{eval echo $k+1;}-->"><!--{eval echo $k+1;}--></span>
+			{/loop}
+		 {else}
+			<span aid="1">1</span>
+			<span aid="2">2</span>
+		 {/if}
+		</div>	
+		<div id="trendimg" move="950">
+			<ul class="trendli">
+			{if $slide_arr}
+			  {loop $slide_arr $v}
+				<li><a href="{$v['s_url']}" target="_blank" ><img src="{$_K[siteurl]}/{$v['s_pic']}" style="width:950px;height:350px;"></a></li>
+			  {/loop}	
+		    {else}			 
+			   <li><img src="{$_K[siteurl]}/{$style_path}/theme/simple/img/style/shop_diy_default_slide_1.jpg" style="width:950px;height:350px;"></li>
+		      <li><img src="{$_K[siteurl]}/{$style_path}/theme/simple/img/style/shop_diy_default_slide_2.jpg" style="width:950px;height:350px;"></li>
+			{/if}			  
+			</ul>
+		</div>
+	</div>
+	{if $view=='diy'}
+	<div class="blue_editor" id="slide_diy">
+		<a href="javascript:;" onclick="shop_slide()">编辑</a>
+	</div>
+	{/if}
+	</div>
+	<!--内容主体-->
+{/if}
+
+<script type="text/javascript">
+ //友情链接
+var uid = parseInt('{$uid}')+0;
+function shop_slide(){
+	if(check_user_login()){
+		showWindow('shopslide', '/index.php?do=ajax&view=shop_diy&ac=slide','get',0);
+	}
+}
+</script>		

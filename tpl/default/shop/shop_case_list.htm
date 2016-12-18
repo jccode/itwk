@@ -1,0 +1,89 @@
+<!--{template header_top}-->
+<!--{template header_shop}-->
+
+<div class="wrapper clearfix">
+	<div class="container_24 clearfix">
+		<div class="grid_24 clearfix">
+			<div class="nav_lists_shop clearfix mt_20">
+			<!--头部导航-->
+			<!--{template shop/section_nav}-->
+			<!--end 头部导航-->
+			</div>
+			
+			{if $shop_info[shop_level]>1}
+			<!--{template shop/section_slide}-->
+			{/if}
+			<!--内容主体-->
+			<div class="shop_content clearfix mt_10">
+				
+				<!--左内容-->
+				<div class="shop_left clearfix grid_5 alpha">
+					<div  class="box default clearfix shop_info_boxs mb_10">
+						<!--用户头像-->
+						<!--{template shop/section_user}-->
+						<!--end 用户头像-->
+					</div>
+				</div>
+				<!--左内容 end-->
+				
+				<!--右内容-->
+				<div class="shop_right clearfix grid_19 omega fl_r ">
+					<div class="box default clearfix firm_box">
+						<!--用户资料-->
+						<!--{template shop/section_info}-->
+						<!--end 用户资料-->
+					</div>
+					<div class="box_shadow"></div>
+					<div class="box default clearfix mt_10 return_list">
+						<div class="inner clearfix">
+							<header class="box_title clearfix">
+								<h2  class="fl_l">商铺案例列表</h2>								
+							</header>
+							<article class="box_title clearfix border_n">
+								<select id="cate_id" name="cate_id" onchange="location.href=this.value" style="width:150px;" class="t_l">
+									<option value="">所有分类案例</option>
+									{if $shop_cate}
+									{loop $shop_cate $k $v}
+									<option value="{$_K[siteurl]}/index.php?do=shop&sid={$shop_info[shop_id]}&view=case_list&cate_id={$v['cate_id']}" {if $v['cate_id']==$cate_id}selected{/if}>{$v['cate_name']}</option>
+									{/loop}
+									{/if}
+								</select>
+							</article>
+						</div>
+					</div>
+					<div class=" case_show pb_20 hidden">
+					{if $case_list}
+					<div id="container" class="clearfix">
+						
+						{loop $case_list $k $v}
+						  <div class="item clearfix">
+						  	<div class="item_box clearfix">
+						  		<a href="{$_K['siteurl']}/index.php?do=shop&sid={$shop_info['shop_id']}&view=case_info&case_id={$v['case_id']}" class="block">
+						  			<img src="{$_K['siteurl']}/{$v['case_pic']}" alt="{$v['case_name']}">
+									<p class="ws_hide mt_5">{$v['case_name']}</p>
+								</a>	
+								<div  class="case_type">
+									类别：
+									<a href="javascript:void(0);">{if $shop_cate[$v[cate_id]][cate_name]}{$shop_cate[$v[cate_id]][cate_name]}{else}暂无类别{/if}</a>
+								</div>
+							</div>
+						  </div>
+						{/loop}
+					</div>
+					{else}
+						<div class="box default clearfix no_detail">暂时没有案例信息。</div>
+					{/if}
+					</div>	
+				</div>
+				<!--右内容 end-->
+				<div class="clear"></div>
+			</div>
+			<!--内容主体 end-->
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	  In('form');
+</script>
+<!--{template shop/section_footer}-->
+<!--{template footer}-->

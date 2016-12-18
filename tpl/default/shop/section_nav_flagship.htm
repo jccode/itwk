@@ -1,0 +1,96 @@
+	<div class="fla_nav_box clearifx po_re">
+		<div class="lbg fl_l"></div>
+		<ul class="clearfix fl_l">
+			<li class="clearfix {if !$view||$view=='index'}selected{/if}">
+				<a href="{$ac_url}&view=index"><span>公司首页</span></a>
+			</li>
+			<li class="line"></li>
+			<li class="clearfix {if $view=='about'}selected{/if}">
+				<a href="{$ac_url}&view=about">关于我们</a>
+			</li>
+			<li class="line"></li>
+			<li class="clearfix {if $view=='news_list'||$view=='news_info'}selected{/if}">
+				<a href="{$ac_url}&view=news_list">新闻资讯</a>
+			</li>
+			<li class="line"></li>
+			<li class="clearfix {if $view=='service_list'||$view=='service_info'}selected{/if}">
+				<a href="{$ac_url}&view=service_list">产品中心</a>
+			</li>
+			<li class="line"></li>
+			<li class="clearfix {if $view=='case_list'||$view=='case_info'}selected{/if}">
+				<a href="{$ac_url}&view=case_list">案例展示</a>
+			</li>
+			<li class="line"></li>
+			<li class="clearfix {if $view=='job_list'||$view=='job_info'}selected{/if}">
+				<a href="{$ac_url}&view=job_list">人才招聘</a>
+			</li>
+			<li class="line"></li>
+			<li class="clearfix {if $view=='mark'}selected{/if}">
+				<a href="{$ac_url}&view=mark">交易记录</a>
+			</li>
+			{if $uid==$shop_info['uid']}
+			<li class="line"></li>
+			
+			<li class="clearfix {if $view=='diy'}selected{/if}">
+				<a href="{$ac_url}&view=diy">个性装修</a>
+			</li>
+			<li class="line"></li>
+			{/if}
+			<li>
+			<a href="javascript:;" title="收藏" onclick="favor('shop_id','shop','shop','{$shop_info[uid]}','{$shop_info[shop_id]}','{$shop_info[shop_name]}','{$shop_info[shop_id]}')" class="last_start">收藏</a>
+			</li>
+		</ul>
+		<div class="rbg fl_l"></div>
+	</div>
+	<div class="fla_nav_shaodw"></div>
+	<div class="fla_cusser_box clearfix">
+		   {if $view=='diy'}
+	      <div class="blue_editor">			
+	       <a href="javascript:;" onclick="shop_diy_qq()">编辑</a>
+	      </div>
+	       {/if}
+		<div class="fla_cusser_inner clearfix">
+			<h2>企业客服</h2>
+			 {if $shop_info['service_qq']}
+			<div class="fla_cusser_con">
+				{loop $shop_info['service_qq'] $v}
+				 {if $v['name'] && $v['id']}
+				<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin={$v['id']}&amp;site=qq&amp;menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{$v['id']}:41" alt="点击这里给我发消息" title="点击这里给我发消息">{$v['name']}</a>
+			     {/if}
+				{/loop}
+			</div>
+			 {else}
+				<div class="fla_cusser_con">
+					&nbsp;
+			 </div>
+		   {/if}
+			<h2>IT帮手平台客服</h2>
+			<div class="fla_cusser_con">
+				<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=4006999467&amp;site=qq&amp;menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:4006999467:41" alt="点击这里给我发消息" title="点击这里给我发消息"></a>
+			</div>
+			<p class="t_c">
+				<a href="#pageTop"> - - 回到顶部 - - </a>
+			</p>
+		</div>
+	</div>
+<script type="text/javascript">
+ //在线客服QQ
+var uid = parseInt('{$uid}')+0;
+function shop_diy_qq(){
+	if(check_user_login()){
+		showWindow('shopqq', '/index.php?do=ajax&view=shop_diy&ac=qq','get',0);
+	}
+}
+</script>
+<!--<a href="{$ac_url}">首页</a>
+<a href="{$ac_url}&view=about">关于我们</a>
+<a href="{$ac_url}&view=news_list">新闻资讯</a>
+<a href="{$ac_url}&view=news_info">新闻详情</a>
+<a href="{$ac_url}&view=service_list">产品中心</a>
+<a href="{$ac_url}&view=service_info">产品详情</a>
+<a href="{$ac_url}&view=case_list">案例展示</a>
+<a href="{$ac_url}&view=case_info">案例详情</a>
+<a href="{$ac_url}&view=job_list">人才招聘</a>
+<a href="{$ac_url}&view=job_info">人才详情</a>
+<a href="{$ac_url}&view=mark">交易记录</a>
+<a href="{$ac_url}&view=contact">联系我们</a>-->

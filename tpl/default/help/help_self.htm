@@ -1,0 +1,141 @@
+<!--{template header}-->
+<!--{template new_head_nav}-->
+<link rel="stylesheet" href="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/css/help.css">
+ <!--自助服务页面-->
+ <div class="wrapper">
+ <!--页面头部-->
+ <header class="clearfix page_header">
+  <div class="container_24"> 
+   <!--页面导航-->
+    <div class="heidtile clearfix">
+        <span>你的位置：</span>
+        <span><a href="{$_K['siteurl']}/index.php">IT帮手网首页</a></a>&nbsp;&gt;&nbsp;</span>
+        <span><a href="{$_K['siteurl']}/index.php?do=help">{$_lang['help_center']}</a>&nbsp;&gt;&nbsp;</span>
+        <h1>自助服务</h1>
+    </div>
+    <!--end 页面导航-->
+ </div>
+</header> 
+ <!--end 页面标题-->
+ <!--主内容-->
+  <section class="clearfix content">
+  <div class="container_24 clearfix pt_20">
+		<div class="self_service clearfix">
+			<div class="self_service_con clearfix pad20 pt_15">
+				<div class="clearfix">
+					<h1 class="c333 fl_l">常用自助服务</h1>
+					<span class="c999 fl_l ml_10 mt_5">无需等待，自己就可以操作完成，比找客服更快！</span>
+				</div>
+				<div class="clearfix service_list mt_20">
+					<ul class="clearfix">
+						<li class="clearfix">
+							<div class="clearfix">
+								<span class="icon_help32 login_pwd mr_10"></span>
+								<h2>找回登录密码</h2>
+							</div>
+							<p class="mt_5">忘记登录密码，请使用手机、安全保护问题或客服人工方式找回。</p>
+							<button type="button" onclick="location.href='{$_K[siteurl]}/index.php?do=help&view=get_password'" class="button font14b mt_20">点击找回</button>
+						</li>
+						<li class="service_line"></li>
+						<li class="clearfix">
+							<div class="clearfix">
+								<span class="icon_help32 safe_pwd mr_10"></span>
+								<h2>找回安全密码</h2>
+							</div>
+							<p class="mt_5">忘记登录密码，请使用手机、安全保护问题或客服人工方式找回。</p>
+							<button type="button" class="button font14b mt_20" onclick="location.href='{$_K[siteurl]}/index.php?do=help&view=get_securitycode'">点击找回</button>
+						</li>
+						<li class="service_line"></li>
+						<li class="clearfix">
+							<div class="clearfix">
+								<span class="icon_help32 user_rec mr_10"></span>
+								<h2>会员账户充值</h2>
+							</div>
+							<p class="mt_5">给账号充值之后即可用于发布任务或购买服务、作品以及开通VIP商铺等。</p>
+							<button type="button" onclick="location.href='{$_K[siteurl]}/index.php?do=user&view=finance&op=recharge'" class="button font14b mt_20">点击充值</button>
+						</li>
+						<li class="service_line"></li>
+						<li class="clearfix">
+							<div class="clearfix">
+								<span class="icon_help32 bal_cash mr_10"></span>
+								<h2>账户余额提现</h2>
+							</div>
+							<p class="mt_5">账户余额不低于10元且通过银行卡认证才可提现。</p>
+							<button type="button" onclick="location.href='{$_K[siteurl]}/index.php?do=user&view=finance&op=withdraw'" class="button font14b mt_20">申请提现</button>
+						</li>
+						<li class="service_line"></li>
+						<li class="clearfix">
+							<div class="clearfix">
+								<span class="icon_help32 approve mr_10"></span>
+								<h2>账户安全认证</h2>
+							</div>
+							<p class="mt_5">实名、银行卡、邮箱、手机认证，解除网站操作限制，让你交易更顺畅，账号更安全。</p>
+							<button type="button" onclick="location.href='{$_K[siteurl]}/index.php?do=user&view=setting&op=auth'" class="button font14b mt_20">前往认证</button>
+						</li>
+					</ul>
+				</div>	
+			</div>
+		</div>
+ 		<div class="all_server clearfix box default mt_5">
+ 			<header class="box_header">
+ 				<h2 class="box_title">所有自助服务</h2>
+ 			</header>
+			<article class="pl_20 pr_20  clearfix">
+				<div class="clearfix all_server_list">
+					<ul class="clearfix">
+						<li class="clearfix border_b_c">
+							<div class="clearfix object_name fl_l">
+								<span class="icon_help32 safe_acc"></span>
+								<h2>账号安全</h2>
+							</div>
+							<div class="clearfix fl_l name_list">
+								<a href="{$_K['siteurl']}/index.php?do=help&view=get_username">找回登录账号</a>|
+								<a href="{$_K['siteurl']}/index.php?do=help&view=get_password">找回登录密码</a>|
+								<a href="{$_K['siteurl']}/index.php?do=help&view=get_securitycode">找回安全密码</a>
+							</div>
+						</li>
+						<li class="clearfix border_b_c">
+							<div class="clearfix object_name fl_l">
+								<span class="icon_help32 bal_cash"></span>
+								<h2>支付提现</h2>
+							</div>
+							<div class="clearfix fl_l name_list">
+								<a href="{$_K['siteurl']}/index.php?do=user&view=finance&op=recharge">账号充值</a>|
+								<a href="{$_K['siteurl']}/index.php?do=user&view=finance&op=withdraw">账号余额提现</a>
+							</div>
+						</li>
+						<li class="clearfix border_b_c">
+							<div class="clearfix object_name fl_l">
+								<span class="icon_help32 approve"></span>
+								<h2>认证中心</h2>
+							</div>
+							<div class="clearfix fl_l name_list">
+								<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=email">邮箱认证</a>|
+								<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=bank">银行卡认证</a>|
+								<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=realname">实名认证</a>|
+								<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=auth&auth_code=mobile">手机认证</a>
+							</div>
+						</li>
+						<li class="clearfix">
+							<div class="clearfix object_name fl_l">
+								<span class="icon_help32 demand"></span>
+								<h2>自助咨询</h2>
+							</div>
+							<div class="clearfix fl_l name_list">
+								<a href="{$_K['siteurl']}/index.php?do=user&view=finance">余额查询</a>|
+								<a href="{$_K['siteurl']}/index.php?do=user&view=finance&op=detail">消费记录查询</a>|
+								<a href="{$_K['siteurl']}/index.php?do=user&view=setting&op=credit_record">积分查询</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</article>
+		</div>
+  </div>
+  </section> 
+ <!--end 主内容--> 
+ </div>
+ <!--自助服务页面 end-->
+ 
+
+<!--{template footer}-->

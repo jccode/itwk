@@ -1,0 +1,63 @@
+<!--{if !isset($inajax)}-->
+<!--页脚 satrt-->
+
+</div>
+<!--content end-->
+
+<div id='bubble'></div>
+<div class="clear"></div>
+<div class="footer2">
+   		<div class="footer_nr">
+        		<ul>
+                 <a href="{$_K['siteurl']}/index.php?do=about&view=index">关于我们</a>|<a href="{$_K['siteurl']}/index.php?do=article">新闻中心</a>|<a href="{$_K['siteurl']}/index.php?do=about&view=pay">支付方式</a>|<a href="{$_K['siteurl']}/index.php?do=link">友情链接</a>|<a href="{$_K['siteurl']}/index.php?do=help&view=service">客服中心</a>|<a href="{$_K['siteurl']}/index.php?do=map" class="bor_n"> 网站地图</a>
+                </ul>
+        <p>服务热线：400-188-6666 传真：023-63866338 重庆北部新区青枫北路30号（拓展区A5栋凤凰座C座第5层）[来访地图]<br />
+
+               Copyright 2005-2011 www.itbangshou.com 版权所有 渝ICP备10202274号</p>
+               <div class="you_img">
+               <a  class="img_a1" href="#"><img src="tpl/default/images/you1.gif" width="36" height="58" /></a>
+               <a  class="img_a2" href="#"><img src="tpl/default/images/you2.gif"  /></a>
+               <a  class="img_a3" href="#"><img src="tpl/default/images/you3.gif"  /></a></div>
+        
+        </div>
+   
+   
+   </div>
+    <!--页脚 end-->
+{if $uid}
+	<!--{eval kekezu::update_oltime($uid,$username)}-->
+{/if}
+<script type="text/javascript">
+	var xyq = "<!--{eval echo $xyq = session_id();}-->";
+
+ //js异步加载
+	In('header_top','custom','tipsy','autoIMG','slides');;
+	if(INDEX=='index'||INDEX=='')
+	{	
+		In('lavalamp_index');
+	}else if(INDEX=='article'){
+		In('lavalamp_index');
+	}else if(INDEX=='user'){
+	}else{
+		In('lavalamp');
+	}
+	
+	$(function(){
+		$("img").error(function() {
+		    $(this).attr("src", SITEURL +"/resource/img/system/nopic200.jpg");
+		});
+	});
+
+</script>
+
+{if $exec_time_traver}
+<script>
+$.get(SITEURL+'/js.php?op=time');
+</script>
+{/if}
+
+</div>
+<!--all end-->
+</body>
+</html>
+<!--{/if}-->

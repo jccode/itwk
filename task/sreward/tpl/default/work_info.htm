@@ -1,0 +1,281 @@
+
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jqplugins/autoimg/jQuery.autoIMG.min.js" ></script>
+
+	   
+     	
+	   <!--摘要-->
+       <div class="gj_summery clearfix">
+       	<div  id="gj_summery">
+       
+      	<div class="items mb_20 clearfix box">
+      	<!--稿件标题栏 start-->
+         <div id="work_{$work_info['work_id']}" class="sum_title po_re clearfix ">
+           	 <strong class="po_ab gj_bg">NO.{$work_info['work_id']}</strong>
+             
+			 <div class="operate po_ab">
+            	{if $user_info['group_id']=='7'}
+                	<a href="javascript:void(0);" title="{$_lang['del_work']}" onclick="workDel('{$work_info['work_id']}')">{$_lang['del_work']}</a>|
+                {/if}
+				{if $process_can['work_report']&&$uid!=$work_info['uid']}
+                	<a href="javascript:void(0);" title="{$_lang['report']}" onclick="report('work','1','{$work_info[work_id]}','{$work_info[uid]}','{$work_info[username]}');">{$_lang['report']}</a>|
+                {/if}
+				{if $process_can['work_complaint']&&$uid!=$work_info['uid']}
+                	<a href="javascript:void(0);" title="{$_lang['complaint']}" onclick="report('user','2','{$work_info[work_id]}','{$work_info[uid]}','{$work_info[username]}');">{$_lang['complaint']}</a>
+                {/if}
+			</div>
+			 
+             <div class="sum_left">
+             	<span>{$_lang['contribute_time']}{$_lang['zh_mh']}<!--{date('Y-m-d H:i:s',$work_info['work_time'])}--></span> 
+            	<span class="mr_10">{if $work_info['view_status']==1}<font color="red">雇主已看稿</font>{else}<font color="green">雇主未看稿</font>{/if}</span>
+				<span class="fl_r fontb pr_5" style='color:#EA5E00'><!--{eval mark_echo($work_info['mark_status']);}--></span>
+				
+             </div>
+             
+          </div>
+          <!--稿件标题栏 end-->
+          <!--稿件内容栏 start-->
+          <div class="sum_content clearfix work_{$work_info['work_id']}">
+          <!--用户信息栏 start-->
+           <div class="sc_left">
+             <div class="user_info po_re pt_10 clearfix" uid="{$work_info['uid']}" wid="{$work_info['work_id']}">
+             	
+             <div class="fl_l pl_10 pb_10">
+              <a href="{$_K['siteurl']}/index.php?do=shop&u_id={$work_info['uid']}" target="_blank"> <!--{userpic($work_info['uid'],'small')}--></a>
+			  </div>
+			  
+				
+				
+				<!--用户信息-->
+				
+               	 <ul class="intor">
+                         <li>
+                            <a href="{$_K['siteurl']}/index.php?do=shop&u_id={$work_info['uid']}" target="_blank"><strong>{$work_info['username']}</strong></a>
+                         </li>
+                         <li>
+                            $work_info['residency']
+                         </li>
+						 <li>
+						 	<span class=""><!--{eval echo keke_glob_class::get_w_level_ico($work_info['w_level'])}--></span>
+						 </li>
+                  </ul>
+				<div class="clear"></div>
+					
+				<div class="other">
+					认证状况：<!--{eval echo(keke_glob_class::get_auth_ico($work_info['auth_realname'],$work_info['auth_mobile'],$work_info['auth_email'],$work_info['auth_bank']));}-->
+				</div>
+				
+				
+                 <!--浮出层-->
+                 <div class="po_ab user_detail hidden"></div>
+                <!--end 浮出层-->
+                 
+             	
+				
+				
+				<!--end 用户信息-->
+             </div>
+             
+			
+           </div>
+             <!--用户信息栏 end-->
+             
+             <div class="sc_right  po_re clearfix" id="{$work_info['work_id']}">
+             <!--稿件详细 start-->
+             <div class="work_status_big work_{$work_info['work_status']}_big qualified_big1 po_ab" alt="{$work_status[$work_info['work_status']]}" title="{$work_status[$work_info['work_status']]}"></div>
+       		 <div class="pad20 work_detail ">
+       		 	<!--稿件操作-->
+       		 		<!--{eval $p=$process_can;}-->
+       		 	 {if ($uid==$task_info['uid']||$uid==$work_info['uid']||$user_info['group_id'])&&($p['download']||$p['work_choose']||$p['confirm_pay']||$p['work_comment']||$p['work_mark']||$p['task_mark'])}
+       		 		<div class="work_button_box">
+       		 			{if $process_can['work_choose']}
+			              
+						  {if in_array($work_info['work_status'],array(0,14,15))&&!$search_condit[11]}
+			              <span id="work_11_{$work_info['work_id']}">
+			              	<a href="javascript:void(0);" class="button" onclick="workBid('{$work_info['work_id']}','11')">中标</a>
+			              </span>
+			              {/if}
+						  {if in_array($work_info['work_status'],array(0,15))}
+						  <a href="javascript:void(0);" class="button" onclick="workBid('{$work_info['work_id']}','14')">备选</a>
+						  {/if}
+						  {if in_array($work_info['work_status'],array(0,14,15))&&$search_condit[11]&&$search_condit[13][count]<$task_info[notice_count]}
+			              <span id="work_13_{$work_info['work_id']}">
+			              	<a href="javascript:void(0);" class="button" onclick="workBid('{$work_info['work_id']}','13')">入围</a>
+			              </span>
+			              {/if}
+						  {if in_array($work_info['work_status'],array(0,14))}
+			              <span id="work_15_{$work_info['work_id']}">
+			              	<a href="javascript:void(0);" class="button" onclick="workBid('{$work_info['work_id']}','15')">淘汰</a>
+			              </span>
+			              {/if}
+						  
+						{/if} 
+						
+						{if $work_info['work_status']==11&&$uid==$work_info['uid']}
+			              	<a href="javascript:void(0);" class="button" onclick="upload_bidsource($task_id,$work_info[work_id]);">上传源文件</a>
+			            {/if}
+						
+						{if ($process_can['download']||$uid==$work_info['uid']||$user_info['group_id'])&&$bid_work_source[$work_info['work_id']]}
+			              <span>
+			              	<a href="javascript:void(0);" class="button" onclick="loadsourceFile('{$work_info[work_id]}')">查看源文件</a>
+			              </span>
+			            {/if}
+						
+						{if $work_info['work_status']==11&&$process_can['confirm_pay']&&!$work_info['is_confirmed']&&!$work_info['pay_status']}
+			              <span id="confirm_pay">
+			              	<a href="javascript:void(0);" class="button" onclick="work_confirm_pay('{$work_info['work_id']}','15')">确认付款</a>
+			              </span>
+			            {/if}
+						
+						{if $process_can['work_comment']&&($uid==$task_info['uid']||$uid==$work_info['uid'])}
+							<span id="confirm_pay">
+			              		<a href="javascript:void(0);" class="button" onclick="$('#work_comment_box_{$work_info[work_id]}').show();goComm('{$work_info[work_id]}');">稿件点评</a>
+			            	</span>
+						{/if}
+						
+						
+						{if $mark[$work_info['work_id']]}
+							{if $process_can['work_mark']&&in_array($work_info['work_status'],array(11,13))&&$uid==$task_info['uid']}
+				            	<span>
+				                	<a href="javascript:void(0);" class="button" onclick="mark('{$basic_url}&op=mark&role_type=2&obj_id={$work_info['work_id']}');">{$_lang['mark_to_work']}</a>
+				                </span>
+				            {/if}
+							{if $process_can['task_mark']&&in_array($work_info['work_status'],array(11,13))&&$uid==$work_info['uid']}
+				            	<span>
+				                	<a href="javascript:void(0);" class="button" onclick="mark('{$basic_url}&op=mark&role_type=1&obj_id={$work_info['work_id']}');">{$_lang['mark_to_g']}</a>
+				               </span>
+				            {/if}
+							
+			            {/if}
+       		 	</div>
+			    {/if}
+				<!--稿件操作 end-->
+			{if keke_glob_class::valid_hide_work($work_info['uid'],$work_info['hide_work'],$work_info['work_status'])}<!--隐藏，非雇主-->
+					<div class="t_c">
+							<img src="{$_K['siteurl']}/{SKIN_PATH}/theme/{$_K['theme']}/img/task/hide_pic.gif" alt="稿件仅雇主可见"/>
+					</div>
+			   {else}
+               	
+				<!--稿件详细内容-->
+			 	 <div class="ws_prewrap ws_break"><!--{eval echo kekezu::escape($work_info['work_desc'])}--></div>
+                 <!--稿件详细内容 end-->
+				 
+				 <!--稿件图片-->
+				 {if $work_pics}
+				 <div class="work_img_box">
+				 	{loop $work_pics $v}
+				 	<img src="<!--{eval echo kekezu::format_url($v[save_name])}-->">
+					{/loop}
+				 </div>
+				 {/if}
+				 <!--稿件图片 end -->
+				 
+				{if $work_info['work_file']}
+			   		<details open  class="mb_20" id="file">
+			    		<!--{eval $file_count = sizeof(explode(",",$work_info['work_file']))}-->
+			     	<summary class="pl_20 pt_10 pb_10 font14b border_b_c block" onclick="loadFile('{$work_info[work_id]}')">{$_lang['see_attachment']}($file_count)</summary>
+			      	<div class="affix mt_10" id="work_{$work_info['work_id']}_file">
+			      		<!--{eval $file_ids = db_factory::get_count(sprintf(" select work_file from %switkey_task_work where work_id='%d'",TABLEPRE,$work_info['work_id']));}-->
+						<!--{eval $file_list = keke_task_class::get_work_file($file_ids);}-->
+						{if $file_list}
+						<ul>
+						{loop $file_list $v2}
+							<li>
+								<a class="file_down" href="<!--{eval echo kekezu::format_url($v2[save_name])}-->" target="_blank" temp="<!--{eval echo kekezu::format_url($v2[save_name])}-->">{$v2['file_name']}<span class="c999">（{if is_file($v2['save_name'])}<!--{eval echo kekezu::get_format_size(filesize($v2['save_name']))}-->{else}未知大小{/if}）</span><span class="icon16 download"></span></a>
+							</li>
+						{/loop}
+						</ul>
+						{else}
+						<ul>
+							<li>暂无附件</li>
+						</ul>
+						{/if}
+			      	</div>
+			  		</details>
+			  	 {/if}
+				 
+				{if $work_info['work_status']==11&&$bid_work_source[$work_info['work_id']]}
+				<details open  class="mb_20" id="file" style="display:none">
+					<summary class="pl_20 pt_10 pb_10 font14b border_b_c block">威客已上传的源文件</summary>
+				 	<div class="affix mt_10" id="work_source{$work_info['work_id']}_file">
+					<ul>
+						{loop $bid_work_source[$work_info[work_id]] $source}
+						<li>
+							<a class="file_down" temp="<!--{eval echo kekezu::format_url($source[save_name])}-->" target="_blank" href="<!--{eval echo kekezu::format_url($source[save_name])}-->">
+							$source[file_name]
+							<span class="c999">（$source[file_size]）</span>
+							<span class="icon16 download"></span>
+							</a>
+						</li>
+						{/loop}
+					</ul>
+					
+				 </details>
+				 
+				 {/if}
+				<!-- 稿件好评 -->
+				
+				{/if}
+				
+				{if $mark_info}
+				<div class="good_comment hidden">
+					<p>雇主的评价：<strong class="ea5e00">{if $work_info['mark_status']==1}好评{elseif $work_info['mark_status']==2}中评{elseif $work_info['mark_status']==3}差评{/if}</strong> </p>
+					<p class="g_info ws_break">{$mark_info['mark_content']}
+					</p>
+				</div>
+				{/if}
+				
+				{if $work_info['comment_num']&&($uid==$task_info['uid']||$uid==$work_info['uid'])}
+					<summary class="pl_20 pt_10 font14b">
+					<a href="javascript:void(0);" onclick="loadComment(this,'{$work_info['work_id']}','{$work_info['uid']}');">
+						({$work_info['comment_num']})条回复
+					</a>
+					</summary>
+				 {/if}
+				 
+				 <!-- 稿件留言 -->
+				 <div id="work_{$work_info['work_id']}_comment"  class="comment_list" style="display:none">
+				 	<!--<h3 class="pl_20 pt_10 pb_10 font14b">稿件点评</h3>-->
+				 	
+				 </div>
+				 <!-- 稿件留言 end -->
+                 <!-- 发布稿件留言 -->   
+			{if $process_can['work_comment']&&($uid==$task_info['uid']||$uid==$work_info['uid'])}
+				 <div class="work_answer pt_10 pb_10 clearfix" id="work_comment_box_$work_info[work_id]" style="display:none">
+					<div class="answer-form ">
+                    	<div class="grid_10">
+						<textarea class="tar_comment txt_input" onkeydown="checkCommentInner(this,event)" cols="70">{$_lang['i_say_little']}</textarea>
+                       
+                            <div class="answer-textarea  answer-zone pt_10" style="display:none;">
+                                <button type="button" class="button answer-zone" value="{$_lang['confirm']}" onclick="work_comment(this,'{$work_info['work_id']}')"><span class="check icon"></span>{$_lang['public']}</button>
+                                <span class="answer_word">{$_lang['you_can_input']}</span>
+                            </div>
+                        </div>
+					</div>
+				</div>
+			{/if}
+			<!-- 发布稿件留言  end-->   
+				 
+				 
+                </div>
+				
+              </div>
+			  
+			  
+            </div>
+			
+            <!--稿件标题栏 end-->
+            </div>
+			<div class="t_r">{if $back_num>=0}<a href="{$_K['siteurl']}/index.php?do=task&task_id=$task_id&view=work&work_id=$work_arr[$back_num][work_id]&order=$order#gj_summery" class="button">上一个</a>{/if}{if $next_num>=0}<a href="{$_K['siteurl']}/index.php?do=task&task_id=$task_id&view=work&work_id=$work_arr[$next_num][work_id]&order=$order#gj_summery" class="button ml_5">下一个</a>{/if}</div>
+       </div>
+     </div>
+	 
+	
+	 <script type="text/javascript" >
+	 	///In('xheditor');
+		$(function(){
+			var detail =  $('.work_img_box'); 
+		    if(detail.length>0){
+		 	   detail.autoIMG();
+		    }
+		})
+	 </script>

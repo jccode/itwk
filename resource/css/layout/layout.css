@@ -1,0 +1,5 @@
+@import url("mobile.min.css") only screen and (min-width: 240px) and (max-width: 500px);
+
+@import url("960.min.css") only screen and (min-width: 500px) and (max-width: 980px);
+
+@import url("960.min.css") only screen and (min-width: 980px);

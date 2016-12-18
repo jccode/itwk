@@ -1,0 +1,365 @@
+<!--{template header}--><!--contain start-->
+<div class="wrapper">
+ <div class="container_24">
+  <!--{template user/user_nav}-->
+<!--main start-->
+  <section class="clearfix section">
+   <!--{template user/user_side}-->
+            <div class="show_panel" style="_width:780px;">
+		        <div class="">
+		            <div class="">
+		                <!--main content-->
+		                <div class=" clearfix box default">
+				         <!--header内容头部 start-->
+				          <header class="clearfix box_header" style="_width:780px;">
+				            <h2 class="box_title">{$_lang['account_withdraw']}</h2>
+				             
+				            <div class="clear">
+				            </div>
+				        <!--header内容头部 end-->
+		  {if $verify}
+		  	 <!--{template verify_secode}-->
+		  {else}        
+		  <!--detail内容 start-->
+            <article class="box_detail">
+		   	  <div class="prefix_1 suffix_1 ">
+                        <ul class="clearfix">
+							<li class="fl_l mr_10">
+								<!--{userpic($uid,middle)}-->
+								
+							</li>
+							<li class="fl_l mr_10">
+								<p>用户名：{$username}</p>
+								<p>账户可用余额：<strong class="cf60 font16">{$user_info['balance']} </strong>元</p>
+							</li>
+							<li class="clear"></li>
+                        </ul>
+				</div>
+		   <div class="clear"></div>
+             <!--messages消息 end-->
+              <div class="prefix_1 suffix_1 clearfix pt_20">
+              	<h3 class=" mb_10 border_b_c "></h3>
+				     	 <div class="pad10  form_box">
+                  <div class="prefix_1 suffix_1">
+                     <div class="clearfix box font14">
+
+						<div class="rowElem clearfix">
+                      		<div class="font24 red">IT帮手网提现手续费扣取标准：</div>
+							<div>银行卡提现手续费扣取标准（最高额度为人民币20000元）</div>
+							<div>   A.	300元以下（含300元） 1.5 元/笔</div>
+							<div>   B.	300—500元（含500元） 3 元/笔</div>
+							<div>   C.	500—5000元（含5000元） 5 元/笔</div>
+							<div>D.	5000元以上 10 元/笔</div>
+							<div><a href="javascript:void();">注：2012.12.31以前赏金提现手续费全免。</a></div>
+						</div>
+						</div>
+						</div>
+				
+					</div>
+            	<div style="display:none;">
+            		本着服务会员的原则，IT帮手网对直接雇佣任务产生的提现手续费通告如下：</br>
+					1、支付宝提现。因为网站未抽佣，雇主往网站支付宝托管赏金产生的每笔费用为0.8%，威客提现产生的每笔费用为0.5%，以上手续费是支付宝收取，由威客承担。</br>
+					2、直接雇佣任务雇主退还赏金，从支付宝走帐的，参照上面点数执行。</br>
+					3、直接雇佣任务，从银行走帐的，手续费为：1%（最低1元，最高50元），该  笔费用是银行收取的。由赚取赏金的威客承担。</br>
+					4、招标任务发布后，雇主找到雇佣威客的，视同直接雇佣任务。
+				</div>
+			   {if $step=='step1'}
+                <div class="pad10  form_box">
+                  <div class="prefix_1 suffix_1">
+                     <div class="clearfix box font14">
+                      <form action="$ac_url&step=step1&choose_cash=1" method="post">
+                 
+                         <div class="rowElem clearfix">
+                             <label class="grid_2 t_r">提现金额{$_lang['zh_mh']}</label>
+							<div class="grid_12">
+                              <input type="text" class="txt_input" size="25" id="withdraw_cash" name="withdraw_cash" limit="required:true;type:int;between:{$pay_arr['withdraw_min']['v']}-{$pay_arr['withdraw_max']['v']}" msg="{$_lang['money_inoput_error']},{$pay_arr['withdraw_min']['v']}-{$pay_arr['withdraw_max']['v']}{$_lang['yuan']}!" msgArea="span_withdraw_cash" title="（{$pay_arr['withdraw_min']['v']}-{$pay_arr['withdraw_max']['v']}{$_lang['yuan']}）" onkeyup="clearstr(this)"/> {$_lang['yuan']} 
+								<span id="span_withdraw_cash"></span>
+							</div>
+                         </div>
+						 <div class="rowElem clearfix">
+						 	{if $user_info['balance'] < floatval($pay_arr['withdraw_min']['v'])}
+                                <div class="clear"></div>
+                                <div class=" prefix_3 c999">
+                                  <font color="red">
+                                    {$_lang['you_account_money_less']}{$pay_arr['withdraw_min']['v']}{$_lang['yuan']}，{$_lang['not_withdraw']}
+                                  </font>
+                                </div>
+                                 {else}
+				                   <div class="rowElem clearfix t_c">
+				                       <button type="button" value={$_lang['next_step']} style="width:100px" onclick="next_step();">
+				                          {$_lang['next_step']}
+				                       </button>
+				                   </div>
+				               {/if}
+						</div>
+                      </form>
+                     </div>
+                    </div>
+                </div>
+             {elseif $step=='step2'}
+               <div class="pad10  form_box">
+                 <div class="form_tip ml_10 mr_10">
+                  <p class="cf90 font14">
+                  <!--{eval $real_cash = keke_finance_class::get_to_cash($withdraw_cash);}-->
+                    {$_lang['you_input_withdraw_money_is']}:<strong class="cf60 font24">{$withdraw_cash}{$_lang['yuan']}</strong>
+          
+                  </p>
+               </div> 
+         <!--页面子导航-->
+  
+		  <!--start 绑定银行支付方式-->
+           <div class="suffix_1 offline" id="div_cont_2" >
+		  {if $bank_auth||$_SESSION['brand']=='tw'}
+              <div class="mt_9 mb_9 font12 account1">
+                 <fieldset>
+                   <legend>{$_lang['optional_account']}</legend>
+					 {if $offline_list}
+						{loop $bind_list $v}
+                         <div class="grid_6">
+                            <div class="grid_6">
+                               <input type="radio" name="offline" value="{$v['bank_id']}" /><img src="resource/img/system/kppw_2.0_{$v['bank_name']}.png" alt="{$bank_arr[$v['bank_name']]}" title="{$bank_arr[$v['bank_name']]}">
+                            </div>
+                        </div>
+						<div class="grid_10 data_list">
+					  	 <table cellpadding="0" cellspacing="0" class="data_table">
+                           <tbody>
+                              <tr>
+                                 <td>{$_lang['single_cash']}<img src="resource/img/ico/info.gif"
+									title="{$_lang['single_cash_msg']}{$pay_config['per_charge']['v']}%{$_lang['single_cash_msg_ext']}"></td>
+                                 <td>{$_lang['single_low_cash']}<img src="resource/img/ico/info.gif"
+									 title="{$_lang['single_low_cash_msg']}<!--{eval echo number_format($pay_config['per_low']['v'],2)}-->{$_lang['yuan']}{$_lang['single_cash_msg_ext']}"></td>
+								<td>{$_lang['single_hign_cash']}<img src="resource/img/ico/info.gif"
+									 title="{$_lang['single_hign_cash_msg']}<!--{eval echo number_format($pay_config['per_high']['v'],2)}-->{$_lang['yuan']}{$_lang['single_cash_msg_ext']}"></td>
+                               </tr>
+                           </tbody>
+						 </table>
+                         </div>
+					     {/loop}
+					  {else}
+					  	 <div class="grid_8">  {$_lang['website_offline_notice']} </div>
+					  {/if}
+					  <!-- 台湾馆爽购选项 -->
+					  {if $_SESSION['brand']=='tw'}                         
+                          <div class="grid_6">
+                            <div class="grid_6">
+                               <input type="radio" name="offline" value="corp_site" /><img src="{$_K['siteurl']}/resource/img/system/kppw_2.0_songogo.png" alt="{$lang['corp_songogo']}" title="{$lang['corp_songogo']}"/>
+                            </div>
+                        </div>
+					  {/if}
+                  </fieldset>
+              </div> 
+			   <div class="rowElem clearfix t_c">
+                     <button type="button" value={$_lang['next_step']} style="width:100px" onclick="user_withdraw();">
+                         {$_lang['next_step']}
+                      </button>
+                      <button type="button" value={$_lang['return']} style="width:100px" onclick="location.href='$ac_url&step=step1&reset=1#userCenter'">
+                         {$_lang['return']}
+                      </button>&nbsp;&nbsp;&nbsp;
+                  </div>
+             </div>
+			{else}
+            <div class="form_box pad10">
+                   <div class="rowElem clearfix  pt_10 t_l">
+                   		未进行银行认证，无法提现<!-- {$_lang['no_bank_auth_no_withdraw']} -->
+                         <button type="button" value={$_lang['bank_auth']} name={$_lang['bank_auth']} onclick="window.open('{$_K[siteurl]}/index.php?do=user&view=payitem&op=auth&auth_code=bank#userCenter')">
+                             <span class="icon plus">&nbsp;</span>{$_lang['bank_auth']}
+                         </button>
+                   </div>
+             </div>
+             {/if}
+			<!--end 绑定银行支付方式-->
+                 </div>
+              </div>
+           
+                                
+             <div class="clear"></div>
+             
+			 {elseif $step=='step3'}
+               <div class=" prefix_1 suffix_1 ">
+                  <form action="{$ac_url}&step=step4" method="post" name="withdraw" id="withdraw">
+                    <input type="hidden" name="formhash" id="formhash" value="{FORMHASH}"><input type="hidden" name="pay_type" value="{$pay_type}"><input type="hidden" name="withdraw_cash" value="{$withdraw_cash}">
+                      <div class="form_box pad10">
+                        {if $paymode!='corp_site'}
+                        <ul>
+                              <li class="border_b_c clearfix pad20">
+                                  <div class="grid_4">&nbsp;</div>
+                                  <div class="grid_5">
+                                    <img src="resource/img/system/kppw_2.0_{$user_bank_info['0']['bank_name']}.png" alt="{$user_bank_info['0']['bank_name']}" title="{$user_bank_info['0']['bank_name']}"/>
+                                  </div>
+								      <div class="rowElem clearfix">
+                                   <label class="grid_3 t_r">
+                                       开户行地区{$_lang['zh_mh']}
+                                   </label>
+                                  <input type="input"  class="txt_input" name="bank_address" id="bank_address" size="39" msgArea="span_bank_address" value="$user_bank_info['0']['bank_address']"    title="开户行地区"/>
+								  </div>
+                                   <div class="rowElem clearfix">
+                                   <label class="grid_3 t_r">
+                                       开户行名称{$_lang['zh_mh']}
+                                   </label>
+                                  <input type="input"  class="txt_input" name="bank_sub_name" id="bank_sub_name" size="39" msgArea="span_bank_sub_name" value="{$user_bank_info['0']['bank_sub_name']}"    title="请输入开户名称"/>
+								  </div>
+								  <div class="rowElem clearfix">
+                                    <label class="grid_3 t_r">银行卡号{$_lang['zh_mh']}</label>
+                                    <input type="input" class="txt_input" name="pay_account" id="pay_amount" value="{$user_bank_info['0']['card_num']}" size="39" readonly="readonly" style="color:#999"/>
+                                  </div>
+								  
+                                 <div class="rowElem clearfix">
+                                   <label class="grid_3 t_r">
+                                       开户人姓名{$_lang['zh_mh']}
+                                   </label>
+                                  <input type="input"  class="txt_input" name="pay_username" id="pay_username" size="39" msgArea="span_pay_username" value="$user_bank_info['0']['real_name']" readonly="readonly"    title="{$_lang['please_input_your']}【{$bank_info['bank_name']}】{$_lang['account_name']}"/>
+								  </div>
+								  
+                                 <div class="rowElem clearfix">
+                                   <label class="grid_3 t_r">&nbsp;</label>
+                                 	<span id="span_pay_username"></span>
+                                 </div>
+                               </li>
+						
+                             </ul>
+                             {else}
+                             <!-- 合作网站帐户显示 -->
+                               <ul>
+                                <li class="border_b_c clearfix pad20">
+                                 <div class="rowElem clearfix">
+                                   <label class="grid_3 t_r">爽购帐号{$_lang['zh_mh']}</label>
+                                    <input type="hidden" name='bank_sub_name' value="songogo"/>
+                                    <input type="hidden" name='brand' value="tw"/>
+                                    <input type="hidden" name='username' value="{$username}"/>
+                                    <input type="hidden" name='uid' value="{$uid}"/>
+                                    <input type="hidden" name='no' id='no' value=""/>
+                                    <input type="hidden" name='price' id='price' value="{$withdraw_cash}"/>
+                                    <input type="hidden" name='songogoID' value="{$corp_site[0]['corp_site_username']}"/>
+                                    <input type="text"  class="txt_input" name="ep_username" id="ep_username" size="39" value="" limit="required:true;type:email" msgArea="msg_txt_songogo" msg="爽购网帐号错误" original-title="请填写爽购网帐号"/>
+								   <span id="msg_txt_songogo"></span>
+								  </div>
+                                </li>
+                               </ul>
+                               {/if}
+                             <div class="rowElem clearfix  pt_10 t_c">
+                                <input type="hidden" name="sbt_withdraw" value="1">
+                                  <button type="{if $paymode=='corp_site'}button{else}submit{/if}" value={$_lang['confirm_withdraw']} name={$_lang['confirm_withdraw']} onclick="{if $paymode=='corp_site'}set_withdraw(){else}return checkForm(document.getElementById('withdraw')){/if}">
+                                    <span class="icon check">&nbsp;</span>{$_lang['confirm_withdraw']}
+                                  </button>
+                             </div>
+                          </div>
+                      </form>
+                   </div>
+                  {elseif $step=='step4'}
+                   <div class="box complete form_box ml_40 mr_40">
+                      <div class="form_tip">{$_lang['your_withdraw_apply_success']}，请耐心等待客服打款</div>
+                      <div class="prefix_4 suffix_4">
+                        <div class="completedata">
+                          <ul>
+                            <li>
+                              <div class="pad10">
+                                 <div class="grid_2"><!--{userpic($uid,'small')}--></div>
+                                 <div class=" grid_6"> <!--{eval $real_cash = keke_finance_class::get_to_cash($withdraw_cash);}-->
+                                    <div>{$_lang['withdraw_money']}:{$withdraw_cash}{$_lang['yuan']}</div>
+									<div><a href="{$_K['siteurl']}/index.php?do=user&view=finance&op=detail&action=withdraw#userCenter" target="_blank">{$_lang['view_withdraw_record']}&gt;&gt;</a></div>
+                                 </div>
+                                 <div class="clear"></div>
+                             </div>
+                            </li>
+                          
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+               {/if}
+                            
+               <div class="clear"></div>
+           </article>
+         <!--detail内容 end-->
+		 {/if}
+        </div>
+       <!--main content end -->
+       <div class="clear"></div>
+       </div>
+     </div>
+    </div>
+  </section>
+  <!--main end-->
+</div><!--contain end-->
+</div>
+
+            <script type="text/javascript">
+            	In('form');
+                function next_step(){
+                    var withdraw_cash = parseFloat($("#withdraw_cash").val());
+                    var withdraw_min = parseFloat($pay_arr['withdraw_min']['v']);
+                    var withdraw_max = parseFloat($pay_arr['withdraw_max']['v']);
+                    var balance = parseFloat($user_info['balance']);
+                    
+					if(!withdraw_cash){
+						  showDialog("请输入提现金额", "alert", "{$_lang['msg_tips']}");
+                        return false;
+					}
+					
+                    if (balance < withdraw_cash) {
+                        showDialog("{$_lang['withdraw_money_too_big']}", "alert", "{$_lang['msg_tips']}");
+                        return false;
+                    }
+                    else {						
+						if (withdraw_max < withdraw_cash) {
+                            showDialog("{$_lang['day_withdraw_max_not_great']}" + withdraw_max + "{$_lang['yuan']}", "alert", "{$_lang['msg_tips']}");
+                            return false;
+                        }
+                        else {
+							if (withdraw_min > withdraw_cash) {
+                                showDialog("{$_lang['day_withdraw_max_not_less']}" + withdraw_min + "{$_lang['yuan']}", "alert", "{$_lang['msg_tips']}");
+                                return false;
+                            } else {
+                                location.href = "$ac_url&step=step1&choose_cash=1&withdraw_cash=" + withdraw_cash;
+                            }
+						}
+					}  
+                }
+				
+                function user_withdraw(){
+                	 var pay_type = encodeURIComponent($(":radio[name='offline']:checked").val());
+                	 if(pay_type=='corp_site'){
+                		var paymode = 'corp_site';
+                		pay_type='台湾爽购网';
+                	 }else if(pay_type=='undefined'){
+                    		 showDialog("请选择提现帐户类型！",  "{$_lang['msg_tips']}");
+                    		 return false;
+                	 }else{
+                		 var paymode = 'offline';
+                	 }
+                     location.href = "$ac_url&step=step3&paymode=" + paymode + "&withdraw_cash=$withdraw_cash&pay_type=" + pay_type + "#userCenter";
+                }
+                function set_withdraw(){
+                	e=checkForm(document.getElementById('withdraw'))
+                	if(e){
+            			$.post("{$_K['siteurl']}/index.php",
+            				{
+            				"do":"user",
+            				"view":"finance",
+            				"op":"withdraw",
+            				"ver":1,
+            				"step":"step4",
+            				"paymode":"corp_site",
+            				"brand":"tw",
+            				"sbt_withdraw":1,
+            				"formhash":$("#formhash").val(),
+            				"withdraw_cash":'{$withdraw_cash}',
+            				"charge_type":$("#charge_type").val(),
+            				"pay_type":$('#ep_username').val(),
+            				"ep_username":$("#ep_username").val()
+            				},
+            				function(json){
+            				  if(json.status==1){
+            					/*showDialog(json.msg,'confirm',"{$_lang['operate_tips']}",'location.href="{$_K['siteurl']}/index.php?do=user"');
+            					$("#no").val(json.data['order_id']);
+            					$("#withdraw").attr("action","https://www.songogo.com/ecpay/seller_china.php?id=0001");
+            					$("#withdraw").attr('target','_blank');
+            					$("#withdraw").submit();*/
+            					showDialog(json.msg,'confirm',"{$_lang['operate_tips']}",'window.open("http://epweike.songogo.com/","_blank");');
+            				  }
+            				},'json');
+                }
+                }
+            </script>
+            <!--{template user/user_footer}-->
+ <!--{template footer}-->

@@ -1,0 +1,74 @@
+<!--客服-->
+	<div class="cus_ser_box">
+	<div class="po_re clearfix">
+    {if $view=='diy'}
+	<div class="blue_editor">			
+	    <a href="javascript:;" onclick="shop_diy_qq()">编辑</a>
+	</div>
+	{/if}
+	<table border="0" class="clearfix" >
+		<thead>
+			<tr>
+				<th><h2><b>客服在线</b></h2></th>
+			</tr>
+		</thead>
+		<tbody>
+		 {if $shop_info['service_qq']}
+		   {loop $shop_info['service_qq'] $v}
+		    {if $v['name'] && $v['id']}
+				<tr>
+					<td>
+						<a href="http://wpa.qq.com/msgrd?v=3&amp;uin={$v['id']}&amp;site=qq&amp;menu=yes" target="_blank" >
+						{$v['name']}</a>						
+					</td>
+				</tr>
+			 {/if}
+		   {/loop}
+		 {else}
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+		 {/if}
+		</tbody>
+		<thead>
+			<tr>
+				<th><h3>--网上助理--</h3></th>
+			</tr>
+		</thead>
+		<tbody>
+				<tr>
+					<td>
+						<a href="http://wpa.qq.com/msgrd?v=3&amp;uin=4006999467&amp;site=qq&amp;menu=yes" target="_blank" >
+						助理一</a>						
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<a href="http://wpa.qq.com/msgrd?v=3&amp;uin=1340676088&amp;site=qq&amp;menu=yes" target="_blank" >
+						助理二</a>						
+					</td>
+				</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td>
+					<a href="#pageTop">
+						- - 回到顶部 - -
+					</a>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+	
+	</div>
+	</div>
+	<!--客服 end-->
+<script type="text/javascript">
+ //在线客服QQ
+var uid = parseInt('{$uid}')+0;
+function shop_diy_qq(){
+	if(check_user_login()){
+		showWindow('shopqq', '/index.php?do=ajax&view=shop_diy&ac=qq','get',0);
+	}
+}
+</script>

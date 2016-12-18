@@ -1,0 +1,165 @@
+.hd {font-weight:bold;height:30px;line-height:30px;}
+.splitlineb{border-bottom:1px solid #DFDFDF;}
+.splitliner{border-right:1px solid #DFDFDF;}
+.splitlinel{border-left:1px solid #DFDFDF;}
+.splitdotb{border-bottom:1px dotted #DFDFDF;}
+a{cursor:pointer;}
+.marb10{margin-bottom:10px;}
+.padb10{margin-bottom:10px;}
+ /*_首页__
+    --------------------------------------------------------------------------------*/
+	/*首页flash广告*/
+	.flashZone{
+		margin-top:15px;
+		background:url(../pic/bg.png) bottom;
+		height: 420px;
+		width: 100%;
+		margin-right: auto;
+		margin-left: auto;
+		text-align: center;
+	}
+	
+	 /*_btImgZone__
+		--------------------------------------------------------------------------------*/
+		.btImgZone {margin:10px 0px;padding:0px;height:120px;}
+			.btImgZone li {float:left;width:184px;margin-right:8px;}
+	
+ 
+	.aside{width:178px;float:left; }
+	.main{float:right;width:770px;margin-bottom:10px;}
+		/*_aboutCatalog__
+		-------------------------------------------------------------------------*/
+		.aside .aboutCatalog { border:solid 1px #CCC; border-bottom:none;}
+		.aboutCatalog li {background-image:url(bgAsideItem198.png); height:26px; padding-top:13px; padding-left:20px; border-bottom:solid 1px #CCC;}  
+		.aboutCatalog li a { color:#666;} 
+		.aboutCatalog li a.current{font-weight:bold;}  
+		.aboutCatalog li img { margin-right:10px;}
+
+		.aboutZone{padding:0px;}
+			.aboutZoneHD{height:38px; line-height:38px;margin:0px 10px;padding-left:15px;border-bottom:1px solid #ccc; color:#CC0000;font-weight:bold;font-size:14px;}
+			.aboutZone .aboutCont{width:100%;}
+			.aboutZone .aboutCont .banner{padding:10px 15px;}
+			.aboutZone .aboutCont .cont{line-height:22px;padding:5px;min-height:400px;}
+			.aboutZone .aboutCont .cont p{ text-indent:25px;}
+				.aboutZone .aboutCont .cont p{ text-indent:25px;}
+
+	 /*_newlist关于我们介绍的新闻__
+		--------------------------------------------------------------------------------*/
+		.aboutZone .newlist{padding:10px 20px 10px 30px;}
+		.aboutZone .newlist ul li{float:left;width:340px;margin-right:10px;height:30px;line-height:30px;list-style: circle; white-space:nowrap;}
+ 
+ 	 /*_videolist视频__
+		--------------------------------------------------------------------------------*/
+		.aboutZone .videolist{padding:10px 10px 10px 20px;height:150px;}
+		.aboutZone .videolist ul li{float:left;width:150px;margin-right:15px;line-height:30px;list-style:none; white-space:nowrap; text-align:center;}
+		.aboutZone .videolist ul li img{width:150px;height:120px;}
+		.aboutZone .videolist .videoleft{float:left;width:40px;padding-top:40px;}
+		.aboutZone .videolist .videoright{float:right;width:40px;padding-top:40px;}
+ 
+ 	 /*_historyZone发展历程__
+		--------------------------------------------------------------------------------*/
+    .historyCatalog { margin-bottom:20px;}
+    .historyCatalog .hd { background-image:url(bgTagMenuRed35y.gif) ; height:35px;}   
+        .historyCatalog .hd .title { width:140px; float:left; font-size:23px; font-family:'微软雅黑'; color:#C00;}
+        .historyCatalog .hd .tagMenu { width:610px; float:right;}
+            .historyCatalog .tagMenu .left { width:15px; float:left; margin-top:7px;}
+            .historyCatalog .tagMenu .content { width:560px; height:35px; overflow:hidden; float:left; margin-left:10px;}
+                .historyCatalog .tagMenu .content a { display:inline-block; padding:0px 10px; height:31px; line-height:31px;}
+                .historyCatalog .tagMenu .content a.current { border:solid 2px #C00; border-bottom-color:#FFF;}
+            .historyCatalog .tagMenu .right { width:15px; float:right; margin-top:7px;}
+        
+ 			.historyCatalog .bd{padding:10px;border:none;}
+			 .historyCatalog .bd .item { padding:10px 0px;}
+			 .historyCatalog .bd .item .hd{ font-family:微软雅黑; font-size:25px; color:#333; font-weight:bold;height:50px;line-height:50px;border-bottom:1px solid #EFEFEF; background:none;}
+ 			 .historyCatalog .bd .item .cont{margin:5px 0px;clear:both;}
+				 .historyCatalog .bd .item .cont .title{float:left;width:130px;font-weight:bold;color:#ff6600;}
+					.historyCatalog .bd .item .cont .contr{float:right;width:590px;line-height:25px;margin-bottom:10px;}
+						 .historyCatalog .bd .item .cont .contr .txt{font-size:14px; color:#666; font-weight:bold;}
+						 .historyCatalog .bd .item .cont .contr .samelink{margin:10px 0px;line-height:24px; border:1px solid #EFEFEF; background:#F9F9F9;padding:10px;}
+ 
+  
+ 	 /*_ContactZone联系我们__
+		--------------------------------------------------------------------------------*/
+	.contacttitle{padding:20px 10px;border:1px solid #EFEFEF;margin:10px;}
+ 
+    /* ContactZone
+    ----------------------------------------------------------------------------------------------------------------*/
+	.ContactZone{margin:10px 15px;}
+		.ContactZone td{width:49%;}
+			.ContactZone .item{margin:8px 0px;border:1px solid #DFDFDF;padding-top:5px;height:120px;display:table;padding-left:5px;}
+				 .ContactZone .item .face{float:left;width:105px;height:105px;padding-left:10px;text-align:center;}
+					 .ContactZone .item .face img{width:90px;height:90px;padding:6px;border:1px solid #ccc;}
+				 .ContactZone .item .desc{float:right;padding-left:10px;line-height:24px;width:310px;}
+					 .ContactZone .item .desc .it{text-indent:ellipsis; overflow:hidden;white-space:nowrap;}
+					 .ContactZone .item .desc .it .title{color:#CC0000;font-size:14px;font-weight:bold;}
+				
+	 .ContactQQ{margin:10px 15px;}
+		.ContactQQ td{width:16%;}
+		.ContactQQ .item{margin:8px 0px;border:1px solid #DFDFDF;padding:8px;}
+				.ContactQQ .item .it{text-indent:ellipsis; overflow:hidden;white-space:nowrap;line-height:24px;}
+				.ContactQQ .item .it .qq{height:30px;line-height:30px;}
+				.ContactQQ .item .it .title{color:#009900;}
+ 
+ /*_招贤__
+    --------------------------------------------------------------------------------*/
+		.inviteTop{padding:20px;line-height:25px;}
+			.color33{color:#333;font-weight:bold;font-size:12px;}
+			.colorcc{color:#CC0000;font-weight:bold;font-size:14px;}		
+		.inviteZone{border:1px solid #FFDDAA; background:#FFFFDF;padding:10px;margin:10px 0px;}
+		.inviteZoneHD{color:#CC0000;font-weight:bold;font-size:14px;height:30px;}
+		.inviteZone .invitelist{}
+			.inviteZone .invitelist .hd{ background:#CC0000;height:30px;line-height:30px;color:#fff;}
+			.inviteZone .invitelist .item{background:#fff;height:40px;line-height:40px;color:#666;border:1px solid #FFE6BF;clear:both;display:table;margin:9px 0px;}
+			.inviteZone .invitelist .it{float:left;width:120px;text-align:center;}
+			.inviteZone .invitelist .info{width:255px;text-align:left;padding-left:10px;white-space:nowrap;text-indent:ellipsis;overflow:hidden;}
+ /*_招贤明细__
+    --------------------------------------------------------------------------------*/
+		.inviteDZone{width:780px;border:10px solid #CCC;margin:auto; background-color:#FFF;}
+		.inviteDZone .inviteDZoneHD{background:#CC0000;height:35px;line-height:35px;color:#fff; font-size:14px; font-weight:bold;padding:0px 10px;}
+		.inviteDZone .inviteDZoneHD .close{float:right;padding-top:10px;}
+			.inviteDZone .cont{padding:0px 10px;}
+			.inviteDZone .cont .hd{height:30px;line-height:30px;color:#CC0000;padding:0px 10px;}
+			.inviteDZone .cont .item{float:left;line-height:25px;color:#666;display:table;margin:9px 20px;width:200px;}
+			.inviteDZone .cont .it{text-align:left;}
+			.inviteDZone .cont .info{margin:20px 0px;padding:0px 10px;height:160px;line-height:25px;overflow-y: scroll;}
+		.inviteDZone .bt{background:#F4F4F4;height:40px;line-height:50px;text-align:right;padding-right:20px;vertocal-align:middle;padding-top:15px;}
+
+ /*_支付方式__
+    --------------------------------------------------------------------------------*/
+	.paymain{padding:20px;margin-bottom:10px;}
+	.payTop{color:#cc0000;border:1px solid #FFE6BF;padding:20px;line-height:22px;background:#FFFFDF;}
+	.payZone{margin-top:20px;border-top:1px solid #DFDFDF;border-right:1px solid #DFDFDF;}
+		.payZone td,th{border-left:1px solid #DFDFDF;border-bottom:1px solid #DFDFDF;height:40px;line-height:40px; color:#666666; text-align:left;padding-left:15px;}
+		.payZone th{font-weigth:bold;width:100px;}
+		.payZone .txtorange{color:#CC3300;}/*橘黄色*/
+        .payZone a{color:#333;text-decoline;none;}
+		.payZone .bankl{float:left;width:85px;text-align:center;white-space:nowrap;padding-top:10px;}
+		.payZone .bankr{float:right;width:350px;text-align:left;line-height:28px;padding-top:10px;}
+		
+ /*_活动专区__
+    --------------------------------------------------------------------------------*/
+	.actionZone{color:#333;line-height:25px;margin:0px;}
+	.actionZone .banner{ background:url(banner21.png) no-repeat;height:473px;}	
+		.actionZone	.banner .txt{width:320px;height:150px;line-height:24px;text-align:left;padding-top:164px;margin-right:0px;float:right;}
+
+	.actionZone .pannell{clear:both; height:120px;background:#880B21;padding:20px;color:#fff;}
+		.actionZone .pannell .left {float:left;}
+			.actionZone .pannell .left .title{font-size:26px; font-weight:bold;line-height:35px;height:35px;}
+			.actionZone .pannell .left .txt{ font-size:18px;line-height:26px;}
+		.actionZone .pannell .right {float:right;}
+		
+	.actionZone .pannel2{clear:both; border:1px solid #DFDFDF;padding:2px;margin:15px 0px;}
+		.actionZone .pannel2 .item1{ background: url(vip.png) no-repeat;padding:0px 40px;margin-top:5px;}
+		.actionZone .pannel2 .item2{padding:0px 40px;margin-top:5px;}
+			.actionZone .pannel2 .title{font-size:26px;height:50px;line-height:50px; border-bottom:1px solid #DFDFDF;}
+			.actionZone .pannel2 .txt{line-height:28px;}
+		.actionZone .pannel2 .left{float:left;width:450px;padding-left:15px;}
+			.actionZone .pannel2 .left .it{ background:url(icondown.png) no-repeat;margin:12px 0px;padding-left:50px;}
+			.actionZone .pannel2 .left .txt{padding-left:10px;font-weight:bold; height:40px;line-height:40px; background:#EFEFEF;}
+			.actionZone .pannel2 .left .it2{ background:url(icon10.png) no-repeat;margin:12px 0px;padding-left:50px;}
+			.actionZone .pannel2 .left  a{padding-left:10px; text-decoration:underline;font-weight:normal;}
+		.actionZone .pannel2 .right{float:right;width:450px;height:245px;background:#EFEFEF;margin-right:20px;margin-top:15px;}
+			.actionZone .pannel2 .right .cont{padding:20px 45px;font-size:14px;color:#870B20;font-weight:bold;line-height:25px;}
+			.actionZone .pannel2 .right .cont img{padding:20px 0px 30px 25px;}
+			.actionZone .pannel2 .right  a{text-decoration:underline;}
+		.font11{color:#880B21;}

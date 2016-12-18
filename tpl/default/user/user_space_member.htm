@@ -1,0 +1,191 @@
+<!--{template header}-->
+<!--contain start-->
+<div class="wrapper">
+    <div class="container_24">
+        <!--{template user/user_nav}-->
+		<!--main start-->
+        <section class="clearfix section">
+            <!--{template user/user_side}-->
+            <div class="show_panel ">
+		        <div class="">
+		            <div class="">
+		                <!--main content-->
+		                <div class=" clearfix box default">
+                            <!--header内容头部 start-->
+                            <header class="clearfix box_header">
+                                <h2 class="box_title">{$_lang['member_manage']}</h2>
+                                <div class="">
+                                    <nav class="box_nav">
+	                                    <ul>
+	                                        <li {if $show=='list'}class="selectedLava"{/if}><a href="{$_K['siteurl']}/index.php?do={$do}&view={$view}&op={$op}&show=list#userCenter" title="{$_lang['member_list']}">{$_lang['member_list']}</a></li>
+											<li {if $show=='add'}class="selectedLava"{/if}><a href="{$_K['siteurl']}/index.php?do={$do}&view={$view}&op={$op}&show=add#userCenter" title="{$_lang['add_member']}">{$_lang['add_member']}</a></li>
+	                                    </ul>
+	                                </nav>
+                                </div>
+                                <div class="clear"></div>
+                            </header>
+                            <!--header内容头部 end-->
+                            <!--<div class="step_progress clearfix">
+                            </div>-->
+                            <!--messages消息 start-->
+                            <!--<article class="box_detail" id="messages">
+                            </article>-->
+                            <!--messages消息 end-->
+                           
+						    <div class="prefix_1 suffix_1 mt_10 mb_20">
+						    	<!--成员列表 start-->
+								{if $show=='list'}
+                                <div class="data_list">
+                                    <table cellpadding="0" cellspacing="0" class="data_table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">
+                                                    {$_lang['member_id']}
+                                                </th>
+                                                <th scope="col">
+                                                    {$_lang['member_names']}
+                                                </th>
+												<th scope="col">
+													{$_lang['display_picture']}
+												</th>
+                                                <th scope="col">
+                                                    {$_lang['member_skills']}
+                                                </th>
+                                                <th scope="col">
+                                                    {$_lang['operate']}
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {if $member_list}
+                                            {loop $member_list $v}
+                                            <tr>
+                                                <td>
+                                                    {$v['member_id']}
+                                                </td>
+                                                <td>
+                                                    {$v['truename']}
+                                                </td>
+												<td>
+													<img src="{$v['member_pic']}" style="width:20px; height:20px;" alt="" />
+												</td>
+                                                <td>
+                                                   {$v['member_desc']}
+                                                </td>
+                                                <td>
+                                                    <a class="button" href="{$_K['siteurl']}/index.php?do=user&view=space&op=member&show=add&member_id={$v['member_id']}"><span class="pen icon"></span>{$_lang['edit']}</a>
+													<a class="button" href="$ac_url&show=list&ac=del&member_id=$v['member_id']" onclick="return del(this);"><span class="trash icon"></span>{$_lang['delete']}</a>
+												</td>
+                                            </tr>
+                                            {/loop}
+                                            {else}
+                                            <tr>
+                                                <td colspan="6" class="t_c">
+                                                    {$_lang['norecord']}
+                                                </td>
+                                            </tr>
+                                            {/if}
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="6" class="t_r">
+                                                    {$_lang['total']}:{$count}{$_lang['ge']}
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <!--成员列表 end-->
+                                {else}<!--from表单 start-->
+                                <div id="add_tips">
+	                              
+	                                <form action="{$ac_url}&show=add&member_id={$member_id}" method="post" id="frm" name="frm" enctype="multipart/form-data">
+	                                    <input type="hidden" name="pk[member_id]" value="$member_id">
+	                                    <div class="rowElem clearfix">
+	                                        <label class="grid_2 t_r">
+	                                            {$_lang['member_names']}{$_lang['zh_mh']}
+	                                        </label>
+	                                        <div class="grid_15">
+	                                            <input name="conf[truename]" size="39" type="text" id="truename" value="{$member_info['truename']}" limit="required:true;len:2-10" msg="{$_lang['tips_about_member_names']}" msgArea="span_truename"/><span id="span_truename"></span>
+	                                        </div>
+	                                    </div>
+	                                    <div class="rowElem clearfix">
+	                                        <label class="grid_2 t_r">
+	                                            {$_lang['display_picture']}{$_lang['zh_mh']}
+	                                        </label>
+	                                        <div class="grid_15">
+	                                            <div class="grid_6">
+	                                                <input type="file" name="member_pic" id="member_pic" ext=".jpg,.gif,.png,.jpeg" class="button block t_c" onchange="isExtName(this,1)">
+													<input type="hidden" name="old_pic" id="old_pic" value="{$member_info['member_pic']}">
+	                                            </div>
+	                                            <div class="grid_12 alpha ui_note">
+	                                                {$_lang['best_results_about_display_picture']}
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                    <div class="rowElem clearfix" id="desc">
+	                                    	<label class="grid_2 t_r">
+                                            	{$_lang['member_skills']}{$_lang['zh_mh']}
+                                            </label>
+	                                        <div class="grid_15">
+												<input type="text" name="conf[member_desc]" id="member_desc" size="39" value="{$member_info['member_desc']}" limit="required:true;len:2-20" msg="{$_lang['member_skills_error']}" msgArea="span_desc">
+	                                            <!--textarea name="conf[member_desc]" id="member_desc" cols="50" rows="3" limit="required:true;len:2-40" msg="{$_lang['member_skills_error']}" msgArea="span_desc">{$member_info['member_desc']}</textarea-->
+												<span id="span_desc"></span>
+	                                        </div>
+	                                    </div>
+	                                    <div class="rowElem clearfix form_button t_c">
+	                                        <button type="submit" name="sbt_action" id="sbt_action" value="{if !$member_info}{$_lang['add']}{else}{$_lang['edit']}{/if}{$_lang['member']}" onclick="return check_form('frm')">
+	                                            <span class="check icon"></span>{if !$member_info}{$_lang['add']}{else}{$_lang['edit']}{/if}{$_lang['member']}
+	                                        </button>
+	                                    </div>
+	                                </form>
+	                                {/if}<!--from表单 end-->
+                                </div>
+                                <!--个人经历end-->
+                            </div>
+                            <!--detail内容 end-->
+                        </div>
+                        <!--main content end-->
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </section>
+        <!--main end-->
+	</div>	
+</div>
+<!--contain end-->
+<script type="text/javascript">
+	In('form','xheditor');
+    /**
+     * 删除成员
+     * @param {Object} member_id 成员编号
+     */
+
+	
+    function del(obj){
+	var url = obj.href;
+      showDialog("{$_lang['confirm_delete']}",'confirm',"{$_lang['operate_notice']}",function(){window.location.href=url;});return false;
+    }
+    
+    /**
+     * 表单提交
+     * @param {Object} obj 表单id
+     */
+    function check_form(obj){
+        var shtml = $("#member_desc").val();
+        if (shtml.length < 2) {
+            tipsAppend("desc", "{$_lang['description_at_least_two_words']}", 'warning', 'm_warn');
+            $("#member_desc").focus();
+            return false;
+        }
+        var i = checkForm(document.getElementById(obj));
+        if (i) 
+            return true;
+        else 
+            return false;
+    }
+</script>
+<!--main end-->
+<!--{template user/user_footer}-->
+<!--{template footer}-->

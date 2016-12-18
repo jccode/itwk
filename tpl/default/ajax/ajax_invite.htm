@@ -1,0 +1,188 @@
+<!--{template header}-->
+<div class="clearfix winbody">
+    <div class="clearfix box pad10" style="background:#f4f4f4;">
+       
+	   <div class="rowElem clearfix">
+		    <!--from表单 start-->
+	        <form method="post" class="clearfix"  name="frm_search">
+	            <div class="fl_l font12b c333">人才类型：
+	        <label for="type_vip"><input type="checkbox" name="type_vip" id="type_vip" onclick="search('type_vip');">诚信VIP会员</label>
+			  <label for="type_zone"><input type="checkbox" name="type_zone" id="type_zone" onclick="search('type_zone');">同城威客</label>
+			<!--  <label for="type_first"><input type="checkbox" name="type_first" id="type_first" onchange="search('type_first');">驻站首席设计师</label> -->
+			  	  </div>
+				  <div class="fl_r">
+			  	  	<a href="javascript:void(0);" onclick="invite_more('{$task_id}','<!--{eval echo $page+1;}-->')">换一批</a>
+				  </div>	
+	        </form>
+   		</div>
+		
+	</div>
+	<div class="pl_10 pr_10"  style="height:200px; position:relative;display:none;" id="loading">
+			<div style="text-align:center;">
+				
+			</div>	
+	</div>
+	<div class="pl_10 pr_10"  style="overflow:auto;">
+		<form action="" id='frm_list' method="post">
+        	<input type="hidden" value="{$page}" name="page">
+			<input type="hidden" name="w[page_size]" value="{$page_size}">
+			<input type="hidden" value="{$op}" name="op"/>
+               <div id="ajax_dom">
+               <input type="hidden" value="{$page}" name="page">
+                  <div class="clearfix yq_user_box">
+				  {loop $users_arr $k $v}			
+					  <div temp="item" class="item">
+					  	<table width="100%" >
+					  		<tr>
+					  			<td width="10%"><input class=" user_checked" type="checkbox" name="ckb[]" value="{$v[uid]}" class="checkbox"></td>
+								<td width="15%"><div class="td25" id="id_$v[uid]"><!--{userpic($v[uid],small)}--></div> </td>
+								<td width="63%">
+									<p><span>{$v['username']}</span><span class="ability">能力值：<!--{eval echo keke_glob_class::get_w_level_ico($v['w_level'])}--></span>
+									<span>好评率：<span class="f30">{if $v['w_good_rate']}{$v['w_good_rate']}{else}100{/if}%</span></span></p>
+									<p>能力标签：
+									<span><!--{eval echo get_attention_skill($v['uid'],$task_info['indus_id']);}--></span></p>
+								</td>
+								<td>
+									{if $already_i_uid_arr && in_array($v['uid'],$already_i_uid_arr)}
+										<a href="javascript:void(0);" style="background:#4791CD;"><span class="font14b">-</span>已邀请</a>
+									{else}
+										<a href="javascript:void(0);" onclick="task_invite_single(this,{$v['uid']});"><span class="font14b">+</span>邀请</a>
+									{/if}
+								</td>
+					  		</tr>
+					  	</table>					    
+	                  </div>
+                  {/loop}
+              	 </div>
+	                    
+			  </div>
+        </form>
+		</div>
+		<div class="form_button clearfix" style="margin-top: -1px">	                    	
+	                        <label temp="1" id="aa" class="fl_l" for="checkbox" style=" cursor:pointer;" >
+							<input type="checkbox" name="ckb[]" id="checkbox" onclick="checkall(this);" class="checkbox">全选							
+							</label><!-- 全选 -->
+							<button name="sbt_action" type="button" onclick="return batch_act(this,'frm_list');" class="pill submit negative fl_l" style="font-size:12px;">邀请选择威客</buton>
+	                        <button type="button" class="block button fl_l ml_5"  target="_blank" onclick="location.href='{$_K['siteurl']}/index.php?do=talent'">更多人才筛选</button>
+							<button type="button" class="block button fl_r ml_5" onclick="hideWindow('task_invite');">关闭窗口</button>
+	                    </div>
+</div>
+
+
+<script src="{$_K['siteurl']}/resource/js/jquery.bgiframe.pack.js"></script>
+<script type="text/javascript">	
+     //更多
+	var start_page = 1;
+	function get_start_page(start){
+		if(start == 1){
+			start_page = 1;
+		}
+		
+		return '&page='+start_page;
+	}
+	
+	function invite_more(task_id){	
+		start_page += 1;
+		var loadurl = "/index.php?do=ajax&view=invite&task_id={$task_id}"+get_talent_type_url()+'&page='+start_page;
+		ajaxLoad(loadurl);
+	}
+	function ajaxLoad(url){
+		$("#ajax_dom").ajaxStart(function(){
+			$('#ajaxwaitid').hide();
+		})
+		$("#ajax_dom").hide();
+		$('#loading').show();
+		$("#ajax_dom").load(url+'&inajax=1 #ajax_dom');
+		$("#ajax_dom").ajaxSuccess(function(){
+			$(this).slideDown();
+			$('#loading').hide();
+		})
+	}
+	
+	function get_talent_type_url(){
+		var type_url = '';
+		var type_vip = document.getElementById('type_vip').checked;
+		if(type_vip){
+			type_url += '&type_vip=1';
+		}
+		
+		var type_zone = document.getElementById('type_zone').checked;
+		if(type_zone){
+			type_url += '&type_zone=1';
+		}
+		return type_url;
+	}
+	
+	function search(type){ 
+		start_page = 1;
+		var loadurl = "/index.php?do=ajax&view=invite&task_id={$task_id}&"+get_start_page(1)+get_talent_type_url();
+		ajaxLoad(loadurl);
+	}
+
+	function checkall(){
+		var t = $("#aa").attr('temp');		
+		if (t==1) {
+			$("#aa").attr("temp",2);
+			$("#ajax_dom input[type='checkbox']").attr('checked', "true");				
+		}else {
+			$("#aa").attr("temp",1);
+			$("#ajax_dom input[type='checkbox']").removeAttr('checked');
+		}
+	}
+	
+	function batch_act(){ 
+		var conf = $(":checkbox[name='ckb[]']:checked").length;
+		if (conf == 0) {
+			showDialog('请选择要邀请的对像','alert','操作提示');return false;
+		}else{
+			confirm();
+		}
+	}
+	
+	function task_invite_single(o,i_uid){ 
+		var url = "/index.php?do=ajax&view=invite&task_id={$task_id}&ac=ajax_invite&"+get_talent_type_url()+'&i_uid='+i_uid;
+		$.post(url,'',function(json){
+			if(json.status==1){
+				//showDialog(json.msg,'right','操作提示',hideWindow('task_invite'));
+				$(o).css("background","#4791CD").html('<span class="font14b">-</span>已邀请').unbind('click');
+				/*
+				var loadurl = "/index.php?do=ajax&view=invite&task_id={$task_id}"+get_talent_type_url()+get_start_page(); 	
+				ajaxLoad(loadurl);
+				showDialog(json.msg,'right','操作提示');
+				*/
+				return false;
+			}else{
+				showDialog(json.msg,'alert','操作提示');return false;
+			}
+		},'json');
+	}
+	
+	function confirm(){ 
+		var data = $("#frm_list").serialize();
+		var url = "/index.php?do=ajax&view=invite&task_id={$task_id}&ac=ajax_invite&"+data;		
+		$.post(url,'',function(json){
+			if(json.status==1){
+				//showDialog(json.msg,'right','操作提示',hideWindow('task_invite'));
+				var loadurl = "/index.php?do=ajax&view=invite&task_id={$task_id}"+get_talent_type_url()+get_start_page(1); 	
+				ajaxLoad(loadurl);
+				showDialog(json.msg,'right','操作提示');
+				return false;
+			}else{
+				showDialog(json.msg,'alert','操作提示');return false;
+			}
+		},'json');
+	}
+	function checkall(o){
+ 	var t      = o.checked;
+     if (t) {
+    	 $(".item input[type='checkbox']").attr('checked', "true");
+     }
+     else {
+    	 $(".item input[type='checkbox']").removeAttr('checked');
+     }
+ }
+ 	$(function(){
+		$('div.fwinmask').bgiframe();;
+	})
+</script>
+<!--{template footer}-->
