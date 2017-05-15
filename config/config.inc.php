@@ -1,7 +1,7 @@
 <?php
 define('ADMIN_UID','1');
 
-define ( 'DBHOST', 'localhost');
+define ( 'DBHOST', '127.0.0.1');
 define ( 'DBNAME', 'mweike');
 define ( 'DBUSER', 'weike');
 define ( 'DBPASS', 'weike');
